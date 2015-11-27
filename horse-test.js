@@ -104,6 +104,7 @@ solutions.boiko_natalia = function (Board) {
 
                         matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] = -1;
                     } else if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 'f') {
+                        newPath.push([currentLocation.t + steps[i].t,currentLocation.l + steps[i].l]);
                         newPath = currentLocation.path.slice();
                         newPath.push([currentLocation.t + steps[i].t,currentLocation.l + steps[i].l]);
                         return newPath;
