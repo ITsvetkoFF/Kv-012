@@ -128,7 +128,194 @@ solutions.dobrooskok_yaroslav = function (Board) {
 
 // YOUR SOLUTION
 solutions.kozynets_oleg = function (Board) {
-    // GOES HERE
+    //пошук у матриці
+    function findInMatrix(matrix, element){
+        var res;
+        matrix.forEach(function ( el, index) { el.forEach(function (em, ins) {
+            if (em == element) res = [index, ins]})});
+        return res;
+    }
+//перевірка чи є змінна масивом
+    function isArray(myArray) {
+        return myArray.constructor.toString().indexOf("Array") > -1;
+    }
+//створимо клас, де збірігатимемо координати вершин
+    function Point (x, y, parent) {
+        this.X = x,
+            this.Y = y,
+            this.Parent = parent
+    };
+    Point.prototype = {
+        toString: function () {
+            return "("+this.X+", "+ this.Y+")";
+        },
+        toArray: function () {
+            return [this.X, this.Y];
+        },
+        isEqualTo: function (obj) {
+            if (obj instanceof Point) {
+                if((this.X === obj.X)&&(this.Y === obj.Y)) return true;
+            } else return false;
+        }
+    };
+//функція поширення(робимо один хід)
+    function NextSteps (coordinates, board, dimension){
+        var x,y;
+        var result = [];
+        if (!dimension)  dimension = board.length;
+        if (isArray(coordinates)){
+            for (var i= 0, l = coordinates.length; i<l;i++){
+                x = coordinates[i].X, y = coordinates[i].Y;
+                if (y + 2 < dimension) {
+                    //строго менше N тому що у масиві найвищий індекс N-1
+                    if ((x + 1 < dimension) && (board[x + 1][y + 2] === 0)) {
+                        result.push(new Point(x + 1, y + 2, coordinates[i]));
+                        board[x + 1][y + 2] = 1;
+                    }
+                    if ((x - 1 >= 0) && (board[x - 1][y + 2] === 0)) {
+                        result.push(new Point(x - 1, y + 2, coordinates[i]));
+                        board[x - 1][y + 2] = 1;
+                    }
+                }
+                ;
+                if (x + 2 < dimension) {
+                    if ((y + 1 < dimension) && (board[x + 2][y + 1] === 0)) {
+                        result.push(new Point(x + 2, y + 1, coordinates[i]));
+                        board[x + 2][y + 1] = 1;
+                    }
+                    if ((y - 1 >= 0) && (board[x + 2][y - 1] === 0)) {
+                        result.push(new Point(x + 2, y - 1, coordinates[i]));
+                        board[x + 2][y - 1] = 1;
+                    }
+                }
+                ;
+                if (y - 2 >= 0) {
+                    //строго менше N тому що у масиві найвищий індекс N-1
+                    if ((x + 1 < dimension) && (board[x + 1][y - 2] === 0)) {
+                        result.push(new Point(x + 1, y - 2, coordinates[i]));
+                        board[x + 1][y - 2] = 1
+                    }
+                    if ((x - 1 >= 0) && (board[x - 1][y - 2] === 0)) {
+                        result.push(new Point(x - 1, y - 2, coordinates[i]));
+                        board[x - 1][y - 2] = 1;
+                    }
+                }
+                ;
+                if (x - 2 >= 0) {
+                    if ((y + 1 < dimension) && (board[x - 2][y + 1] === 0)) {
+                        result.push(new Point(x - 2, y + 1, coordinates[i]));
+                        board[x - 2][y + 1] = 1
+                    }
+                    if ((y - 1 >= 0) && (board[x - 2][y - 1] === 0)) {
+                        result.push(new Point(x - 2, y - 1, coordinates[i]));
+                        board[x - 2][y - 1] = 1;
+                    }
+                }
+                ;
+            }
+            if (result.length) return result; else return null;
+        }
+        else {
+            x = coordinates.X, y = coordinates.Y;
+            if (y + 2 < dimension) {
+                //строго менше N тому що у масиві найвищий індекс N-1
+                if ((x + 1 < dimension) && (board[x + 1][y + 2] === 0)) {
+                    result.push(new Point(x + 1, y + 2, coordinates));
+                    board[x + 1][y + 2] = 1;
+                }
+                if ((x - 1 >= 0) && (board[x - 1][y + 2] === 0)) {
+                    result.push(new Point(x - 1, y + 2, coordinates));
+                    board[x - 1][y + 2] = 1;
+                }
+            }
+            ;
+            if (x + 2 < dimension) {
+                if ((y + 1 < dimension) && (board[x + 2][y + 1] === 0)) {
+                    result.push(new Point(x + 2, y + 1, coordinates));
+                    board[x + 2][y + 1] = 1;
+                }
+                if ((y - 1 >= 0) && (board[x + 2][y - 1] === 0)) {
+                    result.push(new Point(x + 2, y - 1, coordinates));
+                    board[x + 2][y - 1] = 1;
+                }
+            }
+            ;
+            if (y - 2 >= 0) {
+                //строго менше N тому що у масиві найвищий індекс N-1
+                if ((x + 1 < dimension) && (board[x + 1][y - 2] === 0)) {
+                    result.push(new Point(x + 1, y - 2, coordinates));
+                    board[x + 1][y - 2] = 1
+                }
+                if ((x - 1 >= 0) && (board[x - 1][y - 2] === 0)) {
+                    result.push(new Point(x - 1, y - 2, coordinates));
+                    board[x - 1][y - 2] = 1;
+                }
+            }
+            ;
+            if (x - 2 >= 0) {
+                if ((y + 1 < dimension) && (board[x - 2][y + 1] === 0)) {
+                    result.push(new Point(x - 2, y + 1, coordinates));
+                    board[x - 2][y + 1] = 1
+                }
+                if ((y - 1 >= 0) && (board[x - 2][y - 1] === 0)) {
+                    result.push(new Point(x - 2, y - 1, coordinates));
+                    board[x - 2][y - 1] = 1;
+                }
+            }
+            ;
+        }
+        if (result.length) return result; else return null;
+    }
+//основна функція
+        var board = Board;
+        var sstart = findInMatrix(board, "s");
+        var eend = findInMatrix(board, "f");
+        var start = new Point(sstart[0], sstart[1]);
+        var end = new Point(eend[0], eend[1]);
+        var steps = 0, tree = [];
+        var dim = board.length;
+        board[eend[0]][eend[1]] = 0;
+        board[sstart[0]][sstart[1]] = 0;
+
+        //перевірка того чи кінець і початок співпадають
+        if (start.isEqualTo(end)) return null;//return {
+        //NumberOfSteps: 0,
+        // Path: undefined
+        //};
+        else {//якщо задано різні точки
+            tree.push(start);//вершина дерева
+            //гілки та листя дерева
+            do {
+                tree.push(NextSteps(tree[steps], board, dim));
+                steps++;
+                if (tree[steps].some(function (el){ return el.isEqualTo(end)}))
+                {
+                    var resArr = [], result = [];//запишемо сюди шлях
+                    //знаходимо останню вершину графа
+                    for(var j = 0, l = tree[steps].length; j<l; j++){
+                        if(tree[steps][j].isEqualTo(end)) {
+                            resArr.push(tree[steps][j]);
+                            break;
+                        }
+                    }
+                    //рухаємося вверх до початку
+                    for(var i = 0; i<steps; i++){
+                        resArr.push(resArr[i].Parent);
+                    }
+                    for (var i = 0; i<=steps; i++){
+                        result.push(resArr[i].toArray());
+                    }
+                    return result;//{NumberOfSteps: steps,
+                    // Path: resArr};
+                }
+            } while(tree[steps]);
+
+            return null;//{
+            //NumberOfSteps: 0,
+            //Path: undefined
+            //};
+        }
+
 };
 
 
