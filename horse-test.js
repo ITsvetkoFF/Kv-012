@@ -27,7 +27,7 @@ solutions.boiko_natalia = function (Board) {
         var newPath;
 
         //Find coordinates of start
-        for (var i = 0; i < matrix.length; i++){
+        for (var i = 0; i < matrix.length; i++) {
             if (matrix[i].indexOf('s') !== -1) {
                 start.t = i;
                 start.l = matrix[i].indexOf('s');
@@ -36,7 +36,7 @@ solutions.boiko_natalia = function (Board) {
         }
 
         //Find coordinates of end
-        for (var i = 0; i < matrix.length; i++){
+        for (var i = 0; i < matrix.length; i++) {
             if (matrix[i].indexOf('f') !== -1) {
                 finish.t = i;
                 finish.l = matrix[i].indexOf('f');
@@ -76,7 +76,7 @@ solutions.boiko_natalia = function (Board) {
             },
             {
                 't': -1,
-                'l':  2
+                'l': 2
             },
         ];
 
@@ -91,13 +91,13 @@ solutions.boiko_natalia = function (Board) {
         while (queue.length > 0) {
             currentLocation = queue.shift();
 
-            for (var i = 0; i < steps.length; i++){
+            for (var i = 0; i < steps.length; i++) {
                 //Check if point is not out of grid
                 if (currentLocation.t + steps[i].t > 0 && currentLocation.t + steps[i].t < matrix.length && currentLocation.l + steps[i].l > 0 && currentLocation.l + steps[i].l < matrix[0].length) {
                     //Check if cell is free from obstacles and was not visited before
                     if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 0) {
                         newPath = currentLocation.path.slice();
-                        newPath.push([currentLocation.t + steps[i].t,currentLocation.l + steps[i].l]);
+                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
                         queue.push({
                             t: currentLocation.t + steps[i].t,
                             l: currentLocation.l + steps[i].l,
@@ -106,9 +106,9 @@ solutions.boiko_natalia = function (Board) {
 
                         matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] = -1;
                     } else if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 'f') {
-                        newPath.push([currentLocation.t + steps[i].t,currentLocation.l + steps[i].l]);
+                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
                         newPath = currentLocation.path.slice();
-                        newPath.push([currentLocation.t + steps[i].t,currentLocation.l + steps[i].l]);
+                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
                         return newPath;
                     }
                 }
@@ -132,42 +132,47 @@ solutions.dobrooskok_yaroslav = function (Board) {
 // YOUR SOLUTION
 solutions.kozynets_oleg = function (Board) {
     //пошук у матриці
-    function findInMatrix(matrix, element){
+    function findInMatrix(matrix, element) {
         var res;
-        matrix.forEach(function ( el, index) { el.forEach(function (em, ins) {
-            if (em == element) res = [index, ins]})});
+        matrix.forEach(function (el, index) {
+            el.forEach(function (em, ins) {
+                if (em == element) res = [index, ins]
+            })
+        });
         return res;
     }
+
 //перевірка чи є змінна масивом
     function isArray(myArray) {
         return myArray.constructor.toString().indexOf("Array") > -1;
     }
+
 //створимо клас, де збірігатимемо координати вершин
-    function Point (x, y, parent) {
+    function Point(x, y, parent) {
         this.X = x,
             this.Y = y,
             this.Parent = parent
     };
     Point.prototype = {
         toString: function () {
-            return "("+this.X+", "+ this.Y+")";
+            return "(" + this.X + ", " + this.Y + ")";
         },
         toArray: function () {
             return [this.X, this.Y];
         },
         isEqualTo: function (obj) {
             if (obj instanceof Point) {
-                if((this.X === obj.X)&&(this.Y === obj.Y)) return true;
+                if ((this.X === obj.X) && (this.Y === obj.Y)) return true;
             } else return false;
         }
     };
 //функція поширення(робимо один хід)
-    function NextSteps (coordinates, board, dimension){
-        var x,y;
+    function NextSteps(coordinates, board, dimension) {
+        var x, y;
         var result = [];
         if (!dimension)  dimension = board.length;
-        if (isArray(coordinates)){
-            for (var i= 0, l = coordinates.length; i<l;i++){
+        if (isArray(coordinates)) {
+            for (var i = 0, l = coordinates.length; i < l; i++) {
                 x = coordinates[i].X, y = coordinates[i].Y;
                 if (y + 2 < dimension) {
                     //строго менше N тому що у масиві найвищий індекс N-1
@@ -269,6 +274,7 @@ solutions.kozynets_oleg = function (Board) {
         }
         if (result.length) return result; else return null;
     }
+
 //основна функція
     var board = Board;
     var sstart = findInMatrix(board, "s");
@@ -291,27 +297,28 @@ solutions.kozynets_oleg = function (Board) {
         do {
             tree.push(NextSteps(tree[steps], board, dim));
             steps++;
-            if (tree[steps].some(function (el){ return el.isEqualTo(end)}))
-            {
+            if (tree[steps].some(function (el) {
+                    return el.isEqualTo(end)
+                })) {
                 var resArr = [], result = [];//запишемо сюди шлях
                 //знаходимо останню вершину графа
-                for(var j = 0, l = tree[steps].length; j<l; j++){
-                    if(tree[steps][j].isEqualTo(end)) {
+                for (var j = 0, l = tree[steps].length; j < l; j++) {
+                    if (tree[steps][j].isEqualTo(end)) {
                         resArr.push(tree[steps][j]);
                         break;
                     }
                 }
                 //рухаємося вверх до початку
-                for(var i = 0; i<steps; i++){
+                for (var i = 0; i < steps; i++) {
                     resArr.push(resArr[i].Parent);
                 }
-                for (var i = 0; i<=steps; i++){
+                for (var i = 0; i <= steps; i++) {
                     result.push(resArr[i].toArray());
                 }
                 return result;//{NumberOfSteps: steps,
                 // Path: resArr};
             }
-        } while(tree[steps]);
+        } while (tree[steps]);
 
         return null;//{
         //NumberOfSteps: 0,
@@ -348,8 +355,8 @@ solutions.maltsev_valerii = function (Board) {
         var newRes = [];
         var j = -1;
         while (++j < 8) {
-            if ( isInField(res[j], map) ) {
-                if (map[ res[j][0] ][ res[j][1] ] == 0 || map[ res[j][0] ][ res[j][1] ] == 'f') {
+            if (isInField(res[j], map)) {
+                if (map[res[j][0]][res[j][1]] == 0 || map[res[j][0]][res[j][1]] == 'f') {
                     newRes.push(res[j]);
                 }
             }
@@ -366,10 +373,10 @@ solutions.maltsev_valerii = function (Board) {
 
 // return XY of point with specified char on map
     function getPointByChar(map, char) {
-        if(char) {
-            for(var i = 0; i < map.length; i++) {
-                for( var j = 0; j < map[i].length; j++) {
-                    if(map[i][j] == char) {
+        if (char) {
+            for (var i = 0; i < map.length; i++) {
+                for (var j = 0; j < map[i].length; j++) {
+                    if (map[i][j] == char) {
                         return [i, j];
                     }
                 }
@@ -379,8 +386,8 @@ solutions.maltsev_valerii = function (Board) {
 
 // is point in the map area
     function isInField(point, map) {
-        if(point[0] >= 0 && point[0] < map.length) {
-            if(point[1] >= 0 && point[1] < map[0].length) {
+        if (point[0] >= 0 && point[0] < map.length) {
+            if (point[1] >= 0 && point[1] < map[0].length) {
                 return true;
             }
         }
@@ -409,12 +416,12 @@ solutions.maltsev_valerii = function (Board) {
         j = 0;
         // 1. end loop if finish == true
         // 2. end loop if j >= queue.length;
-        while(!isFinish) {
+        while (!isFinish) {
 
             current = queue[j];
 
             // if current point is finish
-            if(current[0] == finish[0] && current[1] == finish[1]) {
+            if (current[0] == finish[0] && current[1] == finish[1]) {
                 isFinish = true;
                 break;
             }
@@ -423,15 +430,15 @@ solutions.maltsev_valerii = function (Board) {
             var avp = getAvailablePoints(current, map);
             var avpLen = avp.length;
             var k = -1;
-            while(++k < avpLen) {
-                if(avp[k] !== undefined) {
+            while (++k < avpLen) {
+                if (avp[k] !== undefined) {
                     avp[k].parent = current;
                     queue.push(avp[k]);
                 }
             }
 
             // j-criteria of process end
-            if(j++ == queue.length - 1) {
+            if (j++ == queue.length - 1) {
                 isFinish = false;
                 break;
             }
@@ -439,8 +446,8 @@ solutions.maltsev_valerii = function (Board) {
 
         //if (finish) create and return points of shortcut
         // through parent.parent ... from last finish point (current)
-        if(isFinish) {
-            while(current) {
+        if (isFinish) {
+            while (current) {
                 shortcut.push(current);
                 current = current.parent;
             }
@@ -476,13 +483,13 @@ solutions.martyniuk_oleksandra = function (Board) {
         for (i = 0; i < size; i++) {
             array[i] = new Array(size);
         }
-        for(i = 0; i < size; i++) {
+        for (i = 0; i < size; i++) {
             for (j = 0; j < size; j++) {
                 //see only lower triangular matrix
                 if (i >= j) {
                     //down right
                     //if start or end =-1 we can't built IncidenceMatrix (j+1*n)
-                    if((matrixChess[~~(i / sizeChessBoard)][i % sizeChessBoard] != -1) && (matrixChess[~~(j / sizeChessBoard)][j % sizeChessBoard] != -1)) {
+                    if ((matrixChess[~~(i / sizeChessBoard)][i % sizeChessBoard] != -1) && (matrixChess[~~(j / sizeChessBoard)][j % sizeChessBoard] != -1)) {
                         //down right!
                         var dw = j + 2 * sizeChessBoard + 1;
                         if ((dw == i) && (dw < size) && (j % sizeChessBoard != (sizeChessBoard - 1))) {
@@ -560,6 +567,7 @@ solutions.martyniuk_oleksandra = function (Board) {
         }
         return array;
     }
+
     /*
      Find shortest path from incident matrix
      * */
@@ -578,13 +586,10 @@ solutions.martyniuk_oleksandra = function (Board) {
         used[start] = true;
         p[start] = -1;
         var v;
-        while ((head < count))
-        {
+        while ((head < count)) {
             v = q[head++];
-            for (i = 0; i < size; i++)
-            {
-                if (!used[i] && (matrix[v][i] == 1))
-                {
+            for (i = 0; i < size; i++) {
+                if (!used[i] && (matrix[v][i] == 1)) {
                     used[i] = true;
                     q[count++] = i;
                     p[i] = v; // parents;
@@ -602,6 +607,7 @@ solutions.martyniuk_oleksandra = function (Board) {
             return q;
         }
     }
+
     /*
      Finding the shortest path of horse on chess field with obstacles
      */
@@ -613,18 +619,18 @@ solutions.martyniuk_oleksandra = function (Board) {
         var sizeChessBoard = matrixChess.length;
         var i, j;
 
-        for(i = 0; i < sizeChessBoard; i++) {
-            for(j = 0; j < sizeChessBoard; j++) {
-                if((matrixChess[i][j] == "s") || (matrixChess[i][j] == "S")) {
+        for (i = 0; i < sizeChessBoard; i++) {
+            for (j = 0; j < sizeChessBoard; j++) {
+                if ((matrixChess[i][j] == "s") || (matrixChess[i][j] == "S")) {
                     testStart = j + i * sizeChessBoard;
                 }
-                else if((matrixChess[i][j] == "f") || (matrixChess[i][j] == "F")) {
+                else if ((matrixChess[i][j] == "f") || (matrixChess[i][j] == "F")) {
                     testEnd = j + i * sizeChessBoard;
                 }
             }
         }
 
-        var incidenceMatrix  = createIncidenceMatrix(matrixChess);
+        var incidenceMatrix = createIncidenceMatrix(matrixChess);
         //showMatrix(incidenceMatrix);
 
         var path = bfs(incidenceMatrix, testStart, testEnd);
@@ -633,7 +639,7 @@ solutions.martyniuk_oleksandra = function (Board) {
         //optimisation in memory
         testStart = path.length;
         for (i = 0; i < testStart; i++) {
-            result.push([~~(path[i]/ sizeChessBoard), path[i] % sizeChessBoard]);
+            result.push([~~(path[i] / sizeChessBoard), path[i] % sizeChessBoard]);
         }
         return result;
     }
@@ -652,13 +658,17 @@ solutions.melnykov_andrii = function (Board) {
         var i = 0;
         var patt = /s/i;
         while (!f && (i < l)) {
-            for (i =0; i < l; i++) {
+            for (i = 0; i < l; i++) {
                 for (var j = 0; j < l; j++) {
-                    if (patt.test(Board[i][j])) {spX = i; spY = j;f = true;}
+                    if (patt.test(Board[i][j])) {
+                        spX = i;
+                        spY = j;
+                        f = true;
+                    }
                 }
             }
         }
-    } ();
+    }();
 
     var mX = [1, 1, -1, -1, 2, 2, -2, -2]; // Knight's moves
     var mY = [2, -2, 2, -2, 1, -1, 1, -1];
@@ -672,9 +682,9 @@ solutions.melnykov_andrii = function (Board) {
     } else {
 
         Board[spX][spY] = 0;
-        q.push([spX,spY]);
+        q.push([spX, spY]);
 
-        !function searchFinish () {
+        !function searchFinish() {
             var patt = /f/i;
             while ((q.length > 0) && !ff) {
                 var p = q.shift(); // first in the queue
@@ -682,8 +692,16 @@ solutions.melnykov_andrii = function (Board) {
                     var npX = p[0] + mX[i]; // next point X
                     var npY = p[1] + mY[i];
                     if ((npX < l) && (npY < l) && (npY > 0) && (npX > 0)) {
-                        if (patt.test(Board[npX][npY])) {ff = true; fpX = npX; fpY = npY; fpV = Board[p[0]][p[1]] + 1;}
-                        if (Board[npX][npY] === 0) {Board[npX][npY] = Board[p[0]][p[1]] + 1; q.push([npX, npY]);}
+                        if (patt.test(Board[npX][npY])) {
+                            ff = true;
+                            fpX = npX;
+                            fpY = npY;
+                            fpV = Board[p[0]][p[1]] + 1;
+                        }
+                        if (Board[npX][npY] === 0) {
+                            Board[npX][npY] = Board[p[0]][p[1]] + 1;
+                            q.push([npX, npY]);
+                        }
                     }
                 }
             }
@@ -707,9 +725,14 @@ solutions.melnykov_andrii = function (Board) {
                 for (var i = 0; i < 8; i++) {
                     var npX = pX - mX[i]; // previous point
                     var npY = pY - mY[i];
-                    if (Board[npX][npY] === "S") {fs = true; break;}
+                    if (Board[npX][npY] === "S") {
+                        fs = true;
+                        break;
+                    }
                     if ((npX < l) && (npY < l) && (npX > 0) && (npY > 0) && (Board[npX][npY] !== -1) && (Board[npX][npY] === Board[pX][pY] - 1)) {
-                        path.push([npX, npY]); pX = npX; pY = npY;
+                        path.push([npX, npY]);
+                        pX = npX;
+                        pY = npY;
                     }
                 }
             }
@@ -731,29 +754,29 @@ solutions.melnykov_andrii = function (Board) {
 solutions.pylhun_valerii = function (Board) {
     var start, finish;
 
-    if(!Array.isArray(Board)) return "matrix is not a matrix";
+    if (!Array.isArray(Board)) return "matrix is not a matrix";
     var rowsNum = Board.length;
-    if(rowsNum < 2) return "matrix is not a matrix";
+    if (rowsNum < 2) return "matrix is not a matrix";
     var colsNum = Board[0].length;
-    if(colsNum < 2) return "matrix is not a matrix";
+    if (colsNum < 2) return "matrix is not a matrix";
     //for(var i= 0, rowsNum=matrix.length; i<rowsNum; i++){
     //    if(matrix[i].length !== colsNum){
     //        return "matrix is not a matrix";
     //    }
     //}
     rows:
-        for(var i= 0; i<rowsNum; i++){
-            for(var j= 0; j<colsNum; j++){
-                if(Board[i][j] === "f"){
+        for (var i = 0; i < rowsNum; i++) {
+            for (var j = 0; j < colsNum; j++) {
+                if (Board[i][j] === "f") {
                     finish = [i, j];
                     break rows;
                 }
             }
         }
     rows:
-        for(i= 0; i<rowsNum; i++){
-            for(j= 0; j<colsNum; j++){
-                if(Board[i][j] === "s"){
+        for (i = 0; i < rowsNum; i++) {
+            for (j = 0; j < colsNum; j++) {
+                if (Board[i][j] === "s") {
                     start = [i, j];
                     break rows;
                 }
@@ -767,196 +790,196 @@ solutions.pylhun_valerii = function (Board) {
     var fTreeTraversal = [];
     var solutionFound = false;
 
-    var bfs = function(){
-        var sV= sQ.shift();
+    var bfs = function () {
+        var sV = sQ.shift();
         var fV = fQ.shift();
         sTreeTraversal[sTreeTraversal.length] = sV;
         fTreeTraversal[fTreeTraversal.length] = fV;
 
-        if(sV[0]-1>-1 && sV[1]-2>-1 && Board[sV[0]-1][sV[1]-2]!=="s" && Board[sV[0]-1][sV[1]-2]!==-1){
-            if(Board[sV[0]-1][sV[1]-2] === "f"){
+        if (sV[0] - 1 > -1 && sV[1] - 2 > -1 && Board[sV[0] - 1][sV[1] - 2] !== "s" && Board[sV[0] - 1][sV[1] - 2] !== -1) {
+            if (Board[sV[0] - 1][sV[1] - 2] === "f") {
                 solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]-1, sV[1]-2];
-                res[0] = [sV[0]-1, sV[1]-2];
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] - 1, sV[1] - 2];
+                res[0] = [sV[0] - 1, sV[1] - 2];
                 return;
             }
-            Board[sV[0]-1][sV[1]-2] = "s";
-            sQ.push([sV[0]-1, sV[1]-2]);
+            Board[sV[0] - 1][sV[1] - 2] = "s";
+            sQ.push([sV[0] - 1, sV[1] - 2]);
         }
-        if(fV[0]-1>-1 && fV[1]-2>-1 && Board[fV[0]-1][fV[1]-2]!=="f" && Board[fV[0]-1][fV[1]-2]!==-1){
-            if(Board[fV[0]-1][fV[1]-2] === "s"){
+        if (fV[0] - 1 > -1 && fV[1] - 2 > -1 && Board[fV[0] - 1][fV[1] - 2] !== "f" && Board[fV[0] - 1][fV[1] - 2] !== -1) {
+            if (Board[fV[0] - 1][fV[1] - 2] === "s") {
                 solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]-1, fV[1]-2];
-                res[0] = [fV[0]-1, fV[1]-2];
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] - 1, fV[1] - 2];
+                res[0] = [fV[0] - 1, fV[1] - 2];
                 return;
             }
-            Board[fV[0]-1][fV[1]-2] = "f";
-            fQ.push([fV[0]-1, fV[1]-2]);
-        }
-
-        if(sV[0]-2>-1 && sV[1]-1>-1 && Board[sV[0]-2][sV[1]-1]!=="s" && Board[sV[0]-2][sV[1]-1]!==-1){
-            if(Board[sV[0]-2][sV[1]-1] === "f"){
-                solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]-2, sV[1]-1];
-                res[0] = [sV[0]-2, sV[1]-1];
-                return;
-            }
-            Board[sV[0]-2][sV[1]-1] = "s";
-            sQ.push([sV[0]-2, sV[1]-1]);
-        }
-        if(fV[0]-2>-1 && fV[1]-1>-1 && Board[fV[0]-2][fV[1]-1]!=="f" && Board[fV[0]-2][fV[1]-1]!==-1){
-            if(Board[fV[0]-2][fV[1]-1] === "s"){
-                solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]-2, fV[1]-1];
-                res[0] = [fV[0]-2, fV[1]-1];
-                return;
-            }
-            Board[fV[0]-2][fV[1]-1] = "f";
-            fQ.push([fV[0]-2, fV[1]-1]);
+            Board[fV[0] - 1][fV[1] - 2] = "f";
+            fQ.push([fV[0] - 1, fV[1] - 2]);
         }
 
-        if(sV[0]-2>-1 && sV[1]+1<Board[0].length && Board[sV[0]-2][sV[1]+1]!=="s" && Board[sV[0]-2][sV[1]+1]!==-1){
-            if(Board[sV[0]-2][sV[1]+1] === "f"){
+        if (sV[0] - 2 > -1 && sV[1] - 1 > -1 && Board[sV[0] - 2][sV[1] - 1] !== "s" && Board[sV[0] - 2][sV[1] - 1] !== -1) {
+            if (Board[sV[0] - 2][sV[1] - 1] === "f") {
                 solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]-2, sV[1]+1];
-                res[0] = [sV[0]-2, sV[1]+1];
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] - 2, sV[1] - 1];
+                res[0] = [sV[0] - 2, sV[1] - 1];
                 return;
             }
-            Board[sV[0]-2][sV[1]+1] = "s";
-            sQ.push([sV[0]-2, sV[1]+1]);
+            Board[sV[0] - 2][sV[1] - 1] = "s";
+            sQ.push([sV[0] - 2, sV[1] - 1]);
         }
-        if(fV[0]-2>-1 && fV[1]+1<Board[0].length && Board[fV[0]-2][fV[1]+1]!=="f" && Board[fV[0]-2][fV[1]+1]!==-1){
-            if(Board[fV[0]-2][fV[1]+1] === "s"){
+        if (fV[0] - 2 > -1 && fV[1] - 1 > -1 && Board[fV[0] - 2][fV[1] - 1] !== "f" && Board[fV[0] - 2][fV[1] - 1] !== -1) {
+            if (Board[fV[0] - 2][fV[1] - 1] === "s") {
                 solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]-2, fV[1]+1];
-                res[0] = [fV[0]-2, fV[1]+1];
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] - 2, fV[1] - 1];
+                res[0] = [fV[0] - 2, fV[1] - 1];
                 return;
             }
-            Board[fV[0]-2][fV[1]+1] = "f";
-            fQ.push([fV[0]-2, fV[1]+1]);
-        }
-
-        if(sV[0]-1>-1 && sV[1]+2<Board[0].length && Board[sV[0]-1][sV[1]+2]!=="s" && Board[sV[0]-1][sV[1]+2]!==-1){
-            if(Board[sV[0]-1][sV[1]+2] === "f"){
-                solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]-1, sV[1]+2];
-                res[0] = [sV[0]-1, sV[1]+2];
-                return;
-            }
-            Board[sV[0]-1][sV[1]+2] = "s";
-            sQ.push([sV[0]-1, sV[1]+2]);
-        }
-        if(fV[0]-1>-1 && fV[1]+2<Board[0].length && Board[fV[0]-1][fV[1]+2]!=="f" && Board[fV[0]-1][fV[1]+2]!==-1){
-            if(Board[fV[0]-1][fV[1]+2] === "s"){
-                solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]-1, fV[1]+2];
-                res[0] = [fV[0]-1, fV[1]+2];
-                return;
-            }
-            Board[fV[0]-1][fV[1]+2] = "f";
-            fQ.push([fV[0]-1, fV[1]+2]);
+            Board[fV[0] - 2][fV[1] - 1] = "f";
+            fQ.push([fV[0] - 2, fV[1] - 1]);
         }
 
-        if(sV[0]+1<Board.length && sV[1]+2<Board[0].length && Board[sV[0]+1][sV[1]+2]!=="s" && Board[sV[0]+1][sV[1]+2]!==-1){
-            if(Board[sV[0]+1][sV[1]+2] === "f"){
+        if (sV[0] - 2 > -1 && sV[1] + 1 < Board[0].length && Board[sV[0] - 2][sV[1] + 1] !== "s" && Board[sV[0] - 2][sV[1] + 1] !== -1) {
+            if (Board[sV[0] - 2][sV[1] + 1] === "f") {
                 solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]+1, sV[1]+2];
-                res[0] = [sV[0]+1, sV[1]+2];
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] - 2, sV[1] + 1];
+                res[0] = [sV[0] - 2, sV[1] + 1];
                 return;
             }
-            Board[sV[0]+1][sV[1]+2] = "s";
-            sQ.push([sV[0]+1, sV[1]+2]);
+            Board[sV[0] - 2][sV[1] + 1] = "s";
+            sQ.push([sV[0] - 2, sV[1] + 1]);
         }
-        if(fV[0]+1<Board.length && fV[1]+2<Board[0].length && Board[fV[0]+1][fV[1]+2]!=="f" && Board[fV[0]+1][fV[1]+2]!==-1){
-            if(Board[fV[0]+1][fV[1]+2] === "s"){
+        if (fV[0] - 2 > -1 && fV[1] + 1 < Board[0].length && Board[fV[0] - 2][fV[1] + 1] !== "f" && Board[fV[0] - 2][fV[1] + 1] !== -1) {
+            if (Board[fV[0] - 2][fV[1] + 1] === "s") {
                 solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]+1, fV[1]+2];
-                res[0] = [fV[0]+1, fV[1]+2];
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] - 2, fV[1] + 1];
+                res[0] = [fV[0] - 2, fV[1] + 1];
                 return;
             }
-            Board[fV[0]+1][fV[1]+2] = "f";
-            fQ.push([fV[0]+1, fV[1]+2]);
-        }
-
-        if(sV[0]+2<Board.length && sV[1]+1<Board[0].length && Board[sV[0]+2][sV[1]+1]!=="s" && Board[sV[0]+2][sV[1]+1]!==-1){
-            if(Board[sV[0]+2][sV[1]+1] === "f"){
-                solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]+2, sV[1]+1];
-                res[0] = [sV[0]+2, sV[1]+1];
-                return;
-            }
-            Board[sV[0]+2][sV[1]+1] = "s";
-            sQ.push([sV[0]+2, sV[1]+1]);
-        }
-        if(fV[0]+2<Board.length && fV[1]+1<Board[0].length && Board[fV[0]+2][fV[1]+1]!=="f" && Board[fV[0]+2][fV[1]+1]!==-1){
-            if(Board[fV[0]+2][fV[1]+1] === "s"){
-                solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]+2, fV[1]+1];
-                res[0] = [fV[0]+2, fV[1]+1];
-                return;
-            }
-            Board[fV[0]+2][fV[1]+1] = "f";
-            fQ.push([fV[0]+2, fV[1]+1]);
+            Board[fV[0] - 2][fV[1] + 1] = "f";
+            fQ.push([fV[0] - 2, fV[1] + 1]);
         }
 
-        if(sV[0]+2<Board.length && sV[1]-1>-1 && Board[sV[0]+2][sV[1]-1]!=="s" && Board[sV[0]+2][sV[1]-1]!==-1){
-            if(Board[sV[0]+2][sV[1]-1] === "f"){
+        if (sV[0] - 1 > -1 && sV[1] + 2 < Board[0].length && Board[sV[0] - 1][sV[1] + 2] !== "s" && Board[sV[0] - 1][sV[1] + 2] !== -1) {
+            if (Board[sV[0] - 1][sV[1] + 2] === "f") {
                 solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]+2, sV[1]-1];
-                res[0] = [sV[0]+2, sV[1]-1];
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] - 1, sV[1] + 2];
+                res[0] = [sV[0] - 1, sV[1] + 2];
                 return;
             }
-            Board[sV[0]+2][sV[1]-1] = "s";
-            sQ.push([sV[0]+2, sV[1]-1]);
+            Board[sV[0] - 1][sV[1] + 2] = "s";
+            sQ.push([sV[0] - 1, sV[1] + 2]);
         }
-        if(fV[0]+2<Board.length && fV[1]-1>-1 && Board[fV[0]+2][fV[1]-1]!=="f" && Board[fV[0]+2][fV[1]-1]!==-1){
-            if(Board[fV[0]+2][fV[1]-1] === "s"){
+        if (fV[0] - 1 > -1 && fV[1] + 2 < Board[0].length && Board[fV[0] - 1][fV[1] + 2] !== "f" && Board[fV[0] - 1][fV[1] + 2] !== -1) {
+            if (Board[fV[0] - 1][fV[1] + 2] === "s") {
                 solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]+2, fV[1]-1];
-                res[0] = [fV[0]+2, fV[1]-1];
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] - 1, fV[1] + 2];
+                res[0] = [fV[0] - 1, fV[1] + 2];
                 return;
             }
-            Board[fV[0]+2][fV[1]-1] = "f";
-            fQ.push([fV[0]+2, fV[1]-1]);
+            Board[fV[0] - 1][fV[1] + 2] = "f";
+            fQ.push([fV[0] - 1, fV[1] + 2]);
         }
 
-        if(sV[0]+1<Board.length && sV[1]-2>-1 && Board[sV[0]+1][sV[1]-2]!=="s" && Board[sV[0]+1][sV[1]-2]!==-1){
-            if(Board[sV[0]+1][sV[1]-2] === "f"){
+        if (sV[0] + 1 < Board.length && sV[1] + 2 < Board[0].length && Board[sV[0] + 1][sV[1] + 2] !== "s" && Board[sV[0] + 1][sV[1] + 2] !== -1) {
+            if (Board[sV[0] + 1][sV[1] + 2] === "f") {
                 solutionFound = true;
-                sTreeTraversal[sTreeTraversal.length] = [sV[0]+1, sV[1]-2];
-                res[0] = [sV[0]+1, sV[1]-2];
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] + 1, sV[1] + 2];
+                res[0] = [sV[0] + 1, sV[1] + 2];
                 return;
             }
-            Board[sV[0]+1][sV[1]-2] = "s";
-            sQ.push([sV[0]+1, sV[1]-2]);
+            Board[sV[0] + 1][sV[1] + 2] = "s";
+            sQ.push([sV[0] + 1, sV[1] + 2]);
         }
-        if(fV[0]+1<Board.length && fV[1]-2>-1 && Board[fV[0]+1][fV[1]-2]!=="f" && Board[fV[0]+1][fV[1]-2]!==-1){
-            if(Board[fV[0]+1][fV[1]-2] === "s"){
+        if (fV[0] + 1 < Board.length && fV[1] + 2 < Board[0].length && Board[fV[0] + 1][fV[1] + 2] !== "f" && Board[fV[0] + 1][fV[1] + 2] !== -1) {
+            if (Board[fV[0] + 1][fV[1] + 2] === "s") {
                 solutionFound = true;
-                fTreeTraversal[fTreeTraversal.length] = [fV[0]+1, fV[1]-2];
-                res[0]  = [fV[0]+1, fV[1]-2];
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] + 1, fV[1] + 2];
+                res[0] = [fV[0] + 1, fV[1] + 2];
                 return;
             }
-            Board[fV[0]+1][fV[1]-2] = "f";
-            fQ.push([fV[0]+1, fV[1]-2]);
+            Board[fV[0] + 1][fV[1] + 2] = "f";
+            fQ.push([fV[0] + 1, fV[1] + 2]);
+        }
+
+        if (sV[0] + 2 < Board.length && sV[1] + 1 < Board[0].length && Board[sV[0] + 2][sV[1] + 1] !== "s" && Board[sV[0] + 2][sV[1] + 1] !== -1) {
+            if (Board[sV[0] + 2][sV[1] + 1] === "f") {
+                solutionFound = true;
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] + 2, sV[1] + 1];
+                res[0] = [sV[0] + 2, sV[1] + 1];
+                return;
+            }
+            Board[sV[0] + 2][sV[1] + 1] = "s";
+            sQ.push([sV[0] + 2, sV[1] + 1]);
+        }
+        if (fV[0] + 2 < Board.length && fV[1] + 1 < Board[0].length && Board[fV[0] + 2][fV[1] + 1] !== "f" && Board[fV[0] + 2][fV[1] + 1] !== -1) {
+            if (Board[fV[0] + 2][fV[1] + 1] === "s") {
+                solutionFound = true;
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] + 2, fV[1] + 1];
+                res[0] = [fV[0] + 2, fV[1] + 1];
+                return;
+            }
+            Board[fV[0] + 2][fV[1] + 1] = "f";
+            fQ.push([fV[0] + 2, fV[1] + 1]);
+        }
+
+        if (sV[0] + 2 < Board.length && sV[1] - 1 > -1 && Board[sV[0] + 2][sV[1] - 1] !== "s" && Board[sV[0] + 2][sV[1] - 1] !== -1) {
+            if (Board[sV[0] + 2][sV[1] - 1] === "f") {
+                solutionFound = true;
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] + 2, sV[1] - 1];
+                res[0] = [sV[0] + 2, sV[1] - 1];
+                return;
+            }
+            Board[sV[0] + 2][sV[1] - 1] = "s";
+            sQ.push([sV[0] + 2, sV[1] - 1]);
+        }
+        if (fV[0] + 2 < Board.length && fV[1] - 1 > -1 && Board[fV[0] + 2][fV[1] - 1] !== "f" && Board[fV[0] + 2][fV[1] - 1] !== -1) {
+            if (Board[fV[0] + 2][fV[1] - 1] === "s") {
+                solutionFound = true;
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] + 2, fV[1] - 1];
+                res[0] = [fV[0] + 2, fV[1] - 1];
+                return;
+            }
+            Board[fV[0] + 2][fV[1] - 1] = "f";
+            fQ.push([fV[0] + 2, fV[1] - 1]);
+        }
+
+        if (sV[0] + 1 < Board.length && sV[1] - 2 > -1 && Board[sV[0] + 1][sV[1] - 2] !== "s" && Board[sV[0] + 1][sV[1] - 2] !== -1) {
+            if (Board[sV[0] + 1][sV[1] - 2] === "f") {
+                solutionFound = true;
+                sTreeTraversal[sTreeTraversal.length] = [sV[0] + 1, sV[1] - 2];
+                res[0] = [sV[0] + 1, sV[1] - 2];
+                return;
+            }
+            Board[sV[0] + 1][sV[1] - 2] = "s";
+            sQ.push([sV[0] + 1, sV[1] - 2]);
+        }
+        if (fV[0] + 1 < Board.length && fV[1] - 2 > -1 && Board[fV[0] + 1][fV[1] - 2] !== "f" && Board[fV[0] + 1][fV[1] - 2] !== -1) {
+            if (Board[fV[0] + 1][fV[1] - 2] === "s") {
+                solutionFound = true;
+                fTreeTraversal[fTreeTraversal.length] = [fV[0] + 1, fV[1] - 2];
+                res[0] = [fV[0] + 1, fV[1] - 2];
+                return;
+            }
+            Board[fV[0] + 1][fV[1] - 2] = "f";
+            fQ.push([fV[0] + 1, fV[1] - 2]);
         }
     };
-    while(!solutionFound){
-        if(sQ.length === 0 || fQ.length === 0){
+    while (!solutionFound) {
+        if (sQ.length === 0 || fQ.length === 0) {
             return "deadlock";
         }
         bfs();
     }
 
-    for(i=sTreeTraversal.length-1; i>-1; i--){
+    for (i = sTreeTraversal.length - 1; i > -1; i--) {
         var difference = [Math.abs(sTreeTraversal[i][0] - res[0][0]), Math.abs(sTreeTraversal[i][1] - res[0][1])];
-        if((difference[0]===1 && difference[1]===2) || (difference[0]===2 && difference[1]===1)){
+        if ((difference[0] === 1 && difference[1] === 2) || (difference[0] === 2 && difference[1] === 1)) {
             res.unshift(sTreeTraversal[i]);
         }
     }
-    for(i=fTreeTraversal.length-1; i>-1; i--){
-        difference = [Math.abs(fTreeTraversal[i][0] - res[res.length-1][0]), Math.abs(fTreeTraversal[i][1] - res[res.length-1][1])];
-        if((difference[0]===1 && difference[1]===2) || (difference[0]===2 && difference[1]===1)){
+    for (i = fTreeTraversal.length - 1; i > -1; i--) {
+        difference = [Math.abs(fTreeTraversal[i][0] - res[res.length - 1][0]), Math.abs(fTreeTraversal[i][1] - res[res.length - 1][1])];
+        if ((difference[0] === 1 && difference[1] === 2) || (difference[0] === 2 && difference[1] === 1)) {
             res[res.length] = fTreeTraversal[i];
         }
     }
@@ -967,7 +990,7 @@ solutions.pylhun_valerii = function (Board) {
 // YOUR SOLUTION
 solutions.vaskovska_anna = function (Board) {
     //get field height and width
-    var fieldHeight = fieldWidth =Board.length;
+    var fieldHeight = fieldWidth = Board.length;
     var fieldWidth = Board[0].length;
 
     //get start and finish points
@@ -989,7 +1012,7 @@ solutions.vaskovska_anna = function (Board) {
 
         // sort array by ascending distance to finish point
         //and get firts of it. This point will have the smallest distance to finish
-        var currentPoint = openSet.sort(function(a, b) {
+        var currentPoint = openSet.sort(function (a, b) {
             return a.distance - b.distance;
         })[0];
 
@@ -1234,17 +1257,17 @@ for (var solutionFuncName in solutions) {
                 {args: board8, expected: 999}
             ];
 
-            function arrayClone( arr ) {
+            function arrayClone(arr) {
 
                 var i, copy;
 
-                if( Array.isArray( arr ) ) {
-                    copy = arr.slice( 0 );
-                    for( i = 0; i < copy.length; i++ ) {
-                        copy[ i ] = arrayClone( copy[ i ] );
+                if (Array.isArray(arr)) {
+                    copy = arr.slice(0);
+                    for (i = 0; i < copy.length; i++) {
+                        copy[i] = arrayClone(copy[i]);
                     }
                     return copy;
-                } else if( typeof arr === 'object' ) {
+                } else if (typeof arr === 'object') {
                     throw 'Cannot clone array containing an object!';
                 } else {
                     return arr;
