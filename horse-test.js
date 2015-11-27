@@ -596,5 +596,171 @@ solutions.pylhun_valerii = function (Board) {
 
 // YOUR SOLUTION
 solutions.vaskovska_anna = function (Board) {
-    // GOES HERE
+    //get field height and width
+    var fieldHeight = fieldWidth =Board.length;
+    var fieldWidth = Board[0].length;
+
+    //get start and finish points
+    var start = new Point();
+    var finish = new Point();
+
+    initCoordinates();
+
+    //list of unchecked points
+    var openSet = [];
+
+    //list of checked points
+    var closeSet = [];
+
+    //add start point to list of unchecked points
+    openSet.push(start);
+
+    while (openSet.length > 0) {
+
+        // sort array by ascending distance to finish point
+        //and get firts of it. This point will have the smallest distance to finish
+        var currentPoint = openSet.sort(function(a, b) {
+            return a.distance - b.distance;
+        })[0];
+
+        //if this point is finish one - return way to it
+        if (currentPoint.x == finish.x && currentPoint.y == finish.y) {
+            var path = getPath(currentPoint);
+            return path;
+        }
+
+        //delete this point from inchecked list
+        openSet.shift();
+        //and put on checked list
+        closeSet.push(currentPoint);
+
+        //find all legal neighbours of current point
+        var neighbours = getNeighbours(currentPoint);
+
+        //for every neighbour point
+        for (var i = 0; i < neighbours.length; i++) {
+
+            //if it is already cheched - continue
+            if (exist(closeSet, neighbours[i])) continue;
+
+            //if it is not cheched but already exist in unchecked list - return it
+            var openNode = (exist(openSet, neighbours[i])) ? getSame(openSet, neighbours[i]) : null;
+
+            //null means that point isn't exist in unchecked list
+            //so add it
+            if (openNode == null) {
+                openSet.push(neighbours[i]);
+            }
+            else {
+                //сompare point from list and new neighbour point
+                //and add to unchecked list point that has
+                //smaller distance to finish
+                if (openNode.distance < neighbours[i].distance) {
+                    openNode.сameFrom = currentPoint;
+                    openNode.distance = neighbours[i].distance;
+                    openSet.push(openNode);
+                }
+            }
+        }
+    }
+
+    // if the way isn't found - return "=("
+    return "=(";
+
+    function getNeighbours(currentPoint) {
+        var result = [];
+        var neighbourPoints = [];
+
+        //all possible moves for forse
+        var moveX = [1, 2, 2, 1, -1, -2, -2, -1];
+        var moveY = [-2, -1, 1, 2, 2, 1, -1, -2];
+
+        //get all neighbours
+        for (var i = 0; i < 8; i++) {
+            neighbourPoints.push(new Point(currentPoint.x + moveX[i], currentPoint.y + moveY[i]));
+        }
+
+        //validate neighbour points and calculate distance to finish point for each of valid one
+        for (var i = 0; i < neighbourPoints.length; i++) {
+            var point = neighbourPoints[i];
+
+            if (point.x < 0 || point.x >= fieldWidth) continue;
+            if (point.y < 0 || point.y >= fieldHeight) continue;
+            if (Board[point.x][point.y] == '-1') continue;
+
+            var newPoint = new Point(point.x, point.y);
+
+            newPoint.cameFrom = currentPoint;
+            newPoint.distance = findDistance(point, finish);
+            result.push(newPoint);
+        }
+
+        return result;
+
+    }
+
+    function getPath(point) {
+        var result = [];
+        var currentNode = point;
+        while (currentNode != null) {
+            result.push([currentNode.x, currentNode.y]);
+            currentNode = currentNode.cameFrom;
+        }
+        result.reverse();
+        return result;
+    }
+
+    function findDistance(from, to) {
+        return Math.sqrt(Math.pow((from.x - to.y), 2) + Math.pow((from.y - to.y), 2));
+    }
+
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+        this.cameFrom = null;
+        this.distance = 0;
+    }
+
+    function exist(array, element) {
+        for (var i = 0; i < array.length; i++) {
+            if (element.x == array[i].x && element.y == array[i].y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getSame(array, element) {
+        for (var i = 0; i < array.length; i++) {
+            if (element.x == array[i].x && element.y == array[i].y) {
+                return array[i];
+            }
+        }
+        return false;
+    }
+
+    function initCoordinates() {
+
+        function findCoordinates(direction) {
+            var x, y;
+            for (var i = 0; i < fieldHeight; i++) {
+                if (Board[i].indexOf(direction) != -1) {
+                    y = Board[i].indexOf(direction);
+                    x = i;
+                    return {
+                        'x': x,
+                        'y': y,
+                    };
+                }
+            }
+            return false;
+        }
+
+        var coordX = findCoordinates('s');
+        var coordY = findCoordinates('f');
+        start.x = coordX.x;
+        start.y = coordX.y;
+        finish.x = coordY.x;
+        finish.y = coordY.y;
+    }
 };
