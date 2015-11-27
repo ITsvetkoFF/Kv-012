@@ -46,11 +46,11 @@ solutions.martyniuk_oleksandra = function (Board) {
 
 
 // YOUR SOLUTION
-solutions.melnykov_andrii = function (a) {
+solutions.melnykov_andrii = function (Board) {
 
     var spX = -Infinity; // start point
     var spY = -Infinity;
-    var l = a.length;
+    var l = Board.length;
 
     !function searchStart() {
         var f = false;
@@ -59,7 +59,7 @@ solutions.melnykov_andrii = function (a) {
         while (!f && (i < l)) {
             for (i =0; i < l; i++) {
                 for (var j = 0; j < l; j++) {
-                    if (patt.test(a[i][j])) {spX = i; spY = j;f = true;}
+                    if (patt.test(Board[i][j])) {spX = i; spY = j;f = true;}
                 }
             }
         }
@@ -73,10 +73,10 @@ solutions.melnykov_andrii = function (a) {
     var q = []; // queue
 
     if (spX < 0) {
-        return console.log("Start point NOT found");
+        return null;
     } else {
 
-        a[spX][spY] = 0;
+        Board[spX][spY] = 0;
         q.push([spX,spY]);
 
         !function searchFinish () {
@@ -87,8 +87,8 @@ solutions.melnykov_andrii = function (a) {
                     var npX = p[0] + mX[i]; // next point X
                     var npY = p[1] + mY[i];
                     if ((npX < l) && (npY < l) && (npY > 0) && (npX > 0)) {
-                        if (patt.test(a[npX][npY])) {ff = true; fpX = npX; fpY = npY; fpV = a[p[0]][p[1]] + 1;}
-                        if (a[npX][npY] === 0) {a[npX][npY] = a[p[0]][p[1]] + 1; q.push([npX, npY]);}
+                        if (patt.test(Board[npX][npY])) {ff = true; fpX = npX; fpY = npY; fpV = Board[p[0]][p[1]] + 1;}
+                        if (Board[npX][npY] === 0) {Board[npX][npY] = Board[p[0]][p[1]] + 1; q.push([npX, npY]);}
                     }
                 }
             }
@@ -97,34 +97,23 @@ solutions.melnykov_andrii = function (a) {
 
 
     if (fpX < 0) {
-        return console.log("NO way to finish");
+        return null;
     } else {
 
-        a[fpX][fpY] = fpV;
-        a[spX][spY] = "S";
+        Board[fpX][fpY] = fpV;
+        Board[spX][spY] = "S";
         var path = [];
         var fs = false; // find start
         var pX = fpX;
         var pY = fpY;
 
-    document.write("<br>");
-    !function createMatrix () {
-        for (var i = 0; i < l; i++) {
-            for (var j = 0; j < l; j++) {
-                document.write(a[i][j] + "&nbsp;&nbsp;&nbsp;");
-            }
-            document.write("<br>");
-        }
-    }();
-
         !function searchPath() {
-            document.write("<br>");
             while (!fs) {
                 for (var i = 0; i < 8; i++) {
                     var npX = pX - mX[i]; // previous point
                     var npY = pY - mY[i];
-                    if (a[npX][npY] === "S") {fs = true; break;}
-                    if ((npX < l) && (npY < l) && (npX > 0) && (npY > 0) && (a[npX][npY] !== -1) && (a[npX][npY] === a[pX][pY] - 1)) {
+                    if (Board[npX][npY] === "S") {fs = true; break;}
+                    if ((npX < l) && (npY < l) && (npX > 0) && (npY > 0) && (Board[npX][npY] !== -1) && (Board[npX][npY] === Board[pX][pY] - 1)) {
                         path.push([npX, npY]); pX = npX; pY = npY;
                     }
                 }
@@ -132,17 +121,7 @@ solutions.melnykov_andrii = function (a) {
         }();
     }
 
-    a[fpX][fpY] = "F";
-
-    document.write("<br>");
-    !function createMatrix () {
-        for (var i = 0; i < l; i++) {
-            for (var j = 0; j < l; j++) {
-                document.write(a[i][j] + "&nbsp;&nbsp;&nbsp;");
-            }
-            document.write("<br>");
-        }
-    }();
+    Board[fpX][fpY] = "F";
 
     path.push([spX, spY]);
     path.unshift([fpX, fpY]);
