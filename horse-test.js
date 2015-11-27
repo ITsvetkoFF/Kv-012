@@ -46,8 +46,8 @@ solutions.martyniuk_oleksandra = function (Board) {
     var result = createOptimalPath(Board);
 //var end = new Date();
 //alert('Time: ' + (end.getTime() - start.getTime()) + ' mc');
-    document.write(result);
-
+    //document.write(result);
+return result;
 
     /**
      Creation incidence matrix for horse in chess
