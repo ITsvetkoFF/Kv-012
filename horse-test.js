@@ -658,17 +658,13 @@ solutions.melnykov_andrii = function (Board) {
         var i = 0;
         var patt = /s/i;
         while (!f && (i < l)) {
-            for (i = 0; i < l; i++) {
+            for (i =0; i < l; i++) {
                 for (var j = 0; j < l; j++) {
-                    if (patt.test(Board[i][j])) {
-                        spX = i;
-                        spY = j;
-                        f = true;
-                    }
+                    if (patt.test(Board[i][j])) {spX = i; spY = j;f = true;}
                 }
             }
         }
-    }();
+    } ();
 
     var mX = [1, 1, -1, -1, 2, 2, -2, -2]; // Knight's moves
     var mY = [2, -2, 2, -2, 1, -1, 1, -1];
@@ -678,30 +674,21 @@ solutions.melnykov_andrii = function (Board) {
     var q = []; // queue
 
     if (spX < 0) {
-        return null;
+        return [];
     } else {
 
         Board[spX][spY] = 0;
-        q.push([spX, spY]);
+        q.push([spX,spY]);
 
-        !function searchFinish() {
-            var patt = /f/i;
+        !function searchFinish () {
             while ((q.length > 0) && !ff) {
                 var p = q.shift(); // first in the queue
                 for (var i = 0; i < 8; i++) {
                     var npX = p[0] + mX[i]; // next point X
                     var npY = p[1] + mY[i];
                     if ((npX < l) && (npY < l) && (npY > 0) && (npX > 0)) {
-                        if (patt.test(Board[npX][npY])) {
-                            ff = true;
-                            fpX = npX;
-                            fpY = npY;
-                            fpV = Board[p[0]][p[1]] + 1;
-                        }
-                        if (Board[npX][npY] === 0) {
-                            Board[npX][npY] = Board[p[0]][p[1]] + 1;
-                            q.push([npX, npY]);
-                        }
+                        if ((Board[npX][npY] === "F") || (Board[npX][npY] === "f")) {ff = true; fpX = npX; fpY = npY; fpV = Board[p[0]][p[1]] + 1;}
+                        if (Board[npX][npY] === 0) {Board[npX][npY] = Board[p[0]][p[1]] + 1; q.push([npX, npY]);}
                     }
                 }
             }
@@ -710,7 +697,7 @@ solutions.melnykov_andrii = function (Board) {
 
 
     if (fpX < 0) {
-        return null;
+        return [];
     } else {
 
         Board[fpX][fpY] = fpV;
@@ -719,34 +706,28 @@ solutions.melnykov_andrii = function (Board) {
         var fs = false; // find start
         var pX = fpX;
         var pY = fpY;
+        var it = 0;
 
         !function searchPath() {
-            while (!fs) {
+            while (!fs && it <10000) {
+                it++;
                 for (var i = 0; i < 8; i++) {
                     var npX = pX - mX[i]; // previous point
                     var npY = pY - mY[i];
-                    if (Board[npX][npY] === "S") {
-                        fs = true;
-                        break;
-                    }
+                    if ((npX < l) && (npY < l) && (npX > 0) && (npY > 0) && (Board[npX][npY] === "S")) {fs = true; break;}
                     if ((npX < l) && (npY < l) && (npX > 0) && (npY > 0) && (Board[npX][npY] !== -1) && (Board[npX][npY] === Board[pX][pY] - 1)) {
-                        path.push([npX, npY]);
-                        pX = npX;
-                        pY = npY;
+                        path.push([npX, npY]); pX = npX; pY = npY;
                     }
                 }
             }
         }();
     }
 
-    Board[fpX][fpY] = "F";
-
     path.push([spX, spY]);
     path.unshift([fpX, fpY]);
     path.reverse();
 
     return path;
-
 };
 
 
