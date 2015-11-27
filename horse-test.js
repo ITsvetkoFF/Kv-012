@@ -275,7 +275,7 @@ solutions.kozynets_oleg = function (Board) {
         var steps = 0, tree = [];
         var dim = board.length;
         board[eend[0]][eend[1]] = 0;
-        board[sstart[0]][sstart[1]] = 0;
+        board[sstart[0]][sstart[1]] = 0;//
 
         //перевірка того чи кінець і початок співпадають
         if (start.isEqualTo(end)) return null;//return {
