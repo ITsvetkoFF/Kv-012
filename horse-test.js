@@ -126,6 +126,157 @@ solutions.boiko_natalia = function (Board) {
 // YOUR SOLUTION
 solutions.dobrooskok_yaroslav = function (Board) {
     // GOES HERE
+    var n, x0, y0, xf, yf, squares = Board;
+    var flagStart = false, flagFinish = false;
+    var minNumSteps;
+
+    // Массив, в котором хранятся все клетки каждого шага
+    var steps = [];
+
+    var declaration = function () {
+
+        /* Обьявление переменных
+         x0, y0 - координаты стартовой точки
+         xf, yf - координаты конечной точки
+         squares - двумерный массив клеток доски, где 0 - свободные клетки, а -1 - недоступные */
+
+        n = squares.length;
+
+        // Проверка правильности массива
+        for (var i = 0; i < squares.length; i++)
+            for (var j = 0; j < squares[i].length; j++)
+                if (squares[i][j] != 0 && squares[i][j] != -1 && squares[i][j] != 's' && squares[i][j] != 'f') {
+                    throw new Error('Массив заполнен неправильно');
+                    break;
+                }
+
+        var i, j, l = squares.length;
+
+        for (i=0; i < l; i++)
+            for (j=0; j < l; j++) {
+                if (squares[i][j] === 's') {
+                    flagStart = true;
+                    x0 = i;
+                    y0 = j;
+                    squares[x0][y0] = 1;
+
+                }
+                if (Board[i][j] === 'f') {
+                    flagFinish = true;
+                    xf = i;
+                    yf = j;
+                }
+            }
+
+        if (!flagStart || !flagFinish)
+            throw new Error('Не найдены начальная или конечная точка');
+
+    };
+
+    // Конструктор клетки
+    var Kletka = function(x, y){
+        this.x = x;
+        this.y = y;
+    }
+
+    /* Конструктор шага
+     number - номер текущего шага
+     kletki - массив объектов kletka на текущем шаге */
+    var Step = function (number, kletki) {
+        this.number = number;
+        this.kletki = kletki;
+    }
+
+    // Метод нахождения всех доступных ходов из всех клеток на текущем шаге
+    var findAvailable = function(currentStep) {
+        var flag = false;
+        while (!flag) {
+            steps.push(new Step(currentStep+1, []));
+            var i, j, l = steps[currentStep].kletki.length;
+            main:
+                for (i = 0; i < l; i++) {
+                    var curX = steps[currentStep].kletki[i].x;
+                    var curY = steps[currentStep].kletki[i].y;
+
+                    var suspX = [curX+1, curX+2, curX+2, curX+1, curX-1, curX-2, curX-2, curX-1];
+                    var suspY = [curY+2, curY+1, curY-1, curY-2, curY-2, curY-1, curY+1, curY+2];
+
+                    for (j = 0; j < suspX.length; j++ ) {
+
+                        if (suspX[j] >= 0 && suspY[j] >= 0 && suspX[j] < n && suspY[j] < n && squares[suspX[j]][suspY[j]] === 0) {
+                            steps[currentStep+1].kletki.push(new Kletka(suspX[j], suspY[j]));
+                            squares[ suspX[j] ] [ suspY[j] ] = currentStep+1;
+                        }
+
+                        if (suspX[j] == xf && suspY[j] == yf) {
+                            var numsteps = currentStep;
+                            flag = true;
+                            squares[suspX[j]][suspY[j]] = currentStep+1;
+                            minNumSteps = numsteps;
+                            break main;
+                        }
+
+                    }
+
+                }
+            currentStep++;
+
+        }
+    }
+
+    // Method finds a reverse way to a start point
+    var findRevesrseWay = function(){
+
+        var resArray = [];
+        var currentStep = minNumSteps;
+        var curX = xf;
+        var curY = yf;
+        var suspX, suspY;
+
+        resArray.push([xf, yf]);
+
+        while (currentStep >= 1) {
+            var suspX = [curX+1, curX+2, curX+2, curX+1, curX-1, curX-2, curX-2, curX-1];
+            var suspY = [curY+2, curY+1, curY-1, curY-2, curY-2, curY-1, curY+1, curY+2];
+
+            var i, l = suspX.length;
+            for (i = 0; i < l; i++) {
+                if (suspX[i] >= 0 && suspY[i] >= 0 && suspX[i] < n && suspY[i] < n && squares[suspX[i]][suspY[i]] === currentStep) {
+                    var bar = [suspX[i], suspY[i]];
+                    resArray.unshift(bar);
+                    currentStep--;
+                    curX = suspX[i];
+                    curY = suspY[i];
+                    break;
+                }
+            }
+        }
+
+        return resArray;
+
+    }
+
+
+    declaration();
+
+    /* Метод поиска кратчайшего пути
+     x0, y0 - координаты стартовой точки
+     xf, yf - координаты конечной точки
+     squares - двумерный массив клеток доски, где 0 - свободные клетки, а -1 - недоступные */
+    var searchShortWay = function(n, x0, y0, xf, yf, squares) {
+        // Текущий шаг
+        var currentStep = 1;
+
+        // Установка начальной клетки
+        steps[currentStep] = new Step(currentStep, []);
+        steps[currentStep].kletki.push(new Kletka(x0, y0));
+
+        findAvailable(currentStep);
+    };
+
+    searchShortWay(n, x0, y0, xf, yf, squares);
+
+    findRevesrseWay();
 };
 
 
