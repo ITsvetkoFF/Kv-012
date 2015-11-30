@@ -121,7 +121,7 @@ solutions.boiko_natalia = function (Board) {
 
     return findPath(Board);
 };
-
+*/
 
 // YOUR SOLUTION
 solutions.dobrooskok_yaroslav = function (Board) {
@@ -276,7 +276,7 @@ solutions.dobrooskok_yaroslav = function (Board) {
 
     searchShortWay(n, x0, y0, xf, yf, squares);
 
-    findRevesrseWay();
+    return findRevesrseWay();
 };
 
 
@@ -1289,6 +1289,7 @@ solutions.vaskovska_anna = function (Board) {
         finish.y = coordY.y;
     }
 };
+*/
 
 var Nsmall = 50;
 var Nbig = 1000;
