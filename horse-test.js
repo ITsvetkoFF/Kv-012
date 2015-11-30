@@ -21,98 +21,129 @@ solutions.fake_fakovich = function (Board) {
 solutions.boiko_natalia = function (Board) {
 
     var findPath = function (matrix) {
-        var start = {};
-        var finish = {};
-        var currentLocation;
-        var newPath;
+      var start = {};
+      var finish = {};
+      var queue = [];
+      var memory = {};
+      var currentLocation;
+      var newPath = [];
 
-        //Find coordinates of start
-        for (var i = 0; i < matrix.length; i++) {
-            if (matrix[i].indexOf('s') !== -1) {
-                start.t = i;
-                start.l = matrix[i].indexOf('s');
-                break;
-            }
+      //Find coordinates of start
+      for (var i = 0; i < matrix.length; i++){
+        if (matrix[i].indexOf('s') !== -1) {
+          start.t = i;
+          start.l = matrix[i].indexOf('s');
+          break;
         }
+      }
 
-        //Find coordinates of end
-        for (var i = 0; i < matrix.length; i++) {
-            if (matrix[i].indexOf('f') !== -1) {
-                finish.t = i;
-                finish.l = matrix[i].indexOf('f');
-                break;
-            }
+      //Find coordinates of end
+      for (var i = 0; i < matrix.length; i++){
+        if (matrix[i].indexOf('f') !== -1) {
+          finish.t = i;
+          finish.l = matrix[i].indexOf('f');
+          break;
         }
+      }
 
-        //Options for points to check (difference from start(currentLocation) point)
+      //Options for points to check (difference from start(currentLocation) point)
         var steps = [
-            {
-                't': 1,
-                'l': 2
-            },
-            {
-                't': -1,
-                'l': -2
-            },
-            {
-                't': 2,
-                'l': 1
-            },
-            {
-                't': -2,
-                'l': -1
-            },
-            {
-                't': 2,
-                'l': -1
-            },
-            {
-                't': -2,
-                'l': 1
-            },
-            {
-                't': 1,
-                'l': -2
-            },
-            {
-                't': -1,
-                'l': 2
-            },
+          {
+            't': 1,
+            'l': 2
+          }, 
+          {
+            't': -1,
+            'l': -2
+          },
+          {
+            't': 2,
+            'l': 1
+          },
+          {
+            't': -2,
+            'l': -1
+          },
+          {
+            't': 2,
+            'l': -1
+          },
+          {
+            't': -2,
+            'l': 1
+          },
+          {
+            't': 1,
+            'l': -2
+          },
+          {
+            't': -1,
+            'l':  2
+          },
         ];
 
         // Initialize the queue with the start location already inside
-        var queue = [{
-            t: start.t,
-            l: start.l,
-            path: []
+
+        function createQueue(currentLocation, curentStep, memory, queue) {
+
+          var spot = {
+            t: currentLocation.t + curentStep.t,
+            l: currentLocation.l + curentStep.l
+          };
+
+          memory[''+ (currentLocation.t + curentStep.t) + (currentLocation.l + curentStep.l)] = {
+            prev: memory['' + currentLocation.t + currentLocation.l],
+            path: [currentLocation.t + curentStep.t, currentLocation.l + curentStep.l]
+          }
+
+          queue.push(spot);
+
+        };
+
+        memory[''+start.t+start.l] = {
+          prev: null,
+          path: [start.t, start.l]
+        }
+
+        queue = [{
+          t: start.t,
+          l: start.l
         }];
+
 
         // Loop through the grid searching for the goal
         while (queue.length > 0) {
-            currentLocation = queue.shift();
+          
+          currentLocation = queue.shift();
 
-            for (var i = 0; i < steps.length; i++) {
-                //Check if point is not out of grid
-                if (currentLocation.t + steps[i].t > 0 && currentLocation.t + steps[i].t < matrix.length && currentLocation.l + steps[i].l > 0 && currentLocation.l + steps[i].l < matrix[0].length) {
-                    //Check if cell is free from obstacles and was not visited before
-                    if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 0) {
-                        newPath = currentLocation.path.slice();
-                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
-                        queue.push({
-                            t: currentLocation.t + steps[i].t,
-                            l: currentLocation.l + steps[i].l,
-                            path: newPath
-                        });
+          for (var i = 0; i < steps.length; i++){
+            //Check if point is not out of grid
+            if (currentLocation.t + steps[i].t >= 0 && currentLocation.t + steps[i].t < matrix.length && currentLocation.l + steps[i].l >= 0 && currentLocation.l + steps[i].l < matrix[0].length) {
+              //Check if cell is free from obstacles and was not visited before
+                
 
-                        matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] = -1;
-                    } else if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 'f') {
-                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
-                        newPath = currentLocation.path.slice();
-                        newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
-                        return newPath;
-                    }
+                if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 0) {
+
+                  createQueue(currentLocation, steps[i], memory, queue);
+
+                  matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] = -1;
+                } else if (matrix[currentLocation.t + steps[i].t][currentLocation.l + steps[i].l] === 'f') {
+                  newPath.push([currentLocation.t + steps[i].t, currentLocation.l + steps[i].l]);
+
+                  prevPath = memory[''+ currentLocation.t+ currentLocation.l];
+                  
+                  do {
+                    newPath.push(prevPath.path);
+                    prevPath = prevPath.prev;
+                  } while (prevPath.prev !== null) 
+
+                  newPath.push(prevPath.path);
+
+                  return newPath;
                 }
+
             }
+          }
 
         }
 
