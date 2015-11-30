@@ -27,6 +27,7 @@ solutions.boiko_natalia = function (Board) {
       var memory = {};
       var currentLocation;
       var newPath = [];
+      var prevPath;
 
       //Find coordinates of start
       for (var i = 0; i < matrix.length; i++){
