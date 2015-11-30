@@ -121,7 +121,6 @@ solutions.boiko_natalia = function (Board) {
 
     return findPath(Board);
 };
-*/
 
 // YOUR SOLUTION
 solutions.dobrooskok_yaroslav = function (Board) {
@@ -1289,7 +1288,6 @@ solutions.vaskovska_anna = function (Board) {
         finish.y = coordY.y;
     }
 };
-*/
 
 var Nsmall = 50;
 var Nbig = 1000;
