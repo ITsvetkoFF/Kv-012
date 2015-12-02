@@ -1,0 +1,59 @@
+.user-panel {
+    width: 140px;
+    margin: 10px 0 0 10px;
+    border: solid 1px #ccc;
+    padding: 8px;
+    float: left;
+}
+
+.user-photo {
+    width: 124px;
+}
+
+.user-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.user-pm {
+    font-style: italic;
+    text-align: center;
+    cursor: pointer;
+}
+
+.chat-container {
+    border-left: solid 1px #ccc;
+    padding-right: 30px;
+}
+
+.user-message-author {
+    font-weight: bold;
+}
+
+.user-message-text {
+    margin-left: 24px;
+}
+
+.user-message-textarea {
+    width: 100%;
+    margin: 8px 0 8px 0;
+}
+
+.user-dismiss {
+    text-align: center;
+    cursor: pointer;
+}
+
+.user-dismiss-text {
+    font-style: italic;
+}
+
+.append-panel {
+    width: 140px;
+    font-size: 36px;
+    color: #bbb;
+    padding: 85px 0 0 68px;
+    float: left;
+    cursor: pointer;
+    height: 212px;
+}
