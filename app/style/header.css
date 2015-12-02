@@ -1,0 +1,57 @@
+#header-content {
+    border-bottom: solid 1px #c5c4c1;
+    margin-bottom: 8px;
+    height: 84px;
+}
+
+#logo {
+    float: left;
+}
+
+#current-project {
+    line-height: 52px;
+    font-size: 16px;
+    color: darkorange;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+    margin: 16px;
+    clear: right;
+}
+
+.menu-item {
+    margin: 16px 0 16px 16px;
+    font-size: 16px;
+    line-height: 52px;
+    float: right;
+    cursor: pointer;
+}
+
+#massage-envelope {
+    font-size: 24.5px;
+    line-height: 48px;
+    color: #7a7a7a;
+}
+
+#message-new {
+    position: relative;
+    margin-left: -12px;
+    border: solid 1px white;
+}
+
+.badge {
+    background-color: #72bb53;
+}
+
+.menu-icon {
+    font-size: 24px;
+    line-height: 48px;
+    color: #929292;
+}
+
+#user-chevron {
+    font-size: 14px;
+
+    margin-left: -12px;
+
+}
