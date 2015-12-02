@@ -29,10 +29,54 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Add new test case</h4>
             </div>
             <div class="modal-body">
-                ...
+                <form action="#">
+                    <div class="form-group">
+                        <label class="control-label .form-horizontal" for="new-test-title">Title</label>
+                        <input class="form-control .form-horizontal" id="new-test-title" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for=name="new-test-priority">Priority</label>
+                        <select class="form-control" name="new-test-priority"  id=name="new-test-priority">
+                            <option value="high">high</option>
+                            <option value="none">none</option>
+                            <option value="normal">normal</option>
+                            <option value="low">low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="new-test-preconditions">Preconditions</label>
+                        <textarea class="form-control" name="" id="new-test-preconditions" cols="30"
+                                  rows="2"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="stepsAndResults">Created steps&results</label>
+                        <div id="stepsAndResults">
+                        <textarea class="form-control" name="" id="new-test-steps" cols="14"
+                                  rows="2"></textarea>
+                            <br>
+                            <textarea class="form-control" name="" id="new-test-results" cols="14"
+                                      rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="addStepsAndResults">Add new steps&results</label>
+                        <div id="addStepsAndResults">
+                            <textarea class="form-control" name="" id="add-new-test-steps" cols="14"
+                                      rows="2"></textarea>
+                            <br>
+                            <textarea class="form-control" name="" id="add-new-test-results" cols="14"
+                                      rows="2"></textarea>
+                            <br>
+                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-default">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
