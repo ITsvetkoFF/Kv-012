@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title></title>
+    <link href="style/custom.style" rel="stylesheet">
+    <link href="style/bootstrap.min.style" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/style/font-awesome.min.style">
+
+
+</head>-->
+<head>
+    <meta charset="utf-8">
+    <title>Bags</title>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="../../../style/custom.css" rel="stylesheet">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-1 col-md-offset-9 button-bags-bottom">
+            <a href="../../../addDefect.html"> <button class="btn btn-md btn btn-success" type="submit">Add Defect</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <select class="form-control input-md">
+                <option>All</option>
+                <option>Critical</option>
+                <option>High</option>
+                <option>Normal</option>
+                <option>Low</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="checkbox-inline col-bg-margin">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> Not Active
+            </label>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+
+
+
+            <form action="" class="navbar-form navbar-right bag-padding">
+                <div class="input-group">
+                    <input type="Search" placeholder="Search..." class="form-control" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-info">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix visible-xs-block"></div>
+    </div>
+
+    <div class="row">
+
+
+        <div class="col-md-6 col-md-offset-1">
+            <span class="badge">1</span>
+            Error Name
+
+            <span class="glyphicon glyphicon-pencil">
+
+            </span>
+            <span class="glyphicon glyphicon-trash">
+
+            </span>
+
+        </div>
+
+        <div class="col-md-1 text-left priority-bags-padding">
+            <span>Select Priority</span>
+        </div>
+        <div class="col-md-2 bag-padding">
+
+            <select class="form-control input-sm">
+
+                <option>Critical</option>
+                <option>High</option>
+                <option>Normal</option>
+                <option>Low</option>
+            </select>
+        </div>
+
+    </div>
+        <div class="clearfix visible-xs-block"></div>
+        <br>
+   <!-- <details>
+
+    <summary class="bagsSummery">
+        See more information
+        </summary>
+        <br>-->
+    <div class="row">
+    <div class="col-md-11 col-md-offset-1">
+<script>
+    function toggler(divId) {
+        $("#" + divId).toggle();
+    }
+
+</script>
+    <a href="#" onclick="toggler('myContent');"><p>See more information<span class="caret"></span></p></a>
+    <div id="myContent" class='hidden-bags'>
+
+    <div class="row">
+        <form class="form-inline col-md-2  form-group">
+
+                <label for="WhoFind">Who find:</label>
+                <input type="text" class="form-control" id="WhoFind" placeholder="Jane Doe">
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 ">
+            <form class="  form-group">
+
+                <label for="description">Description:</label>
+
+                <textarea class="form-control" rows="5" id="description"></textarea>
+                    <br>
+                <textarea class="form-control" rows="2" id="leaveComment" placeholder="Leave a comment"></textarea>
+            </form>
+
+        <div class="text-right">
+            <a href=""> <button type="button" class="btn btn-info">Submit</button></a>
+            <a href="bags.html"> <button type="button" class="btn btn-default">Cansel</button></a>
+
+        </div>
+        </div>
+    </div>
+
+    </div>
+        </div>
+</div>
+<!--</details>-->
+</section>
+</body>
+</html>
