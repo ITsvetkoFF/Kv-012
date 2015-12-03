@@ -1,34 +1,33 @@
-#header-content {
+
+.navbar {
+    background-color: white;
+    border: none;
     border-bottom: solid 1px #c5c4c1;
-    margin-bottom: 8px;
-    height: 84px;
+    border-radius: 0;
 }
 
-#logo {
-    float: left;
+.nav {
+    margin-top: 4px;
 }
 
 #current-project {
-    line-height: 52px;
     font-size: 16px;
     color: darkorange;
     cursor: pointer;
     float: left;
     font-weight: bold;
-    margin: 16px;
-    clear: right;
+    margin: 16px 16px 16px 8px;
 }
 
 .menu-item {
-    margin: 16px 0 16px 16px;
-    font-size: 16px;
-    line-height: 52px;
-    float: right;
+    margin-left: 16px;
+    font-size: 14px;
+    line-height: 48px;
     cursor: pointer;
 }
 
 #massage-envelope {
-    font-size: 24.5px;
+    font-size: 18px;
     line-height: 48px;
     color: #7a7a7a;
 }
@@ -44,14 +43,17 @@
 }
 
 .menu-icon {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 48px;
     color: #929292;
 }
 
-#user-chevron {
-    font-size: 14px;
+#user-icon {
+    margin-left: 12px;
+}
 
+#user-chevron {
+    font-size: 12px;
     margin-left: -12px;
 
 }
