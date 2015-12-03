@@ -6,6 +6,6 @@ angular.module('appName').controller('appNameCtrl', function($scope, $uibModal){
             templateUrl: "partials/my_projects.html",
             controller: "myProjectsCtrl"
         });
-    }
+    };
 
 })
