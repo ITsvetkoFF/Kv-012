@@ -1,0 +1,23 @@
+.projects-table-details {
+    text-align: right;
+    font-size: 11px;
+}
+
+.projects-table-toggle {
+    font-size: 11px;
+    color: #929292;
+    text-align: right;
+    cursor: pointer;
+}
+
+#projects-table td:first-child {
+    border-left: 1px solid #ddd;
+}
+
+#projects-table td:last-child {
+    border-right: 1px solid #ddd;
+}
+
+#projects-table tr:last-child {
+    border-bottom: 1px solid #ddd;
+}
