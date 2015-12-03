@@ -1,0 +1,71 @@
+
+.navbar {
+    background-color: white;
+    border: none;
+    border-bottom: solid 1px #c5c4c1;
+    border-radius: 0;
+}
+
+.nav {
+    margin-top: 4px;
+}
+
+#current-project {
+    font-size: 16px;
+    color: darkorange;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+    margin: 16px 16px 16px 8px;
+}
+
+.menu-item {
+    margin-left: 16px;
+    font-size: 14px;
+    line-height: 48px;
+    cursor: pointer;
+}
+
+#massage-envelope {
+    font-size: 18px;
+    line-height: 48px;
+    color: #7a7a7a;
+}
+
+#message-new {
+    position: relative;
+    margin-left: -12px;
+    border: solid 1px white;
+}
+
+.badge {
+    background-color: #72bb53;
+}
+
+.menu-icon {
+    font-size: 18px;
+    line-height: 48px;
+    color: #929292;
+}
+
+#user-icon {
+    margin-left: 12px;
+}
+
+#user-chevron {
+    font-size: 12px;
+    margin-left: -12px;
+
+}
+
+#user-popover-list {
+    list-style: none;
+    padding: 0;
+    width: 100px;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.user-popover-list-icon {
+    color: #929292;
+}

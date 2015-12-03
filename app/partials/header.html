@@ -1,5 +1,47 @@
-<div class="jumbotron">
-    <h1>Hello, world!</h1>
-    <p>...</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-</div>
+<nav class="navbar navbar-default" >
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <div id="logo" class="navbar-brand logo" style="margin: 4px">
+                <div style="font-size: 30px; font-weight: bold;">TCMS</div>
+                <div style="font-size: 11px; margin-top: -4px">Here must be logo</div>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li id="current-project">Project1</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav menu-item">
+                    SUITS
+                </li>
+                <li class="nav menu-item">
+                    TASKS <span class="badge">9</span>
+                </li>
+                <li class="nav menu-item">
+                    BUGS <span class="badge">7</span>
+                </li>
+                <li class="nav menu-item">
+                    REPORTS
+                </li>
+                <li class="nav menu-item">
+                    <span class="glyphicon glyphicon-envelope menu-icon"></span>
+                    <span class="badge"  id="message-new">1</span>
+                </li>
+                <li class="nav menu-item" id="user-icon">
+                    <span class="glyphicon glyphicon-user menu-icon"></span>
+                </li>
+                <li class="nav menu-item" uib-popover-template="'partials/user_popover.html'"
+                    popover-title="User Name" popover-placement="bottom">
+                    <span class="glyphicon glyphicon-chevron-down menu-icon" id="user-chevron"></span>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
