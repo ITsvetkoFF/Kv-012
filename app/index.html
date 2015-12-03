@@ -7,6 +7,7 @@
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/my_projects.css">
+    <link rel="stylesheet" href="style/project_team.css">
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
@@ -21,15 +22,8 @@
 <body ng-app="appName" ng-init="currentTpl='partials/tab2.html'">
 <div class="container" ng-controller="appNameCtrl">
     <div ng-include src="'partials/header.html'"></div>
-    <!-- Standard button -->
+    <ng-include src="currentTpl"></ng-include>
 
-    <button type="button" class="btn btn-default" ng-click="currentTpl='partials/tab1.html'">tab1</button>
-    <button type="button" class="btn btn-default" ng-click="currentTpl='partials/tab2.html'">tab2</button>
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3" ng-include src="currentTpl"></div>
-    </div>
-    <div ng-include src="'partials/footer.html'"></div>
 </div>
 </body>
 </html>
