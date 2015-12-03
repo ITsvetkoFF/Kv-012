@@ -57,3 +57,15 @@
     margin-left: -12px;
 
 }
+
+#user-popover-list {
+    list-style: none;
+    padding: 0;
+    width: 100px;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.user-popover-list-icon {
+    color: #929292;
+}

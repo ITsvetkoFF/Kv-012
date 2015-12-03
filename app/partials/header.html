@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" >
     <div class="container-fluid">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -36,9 +36,11 @@
                 <li class="nav menu-item" id="user-icon">
                     <span class="glyphicon glyphicon-user menu-icon"></span>
                 </li>
-                <li class="nav menu-item">
+                <li class="nav menu-item" uib-popover-template="'partials/user_popover.html'"
+                    popover-title="User Name" popover-placement="bottom">
                     <span class="glyphicon glyphicon-chevron-down menu-icon" id="user-chevron"></span>
                 </li>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

@@ -5,9 +5,17 @@
     <title>My AngularJS App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/header.css">
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <!-- temporarily, just to think more about folder structure -->
+    <script>
+        angular.module('appName', ['ui.bootstrap']);
+    </script>
+
 </head>
-<body ng-app ng-init="currentTpl='partials/tab2.html'">
+<body ng-app="appName" ng-init="currentTpl='partials/tab2.html'">
 <div class="container">
     <div ng-include src="'partials/header.html'"></div>
     <!-- Standard button -->
