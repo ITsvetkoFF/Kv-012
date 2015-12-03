@@ -7,9 +7,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
+   <!--my Css-->
+    <link href="../style/add-test-case.css" rel="stylesheet">
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Bootstrap -->
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,7 +23,7 @@
 </head>
 <body>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<button id = "mbutton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-backdrop="static">
     Launch demo modal
 </button>
 
@@ -32,49 +36,65 @@
                 <h4 class="modal-title" id="myModalLabel">Add new test case</h4>
             </div>
             <div class="modal-body">
-                <form action="#">
+
+                <!--form-->
+                <form action="#" class="form-horizontal" id="add-test-case-form">
+
                     <div class="form-group">
-                        <label class="control-label .form-horizontal" for="new-test-title">Title</label>
-                        <input class="form-control .form-horizontal" id="new-test-title" type="text"/>
+                        <label class="control-label col-sm-2" for="new-test-title">Title</label>
+                        <div class="col-sm-10">
+                        <input class="form-control" id="new-test-title" type="text" placeholder="Title"/>
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="control-label" for=name="new-test-priority">Priority</label>
-                        <select class="form-control" name="new-test-priority"  id=name="new-test-priority">
+                        <label class="control-label col-sm-2" for="new-test-priority">Priority</label>
+                        <div class="col-sm-10">
+                        <select class="form-control" name="new-test-priority"  id="new-test-priority">
                             <option value="high">high</option>
                             <option value="none">none</option>
                             <option value="normal">normal</option>
                             <option value="low">low</option>
                         </select>
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="control-label" for="new-test-preconditions">Preconditions</label>
+
+                        <label class="control-label col-sm-12" for="new-test-preconditions">Preconditions</label>
+                        <div class="col-sm-12">
                         <textarea class="form-control" name="" id="new-test-preconditions" cols="30"
                                   rows="2"></textarea>
+                            </div>
+                    </div>
+<!--
+                    <div class="form-group col-sm-12" id="stepsAndResults">
+                        <label class="control-label col-sm-12" for="stepsAndResults">Created steps&results</label>
+
+                        <textarea class="form-control col-sm-6 " name="" id="new-test-steps" cols="5"
+                                  rows="2"></textarea>
+                            <textarea class="form-control col-sm-6" name="" id="new-test-results"
+                                      rows="2"></textarea>
+
 
                     </div>
-                    <div class="form-group">
-                        <label class="control-label" for="stepsAndResults">Created steps&results</label>
-                        <div id="stepsAndResults">
-                        <textarea class="form-control" name="" id="new-test-steps" cols="14"
-                                  rows="2"></textarea>
-                            <br>
-                            <textarea class="form-control" name="" id="new-test-results" cols="14"
-                                      rows="2"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="addStepsAndResults">Add new steps&results</label>
-                        <div id="addStepsAndResults">
+-->
+                    <div class="form-group cols-sm-12" id="addStepsAndResults">
+                        <label class="control-label col-sm-12" for="addStepsAndResults">Steps and results</label>
+                            <div class="col-sm-6">
                             <textarea class="form-control" name="" id="add-new-test-steps" cols="14"
-                                      rows="2"></textarea>
-                            <br>
+                                      rows="2" >Step</textarea>
+                           </div>
+                            <div class="col-sm-6">
                             <textarea class="form-control" name="" id="add-new-test-results" cols="14"
-                                      rows="2"></textarea>
-                            <br>
+                                      rows="2" >Expected result</textarea>
+                                </div>
+                            <div class="col-sm-12" id="add-test-steps-button">
                             <button type="button" class="btn btn-primary">Add</button>
                             <button type="button" class="btn btn-default">Cancel</button>
-                        </div>
+                            </div>
                     </div>
+
                 </form>
 
             </div>
@@ -89,6 +109,15 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
 <script src="../bootstrap/js/bootstrap.min.js"></script>
+<!--
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+-->
+<!--script for making background of modal unclickable-->
+<script>
+ $("document").load();
+    $("add-new-test-steps").keydown(function () {console.log( $("add-new-test-steps").textContent);});
+</script>
 </body>
 </html>
