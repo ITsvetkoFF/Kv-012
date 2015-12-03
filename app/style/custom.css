@@ -1,0 +1,22 @@
+
+.table-padding{
+    padding-top: 2%;
+}
+.bag-padding{
+    padding-left: 25px;
+}
+.col-bg-margin{
+    margin-top:2%;
+}
+.bagsSummery{
+    margin-left: 9%;
+}
+.hidden-bags{
+    display: none;
+}
+.button-bags-bottom{
+    margin-bottom: 5px;
+}
+.priority-bags-padding{
+    padding: 5px 10px;
+}

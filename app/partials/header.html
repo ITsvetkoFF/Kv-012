@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" ng-click="changeActiveProject()">
                 <li id="current-project">Project1</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -28,6 +28,9 @@
                 </li>
                 <li class="nav menu-item">
                     REPORTS
+                </li>
+                <li class="nav menu-item" ng-click="$parent.currentTpl='partials/project_team.html'">
+                    TEAM
                 </li>
                 <li class="nav menu-item">
                     <span class="glyphicon glyphicon-envelope menu-icon"></span>
