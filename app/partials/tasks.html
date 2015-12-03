@@ -1,0 +1,260 @@
+<style>
+    .low-priority {
+        background-color: #548fa3;
+    }
+
+    #tasks-table {
+        background-color: white;
+    }
+
+    #tasks-table tr {
+        height: 36px;
+    }
+
+    #tasks-table td {
+        line-height: 36px;
+    }
+
+    .not-run {
+        color: #7a7a7a;
+    }
+
+    .failed {
+        color: #a82626;
+    }
+
+    .tasks-table-details {
+        text-align: right;
+    }
+
+    .medium-priority {
+        background-color: #53a560;
+    }
+
+    .passed {
+        color: #317a39;
+    }
+
+    .tasks-table-icon {
+        color: #7a7a7a;
+    }
+
+    .high-priority {
+        background-color: #e59d3e;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-sm-7">
+        <h2>My Tasks</h2>
+        <table class="table" id="tasks-table">
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project3/Suite5</td>
+                <td class="tasks-table-details">
+                    <span class="badge medium-priority">Medium</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>11.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>15.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="passed">passed</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project3/Suite6</td>
+                <td class="tasks-table-details">
+                    <span class="badge low-priority">Low</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>13.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>19.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="failed">failed</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project3/Suite7</td>
+                <td class="tasks-table-details">
+                    <span class="badge low-priority">Low</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>14.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>17.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project3/Suite9</td>
+                <td class="tasks-table-details">
+                    <span class="badge high-priority">High</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>14.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>16.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project4/Suite1</td>
+                <td class="tasks-table-details">
+                    <span class="badge medium-priority">Medium</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>15.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>19.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project4/Suite5</td>
+                <td class="tasks-table-details">
+                    <span class="badge medium-priority">Low</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>15.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>18.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project4/Suite15</td>
+                <td class="tasks-table-details">
+                    <span class="badge high-priority">High</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>17.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>18.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project5/Suite7</td>
+                <td class="tasks-table-details">
+                    <span class="badge high-priority">High</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>17.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>18.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Project4/Suite22</td>
+                <td class="tasks-table-details">
+                    <span class="badge low-priority">Low</span>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Date: <b>18.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i>Deadline: <b>20.04.2008</b></i>
+                </td>
+                <td class="tasks-table-details">
+                    <i><b><span class="not-run">not run</span></b></i>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-play" style="padding-right: 0"></span>
+                </td>
+                <td class="tasks-table-icon">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gantt Chart</div>
+            <div class="panel-body">
+                <img src="images/gantt.svg" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
