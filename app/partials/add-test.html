@@ -100,7 +100,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="add-test-case-save">Save changes</button>
             </div>
         </div>
     </div>
@@ -116,8 +116,11 @@
 -->
 <!--script for making background of modal unclickable-->
 <script>
- $("document").load();
-    $("add-new-test-steps").keydown(function () {console.log( $("add-new-test-steps").textContent);});
+    $(document).onload($("#add-test-case-save").on("click", function () {
+
+        $(".modal-footer").prepend("Your test case has been saved!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+
+    }));
 </script>
 </body>
 </html>
