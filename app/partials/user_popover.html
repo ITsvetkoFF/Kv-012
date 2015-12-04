@@ -1,5 +1,7 @@
 <ul id="user-popover-list">
-    <li><span class="glyphicon glyphicon-user user-popover-list-icon"></span> My profile</li>
+    <li ng-click="$parent.$parent.currentTpl='partials/profile.html'">
+        <span class="glyphicon glyphicon-user user-popover-list-icon"></span> My profile
+    </li>
     <li><span class="glyphicon glyphicon-cog user-popover-list-icon"></span> Settings</li>
     <li><span class="glyphicon glyphicon-off user-popover-list-icon"></span> Log out</li>
 </ul>
