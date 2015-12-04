@@ -16,4 +16,13 @@ angular.module('appName').controller('appNameCtrl', function($scope, $uibModal){
         });
     };
 
+    $scope.addBug = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "partials/add_bug.html",
+            controller: "addBugCtrl",
+            size: 'lg'
+        });
+    };
+
 })
