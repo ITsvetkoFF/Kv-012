@@ -353,3 +353,22 @@ green {
   position: relative;
   top: 7px;
 }
+
+.view-reports:before, .clear-after:after, .aligner {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.view-reports-caption {
+    text-align: center;
+    background-color: rgb(230,240,230);
+    margin: 0;
+    height: 35px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.view-reports-caption:hover {
+    background-color: rgb(220,230,220);
+}
