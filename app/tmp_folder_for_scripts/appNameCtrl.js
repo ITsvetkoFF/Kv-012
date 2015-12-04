@@ -8,4 +8,12 @@ angular.module('appName').controller('appNameCtrl', function($scope, $uibModal){
         });
     };
 
+    $scope.addTest = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "partials/add-test.html",
+            controller: "addTestCtrl"
+        });
+    };
+
 })
