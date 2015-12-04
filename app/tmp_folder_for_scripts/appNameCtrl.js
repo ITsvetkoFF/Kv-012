@@ -25,4 +25,12 @@ angular.module('appName').controller('appNameCtrl', function($scope, $uibModal){
         });
     };
 
+    $scope.runTest = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "partials/run-test.html",
+            controller: "runTestCtrl"
+        });
+    };
+
 })
