@@ -1,6 +1,6 @@
 .user-panel {
     width: 140px;
-    margin: 10px 0 0 10px;
+    margin: 20px 0 0 20px;
     border: solid 1px #ccc;
     padding: 8px;
     float: left;
@@ -8,6 +8,7 @@
 
 .user-photo {
     width: 124px;
+    margin-top: -14px;
 }
 
 .user-name {
@@ -56,4 +57,21 @@
     float: left;
     cursor: pointer;
     height: 212px;
+}
+
+.online {
+    background-color: #72bb53;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    border: 1px solid white;
+    position: relative;
+    left: 105px;
+    top: 90px;
+}
+
+.offline {
+    background-color: rgba(0,0,0,0);
+    width: 14px;
+    height: 14px;
 }

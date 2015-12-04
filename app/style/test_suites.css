@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(250, 250, 250);
+}
+
+.row {
+    margin: 5px auto;
+}
+
+main {
+    padding: 5px;
+    height: 100%;
+}
+
+main>section:first-child {
+    height: 100%;
+}
+
+ul {
+    list-style: none
+}
+
+.aside-nav {
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    height: 100%;
+}
+
+.aside-nav h4 {
+    margin-bottom: 20px;
+}
+
+.aside-nav .test-suite {
+    margin-bottom: 5px;
+    cursor: default;
+}
+
+.aside-nav .test-suite.active, .aside-nav .test-suite:hover {
+    font-weight:bold;
+}
+
+.aside-nav+hr {
+    display: block;
+    width: 80%;
+    margin: auto;
+    height: 2px;
+    background-color: #000000;
+    margin-bottom: 10px;
+}
+
+.aside-nav .options {
+    padding-left: 40px;
+}
+
+.fa:not(.search-icon) {
+    height: 27px;
+    font-size: 1.2em;
+    border-radius: 0.1em;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.fa-plus:hover {
+    color: green;
+}
+
+.fa-pencil:hover {
+    color: #ffe86f;
+}
+
+.fa-trash:hover {
+    color: red;
+}
+
+.fa-play:hover {
+    color: green;
+}
+
+.main-section {
+    background-color: #ddd;
+    padding: 5px;
+    height: 100%;
+}
+
+.breadcrumb {
+    background-color: inherit;
+
+}
+
+.main-section .btn {
+    float: right;
+    margin-right: 15px;
+}
+
+.main-section .right {
+    padding: 8px;
+}
+
+.search {
+    height: 28px;
+}
+
+.search-block {
+    text-align: right;
+}
+
+.filters {
+    margin-top: 15px;
+}
+
+.filters label, .filters select {
+    position: relative;
+    left: 15px;
+}
+.add-filters {
+    font-size:0.8em;
+}
+
+.test-case {
+    width: 90%;
+    margin: 15px auto;
+    padding: 15px 0;
+    background-color: rgb(230, 237, 230);
+}
+
+.test-case:hover {
+    background-color: rgb(240, 245, 240);
+}
+
+.test-case * {
+    display: inline-block;
+}
+
+.test-case h4 {
+    font-size: 1.1em;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.test-case .info {
+    text-align: right;
+}
+
+.test-case .item {
+    margin-left: 10px;
+}
+
+.test-case .arrow {
+    text-align: right;
+}
+
+.test-case .caret {
+    border-width: 7px;
+}
+
+.test-case a {
+    color: inherit;
+}
+
+
+

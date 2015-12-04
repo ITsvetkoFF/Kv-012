@@ -6,6 +6,14 @@ angular.module('appName').controller('appNameCtrl', function($scope, $uibModal){
             templateUrl: "partials/my_projects.html",
             controller: "myProjectsCtrl"
         });
-    }
+    };
+
+    $scope.addTest = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "partials/add-test.html",
+            controller: "addTestCtrl"
+        });
+    };
 
 })

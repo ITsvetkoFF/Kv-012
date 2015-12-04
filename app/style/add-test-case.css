@@ -1,7 +1,7 @@
+/*add-test-case*/
 #new-test-title{
     min-width: 100px;
     width: 50%;
-    /*float: left;*/
 }
 #new-test-priority{
     width: 80px;
@@ -12,28 +12,29 @@
 }
 #add-test-case-form label{
     text-align: left;
-
-    /*padding: 15px;*/
 }
 #add-test-steps-button{
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
 #addStepsAndResults{
-
     background-color:  #f5f5f5;
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     box-sizing: border-box;
     margin-right: 0;
     margin-left: 0;
-    /*border: solid black 1px;
-    border-bottom: solid black 1px;*/
 }
 #add-new-test-steps{
+    margin-top: 5px;
     overflow: hidden;
 }
 #add-new-test-results{
+    margin-top: 5px;
     overflow: hidden;
+}
+/*******************************************************************/
+/*run test*/
+#run-test-breadcrumbs {
+    margin-top: -15px;
 }
