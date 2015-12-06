@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+   <meta charset="utf-8">
+    <title>Bugs</title>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+    </script>
+
+</head>
+
+<section class="container-fluid bg-success">
+    <div class="text-right col-md-1 col-md-offset-11 button-bags-bottom">
+       <button type="button" class=" btn-md btn btn-success "
+       ng-click="$parent.$parent.currentTpl='partials/addBug.html'">Add Defect</button>
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-md-2 col-sm-8" style="white-space:nowrap;">
+        <button type="button" class="btn btn-default active">Open</button>
+        <button type="button" class="btn btn-default" style=" margin-left: 5px;">Closed</button>
+    </div>
+    <div class="col-md-2 col-sm-5" style="white-space:nowrap;">
+        <form class= "form-inline form-group">
+            <label>Sort By:</label>
+
+            <select class="form-control">
+                <option>ID</option>
+                <option>Priority</option>
+                <option>Date</option>
+            </select>
+        </form>
+    </div>
+
+
+    <div class="col-md-3 col-sm-5">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                 <span class="input-group-btn">
+                      <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
+    </section>
+<section class="container-fluid" style="margin-top: 20px;">
+    <div class="col-md-4">
+        <strong><span>ID Number</span></strong>
+        <span class="badge" style="margin: 0 5px">1</span>
+       <a href="edit.html"> <span class="text-success" style="margin-right: 10px">First Error</span>
+
+            <span class="glyphicon glyphicon-pencil">
+
+            </span>
+       </a>
+
+            <span class="glyphicon glyphicon-trash">
+
+            </span>
+    </div>
+    <div class="col-md-3">
+        <strong><span>Priority:</span></strong>
+        <span>High</span>
+</div>
+    <div class="col-md-3" id="whoFind">
+        <strong><span>Who find:</span></strong>
+        <span>Jane Doe</span>
+    </div>
+    <div class="col-md-12" style="margin-top: 10px;">
+        <p class="text-warning">Description:</p>
+        <p style="padding-bottom: 10px;">Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+            standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+            Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).</p>
+    </div>
+
+    <div class="col-md-4">
+        <strong><span>ID Number</span></strong>
+        <span class="badge" style="margin: 0 5px">2</span>
+        <a href="edit.html"> <span class="text-success" style="margin-right: 10px">First Error</span>
+
+            <span class="glyphicon glyphicon-pencil">
+
+            </span>
+        </a>
+
+            <span class="glyphicon glyphicon-trash">
+
+            </span>
+    </div>
+    <div class="col-md-3">
+        <strong><span>Priority:</span></strong>
+        <span>High</span>
+    </div>
+    <div class="col-md-3">
+        <strong><span>Who find:</span></strong>
+        <span>Jane Doe</span>
+    </div>
+    <div class="col-md-12" style="margin-top: 10px;">
+        <p class="text-warning">Description:</p>
+        <p>Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+            standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+            Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).</p>
+    </div>
+
+</section>
+
+</body>
+</html>

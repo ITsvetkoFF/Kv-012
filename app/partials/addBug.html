@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edit</title>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/bugs.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+    </script>
+
+</head>
+
+<div class="container">
+    <h2>Create New Bug</h2>
+    <form>
+        <div class="form-group">
+            <label for="errorname">Error Name</label>
+            <input type="text" class="form-control" id="errorname" placeholder="ErrorName">
+        </div>
+        <div class="form-group">
+            <label for="priority:">Priority:</label>
+            <select class="form-control">
+                <option>Critical</option>
+                <option>High</option>
+                <option>Normal</option>
+                <option>Low</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="whoFind">Who Find:</label>
+            <input type="text" class="form-control" id="whoFind" placeholder="Who Find">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="bugs.html"><button type="button" class="btn btn-default">Cansel</button></a>
+    </form>
+</div>
+</body>
+</html>
