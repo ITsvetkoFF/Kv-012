@@ -20,3 +20,28 @@
 .priority-bags-padding{
     padding: 5px 10px;
 }
+
+
+.buttomAddDefects{
+    margin-right: -25px;
+    margin-top: 2px;
+    box-shadow: #318932 2px 2px 3px;
+}
+.bugsNowrap{
+    white-space:nowrap;
+}
+.bugsMarginContainer{
+    margin-top: 20px;
+}
+.bugsMarginBadge{
+    margin: 0 5px;
+}
+.bugsMarginnameError{
+    margin-right: 10px;
+}
+.bugsMarginDescription{
+    margin-top: 10px;
+}
+.bugsPaddingDescription{
+    padding-bottom: 10px;
+}
