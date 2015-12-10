@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Best task manager ever</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</head>
+<body>
+
+
+    <br/>
+    <div class="container-fluid">
+        <div class="clearfix">
+            <form class="form-inline pull-right well">
+                <select class="form-control">
+                    <option>Select srprint:</option>
+                    <option>Sprint 1</option>
+                    <option>Sprint 2</option>
+                    <option>Sprint 3</option>
+                </select>
+                or <b>period:</b>
+                <div class="form-group has-feedback">
+                    <input placeholder="from" type="text" class="form-control">
+                    <span class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input placeholder="to" type="text" class="form-control">
+                    <span class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </form>
+            <h1>Reports
+            </h1>
+
+        </div>
+        <hr>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default" id="chart1">
+                    <div class="panel-heading">
+                        <h4>
+                            <b data-toggle="collapse" data-parent="#chart1" href="#chart1settings" class="pull-right glyphicon glyphicon-wrench"></b>
+                            Runs Statistic
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="chart1settings" class="collapse">
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox" value="">
+                                            Show only completed runs
+                                        </label>
+                                    </div>
+                                </div>    
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                      <label>
+                                        <input type="radio" name="optionsRadios" value="option1" checked>
+                                        Option one 
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                  <label>
+                                    <input type="radio" name="optionsRadios" value="option2">
+                                    Option two 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="runStatisticChart"></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Cases Statistic</h4>
+        </div>
+        <div class="panel-body">
+           <div id="caseStatisticChart"></div>
+       </div>
+   </div>
+</div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>Team Statistic</h4></div>
+    <div class="panel-body">
+        <div id="runByUserChart"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Project Activity</h4></div>
+
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item"> 
+                    <div class="media">
+                        <div class="media-left col-md-1">
+                            <div class="h3 text-muted">
+                                <i class="glyphicon glyphicon-ok-sign"></i>
+                            </div>
+                        </div>
+                        <div class="media-body">  
+                            <time class="small" is="relative-time" datetime="2015-12-08T00:12:10Z" title="8 дек. 2015 г., 2:12 GMT+2">2 days ago</time>
+                            <h4 class="title">
+                                <a href="/m4ra"><b>maria</b></a> finished <a href="#"><b>run1</b></a>  with status <b class="label label-success">success</b>
+                            </h4>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                      <img width="30" height="30" src="https://avatars0.githubusercontent.com/u/5695572?v=3&amp;s=60" class="gravatar" alt="@m4ra">
+                                  </a>
+                              </div>
+                              <div class="media-body">
+                                <p>Run description here</p>
+                                <div class="badge">Run <b>#123</b> with <b>5 cases</b> is finished</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </li>
+            <li class="list-group-item"> 
+                <div class="media">
+                    <div class="media-left col-md-1">
+                        <div class="h3 text-muted">
+                            <i class="glyphicon glyphicon-road"></i>
+                        </div>
+                    </div>
+                    <div class="media-body">  
+                        <time class="small" is="relative-time" datetime="2015-12-08T00:12:10Z" title="8 дек. 2015 г., 2:12 GMT+2">2 days ago</time>
+                        <h4 class="title">
+                            <a href="/m4ra"><b>maria</b></a> created new run <a href="#"><b>run1</b></a>
+                        </h4>
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                  <img width="30" height="30" src="https://avatars0.githubusercontent.com/u/5695572?v=3&amp;s=60" class="gravatar" alt="@m4ra">
+                              </a>
+                          </div>
+                          <div class="media-body">
+                            <p>Run description here</p>
+                            <div class="badge">Run <b>#123</b> created with <b>5 cases</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            </li
+        </ul>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well text-center">
+                Cases <br/> <small>created</small><br/>
+                <b class="badge h4">5</b>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well text-center">
+                Runs <br/> <small>created</small><br/>
+                <b class="badge h4">8</b>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well text-center">
+                Issues <br/> <small>created</small><br/>
+                <b class="badge h4">1</b>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br/>
+
+
+</div>
+
+<script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart', 'bar']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var runStatisticChartData = google.visualization.arrayToDataTable([
+          ['Result', 'Number of runs'],
+          ['Finished',     11],
+          ['Failed',      2],
+          ['Blocked',  2],
+          ['Not Runed',  2],
+          ]);
+
+        var runStatisticChartDataOptions = {
+            colors: ['#5cb85c', '#d9534f', '#f0ad4e', '#cccccc'],
+            chartArea: {left:10,top:10,width:'100%',height:'90%'}
+        };
+
+        var runStatisticChart = new google.visualization.PieChart(document.getElementById('runStatisticChart'));
+        runStatisticChart.draw(runStatisticChartData, runStatisticChartDataOptions);
+
+
+        var caseStatisticChartData = google.visualization.arrayToDataTable([
+            ['Priority', 'Finished', 'Failed', 'Blocked', 'Not Runed', { role: 'annotation' } ],
+            ['Critical', 15, 4, 24, 31, ''],
+            ['Hight', 10, 24, 20, 32, ''],
+            ['Middle', 16, 22, 23, 30, ''],
+            ['Low', 28, 19, 29, 30, '']
+            ]);
+
+        var caseStatisticChartOptions = {
+            colors: ['#5cb85c', '#d9534f', '#f0ad4e', '#cccccc'],
+            chartArea: {left:0,top:0,width:'100%',height:'80%'},
+            bar: { groupWidth: '75%' },
+            isStacked: true
+        };
+
+        var caseStatisticChart = new google.visualization.ColumnChart(document.getElementById('caseStatisticChart'));
+        caseStatisticChart.draw(caseStatisticChartData, caseStatisticChartOptions);
+
+
+        var runByUserChartData = google.visualization.arrayToDataTable([
+            ['Name', 'Finished', 'Failed', 'Blocked', 'Not Runed', { role: 'annotation' } ],
+            ['Vasya', 15, 4, 24, 31, ''],
+            ['Petya', 10, 24, 20, 32, ''],
+            ['Alena', 16, 22, 23, 30, ''],
+            ['Maria', 28, 19, 29, 30, '']
+            ]);
+
+        var runByUserChartOptions = {
+            colors: ['#5cb85c', '#d9534f', '#f0ad4e', '#cccccc'],
+            isStacked: true
+        };
+
+        var runByUserChart = new google.visualization.BarChart(document.getElementById('runByUserChart'));
+        runByUserChart.draw(runByUserChartData, runByUserChartOptions);
+
+    }
+    </script>
+
+</body>
+</html>
