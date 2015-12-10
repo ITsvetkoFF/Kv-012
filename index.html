@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <h2 class="run-title">Run name
+                <!--<small>-->
+                <!--<small>Suites: 5 Cases: 10 Steps: 20</small>-->
+                <!--</small>-->
+
+                <button type="button" class="btn btn-success">Save</button>
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Export
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">PNG</a></li>
+                        <li><a href="#">PDF</a></li>
+                        <li><a href="#">CSV</a></li>
+                        <li><a href="#">JSON</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-default">Cancel</button>
+
+            </h2>
+
+
+        </div>
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="pull-right">
+                        00:00:00
+                        <span class="glyphicon glyphicon-play"></span>
+                        <span class="glyphicon glyphicon-pause"></span>
+                    </h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="well">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Filter <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">NO filter</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Created by you</a></li>
+                                    <li><a href="#">Created by another</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">nosuite</a></li>
+                                    <li><a href="#">suite 1</a></li>
+                                    <li><a href="#">suite 2</a></li>
+                                    <li><a href="#">suite 3</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">some filter</a></li>
+                                </ul>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" class="form-control" placeholder="Search for ..."/>
+                        </div>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" aria-valuenow="3"
+                     aria-valuemin="0" aria-valuemax="6" style="width: 50%;">
+                    3
+                </div>
+                <div class="progress-bar progress-bar-danger progress-bar-striped active" aria-valuenow="1"
+                     aria-valuemin="0" aria-valuemax="6" style="width: 20%;">
+                    1
+                </div>
+                <div class="progress-bar progress-bar-striped active" aria-valuenow="2" aria-valuemin="0"
+                     aria-valuemax="6" style="width: 30%;">
+                    2
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row -->
+    <hr/>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="pull-right">
+                <button class="btn btn-default" type="button" data-toggle="tooltip"
+                        title="Expend all" data-placement="top">
+                    Expend all
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+                <button class="btn btn-default" type="button" data-toggle="tooltip"
+                        title="Collapse all" data-placement="top">
+                    Collapse all
+                    <i class="glyphicon glyphicon-minus"></i>
+                </button>
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 run-table">
+            <!--<div class="row run-table-head text-uppercase">-->
+            <!--<div class="col-xs-3">-->
+            <!--<h4 class="case-title">-->
+            <!--Testcase <span class=""></span>-->
+            <!--</h4>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2">-->
+            <!--<h4>Description</h4>-->
+            <!--</div>-->
+
+            <!--<div class="col-xs-3"><h4>Result</h4></div>-->
+            <!--</div>-->
+            <!--<hr/>-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>Suite name suite name</h4>
+                        </div>
+                    </div>
+                    <div class="row run-table-case">
+                        <div class="col-xs-2 col-xs-offset-1">
+                            <a href="#case1-steps" data-toggle="collapse" role="button">
+                                testcase 1
+                            </a>
+                            <label for="" class="label label-danger">critical</label>
+                        </div>
+                        <div class="col-xs-5">
+                            <label for="">Description :</label>case description case description case descriptionbr
+                            <br/>
+                            <label for="">Preconditions:</label> preconditions preconditions preconditions preconditions
+                        </div>
+                        <div class="col-xs-4">
+                            <!--<div class="progress">-->
+                            <!--<div class="progress-bar progress-bar-success" aria-valuenow="3" aria-valuemin="0"-->
+                            <!--aria-valuemax="6" style="width: 50%;">-->
+                            <!--3-->
+                            <!--</div>-->
+                            <!--<div class="progress-bar progress-bar-danger" aria-valuenow="1" aria-valuemin="0"-->
+                            <!--aria-valuemax="6" style="width: 20%;">-->
+                            <!--1-->
+                            <!--</div>-->
+                            <!--<div class="progress-bar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="6"-->
+                            <!--style="width: 30%;">-->
+                            <!--2-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; progress bar &ndash;&gt;-->
+                            <!--<span class="alert alert-success">-->
+                            <div class="alert alert-success text-uppercase text-center">passed</div>
+                            <!--</span>-->
+                        </div>
+                    </div>
+                    <!-- table case row -->
+                    <div class="row run-table-steps alert alert-warning collapse in" id="case1-steps">
+                        <div class="col-xs-12">
+                            <div class="row run-table-steps-head">
+                                <div class="col-xs-3 col-xs-offset-2"><label>Action</label></div>
+                                <div class="col-xs-3"><label for="">Expected</label></div>
+                                <!--<div class="col-xs-3"><label for="">Comment</label></div>-->
+                            </div>
+                            <div class="row run-table-step">
+                                <div class="col-xs-1 col-xs-offset-1">1</div>
+                                <div class="col-xs-3">action action action action action action action action</div>
+                                <div class="col-xs-3">expected result expected result expected result expected result
+                                    expected result
+                                </div>
+                                <!--<div class="col-xs-3">real result real result real result real result real result real-->
+                                <!--result-->
+                                <!--</div>-->
+                                <div class="col-xs-2 col-xs-offset-2">
+                                    <form action="" class="">
+                                        <div class="form-group">
+                                            <select name="" id="" class="form-control"
+                                                    onchange="$('#run-result-modal').modal('show');">
+                                                <option value="">result</option>
+                                                <option value="">passed</option>
+                                                <option value="">blocked</option>
+                                                <option value="">failed</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr/>
+                            <!-- table step row -->
+                            <div class="row run-table-step">
+                                <div class="col-xs-1 col-xs-offset-1">2</div>
+                                <div class="col-xs-3">action action action action action action action action</div>
+                                <div class="col-xs-3">expected result expected result expected result expected result
+                                    expected result
+                                </div>
+                                <!--<div class="col-xs-3">real result real result real result real result real result real-->
+                                <!--result-->
+                                <!--</div>-->
+                                <div class="col-xs-2 col-xs-offset-2">
+                                    <form action="" class="">
+                                        <div class="form-group">
+                                            <select name="" id="" class="form-control"
+                                                    onchange="$('#run-result-modal').modal('show');">
+                                                <option value="">result</option>
+                                                <option value="">passed</option>
+                                                <option value="">blocked</option>
+                                                <option value="">failed</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- table step row -->
+                        </div>
+                    </div>
+                    <!-- table steps row -->
+                    <hr/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br/>
+</div>
+<!--modals-->
+<div class="modal" id="run-result-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Step comment</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <label for="step-result-description">Comment</label>
+                        <textarea class="form-control" rows="4" id="step-result-description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default">Save</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="run-create-defect-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create defect</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <label for="defect-description">Comment</label>
+                        <textarea class="form-control" rows="4" id="defect-description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default">Save</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
