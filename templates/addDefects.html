@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bugs</title>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+    </script>
+</head>
+
+<section class="container-fluid">
+    <div class="col-md-2">
+        <h1>Defects</h1>
+    </div>
+    <div class="text-center col-md-2" >
+        <br>
+        <button type="button" class=" btn-md btn btn-success text-center"  data-toggle="modal" data-target="#addBugs">
+            Add Defect</button>
+    </div>
+</section>
+    <section class="container-fluid well">
+        <br>
+    <div class="col-md-2 col-sm-8">
+        <button type="button" class="btn btn-default active">Open</button>
+        <button type="button" class="btn btn-default" >Closed</button>
+    </div>
+    <div class="col-md-2 col-sm-5">
+        <form class= "form-inline form-group">
+            <label>Sort By:</label>
+
+            <select class="form-control">
+                <option>ID</option>
+                <option>Priority</option>
+                <option>Date</option>
+            </select>
+        </form>
+    </div>
+
+
+    <div class="col-md-3 col-sm-5">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                 <span class="input-group-btn">
+                      <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
+
+</section>
+<br>
+<section class="container-fluid">
+    <div class="col-md-3">
+        <span class="badge">1</span>
+        <strong><span class="text-success">First Error</span></strong>
+
+            <span class="glyphicon glyphicon-pencil">
+
+            </span>
+
+
+            <span class="glyphicon glyphicon-trash">
+
+            </span>
+    </div>
+    <div class="col-md-2">
+        <strong><span>Date:</span></strong>
+        <span>11.11.2015</span>
+    </div>
+    <div class="col-md-2">
+        <strong><span>Priority:</span></strong>
+        <span>High</span>
+    </div>
+    <div class="col-md-11">
+        <br>
+        <strong><span>Who find:</span></strong>
+        <span>Jane Doe</span>
+    </div>
+
+    <div class="col-md-10">
+        <strong><span>Assigned to:</span></strong>
+        <span>Jim Core</span>
+    </div>
+    <div class="col-md-12">
+        <br>
+        <p class="text-warning">Description:</p>
+        <p>Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+            standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+            Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).</p>
+    </div>
+    <div class="col-md-12">
+        <p class="text-warning">Steps To Reproduce:</p>
+
+        <p>1. Connect as Admin
+
+            2. Go to a Course page > Turn editing on > Select Insert Label operation > Enter some details and Save
+
+            => The new label is not displayed into the course page</p>
+
+    </div>
+    <div class="col-md-3">
+        <span class="badge">2</span>
+        <strong> <span class="text-success">Second Error</span></strong>
+
+            <span class="glyphicon glyphicon-pencil">
+
+            </span>
+
+
+            <span class="glyphicon glyphicon-trash">
+
+            </span>
+    </div>
+    <div class="col-md-2">
+        <strong><span>Date:</span></strong>
+        <span>13.11.2015</span>
+    </div>
+    <div class="col-md-2">
+        <strong><span>Priority:</span></strong>
+        <span>High</span>
+    </div>
+    <div class="col-md-10">
+        <br>
+        <strong><span>Who find:</span></strong>
+        <span>Jane Doe</span>
+    </div>
+
+    <div class="col-md-10">
+        <strong><span>Assigned to:</span></strong>
+        <span>Tim Ret</span>
+    </div>
+    <div class="col-md-12">
+        <br>
+        <p class="text-warning">Description:</p>
+        <p class="bugsPaddingDescription">Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+            standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+            Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).</p>
+    </div>
+    <div class="col-md-12">
+        <p class="text-warning">Steps To Reproduce::</p>
+        <p>1. Connect as Admin
+
+            2. Go to a Course page > Turn editing on > Select Insert Label operation > Enter some details and Save
+
+            => The new label is not displayed into the course page</p>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addBugs" tabindex="-1" role="dialog" aria-labelledby="addBugsLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addBugsLabel">Add defect</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                        <form class="form-group col-md-9">
+                            <label for="errorname">Bugs Name</label>
+                            <input type="text" class="form-control" id="errorname" placeholder="ErrorName">
+                        </form>
+                        <form class="form-group col-md-3">
+                            <label>Priority:</label>
+                            <select class="form-control">
+                                <option>Critical</option>
+                                <option>High</option>
+                                <option>Normal</option>
+                                <option>Low</option>
+                            </select>
+                        </form>
+                        <form class="form-group col-md-6">
+                            <label for="whoFind">Who Find:</label>
+                            <input type="text" class="form-control" id="whoFind" placeholder="Who Find">
+                        </form>
+                        <form class="form-group col-md-6">
+                            <label for="assignedTo">Assigned to:</label>
+                            <input type="text" class="form-control" id="assignedTo" placeholder="Assigned to">
+                        </form>
+                        <form class="form-group col-md-12">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+
+                        </form>
+                       <form class="col-md-12" enctype="multipart/form-data" method="post">
+                           <input type="file" value="Attach file" id="choose-file">
+                        </form>
+                        <form class="form-group col-md-12">
+                            <br>
+                            <label for="testCase">Steps To Reproduce:</label>
+                            <textarea class="form-control" id="testCase" rows="2" placeholder="TestCase"></textarea>
+
+                        </form>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cansel</button>
+                <button type="button" class="btn btn-primary">Post</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
