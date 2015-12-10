@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Best task manager ever</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Manage Team</h4>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#addTeam">Add
+                    new team
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#teamA" aria-expanded="true" aria-controls="case2">
+                                <h4>Team A
+                                    <small class="text-muted">projects<span
+                                            class="caret"></span></small>
+                                </h4>
+                            </a>
+                            <button class="btn btn-default" data-toggle="modal" data-target="#addPerson">
+                                <span class="glyphicon glyphicon-plus"
+                                      aria-hidden="true"></span>Add person to project
+                            </button>
+
+                            <div id="teamA" class="panel-collapse collapse clearfix" role="tabpanel">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Project</th>
+                                        <th>Created</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="#">Project 1</a></td>
+                                        <td>May 15, 2015</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#">Project 2</a></td>
+                                        <td>May 15, 2015</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <img src="profile.jpg" class="img-circle img-responsive" alt="avatar">
+                                <span>Vasya</span>
+                                <button type="button" class="close" aria-label="Close" data-toggle="modal"
+                                        data-target="#deleteTeamMate"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="col-xs-2">
+                                <img src="profile.jpg" class="img-circle img-responsive" alt="avatar">
+                                <span>Petya</span>
+                                <button type="button" class="close" aria-label="Close" data-toggle="modal"
+                                        data-target="#deleteTeamMate"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="col-xs-2">
+                                <img src="profile.jpg" class="img-circle img-responsive">
+                                <span>Kolya</span>
+                                <button type="button" class="close" aria-label="Close" data-toggle="modal"
+                                        data-target="#deleteTeamMate"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="deleteTeamMate" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want remove <b>Kolya</b> from project <b>Project1</b>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="addPerson" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Personal details</h4>
+
+                            <div class="form-group">
+                                <label for="first-name">First name</label>
+                                <input type="text" class="form-control" id="first-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last name</label>
+                                <input type="text" class="form-control" id="last-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-email">Email address</label>
+                                <input type="email" class="form-control" id="user-email">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Permisions</h4>
+                            <div class="form-group">
+                                <label for="select-suites-cases">Test suites and cases</label>
+                                <select class="form-control" id="select-suites-cases">
+                                    <option>Full read&write access</option>
+                                    <option>Read only</option>
+                                    <option>No access</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select-runs">Test runs</label>
+                                <select class="form-control" id="select-runs">
+                                    <option>Full read&write access</option>
+                                    <option>Read only</option>
+                                    <option>No access</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default">Add new person</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="addTeam" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h4>Creating new team</h4>
+
+                    <div class="form-group">
+                        <label for="team-name">Name</label>
+                        <input type="text" class="form-control" id="team-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="select-project">Project this team can access</label>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Project 1</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Project 2</label>
+                        </div>
+                        <div class="checkbox disabled">
+                            <label><input type="checkbox" value="">Project 3</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

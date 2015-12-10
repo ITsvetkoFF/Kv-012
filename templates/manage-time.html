@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Best task manager ever</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="addnewsuite.css">
+    <link rel="stylesheet" href="projects.css">
+    <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+    <link rel="stylesheet"
+          href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="col-md-12">
+
+        <div class="panel-heading"><h4>Manage Time</h4></div>
+
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <div class="form-group">
+                    <label>Add new sprint</label><br/>
+                    <label for="sprint-name">Name</label><br/>
+                    <input type="text" class="form-control">
+                    <span>from</span>
+
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control"/>
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                    </div>
+                    <script type="text/javascript">
+                                $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                                    });
+
+
+                    </script>
+
+                    <span>to</span>
+
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control"/>
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                    </div>
+
+                    <br/>
+                    <button type="submit" class="btn btn-default">Add</button>
+
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h4>Project 1</h4>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Apr 1</th>
+                        <th>Apr 2</th>
+                        <th>Apr 3</th>
+                        <th>Apr 4</th>
+                        <th>Apr 5</th>
+                        <th>Apr 6</th>
+                        <th>Apr 7</th>
+                        <th>Apr 8</th>
+                        <th>Apr 9</th>
+                        <th>Apr 10</th>
+                        <th>Apr 10</th>
+                        <th>Apr 11</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td colspan="4" class="success"> Sprint 1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" class="success"> Sprint 2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="4" class="success"> Sprint 4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="3" class="success"> Sprint 5</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="4" class="success"> Sprint 6</td>
+                        <td></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+
+</html>
