@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create New Test Case</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<section>
+
+  <div class="container">
+    <div class="panel panel-default">
+
+      <div class="panel-heading text-center">
+        <h2>Create New Test Case</h2>
+      </div>
+
+    <!-- <div class="container"> -->
+      <div class="panel-body">
+        <div class="well well-sm">
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="caseTitle">Title:</label>
+              <input type="text" class="form-control" id="caseTitle" name="caseTitle" placeholder="Test case title">
+            </div>
+            <div class="form-group">
+              <label for="caseDescription">Description:</label>
+              <textarea class="form-control" rows="3" id="caseDescription" name="caseDescription" placeholder="Input test case description here"></textarea>
+            </div>
+          </div>
+            
+          <div class="clearfix">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseSuite">Suite:</label>
+                <select class="form-control" id="caseSuite" name="caseSuite">
+                  <option>Suite 1</option>
+                  <option>Suite 2</option>
+                  <option>Suite 3</option>
+                  <option>None</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="casePriority">Priority:</label>
+                <select class="form-control" id="casePriority">
+                  <option value="4">Critical</option>
+                  <option value="3">High</option>
+                  <option value="2" selected>Medium</option>
+                  <option value="1">Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseId">Test Case ID:</label>
+                <input type="text" class="form-control" id="caseId" value="555-1" disabled>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseDate">Created:</label>
+                <input type="date" class="form-control" id="caseDate" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseCategory">Category:</label>
+                <select class="form-control" id="caseCategory" name="caseCategory">
+                  <option value="1">Acceptance</option> 
+                  <option value="2">Accessibility</option> 
+                  <option value="3">Automated</option> 
+                  <option value="4">Compatibility</option> 
+                  <option value="5">Destructive</option> 
+                  <option value="6">Functional</option> 
+                  <option value="7" selected="selected">Other</option> 
+                  <option value="8">Performance</option> 
+                  <option value="9">Regression</option> 
+                  <option value="10">Security</option> 
+                  <option value="11">Smoke &amp; Sanity</option> 
+                  <option value="12">Usability</option> 
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseAssignee">Assignee:</label>
+                <select class="form-control" id="caseAssignee" name="caseAssignee">
+                  <option selected>None</option>
+                  <option>Jane Doe</option>
+                  <option>John Doe</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseSprint">Sprint:</label>
+                <select class="form-control" id="caseSprint">
+                  <option selected>None</option>
+                  <option>Sprint 1</option>
+                  <option>Sprint 2</option>
+                  <option>Sprint 3</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseReferences">References:</label>
+                <input type="url" class="form-control" id="caseReferences" name="caseReferences">
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="casePreconditions">Preconditions:</label>
+                <textarea class="form-control" rows="3" id="casePreconditions" name="casePreconditions" placeholder="Test case preconditions"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="caseAttachment">Attachment:</label>
+                <input type="file" id="caseAttachment" name="caseAttachment">
+              </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+          </div>
+
+        </div> <!-- closing well 1 -->
+
+<!-- STEPS -->
+        <div class="well well-sm">
+          <div class="clearfix">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="step1">Step 1:</label>
+                <textarea class="form-control" rows="5"  class="form-control" id="step1" name="step1" placeholder="Step"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="step1ExpRes">Expected result:</label>
+                <textarea class="form-control" rows="5"  class="form-control" id="step1ExpRes" name="step1ExpRes" placeholder="Expected result"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix">
+            <div class="col-sm-12">
+              <input type="file">
+              <button type="button" class="btn btn-link pull-right"><i class="fa fa-trash fa-lg"></i></button>
+            </div>
+          </div>
+          <hr>
+          
+          <div class="clearfix">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="step2">Step 2:</label>
+                <textarea class="form-control" rows="5"  class="form-control" id="step1" name="step1" placeholder="Step"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="step2ExpRes">Expected result:</label>
+                <textarea class="form-control" rows="5"  class="form-control" id="step2ExpRes" name="step2ExpRes" placeholder="Expected result"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix">
+            <div class="col-sm-12">
+              <input type="file">
+              <button type="button" class="btn btn-link pull-right"><i class="fa fa-trash fa-lg"></i></button>
+            </div>
+          </div>
+          <hr>
+
+          <div class="clearfix">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-default pull-left">Add New Step</button>
+            </div>
+          </div>
+        </div><!-- closing well 2 -->
+
+        <div class="pull-right container-fluid">
+          <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Submit</button>
+          <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</button>
+        </div>
+
+      </div> <!-- closing panel-body -->
+      <!-- </div> closing container -->
+
+    </div> <!-- closing panel -->
+  </div> <!-- closing container -->
+
+
+</section>
+
+
+</body>
+</html>
