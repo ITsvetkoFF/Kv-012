@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Project</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <section class="curr-project-window container-fluid" style="padding-top: 10px;">
+        <div class="row">
+
+            <!-- PROJECTS ACCORDION -->
+
+            <aside class="col-md-2 navmenu navmenu-default navmenu-fixed-left offcanvas in canvas-slid" id="left-nav-menu"
+            style="padding-top: 25px;">
+
+                <div class="panel-group" id="projects-accordion" role="tablist">
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Project TCMS
+                                    <i class="fa fa-circle pull-right" style="color:#286090; font-size: 14px; "></i>
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="short-descr">
+                                <p> Test case management system for free...  </p>
+                                <div class="row-fluid">
+                                    <button class="col-md-4 btn btn-warning" style="padding: 3px 0;"> Edit </button>
+                                    <button class="col-md-5 btn btn-primary pull-right" style="padding: 3px 0;"> Choose </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                                    Project AQUA
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <div class="short-descr">
+                                <p> Test case management system for free...  </p>
+                                <div class="row-fluid">
+                                    <button class="col-md-4 btn btn-warning" style="padding: 3px 0;"> Edit </button>
+                                    <button class="col-md-5 btn btn-primary pull-right" style="padding: 3px 0;"> Choose </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Project InterCom
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <div class="short-descr">
+                                <p> Test case management system for free...  </p>
+                                <div class="row-fluid">
+                                    <button class="col-md-4 btn btn-warning" style="padding: 3px 0;"> Edit </button>
+                                    <button class="col-md-5 btn btn-primary pull-right" style="padding: 3px 0;"> Choose </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </aside>
+
+            <!-- END OF PROJECTS ACCORDION -->
+
+            <!-- MAIN CURRENT PROJECT BLOCK -->
+
+            <section class="col-md-10 current-project-container container-fluid canvas-slid" style="position: relative; left: 0px; overflow: hidden;">
+
+                <!-- Current project header -->
+                <header class="container-fluid">
+                    <h1 class="project-title pull-left" style="padding-left: 0;">
+                        Project TCMS
+                    </h1>
+                    <button class="btn btn-default col-md-1" style="margin-top: 30px; margin-left: 20px;  padding: 0;">
+                        Actions <i class="fa fa-caret-down"></i>
+                    </button>
+                </header>
+                <!-- Current project header -->
+
+                <!-- Main left column -->
+                <div class="col-md-6 left-col">
+
+                    <section class="projects-details row row-fluid">
+
+                        <header class="container-fluid">
+                            <h4 class="caption"> Description: </h4>
+                        </header>
+
+                        <div class="project-description well container-fluid">
+                            <article class="description">
+                                Lorem Ipsum - це текст-"риба", що використовується в друкарстві та дизайні. Lorem Ipsum
+                                є, фактично, стандартною "рибою" аж з XVI сторіччя, коли невідомий друкар взяв
+                            </article>
+                        </div>
+
+                    </section>
+
+                    <!-- Defects of the Project -->
+                    <section class="project-defects row row-fluid">
+
+                        <header class="container-fluid">
+                            <div class="row">
+                                <h4 class="col-md-6 caption">
+                                    <a href="#">Defects:</a>
+                                </h4>
+                                <div class="col-md-6">
+                                    <select name="defects-sort" id="defects-sort" class="defects-sort-select pull-right"
+                                            style="margin: 10px auto; width: 150px; float: right;">
+                                        <option value="" selected>Priority</option>
+                                        <option value="">Date</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="defects-container list-group" style="margin-top: 10px;">
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-warning"> High </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> The Lorem Ipsum Defect </a> <br/>
+                                    <span class="text-muted"> 2 days ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-warning"> High </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> The Lorem Ipsum Defect but Another One </a> <br/>
+                                    <span class="text-muted"> 2 hours ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-warning"> High </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> The defect of a landing page animations </a> <br/>
+                                    <span class="text-muted"> 1 day ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success disabled hidden">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-primary"> Medium </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> Login Page show on mobile and tablet screens fails </a> <br/>
+                                    <span class="text-muted"> 7 days ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success disabled hidden">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-primary"> Medium </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> It's a very long-long-long-named Defect but everything works properly. Great Job! </a> <br/>
+                                    <span class="text-muted"> 5 minutes ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="defect container-fluid list-group-item" style="margin-bottom: 5px;">
+                                <div class="col-md-2">
+                                    <span class="label label-success"> Low </span>
+                                </div>
+                                <article class="col-md-6">
+                                    <a href="#"> The Lorem Ipsum Defect </a> <br/>
+                                    <span class="text-muted"> 2 days ago </span>
+                                </article>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-success disabled hidden">
+                                        Retest &nbsp
+                                        <i class="fa fa-caret-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer class="container-fluid panel">
+                            <a href="#"> View defects list </a>
+                        </footer>
+
+                    </section>
+                    <!-- End of Defects of the Project -->
+                </div>
+                <!-- End of Main left column -->
+
+                <div class="col-md-6 right-col">
+
+                    <!-- Last activity block -->
+                    <section class="last-activity container-fluid panel">
+
+                        <header class="container-fluid">
+                            <h4 class="caption"> Last Activity: </h4>
+                        </header>
+
+                        <div class="container-fluid" style="margin-top: 10px;">
+
+                            <article class="container-fluid panel">
+                                <div class="photo col-md-2">
+                                    <div class="photo" style="width:30px; height:30px; background-color:cadetblue;"></div>
+                                </div>
+                                <div class="message col-md-8">
+                                    <a href="#">SergeyFitsov</a> passed <a href="#">CurrentProfileRun</a> successfully
+                                </div>
+                                <div class="time text-muted"> 12:43 am </div>
+                            </article>
+
+                            <article class="container-fluid panel">
+                                <div class="photo col-md-2">
+                                    <div class="photo" style="width:30px; height:30px; background-color: darkred;"></div>
+                                </div>
+                                <div class="message col-md-8">
+                                    <a href="#">BogdanKivva</a> passed <a href="#">Navigation Tree Run</a> successfully
+                                </div>
+                                <div class="time text-muted"> 12:43 am </div>
+                            </article>
+
+                            <article class="container-fluid panel">
+                                <div class="photo col-md-2">
+                                    <div class="photo" style="width:30px; height:30px; background-color: goldenrod;"></div>
+                                </div>
+                                <div class="message col-md-8">
+                                    <a href="#">OlenaNaratova</a> failed <a href="#">Currency Count Run</a>
+                                </div>
+                                <div class="time text-muted"> 12:43 am </div>
+                            </article>
+
+                            <article class="container-fluid panel">
+                                <div class="photo col-md-2">
+                                    <div class="photo" style="width:30px; height:30px; background-color: indigo;"></div>
+                                </div>
+                                <div class="message col-md-8">
+                                    <a href="#">MariaMarusina</a> passed <a href="#">Google Analytics counter Run</a> successfully
+                                </div>
+                                <div class="time text-muted"> 12:43 am </div>
+                            </article>
+
+                            <article class="container-fluid panel">
+                                <div class="photo col-md-2">
+                                    <div class="photo" style="width:30px; height:30px; background-color: goldenrod;"></div>
+                                </div>
+                                <div class="message col-md-8">
+                                    <a href="#">KonstantinKizimenko</a> failed <a href="#">Add Item to Cart Run </a>
+                                </div>
+                                <div class="time text-muted"> 12:43 am </div>
+                            </article>
+
+                        </div>
+
+                    </section>
+                    <!-- End of Last activity block -->
+
+                    <!-- Reports Preview -->
+                    <section class="report container-fluid">
+                        <h4 class="col-md-6 caption">
+                            <a href="#">Statistics:</a>
+                        </h4>
+                        <ul class="nav nav-tabs statistics-tabs">
+                            <li class="active"><a href="#">Runs</a></li>
+                            <li><a href="#">Suites</a></li>
+                            <li><a href="#">Cases</a></li>
+                        </ul>
+                        <div class="chart" style="text-align: center; padding-top: 15px;">
+                            <img src="http://b.dryicons.com/images/icon_sets/colorful_stickers_part_6_icons_set/png/256x256/pie_chart.png"
+                                 alt=""> <br/>
+                            <button class="btn btn-default" style="margin-top: 10px;"> Show Detailed Reports </button>
+                        </div>
+                    </section>
+                    <!-- End of Reports Preview -->
+
+
+
+                </div>
+
+            </section>
+
+            <!-- END OF MAIN CURRENT PROJECT BLOCK -->
+
+        </div>
+    </section>
+</body>
+</html>
