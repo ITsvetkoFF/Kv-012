@@ -1,0 +1,283 @@
+@color_lightblue: #52b9e9;
+@color_blue: #1171a3;
+@color_success: #43c83c;
+@color_warning: #f88529;
+@color_important: #fa3031;
+@color_violet: #932ab6;
+
+* {
+    /*-webkit-box-shadow: none !important;
+    -ms-box-shadow: none !important;
+    box-shadow: none !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+    -webkit-text-shadow: none !important;
+    -ms-text-shadow: none !important;
+    text-shadow: none !important;*/
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /*font-weight: 400;*/
+
+}
+
+*,
+*:focus {
+    outline: none!important;
+}
+
+body {
+    font-size: 13px;
+    line-height: 23px;
+    color: #666;
+    background: #222;
+    padding-top: 54px;
+    -webkit-font-smoothing: antialiased;
+}
+
+a.fa,
+a.fa:hover {
+    text-decoration: none;
+}
+
+/* Sidebar */
+
+.sidebar {
+    width: 230px;
+    float: left;
+    display: block;
+    background: #222;
+    color: #eee;
+    position: relative;
+}
+
+    .sidebar hr {
+        border-bottom: 1px solid #333 !important;
+    }
+
+    .sidebar ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+        .sidebar ul li {
+            list-style-type: none;
+        }
+
+    .sidebar .sidebar-inner {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        position: absolute;
+        z-index: 60;
+    }
+
+    .sidebar .navi li i {
+        margin-right: 5px;
+    }
+
+    .sidebar .navi li span i {
+        margin: 0;
+    }
+
+    .sidebar .navi > li > a {
+        display: block;
+        padding: 12px 20px;
+        font-size: 15px;
+        line-height: 25px;
+        color: #fff;
+        text-decoration: none;
+        border-bottom: 1px solid #111;
+        background-color: #222;
+    }
+
+        .sidebar .navi > li > a:hover, .sidebar .navi > li.open > a {
+            border-bottom: 1px solid #111;
+            background-color: #222;
+            color: #fff;
+        }
+
+    .sidebar .navi li ul {
+        display: none;
+        background: #181818;
+    }
+
+    .sidebar .navi li.open ul {
+        display: block;
+    }
+
+    .sidebar .navi li ul li a {
+        display: block;
+        background: none;
+        padding: 10px 0;
+        padding-left: 30px;
+        text-decoration: none;
+        color: #999;
+        border-bottom: 1px solid #222;
+    }
+
+    .sidebar .navi li ul li.active a {
+        background: #131313;
+        border-bottom: 1px solid #222;
+    }
+
+    .sidebar .navi li ul li a:hover {
+        background: #131313;
+        border-bottom: 1px solid #222;
+    }
+
+    /* Sidebar colors */
+
+    .sidebar .navi > li.nlightblue > a:hover,
+    .sidebar .navi > li.open.nlightblue > a,
+    .sidebar .navi > li.current.nlightblue > a {
+        background: @color_lightblue !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+    .sidebar .navi > li.nblue > a:hover,
+    .sidebar .navi > li.open.nblue > a,
+    .sidebar .navi > li.current.nblue > a {
+        background: @color_blue !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+    .sidebar .navi > li.ngreen > a:hover,
+    .sidebar .navi > li.open.ngreen > a,
+    .sidebar .navi > li.current.ngreen > a {
+        background: @color_success !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+    .sidebar .navi > li.norange > a:hover,
+    .sidebar .navi > li.open.norange > a,
+    .sidebar .navi > li.current.norange > a {
+        background: @color_warning !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+    .sidebar .navi > li.nred > a:hover,
+    .sidebar .navi > li.open.nred > a,
+    .sidebar .navi > li.current.nred > a {
+        background: @color_important !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+    .sidebar .navi > li.nviolet > a:hover,
+    .sidebar .navi > li.open.nviolet > a,
+    .sidebar .navi > li.current.nviolet > a {
+        background: @color_violet !important;
+        -webkit-transition: background 0.5s ease;
+        -moz-transition: background 0.5s ease;
+        -o-transition: background 0.5s ease;
+        transition: background 0.5s ease;
+    }
+
+/* Sidebar dropdown */
+
+    .sidebar .sidebar-dropdown* {
+        text-decoration: none;
+    }
+
+    .sidebar .sidebar-dropdown {
+        display: none;
+    }
+
+        .sidebar .sidebar-dropdown a {
+            color: #ddd;
+            background-color: #343434;
+            padding: 6px;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 13px;
+            display: block;
+            border-top: 1px solid #666;
+            border-bottom: 1px solid #333;
+        }
+
+            .sidebar .sidebar-dropdown a:hover {
+                text-decoration: none;
+            }
+
+    /* Sidebar widget */
+
+    .sidebar .sidebar-widget {
+        padding: 10px 5px;
+    }
+
+    .sidebar .ui-datepicker {
+        width: 95%;
+        margin: 0 auto;
+        background: #111;
+        color: #888;
+        border: 0;
+        padding: 0;
+    }
+
+    .sidebar .ui-datepicker-header {
+        background: #222;
+        border: 1px solid #212121;
+    }
+
+    .sidebar .ui-datepicker-prev:hover {
+        background: transparent;
+        border: 0;
+        top: 2px !important;
+        left: 2px !important;
+    }
+
+    .sidebar .ui-datepicker-next:hover {
+        background: transparent;
+        border: 0;
+        top: 2px !important;
+        right: 2px !important;
+    }
+
+    .sidebar .ui-state-default {
+        background: #222;
+        border: 0;
+        text-align: center;
+        color: #ccc;
+    }
+
+        .sidebar .ui-state-default:hover {
+            background: #282828;
+            color: #999;
+        }
+
+    .sidebar .ui-state-hightlight, .sidebar .ui-state-active {
+        background: #444;
+    }
+
+
+/* Main */
+
+.mainbar {
+    position: relative;
+    margin-left: 230px;
+    margin-right: 0;
+    width: auto;
+    background: #fff;
+    min-height: 900px;
+}
+
+.matter {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/*#endregion */

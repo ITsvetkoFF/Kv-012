@@ -1,0 +1,176 @@
+<section class="mainbar">
+    <div class="matter">
+        <div class="container-fluid">
+            <div class="clearfix">
+                <form class="form-inline pull-right well">
+                    <select class="form-control">
+                        <option>Show all:</option>
+                        <option>Show Opened</option>
+                        <option>Show Closed</option>
+                    </select>
+                    <select class="form-control">
+                        <option>Sort by:</option>
+                        <option>ID</option>
+                        <option>Priority</option>
+                        <option>Date</option>
+                    </select>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                             <span class="input-group-btn">
+                                  <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div>
+                </form>
+                <h1>Defects
+                    <button type="button" class="btn btn-success btn-xs" ng-click="open()">Add Defect</button>
+                </h1>
+
+            </div>
+            <hr>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>
+                            <strong>First Error</strong>
+                            <a class="fa fa-pencil" href=""></a>
+                            <a class="fa fa-trash" href=""></a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <strong><span>Date:</span></strong>
+                        <span>11.11.2015</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <strong><span>Priority:</span></strong>
+                        <span>High</span>
+                    </div>
+                </div>
+                <br/>
+                <div><strong>Found:</strong> Jane Doe</div>
+                <div><strong>Assigned to:</strong> Jim Core</div>
+                <h5><strong>Description:</strong></h5>
+                <p>
+                    Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+                    standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+                    Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).
+                </p>
+                <h5><strong>Steps To Reproduce:</strong></h5>
+                <ol>
+                  <li>Connect as Admin</li>
+                  <li>
+                    Go to a Course page
+                       <ul>
+                          <li>
+                            Turn editing on
+                          </li>
+                          <li>
+                            Select Insert Label operation
+                          </li>
+                          <li>
+                            Enter some details and Save
+                          </li>
+                        </ul>
+                  </li>
+                </ol>
+                <div class="h5 text-warning">The new label is not displayed into the course page</div>
+            </div>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>
+                            <strong>Second Error</strong>
+                            <a class="fa fa-pencil" href=""></a>
+                            <a class="fa fa-trash" href=""></a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <strong><span>Date:</span></strong>
+                        <span>11.11.2015</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <strong><span>Priority:</span></strong>
+                        <span>High</span>
+                    </div>
+                </div>
+                <br/>
+                <div><strong>Found:</strong> Jane Doe</div>
+                <div><strong>Assigned to:</strong> Jim Core</div>
+                <h5><strong>Description:</strong></h5>
+                <p>
+                    Supported in the following document modes: Quirks, Internet Explorer 6 standards, Internet Explorer 7
+                    standards, Internet Explorer 8 standards, Internet Explorer 9 standards, Internet Explorer 10 standards,
+                    Internet Explorer 11 standards. Also supported in Store apps (Windows 8 and Windows Phone 8.1).
+                </p>
+                <h5><strong>Steps To Reproduce:</strong></h5>
+                <ol>
+                  <li>Connect as Admin</li>
+                  <li>
+                    Go to a Course page
+                       <ul>
+                          <li>
+                            Turn editing on
+                          </li>
+                          <li>
+                            Select Insert Label operation
+                          </li>
+                          <li>
+                            Enter some details and Save
+                          </li>
+                        </ul>
+                  </li>
+                </ol>
+                <div class="h5 text-warning">The new label is not displayed into the course page</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/ng-template" id="addBugs.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add defect</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group col-md-9">
+                <label for="errorname">Bugs Name</label>
+                <input type="text" class="form-control" id="errorname" placeholder="ErrorName">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Priority:</label>
+                <select class="form-control">
+                    <option>Critical</option>
+                    <option>High</option>
+                    <option>Normal</option>
+                    <option>Low</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="whoFind">Who Find:</label>
+                <input type="text" class="form-control" id="whoFind" placeholder="Who Find">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="assignedTo">Assigned to:</label>
+                <input type="text" class="form-control" id="assignedTo" placeholder="Assigned to">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+
+        </div>
+        <div class="form-group" enctype="multipart/form-data" method="post">
+           <input type="file" value="Attach file" id="choose-file">
+        </div>
+        <div class="form-group">
+            <label for="testCase">Steps To Reproduce:</label>
+            <textarea class="form-control" id="testCase" rows="2" placeholder="TestCase"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cansel</button>
+        <button type="button" class="btn btn-primary">Post</button>
+    </div>
+</script>
