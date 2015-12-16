@@ -41,9 +41,9 @@
 	function getUsers() {
 
 		function createUsers (quantity) {
-
 			var users = [];
-			quantity = ((quantity < 1) || (typeof(quantity) === undefined)) ? 1 : quantity;
+            quantity = quantity || 1;
+			quantity = (quantity < 1) ? 1 : quantity;
 
 				for (var i = 0; i < quantity; i++) {
 
