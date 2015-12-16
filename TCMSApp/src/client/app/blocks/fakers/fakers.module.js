@@ -1,6 +1,5 @@
 /**
  * @name app.fakers
- * @ngdoc module
  * @description fake entities generators
  */
 

@@ -16,7 +16,7 @@
         /**
          * @function getFakeRuns
          * @description return concrete amount of fake runs
-         * @param quantity - quantity of generated fake runs
+         * @param {Number} quantity [1] - quantity of generated fake runs
          * @returns {Array} - array of run objects
          *
          * {
@@ -59,9 +59,9 @@
              */
             function getSteps(quantity) {
                 var steps = [];
-                let i = -1;
+                var i = -1;
                 while (++i < quantity) {
-                    let step = {
+                    var step = {
                         number: faker.random.number(),
                         action: faker.lorem.sentence(),
                         expected: faker.lorem.sentence(),
@@ -81,9 +81,9 @@
              */
             function getTests(quantity) {
                 var tests = [];
-                let i = -1;
+                var i = -1;
                 while (++i < quantity) {
-                    let test = {
+                    var test = {
                         id: faker.random.number(1000),
                         status: faker.random.boolean(),
                         steps: getSteps(faker.random.number(10))
@@ -100,13 +100,13 @@
              * @description loop counter
              * @type {number}
              */
-            let i = -1;
+            var i = -1;
             while (++i < quantity) {
                 /**
                  *
                  * @type {{_id: *, previousRunId: *, dateStart: *, dateEnd: *, build: *, environment: string, status: string, tests: Array}}
                  */
-                let run = {
+                var run = {
                     _id: faker.random.number(1000000),
                     previousRunId: faker.random.number(1000000),
                     dateStart: faker.date.past(),

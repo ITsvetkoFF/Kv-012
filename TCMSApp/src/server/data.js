@@ -1,3 +1,7 @@
+module.exports = {
+    people: getPeople()
+};
+
 function getPeople() {
     return [
         {id: 1, firstName: 'John', lastName: 'Papa', age: 25, location: 'Florida'},
@@ -10,7 +14,3 @@ function getPeople() {
         {id: 8, firstName: 'Aaron', lastName: 'Jinglehiemer', age: 22, location: 'Utah'}
     ];
 }
-
-module.exports = {
-    people: getPeople()
-};
