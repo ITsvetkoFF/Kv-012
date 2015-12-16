@@ -1,6 +1,3 @@
-/**
- * factory for module app.fakers
- */
 
 !function() {
 	'use strict';
@@ -14,7 +11,7 @@
 	 *
 	 * @requires "faker.js"
 	 * @param {Number} quantity
-	 * @returns {Array} an array of objects
+	 * @returns {Array} an array of object(s)
 	 * @example
 	 * // returns [
 	 * 				{
@@ -35,16 +32,19 @@
 	 *
 	 *	getUsers(1);
 	 *
-	 * P.S. first user has "role": "administrator", everyone else - "tester"
+	 * if variable quantity not implemented or less than 1 it will be equal 1
+	 *
+	 * first user has "role": "administrator", everyone else - "tester"
 	 *
 	 */
 
 	function getUsers() {
 
 		function createUsers (quantity) {
-			var users = [];
 
-			if (quantity > 0) {
+			var users = [];
+			quantity = ((quantity < 1) || (typeof(quantity) === undefined)) ? 1 : quantity;
+
 				for (var i = 0; i < quantity; i++) {
 
 					users[i] = {
@@ -65,10 +65,6 @@
 				}
 				// first user will be always administrator
 				users[0].role = "administrator";
-
-			} else {
-				return 'wrong input, quantity of users should be greater than zero';
-			}
 
 			return users;
 
