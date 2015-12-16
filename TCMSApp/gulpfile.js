@@ -28,7 +28,6 @@ var port = process.env.PORT || config.defaultPort;
  */
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
-
 /**
  * vet the code and create coverage report
  * @return {Stream}

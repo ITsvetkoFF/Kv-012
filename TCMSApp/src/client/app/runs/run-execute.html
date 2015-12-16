@@ -59,90 +59,118 @@
                     </div>
                 </div>
             </div>
-            <div class="text-right">
-                <button class="btn btn-default" type="button" data-toggle="tooltip"
-                        title="Expend all" data-placement="top">
-                    Expend all
-                    <i class="glyphicon glyphicon-plus"></i>
-                </button>
-                <button class="btn btn-default" type="button" data-toggle="tooltip"
-                        title="Collapse all" data-placement="top">
-                    Collapse all
-                    <i class="glyphicon glyphicon-minus"></i>
-                </button>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <form action="" class="form-inline">
+                        <label for="run-build">Build</label>
+                        <input type="text" name="" id="run-build" class="form-control"/>
+                        <label for="run-environment">Environment</label>
+                        <input type="text" name="" id="run-environment" class="form-control"/>
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <h4 class="pull-right">
+                        <button class="btn btn-default" type="button" data-toggle="tooltip"
+                                title="Expend all" data-placement="top">
+                            Expend all
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </button>
+                        <button class="btn btn-default" type="button" data-toggle="tooltip"
+                                title="Collapse all" data-placement="top">
+                            Collapse all
+                            <i class="glyphicon glyphicon-minus"></i>
+                        </button>
+                    </h4>
+                </div>
             </div>
-            <h4>Suite name suite name</h4>
-            <table class="table table-hover">
-                <tr>
-                    <th>
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                    <th>
-                        Expected
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        action action action action action action action action
-                    </td>
-                    <td>
-                        expected result expected result expected result expected result expected result
-                    </td>
-                    <td>
-                        <select name="" class="form-control">
-                            <option value="">result</option>
-                            <option value="">passed</option>
-                            <option value="">blocked</option>
-                            <option value="">failed</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        action action action action action action action action
-                    </td>
-                    <td>
-                        expected result expected result expected result expected result expected result
-                    </td>
-                    <td>
-                        <select name="" class="form-control">
-                            <option value="">result</option>
-                            <option value="">passed</option>
-                            <option value="">blocked</option>
-                            <option value="">failed</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        3
-                    </td>
-                    <td>
-                        action action action action action action action action
-                    </td>
-                    <td>
-                        expected result expected result expected result expected result expected result
-                    </td>
-                    <td>
-                        <select name="" class="form-control">
-                            <option value="">result</option>
-                            <option value="">passed</option>
-                            <option value="">blocked</option>
-                            <option value="">failed</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- table-->
+                    <div class="row">
+                        <div class="col-xs-12 run-table">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h4>Suite name suite name</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row run-table-case">
+                                        <div class="col-xs-2 col-xs-offset-1">
+                                            <a href="" ng-click="isCollapsed = !isCollapsed">
+                                                testcase 1
+                                            </a>
+                                            <label for="" class="label label-danger">critical</label>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <label for="">Description :</label>case description case description case descriptionbr
+                                            <br/>
+                                            <label for="">Preconditions:</label> preconditions preconditions preconditions
+                                            preconditions
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="alert alert-success text-uppercase text-center">passed</div>
+                                            <!--</span>-->
+                                        </div>
+                                    </div>
+                                    <!-- table case row -->
+                                    <div class="row run-table-steps alert alert-warning collapse in" uib-collapse="isCollapsed" id="case1-steps">
+                                        <div class="col-xs-12">
+                                            <div class="row run-table-steps-head">
+                                                <div class="col-xs-3 col-xs-offset-2"><label>Action</label></div>
+                                                <div class="col-xs-3"><label for="">Expected</label></div>
+                                            </div>
+                                            <div class="row run-table-step">
+                                                <div class="col-xs-1 col-xs-offset-1">1</div>
+                                                <div class="col-xs-3">action action action action action action action action</div>
+                                                <div class="col-xs-3">expected result expected result expected result expected
+                                                    result
+                                                    expected result
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="btn-group text-center">
+                                                        <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Left'">Success</label>
+                                                        <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'Middle'">Blocked</label>
+                                                        <label class="btn btn-danger" ng-model="radioModel" uib-btn-radio="'Right'">Failed</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <!-- table step row -->
+                                            <div class="row run-table-step">
+                                                <div class="col-xs-1 col-xs-offset-1">2</div>
+                                                <div class="col-xs-3">action action action action action action action action</div>
+                                                <div class="col-xs-3">expected result expected result expected result expected
+                                                    result
+                                                    expected result
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <form action="" class="">
+                                                        <div class="form-group">
+                                                            <div class="btn-group text-center">
+                                                                <label class="btn btn-success" ng-model="radioModel1" uib-btn-radio="'Left'">Success</label>
+                                                                <label class="btn btn-default" ng-model="radioModel1" uib-btn-radio="'Middle'">Blocked</label>
+                                                                <label class="btn btn-danger" ng-model="radioModel1" uib-btn-radio="'Right'">Failed</label>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- table step row -->
+                                        </div>
+                                    </div>
+                                    <!-- table steps row -->
+                                    <hr/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
 
         </div>
     </div>
