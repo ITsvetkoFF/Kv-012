@@ -7,10 +7,23 @@
 
     appRun.$inject = ['routerHelper'];
     /* @ngInject */
+
+    /**
+     * @memberOf app.runs
+     * @ngdoc run
+     * @description run states configuration
+     * @param routerHelper {provider}
+     */
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
     }
 
+    /**
+     * @memberOf app.runs
+     * @description get states of routes
+     * @function getStates
+     * @returns {Array} states that presents on runs template
+     */
     function getStates() {
         return [
             {
