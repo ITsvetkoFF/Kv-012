@@ -10,7 +10,8 @@
         'app.runs',
         'app.defects',
         'app.reports',
-        'app.layout'
+        'app.layout',
+        'app.fakers'
     ]);
 
 })();
