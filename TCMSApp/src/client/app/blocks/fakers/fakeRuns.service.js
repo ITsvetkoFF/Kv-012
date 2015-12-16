@@ -6,20 +6,23 @@
         .service('FakeRunsService', FakeRunsService);
 
     FakeRunsService.$inject = ['faker'];
+    /* @ngInject */
 
     /**
      * @memberOf app.fakers
      * @ngdoc service
+     * @name FakeRunsService
+     * @description Implement one function to generate fake runs
      * @constructor
      */
     function FakeRunsService() {
         /**
+         * @memberOf FakeRunsService
          * @function getFakeRuns
          * @description return concrete amount of fake runs
-         * @param {Number} quantity [1] - quantity of generated fake runs
-         * @returns {Array} - array of run objects
-         *
-         * {
+         * @param {number} [quantity=1] - quantity of generated fake runs
+         * @returns {Array} - array of
+           {
                 "_id": "int",
                 "previousRunId": "int",
                 "dateStart": "date",
@@ -42,7 +45,7 @@
                     }
                 ]
             }
-         *
+         * run objects
          */
         this.getFakeRuns = function (quantity) {
             var quantity = quantity || 1;
@@ -53,7 +56,7 @@
 
             /**
              * @memberOf getFakeRuns
-             * @function getSteps
+             * @name getSteps
              * @param quantity
              * @returns {Array}
              */
@@ -94,12 +97,6 @@
                 return tests;
             }
 
-            /**
-             * @memberOf getFakeRuns
-             * @name i
-             * @description loop counter
-             * @type {number}
-             */
             var i = -1;
             while (++i < quantity) {
                 /**

@@ -10,6 +10,7 @@
     /**
      * @memberOf app.runs
      * @ngdoc controller
+     * @scope new scope
      * @name RunsController
      * @param logger {factory}
      * @param FakeRunsService {service}
@@ -22,6 +23,11 @@
 
         activate();
 
+        /**
+         * @memberOf RunsController
+         * @function activate
+         * @description information about Runs view activation
+         */
         function activate() {
             logger.info('Activated Runs View');
         }

@@ -1,8 +1,3 @@
-/**
- * @name app.fakers
- * @description fake entities generators
- */
-
 (function() {
     "use strict";
 
