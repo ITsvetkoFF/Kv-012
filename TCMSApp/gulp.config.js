@@ -14,7 +14,6 @@ module.exports = function() {
         ignorePath: '../..'
     };
     var nodeModules = 'node_modules';
-    //var shell = require('gulp-shell');
 
     var config = {
         /**
