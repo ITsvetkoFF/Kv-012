@@ -8,7 +8,7 @@ function getTestsFactory() {
         /**
          * @function getTests
          * @description returns a test suite with test cases, filled with steps
-         * @param testNumber
+         * @param {int} testNumber - quantity of test cases, needed in a suite
          * @returns {
                 _id: "int"
                 suiteName: "string"
@@ -18,7 +18,7 @@ function getTestsFactory() {
                 tests:
                 [
                     {
-                            _id: "int"
+                        _id: "int"
                         testName: "string"
                         testDescription: "string"
                         automated: "bool"
@@ -38,7 +38,7 @@ function getTestsFactory() {
                         ]
                     },
                     {
-                            _id: "int"
+                        _id: "int"
                         testName: "string"
                         testDescription: "string"
                         automated: "bool"
@@ -60,7 +60,7 @@ function getTestsFactory() {
                 ]
                 }
          */
-        getTests: function(testNumber){
+        getTests: function (testNumber) {
             // Test Suite creating
             var testSuite = {};
             testSuite._id = faker.random.uuid();
@@ -72,13 +72,13 @@ function getTestsFactory() {
             var i = 0, l = testNumber;
 
             // Test cases adding
-            for (i=0; i < l; i++) {
+            for (i = 0; i < l; i++) {
 
                 // Test case creating
                 var testCase = {};
 
                 testCase._id = faker.random.uuid();
-                testCase.testName = faker.lorem.sentence(2 , 7);
+                testCase.testName = faker.lorem.sentence(2, 7);
                 testCase.testDescription = faker.lorem.sentence(4, 30);
                 testCase.automated = faker.random.boolean();
                 testCase.preConditions = faker.lorem.sentence(5, 20);
