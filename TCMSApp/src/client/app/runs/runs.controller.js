@@ -5,17 +5,9 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['logger', 'FakeRunsService'];
-    /* @ngInject */
-    /**
-     * @memberOf app.runs
-     * @ngdoc controller
-     * @name RunsController
-     * @param logger {factory}
-     * @param FakeRunsService {service}
-     * @constructor
-     */
-    function RunsController(logger, FakeRunsService) {
+    RunsController.$inject = ['logger', 'FakeRunsFactory'];
+
+    function RunsController(logger, FakeRunsFactory) {
 
         var vm = this;
         vm.title = 'Admin';
@@ -25,7 +17,5 @@
         function activate() {
             logger.info('Activated Runs View');
         }
-
-        // TODO: call FakeRunsService.getFakeRuns and implement view logic...
     }
 })();

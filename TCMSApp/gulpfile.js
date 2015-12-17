@@ -7,6 +7,7 @@ var gulp = require('gulp');
 var path = require('path');
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({lazy: true});
+var shell = require('gulp-shell');
 
 var colors = $.util.colors;
 var envenv = $.util.env;
@@ -28,6 +29,15 @@ var port = process.env.PORT || config.defaultPort;
  */
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
+gulp.task('docs', shell.task([
+    'node ' +
+    'node_modules/jsdoc/jsdoc.js '+
+    '-c node_modules/angular-jsdoc/common/conf.json '+   // config file
+    '-t node_modules/angular-jsdoc/angular-template '+   // template file
+    '-d build/docs '+                           // output directory
+    './README.md ' +                            // to include README.md as index contents
+    '-r src'                                    // source code directory
+]));
 /**
  * vet the code and create coverage report
  * @return {Stream}
