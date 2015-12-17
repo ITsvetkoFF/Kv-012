@@ -1,16 +1,23 @@
 /**
  * Factory description
  * @ngdoc factory
- * @name getUsers
+ * @name fakeUsersFactory
  * @memberOf app.fakers
  *  @example
- *  getUsers(1);
+ *  fakeUsersFactory(1);
  */
 
 !function () {
     'use strict';
 
-    function getUsers() {
+
+    angular
+        .module('app.fakers')
+        .factory('FakeUsersFactory', FakeUsersFactory);
+
+    FakeUsersFactory.$inject = ['faker'];
+
+    function FakeUsersFactory(faker) {
         /**
          * Generates random users
          *
@@ -36,7 +43,7 @@
          *
          * first user has "role": "administrator", everyone else - "tester"
          * ```
-         * @memberOf getUsers
+         * @memberOf fakeUsersFactory
          * @requires "faker.js"
          * @param {Number} [quantity=1] description of data format
          * @returns {Array} an array of object(s)
@@ -74,9 +81,7 @@
         return createUsers;
     };
 
-    angular
-        .module('app.fakers')
-        .factory('getUsers', getUsers);
+
 
 }();
 

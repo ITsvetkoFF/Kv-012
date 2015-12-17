@@ -5,9 +5,9 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['logger', 'FakeRunsService'];
+    RunsController.$inject = ['logger', 'FakeRunsFactory'];
 
-    function RunsController(logger, FakeRunsService) {
+    function RunsController(logger, FakeRunsFactory) {
 
         var vm = this;
         vm.title = 'Admin';
@@ -17,10 +17,5 @@
         function activate() {
             logger.info('Activated Runs View');
         }
-
-        console.log(FakeRunsService(1));
-
-
-        // TODO: call FakeRunsService.getFakeRuns and implement view logic...
     }
 })();

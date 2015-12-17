@@ -1,20 +1,24 @@
 /**
  * @ngdoc factory
- * @name FakeRunsService
+ * @name fakeRunsFactory
  * @memberOf app.fakers
+ * @example
+ * FakeRunsFactory(1);
  * @description
  *  Generates specified amount of fake run objects
+ *
  */
 (function () {
     "use strict";
 
-    FakeRunsService.$inject = ['faker'];
 
     angular
         .module('app.fakers')
-        .factory('FakeRunsService', FakeRunsService);
+        .factory('FakeRunsFactory', FakeRunsFactory);
 
-    function FakeRunsService(faker) {
+    FakeRunsFactory.$inject = ['faker'];
+
+    function FakeRunsFactory(faker) {
 
         /**
          * Generate specified number of fake run objects
@@ -43,8 +47,8 @@
           * ]
           *}
          * ```
-         * @memberOf FakeRunsService
-         * @param {number} [quantity=1] default = 1; positive number of runs
+         * @memberOf fakeRunsFactory
+         * @param {number} quantity default = 1; positive number of runs
          * @returns {Array.<{Object}>} description
          *
          */
@@ -55,11 +59,6 @@
             var testStatuses = ['passed', 'executing', 'failed'];
             var stepStatuses = ['passed', 'blocked', 'failed'];
 
-            /**
-             * @memberOf getFakeRuns
-             * @param quantity
-             * @returns {Array}
-             */
             function getSteps(quantity) {
                 var steps = [];
                 var i = -1;
