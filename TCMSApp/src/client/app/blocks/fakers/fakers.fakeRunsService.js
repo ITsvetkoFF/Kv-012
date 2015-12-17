@@ -1,53 +1,54 @@
+/**
+ * @ngdoc factory
+ * @name FakeRunsService
+ * @memberOf app.fakers
+ * @description
+ *  Generates specified amount of fake run objects
+ */
 (function () {
     "use strict";
 
+    FakeRunsService.$inject = ['faker'];
+
     angular
         .module('app.fakers')
-        .service('FakeRunsService', FakeRunsService);
+        .factory('FakeRunsService', FakeRunsService);
 
-    FakeRunsService.$inject = ['faker'];
-    /* @ngInject */
+    function FakeRunsService(faker) {
 
-    /**
-     * @memberOf app.fakers
-     * @ngdoc service
-     * @name FakeRunsService
-     * @description Implement one function to generate fake runs
-     * @constructor
-     */
-    function FakeRunsService() {
         /**
+         * Generate specified number of fake run objects
+         * ```
+         * {
+          *"_id": "int",
+          *"previousRunId": "int",
+          *"dateStart": "date",
+          *"dateEnd": "date",
+          *"build": "string",
+          *"environment": "string",
+          *"status": "string: [passed, executing, failed]",
+          *"tests": [
+          *{
+          *"id": "int",
+          *"status": "boolean",
+          *"steps": [
+          *     {
+          *          "number": "int",
+          *           "action": "string",
+          *            "expected": "string",
+          *             "status": "string: [passed, blocked, failed]"
+          *          }
+          *       ]
+          *    }
+          * ]
+          *}
+         * ```
          * @memberOf FakeRunsService
-         * @function getFakeRuns
-         * @description return concrete amount of fake runs
-         * @param {number} [quantity=1] - quantity of generated fake runs
-         * @returns {Array} - array of
-           {
-                "_id": "int",
-                "previousRunId": "int",
-                "dateStart": "date",
-                "dateEnd": "date",
-                "build": "string",
-                "environment": "string",
-                "status": "string: [passed, executing, failed]",
-                "tests": [
-                    {
-                        "id": "int",
-                        "status": "boolean",
-                        "steps": [
-                            {
-                                "number": "int",
-                                "action": "string",
-                                "expected": "string",
-                                "status": "string: [passed, blocked, failed]"
-                            }
-                        ]
-                    }
-                ]
-            }
-         * run objects
+         * @param {number} [quantity=1] default = 1; positive number of runs
+         * @returns {Array.<{Object}>} description
+         *
          */
-        this.getFakeRuns = function (quantity) {
+        var getFakeRuns = function (quantity) {
             var quantity = quantity || 1;
             var runs = [];
             var runStatuses = ['passed', 'executing', 'failed'];
@@ -56,7 +57,6 @@
 
             /**
              * @memberOf getFakeRuns
-             * @name getSteps
              * @param quantity
              * @returns {Array}
              */
@@ -76,12 +76,6 @@
                 return steps;
             }
 
-            /**
-             * @memberOf getFakeRuns
-             * @function getTests
-             * @param quantity
-             * @returns {Array}
-             */
             function getTests(quantity) {
                 var tests = [];
                 var i = -1;
@@ -99,17 +93,13 @@
 
             var i = -1;
             while (++i < quantity) {
-                /**
-                 *
-                 * @type {{_id: *, previousRunId: *, dateStart: *, dateEnd: *, build: *, environment: string, status: string, tests: Array}}
-                 */
                 var run = {
                     _id: faker.random.number(1000000),
                     previousRunId: faker.random.number(1000000),
                     dateStart: faker.date.past(),
                     dateEnd: faker.date.past(),
                     build: faker.random.number(1000),
-                    environment: faker.lorem.words() + ', browser: ' +  faker.internet.userAgent(),
+                    environment: faker.lorem.words() + ', browser: ' + faker.internet.userAgent(),
                     status: runStatuses[faker.random.number(runStatuses.length - 1)],
                     tests: getTests(faker.random.number(10))
                 };
@@ -118,5 +108,8 @@
 
             return runs;
         };
+
+        return getFakeRuns;
     }
+
 })();

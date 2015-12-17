@@ -1,0 +1,23 @@
+{
+  "_id": "int",
+  "previousRunId": "int",
+  "dateStart": "date",
+  "dateEnd": "date",
+  "build": "string",
+  "environment": "string",
+  "status": "string: [passed, executing, failed]",
+  "tests": [
+      {
+          "id": "int",
+          "status": "boolean",
+          "steps": [
+              {
+                  "number": "int",
+                  "action": "string",
+                  "expected": "string",
+                  "status": "string: [passed, blocked, failed]"
+              }
+          ]
+      }
+  ]
+}
