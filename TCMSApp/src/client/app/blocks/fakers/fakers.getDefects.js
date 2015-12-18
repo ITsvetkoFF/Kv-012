@@ -40,7 +40,7 @@
                     var dateOfDefectCreation = faker.date.past(50, new Date("Sat Sep 20 1992 21:35:02 GMT+0200 (CEST)"));
                     var testRunId = faker.random.number(1000);
 
-                    sample = {
+                    var sample = {
                         randomID: randomID,
                         name: name,
                         whoFind: whoFind,
