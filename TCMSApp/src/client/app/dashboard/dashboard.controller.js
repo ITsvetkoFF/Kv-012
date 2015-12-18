@@ -8,15 +8,6 @@
     DashboardController.$inject = ['$q', 'dataservice', 'logger'];
     /* @ngInject */
 
-    /**
-     * @memberOf app.dashboard
-     * @ngdoc controller
-     * @name DashboardController
-     * @param $q
-     * @param dataservice
-     * @param logger
-     * @constructor
-     */
     function DashboardController($q, dataservice, logger) {
         var vm = this;
         vm.news = {
