@@ -1,3 +1,10 @@
+/**
+ * @ngdoc controller
+ * @name runController
+ * @memberOf app.runs
+ * @description Controls current run view
+ */
+
 (function() {
     'use strict';
 
@@ -8,6 +15,12 @@
     RunController.$inject = [];
 
     function RunController() {
+        /**
+         * Bind view model as "vm"
+         * @memberOf runController
+         * @type {RunController}
+         */
         var vm = this;
+
     }
 })();
