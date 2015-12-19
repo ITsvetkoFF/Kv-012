@@ -102,7 +102,7 @@
                     var testCase = {};
 
                     testCase._id = faker.random.uuid();
-                    testCase.testName = faker.lorem.sentence(2, 7);
+                    testCase.testName = faker.lorem.sentence(2, 3);
                     testCase.testDescription = faker.lorem.sentence(4, 30);
                     testCase.automated = faker.random.boolean();
                     testCase.preConditions = faker.lorem.sentence(5, 20);
