@@ -3,7 +3,8 @@
 
     angular.module('app.tests', [
         'app.core',
-        'app.widgets'
+        'app.widgets',
+        'app.fakers'
       ]);
 
 })();

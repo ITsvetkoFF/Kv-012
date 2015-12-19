@@ -1,6 +1,6 @@
-<section class="mainbar">
+<!-- <section class="mainbar"> -->
     <div class="matter">
-        <div class="container-fluid">
+        <div class="container">
             <div class="clearfix">
                 <form class="form-inline pull-right well">
                     <select class="form-control">
@@ -20,9 +20,9 @@
                 </form>
                 <h1>
                     Tests
-                    <button type="button" class="btn btn-success btn-xs">
-                        Add Test
-                    </button>
+                    <a ui-sref="test-new" class="btn btn-success btn-xs">
+                        NEW
+                    </a>
                 </h1>
             </div>
             <hr>
@@ -50,13 +50,13 @@
                 </div>
 
                 <div class="col-md-9">
-                    <div class="well">
+                    <div class="well" ng-repeat="tc in vm.f.tests">
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="checkbox">
                                     <h3>
                                     <label>
-                                        <input type="checkbox">Test  case title
+                                        <input type="checkbox">{{ tc.testName }}
                                     </label>
                                     </h3>
                                 </div>
@@ -65,10 +65,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-offset-1 col-md-2">Description</div>
+                            <div class="col-md-offset-1 col-md-2">Description:</div>
                             <div class="col-md-8 well text-justify">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et ultrices magna. Nam sit amet est id felis scelerisque luctus.
-                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam porttitor leo id nisi fermentum, eu fermentum nibh mattis.
+                                {{ tc.testDescription }}
                             </div>
                         </div>
 
@@ -85,4 +84,4 @@
 
         </div>
     </div>
-</section>
+<!-- </section> -->
