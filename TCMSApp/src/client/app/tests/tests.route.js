@@ -28,7 +28,7 @@
                 }
             },
             {
-                state: 'test-new',
+                state: 'test-create',
                 config: {
                     url: '/tests/create',
                     templateUrl: 'app/tests/test-create.html',
