@@ -15,6 +15,10 @@
     configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
     /* @ngInject */
     function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+
+        delete window.moment;
+        delete window.faker;
+
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
