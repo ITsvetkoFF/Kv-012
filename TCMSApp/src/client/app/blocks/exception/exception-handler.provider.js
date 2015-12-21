@@ -38,7 +38,7 @@
         $provide.decorator('$exceptionHandler', extendExceptionHandler);
     }
 
-    extendExceptionHandler.$inject = ['$delegate', 'exceptionHandler', 'logger'];
+    extendExceptionHandler.$inject = ['$delegate', 'exceptionHandler', '$injector'];
 
     /**
      * Extend the $exceptionHandler service to also display a toast.
@@ -47,8 +47,9 @@
      * @param  {Object} logger
      * @return {Function} the decorated $exceptionHandler service
      */
-    function extendExceptionHandler($delegate, exceptionHandler, logger) {
-        return function(exception, cause) {
+     function extendExceptionHandler($delegate, exceptionHandler, $injector) {
+        return function (exception, cause) {
+            var logger = $injector.get('logger');
             var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';
             var errorData = {exception: exception, cause: cause};
             exception.message = appErrorPrefix + exception.message;
@@ -65,4 +66,5 @@
             logger.error(exception.message, errorData);
         };
     }
+
 })();
