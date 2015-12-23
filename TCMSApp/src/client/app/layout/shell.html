@@ -1,7 +1,7 @@
-<div ng-controller="ShellController as vm">
-    <ht-top-nav navline="vm.navline"></ht-top-nav>
+<div ng-controller="ShellController as vm" ng-init="shellVisiable=fasle">
+    <ht-top-nav navline="vm.navline" ng-show="shellVisiable"></ht-top-nav>
     <section id="content" class="content">
-        <div ng-include="'app/layout/sidebar.html'"></div>
+        <div ng-include="'app/layout/sidebar.html'" ng-show="shellVisiable"></div>
 
         <div ui-view class="shuffle-animation"></div>
 

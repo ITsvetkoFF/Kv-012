@@ -33,11 +33,11 @@
                 <li class="dropdown" uib-dropdown>
                     <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
                         <img class="img-circle" height="23px" src="https://avatars0.githubusercontent.com/u/5695572?v=3&amp;s=60"/>
-                        Profile  <span class="caret"></span></a>
+                        {{vm.profile}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a ui-sref="profile">Profile</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Log Out</a></li>
+                        <li><a href="#" ng-click="logOut()">Log Out</a></li>
                     </ul>
                 </li>
             </ul>
