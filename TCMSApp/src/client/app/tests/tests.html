@@ -1,83 +1,114 @@
 <div class="matter">
-    <div class="container">
-        <div class="clearfix">
-            <form class="form-inline pull-right well">
-                <select class="form-control">
-                    <option>Sort by:</option>
-                    <option>ID</option>
-                    <option>Priority</option>
-                    <option>Date</option>
-                </select>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                              <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-            <h1>
-                Tests
-                <a ui-sref="test-create" class="btn btn-success btn-xs">NEW</a>
-            </h1>
-        </div>
-        <hr>
-        <div class="row">
+  <div class="container">
 
-            <!--main content-->
-            <div class="col-md-3">
-                <ul class="list-group text-center">
-                    <li class="list-group-item">
-                        <button type="button" class="btn btn-default">
-                           Create suite
-                        </button>
-                    </li>
-                    <li class="list-group-item">Unsuited tests
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </li>
-                    <li class="list-group-item">{{ vm.f.suiteName }}
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-9">
-                <div class="well" ng-repeat="tc in vm.f.tests">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="checkbox">
-                                <h3>
-                                <label>
-                                    <input type="checkbox">{{ tc.testName }}
-                                </label>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="col-md-7"></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-2">Description</div>
-                        <div class="col-md-8 well text-justify">
-                            {{ tc.testDescription }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-2"><strong>Priority:</strong> High</div>
-                        <div class="col-md-offset-1 col-md-2"><strong>Date:</strong> 23.10.15</div>
-                        <div class="col-md-offset-1 col-md-2"><strong>Bugs: </strong><div class="badge"> 15</div></div>
-                        <div class="col-md-offset-1 col-md-2"><strong>Steps: </strong><div class="badge"> 15</div></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+<!-- header -->
+    <div class="clearfix">
+      <h1>
+        Tests
+        <form class="form-inline pull-right">
+          <input type="text" class="form-control" placeholder="Filter">
+        </form>
+      </h1>
     </div>
-</div>
+    <hr>
+
+<!--main content-->
+    <div class="row">
+
+<!-- suites -->
+      <div class="col-xs-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h2>Suites <button type="button" class="btn btn-primary btn-xs" ng-click="vm.open()">NEW</button></h2>
+          </div>
+          <table class="table" style="font-size:larger">
+            <tbody>
+              <tr ng-repeat="s in vm.f" ng-click="seeSuite = !seeSuite; vm.trigger = s._id - 1;" 
+                  style="cursor: pointer" ng-class="{active: vm.trigger == s._id - 1}">
+                <td>{{ s.suiteName }}</td>
+                <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+<!-- cases -->
+      <div class="col-sm-9">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h2>Test cases <a ui-sref="test-create" class="btn btn-primary btn-xs">NEW</a></h2>
+          </div>
+          <table class="table">
+            <thead>
+              <tr >
+                <th><input type="checkbox" checked></th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Priority</th>
+                <th>Created</th>
+                <th>Automated</th>
+                <th>Steps</th>
+                <th>Bugs</th>
+                <th>Assignee</th>
+                <th>Run</th>
+              </tr>
+            </thead>
+
+            <tbody ng-repeat="tc in vm.f[vm.trigger].tests" style="border:0">
+              <tr ng-click="seeCase = ! seeCase;" style="cursor: pointer">
+                <td ng-click="seeCase = ! seeCase"><input type="checkbox" checked></td>
+                <td>{{ tc.testName }}</td>
+                <td>{{ vm.f[vm.trigger]._id + "-" + tc._id}}</td>
+                <td>{{ tc.casePriority }}</td>
+                <td>{{ tc.dateStart | date }}</td>
+                <td>{{ tc.automated }}</td>
+                <td>{{ tc.steps.length }}</td>
+                <td>{{ tc.issues }}</td>
+                <td>{{ tc.assignee }}</td>
+                <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+              </tr>
+              <tr ng-show="seeCase" style="background-color: #eee">
+                <td colspan="10">
+                  <div class="container-fluid text-center" style="padding: 20px 0">
+                    <div class="clearfix">
+                      <div class="col-xs-2"><b>Sprint: </b>{{ tc.sprint }}</div>
+                      <div class="col-xs-3"><b>Category: </b>{{ tc.category }}</div>
+                      <div class="col-xs-4"><b>Reference: </b>{{ tc.reference }}</div>
+                      <div class="col-xs-3"><b>File: </b><a href="#">{{ tc.fileName }}.zip</i></a></div>
+                    </div>
+                  </div>
+                  <div class="container-fluid" style="padding-bottom: 20px">
+                    <div class="clearfix">
+                      <div class="col-xs-12">{{ tc.preConditions }}</div>
+                    </div>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Step</th>
+                        <th>Step info</th>
+                        <th>Expected result</th>
+                        <th>File</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="step in tc.steps">
+                        <td>{{ step.stepNumber }}</td>
+                        <td>{{ step.stepDescription }}</td>
+                        <td>{{ step.expectedResult }}</td>
+                        <td>download</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> <!-- panel -->
+
+    </div> <!-- row -->
+
+</div> <!-- container -->
+</div> <!-- matter -->
