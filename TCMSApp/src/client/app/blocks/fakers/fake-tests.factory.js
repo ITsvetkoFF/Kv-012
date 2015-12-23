@@ -87,7 +87,6 @@
             getTests: function (testNumber) {
                 // Test Suite creating
                 var testSuite = {};
-                // testSuite._id = faker.random.uuid();
                 testSuite.suiteName = faker.lorem.sentence(2, 5);
                 testSuite.project = faker.random.uuid();
                 testSuite.suitePriority = Math.floor(Math.random() * (3 - 1 + 1)) + 1;

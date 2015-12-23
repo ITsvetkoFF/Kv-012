@@ -5,9 +5,9 @@
         .module('app.tests')
         .controller('TestsController', TestsController);
 
-    TestsController.$inject = ['logger', 'FakeTestsFactory', '$uibModal'];
+    TestsController.$inject = ['logger', 'FakeTestsFactory'];
     /* @ngInject */
-    function TestsController(logger, FakeTestsFactory, $uibModal) {
+    function TestsController(logger, FakeTestsFactory) {
         var vm = this;
         vm.title = 'Admin';
 
