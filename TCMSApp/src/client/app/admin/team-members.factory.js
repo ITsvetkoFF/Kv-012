@@ -16,6 +16,15 @@
 
     function TeamMembersFactory(Trello, logger) {
 
+        var result = {
+            auth: auth,
+            getUsers: getUsers,
+            deleteUser: deleteUser,
+            addUser: addUser,
+        };
+
+        auth();
+
         function auth() {
             Trello.authorize({
                 type: 'popup',
@@ -106,12 +115,6 @@
             return deletedUser;
         }
 
-        return {
-            auth: auth,
-            getUsers: getUsers,
-            deleteUser: deleteUser,
-            addUser: addUser
-
-        }
+        return result;
     }
 })();
