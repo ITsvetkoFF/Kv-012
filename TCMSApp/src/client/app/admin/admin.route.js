@@ -26,7 +26,7 @@
                     url: '/team',
                     templateUrl: 'app/admin/team.html',
                     controller: 'TeamController',
-                    controllerAs: 'vm',
+                    controllerAs: 'teamVm',
                     title: 'Manage Team',
                     parent: 'admin'
                 }

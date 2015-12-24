@@ -10,7 +10,7 @@
             <h1>
                 Team
                 <form class="form-inline pull-right">
-                    <select name="" id="" class="form-control" ng-model="vm.memberFilter">
+                    <select name="" id="" class="form-control" ng-model="teamVm.memberFilter">
                         <option value="">All members</option>
                         <option value="admin">Admin</option>
                         <option value="normal">Normal</option>
@@ -18,7 +18,7 @@
                         <option value="true">Confirmed</option>
                         <option value="false">Unconfirmed</option>
                     </select>
-                    <input type="text" class="form-control" placeholder="Search for..." ng-model="vm.query">
+                    <input type="text" class="form-control" placeholder="Search for..." ng-model="teamVm.query">
                 </form>
             </h1>
 
@@ -31,24 +31,24 @@
                     <div class="form-group">
                         <label for="new-member-name" hidden>Name</label>
                         <input type="text" class="form-control" id="new-member-name" placeholder="Full name"
-                               ng-model="vm.newName">
+                               ng-model="teamVm.newName">
                     </div>
                     <div class="form-group">
                         <label for="new-member-email" hidden>Email</label>
                         <input type="email" class="form-control" id="new-member-email" placeholder="Email"
-                               ng-model="vm.newEmail">
+                               ng-model="teamVm.newEmail">
                     </div>
                     <div class="form-group">
                         <label for="new-member-permissions" hidden>Permissions</label>
-                        <select class="form-control" id="new-member-permissions" ng-model="vm.newRole">
+                        <select class="form-control" id="new-member-permissions" ng-model="teamVm.newRole">
                             <option value="admin">Admin</option>
                             <option value="normal">Normal</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="vm.addUser();"><i class="glyphicon glyphicon-plus"></i>
+                    <button class="btn btn-primary" ng-click="teamVm.addUser();"><i class="glyphicon glyphicon-plus"></i>
                         Add
                     </button>
-                    <button class="btn btn-primary" ng-click="vm.getUsers(vm.users, vm.organization);"><i
+                    <button class="btn btn-primary" ng-click="teamVm.getUsers(teamVm.users, teamVm.organization);"><i
                         class="glyphicon glyphicon-refresh"></i></button>
                 </form>
                 <br/>
@@ -70,7 +70,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="user in vm.users | filter:vm.query | filter:vm.memberFilter | orderBy:fullName">
+                        <tr ng-repeat="user in teamVm.users | filter:teamVm.query | filter:teamVm.memberFilter | orderBy:fullName">
                             <td>{{user.id}}</td>
                             <td>
                                 <img
@@ -83,7 +83,7 @@
                             <td>{{user.confirmed}}</td>
                             <td>{{user.url}}</td>
                             <td>
-                                <button type="button" class="btn btn-danger" ng-click="vm.deleteUser(vm.users, $index, vm.organization, vm.me);"><i
+                                <button type="button" class="btn btn-danger" ng-click="teamVm.deleteUser(teamVm.users, $index, teamVm.organization, teamVm.me);"><i
                                     class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
@@ -105,7 +105,7 @@
                     <h4 class="modal-title">Are you shure???</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want remove <b>{{vm.name}}</b> from project?</p>
+                    <p>Are you sure you want remove <b>{{teamVm.name}}</b> from project?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-archive" data-dismiss="modal">Archive</button>

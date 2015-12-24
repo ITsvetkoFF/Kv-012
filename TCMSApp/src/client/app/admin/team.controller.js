@@ -16,21 +16,21 @@
     TeamController.$inject = ['logger', 'Trello', 'TeamMembersFactory'];
 
     function TeamController(logger, Trello, TeamMembersFactory) {
-        var vm = this;
-        vm.users = [];
-        vm.organization = "test04498212";
+        var teamVm = this;
+        teamVm.users = [];
+        teamVm.organization = "test04498212";
 
-        vm.getUsers = TeamMembersFactory.getUsers;
+        teamVm.getUsers = TeamMembersFactory.getUsers;
 
-        vm.addUser = addUser;
-        vm.deleteUser = TeamMembersFactory.deleteUser;
+        teamVm.addUser = addUser;
+        teamVm.deleteUser = TeamMembersFactory.deleteUser;
 
 
         activate();
         setDefaultInput();
         TeamMembersFactory.auth();
         getMe();
-        TeamMembersFactory.getUsers(vm.users, vm.organization);
+        TeamMembersFactory.getUsers(teamVm.users, teamVm.organization);
 
         /**
          * Info about activating the view
@@ -41,7 +41,7 @@
         }
 
         /**
-         * Set `vm.me` as current user from Trello
+         * Set `teamVm.me` as current user from Trello
          * @memberOf teamController
          */
         function getMe() {
@@ -51,7 +51,7 @@
 
                 }, function(res) {
                     logger.info('', res, 'Hello ' + res.fullName);
-                    vm.me = res;
+                    teamVm.me = res;
                 }, function(err) {
                     logger.error('Error in getMe()', err, err.responseText);
                 });
@@ -63,10 +63,10 @@
          */
         function addUser() {
             TeamMembersFactory.addUser({
-                newName: vm.newName,
-                newEmail: vm.newEmail,
-                newRole: vm.newRole
-            }, vm.users, vm.organization);
+                newName: teamVm.newName,
+                newEmail: teamVm.newEmail,
+                newRole: teamVm.newRole
+            }, teamVm.users, teamVm.organization);
 
             setDefaultInput();
         }
@@ -76,10 +76,10 @@
          * @memberOF teamController
          */
         function setDefaultInput() {
-            vm.memberFilter = '';
-            vm.newName = '';
-            vm.newEmail = '';
-            vm.newRole = 'normal';
+            teamVm.memberFilter = '';
+            teamVm.newName = '';
+            teamVm.newEmail = '';
+            teamVm.newRole = 'normal';
         }
     }
 })();
