@@ -21,7 +21,7 @@
         vmTeam.organization = "test04498212";
 
         vmTeam.getUsers = TeamMembersFactory.getUsers;
-
+        //vmTeam.me = {};
         vmTeam.addUser = addUser;
         vmTeam.deleteUser = TeamMembersFactory.deleteUser;
 
@@ -29,7 +29,7 @@
         activate();
         setDefaultInput();
         TeamMembersFactory.auth();
-        getMe();
+        //getMe();
         TeamMembersFactory.getUsers(vmTeam.users, vmTeam.organization);
 
         /**
@@ -50,7 +50,9 @@
                 {
 
                 }, function(res) {
+
                     logger.info('', res, 'Hello ' + res.fullName);
+
                     vmTeam.me = res;
                 }, function(err) {
                     logger.error('Error in getMe()', err, err.responseText);

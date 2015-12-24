@@ -120,7 +120,7 @@
          * @param me
          * @returns {*}
          */
-        function deleteUser(array, index, organization, me) {
+        function deleteUser(array, index, organization) {
 
             var deletedUser = array[index];
 
@@ -139,6 +139,28 @@
             }
 
             return deletedUser;
+        }
+
+        var me = me || {};
+
+        getMe();
+
+        /**
+         * Sets local `me` to current user From Trello
+         * @memberOf teamMembersFactory;
+         */
+        function getMe() {
+            Trello.rest('GET', 'members/me',
+                {
+
+                }, function(res) {
+
+                    logger.info('', res, 'Hello ' + res.fullName);
+
+                    me = res;
+                }, function(err) {
+                    logger.error('Error in getMe()', err, err.responseText);
+                });
         }
 
         return result;
