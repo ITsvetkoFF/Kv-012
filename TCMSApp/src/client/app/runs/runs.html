@@ -27,16 +27,16 @@
             <hr>
 
             <div class="row">
-                <div class="col-xs-12" ng-if="runsVM.runs.length === 0">
+                <div class="col-xs-12" ng-if="vmRuns.runs.length === 0">
                     <div class="alert alert-info" role="alert">
                         List of {{'current runs'}} is empty.
                     </div>
                 </div>
-                <div class="col-sm-8" ng-if="runsVM.runs.length !== 0">
+                <div class="col-sm-8" ng-if="vmRuns.runs.length !== 0">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             Current runs
-                            <span class="pull-right" ng-show="runsVM.selectedRuns.length > 0">
+                            <span class="pull-right" ng-show="vmRuns.selectedRuns.length > 0">
                                 <span class="glyphicon glyphicon-inbox"></span>
                                 archive
                             </span>
@@ -68,12 +68,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="runItem in runsVM.runs" ng-click="runsVM.selectRun($index)">
+                            <tr ng-repeat="runItem in vmRuns.runs" ng-click="vmRuns.selectRun($index)">
                                 <th>
-                                    <input type="checkbox" class="runCheckBox" ng-click="runsVM.runCheckBoxClick($event, $index)">
+                                    <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
                                 </th>
                                 <td>
-                                    {{runsVM.moment(runItem.date).format('DD.MM.YY')}}
+                                    {{vmRuns.moment(runItem.date).format('DD.MM.YY')}}
                                 </td>
                                 <td>
                                     {{runItem.name}}
@@ -97,7 +97,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-4" ng-if="runsVM.runs.length !== 0">
+                <div class="col-sm-4" ng-if="vmRuns.runs.length !== 0">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             &nbsp;
@@ -111,21 +111,21 @@
                             </span>
                         </div>
                         <div class="panel-body">
-                            <h4>{{runsVM.runs[runsVM.selectedRun].name}}</h4>
+                            <h4>{{vmRuns.runs[vmRuns.selectedRun].name}}</h4>
                             <b>Status:</b>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success"
-                                     style="width: {{runsVM.progress.passed/runsVM.progress.length*100}}%">
-                                    {{runsVM.progress.passed}}
+                                     style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%">
+                                    {{vmRuns.progress.passed}}
                                 </div>
                                 <div class="progress-bar progress-bar-danger"
-                                     style="width: {{runsVM.progress.failed/runsVM.progress.length*100}}%">
-                                    {{runsVM.progress.failed}}
+                                     style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%">
+                                    {{vmRuns.progress.failed}}
                                 </div>
                             </div>
                             <b>Environment details:</b>
                             <div>
-                                <div ng-repeat="(envParamKey, envParamValue) in runsVM.runs[runsVM.selectedRun].envFull">
+                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.runs[vmRuns.selectedRun].envFull">
                                     <i>{{envParamKey}}</i>: {{envParamValue}}
                                 </div>
                             </div>
@@ -137,8 +137,8 @@
                                 <th>Status</span></th>
                             </tr>
                             </thead>
-                            <tbody ng-repeat="cluster in runsVM.testClusters">
-                                <tr ng-hide="runsVM.testClusters.length < 2">
+                            <tbody ng-repeat="cluster in vmRuns.testClusters">
+                                <tr ng-hide="vmRuns.testClusters.length < 2">
                                     <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
                                 </tr>
                                 <tr ng-repeat="test in cluster">
