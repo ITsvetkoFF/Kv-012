@@ -5,11 +5,10 @@
         .module('app.tests')
         .controller('TestsController', TestsController);
 
-    TestsController.$inject = ['logger', 'FakeTestsFactory'];
+    TestsController.$inject = ['logger', 'FakeTestsFactory', '$uibModal'];
     /* @ngInject */
-    function TestsController(logger, FakeTestsFactory) {
+    function TestsController(logger, FakeTestsFactory, $uibModal) {
         var vm = this;
-        vm.title = 'Admin';
 
         vm.trigger = 0; // suite -> testCases
 
@@ -28,5 +27,23 @@
             logger.info('Activated Tests View');
         }
 
+// modal
+        vm.open = function () {
+            var modalWindow = $uibModal.open({
+                templateUrl: 'newSuite.html',
+                controller: function($uibModalInstance) {
+
+                    var vmSuite = this;
+
+                    vmSuite.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                },
+
+                controllerAs: 'vmSuite'
+            });
+        };
+
     }
+
 })();

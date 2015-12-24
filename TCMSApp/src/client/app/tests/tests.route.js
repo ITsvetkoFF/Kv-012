@@ -19,7 +19,7 @@
                     url: '/tests/list',
                     templateUrl: 'app/tests/tests.html',
                     controller: 'TestsController',
-                    controllerAs: 'vm',
+                    controllerAs: 'vmTests',
                     title: 'Tests',
                     settings: {
                         nav: 4,
@@ -33,7 +33,7 @@
                     url: '/tests/create',
                     templateUrl: 'app/tests/test-create.html',
                     controller: 'TestsController',
-                    controllerAs: 'vm',
+                    controllerAs: 'vmTests',
                     title: 'Create Test Case',
                     settings: {
                         nav: 5,

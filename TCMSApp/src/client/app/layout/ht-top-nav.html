@@ -12,16 +12,16 @@
                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
             </a>
             <a class="navbar-brand" href="/">
-                </span>{{vm.navline.text}}
+                </span>{{vmNav.navline.text}}
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="vm.isCurrent('/')"><a href="/dashboard">Dashboard</a></li>
-                <li ng-class="vm.isCurrent('/tests/list')"><a href="/tests/list">Tests</a></li>
-                <li ng-class="vm.isCurrent('/runs/list')"><a href="/runs/list">Runs</a></li>
-                <li ng-class="vm.isCurrent('/defects/list')"><a href="/defects/list">Defects</a></li>
-                <li ng-class="vm.isCurrent('/reports')"><a href="/reports">Reports</a></li>
+                <li ng-class="vmNav.isCurrent('/')"><a href="/dashboard">Dashboard</a></li>
+                <li ng-class="vmNav.isCurrent('/tests/list')"><a href="/tests/list">Tests</a></li>
+                <li ng-class="vmNav.isCurrent('/runs/list')"><a href="/runs/list">Runs</a></li>
+                <li ng-class="vmNav.isCurrent('/defects/list')"><a href="/defects/list">Defects</a></li>
+                <li ng-class="vmNav.isCurrent('/reports')"><a href="/reports">Reports</a></li>
                 <li class="dropdown" uib-dropdown>
                     <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
                         Team A <span class="caret"></span></a>
