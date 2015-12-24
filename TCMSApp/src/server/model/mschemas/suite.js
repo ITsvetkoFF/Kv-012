@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create an export function to encapsulate the suite model creation
+// create  the suite model
 var testSuiteSchema = new Schema({
     suiteName: {type: String, required: true},
     suiteDescription: {type: String, required: true},
@@ -22,3 +22,6 @@ var testSuiteSchema = new Schema({
         }]
     }]
 });
+var testSuite = mongoose.model('Suite', testSuiteSchema);
+
+module.exports = testSuite;

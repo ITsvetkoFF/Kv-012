@@ -2,8 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//create an export function to encapsulate the defect model creation
-module.exports = function() {
+//create  the defect model
     //define schema
     var defectSchema = new Schema({
         randomId: Number,
@@ -26,4 +25,4 @@ module.exports = function() {
         testRunId: Number
     });
     var defect = mongoose.model('Defect', defectSchema) ;
-};
+module.exports = defect;

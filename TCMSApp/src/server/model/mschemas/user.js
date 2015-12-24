@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create an export function to encapsulate the user model creation
-module.exports = function() {
+// create  the user model
+
     // define schema
     var userSchema = new Schema({
         firstName: {type: String, required: true},
@@ -16,7 +16,7 @@ module.exports = function() {
             lowercase: true,
             validate: {
                 //regular expression from emailregex.com
-                validator: function(v) {
+                validator: function (v) {
                     return /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(v);
                 },
                 message: '{VALUE} is not a valid e-mail address'
@@ -26,7 +26,7 @@ module.exports = function() {
             type: String,
             validate: {
                 //regular expression was created by my own
-                validator: function(v) {
+                validator: function (v) {
                     return /^\+\d{9,20}$/.test(v);
                 },
                 message: '{VALUE} is not a valid telephone number'
@@ -40,7 +40,7 @@ module.exports = function() {
             type: String,
             required: true,
             validate: {
-                validator: function(v){
+                validator: function (v) {
                     return /administrator|tester/i.test(v);
                 },
                 message: '{VALUE} is not a valid user role'
@@ -49,4 +49,5 @@ module.exports = function() {
 
     });
     var user = mongoose.model('User', userSchema);
-};
+module.exports = user;
+

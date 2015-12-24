@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create an export function to encapsulate the run model creation
-module.exports = function() {
+// create  the run model
+
     // define schema
     var runSchema = new Schema({
         previousRunId: mongoose.Schema.Types.ObjectId,
@@ -53,5 +53,5 @@ module.exports = function() {
             }
         }]
     });
-    var run = new mongoose.model('run',runSchema);
-};
+    var run = mongoose.model('Run',runSchema);
+module.exports = run;

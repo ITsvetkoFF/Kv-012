@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create an export function to encapsulate the project model creation
-module.exports = function() {
+// create  the project model
+
     // define schema
     var projectSchema = new Schema({
         name: {type: String, required: true},
@@ -13,5 +13,5 @@ module.exports = function() {
         dateStart: {type: Date, required: true},
         dateEnd: {type: Date, required: true}
     });
-    mongoose.model('Project', projectSchema);
-};
+    var project = mongoose.model('Project', projectSchema);
+module.exports = project;
