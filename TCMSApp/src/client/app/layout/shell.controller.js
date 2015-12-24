@@ -14,8 +14,8 @@
         $rootScope.showSplash = true;
         vm.navline = {
             title: config.appTitle,
-            text: 'Created by John Papa',
-            link: 'http://twitter.com/john_papa'
+            text: 'TCMS',
+            link: 'http://google.com'
         };
 
         activate();

@@ -1,150 +1,159 @@
+<style>
+    .mainbar{
+        margin-left: 0;
+    }
+    .navi{
+        visibility: hidden;
+    }
+</style>
+
 <section class="mainbar">
     <div class="matter">
-        <div class="container-fluid">
+        <div class="container">
             <div class="clearfix">
-                <form class="form-inline pull-right well">
-                    <select class="form-control">
-                        <option>Show all:</option>
-                        <option>Show Opened</option>
-                        <option>Show Closed</option>
-                    </select>
-                    <select class="form-control">
-                        <option>Sort by:</option>
-                        <option>ID</option>
-                        <option>Priority</option>
-                        <option>Date</option>
-                    </select>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                             <span class="input-group-btn">
-                                  <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </div>
-                </form>
-                <h1>Runs
-                    <a ui-sref="run-execute" class="btn btn-success btn-xs">Create new</a>
-                </h1>
+                <h1>
+                    Runs
 
+                    <form class="form-inline pull-right">
+                        <select class="form-control">
+                            <option>Current runs</option>
+                            <option>Archived runs</option>
+                            <option>All runs</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Filter">
+                    </form>
+                </h1>
             </div>
             <hr>
 
             <div class="row">
-                <div class="col-sm-5">
-                    <h4>
-                        Current Runs
-                    </h4>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-9">
-                                    <h5>
-                                        Regression
-                                        <span class="label label-success">PASSING</span>
-                                        <time class="small" is="relative-time" datetime="2015-12-08T00:12:10Z" title="8 дек. 2015 г., 2:12 GMT+2">2 days ago</time>
-                                    </h5>
-                                </div>
-                                <div class="col-xs-3 text-right">
-                                    <a class="btn btn-default btn-sm fa fa-play"></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-9">
-                                    <h5>
-                                        Regression
-                                        <span class="label label-success">PASSING</span>
-                                        <time class="small" is="relative-time" datetime="2015-12-08T00:12:10Z" title="8 дек. 2015 г., 2:12 GMT+2">2 days ago</time>
-                                    </h5>
-                                </div>
-                                <div class="col-xs-3 text-right">
-                                    <a class="btn btn-default btn-sm fa fa-play"></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-9">
-                                    <h5>
-                                        Regression
-                                        <span class="label label-success">PASSING</span>
-                                        <time class="small" is="relative-time" datetime="2015-12-08T00:12:10Z" title="8 дек. 2015 г., 2:12 GMT+2">2 days ago</time>
-                                    </h5>
-                                </div>
-                                <div class="col-xs-3 text-right">
-                                    <a class="btn btn-default btn-sm fa fa-play"></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="col-xs-12" ng-if="vmRuns.runs.length === 0">
+                    <div class="alert alert-info" role="alert">
+                        List of {{'current runs'}} is empty.
+                    </div>
                 </div>
-                <div class="col-md-6 col-md-offset-1">
-                    <h4>
-                        Feature 1
-                    </h4>
-                    <div class="well">
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <input type="checkbox">
-                                Independent Tests
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" checked>
-                                        Not suited test 1
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" checked>
-                                        Not suited test 2
-                                    </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        Not suited test 3
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                Suite 1
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" checked>
-                                        Test 1
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" checked>
-                                        Test 2
-                                    </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        Test 3
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                Suite 2
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" checked>
-                                        Test 1
-                                    </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        Test 2
-                                    </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        Test 3
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                <div class="col-sm-8" ng-if="vmRuns.runs.length !== 0">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Current runs
+                            <span class="pull-right" ng-show="vmRuns.selectedRuns.length > 0">
+                                <span class="glyphicon glyphicon-inbox"></span>
+                                archive
+                            </span>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox">
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Build
+                                </th>
+                                <th>
+                                    Environment
+                                </th>
+                                <th>
+                                    Author
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="runItem in vmRuns.runs" ng-click="vmRuns.selectRun($index)">
+                                <th>
+                                    <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
+                                </th>
+                                <td>
+                                    {{vmRuns.moment(runItem.date).format('DD.MM.YY')}}
+                                </td>
+                                <td>
+                                    {{runItem.name}}
+                                </td>
+                                <td>
+                                    {{runItem.build}}
+                                </td>
+                                <td>
+                                    {{runItem.envShort}}
+                                </td>
+                                <td>
+                                    {{runItem.author.last+' '+runItem.author.first.slice(0,1)+'.'}}
+                                </td>
+                                <td>
+                                    <span class="label label-{{runItem.status==='passed'?'success':'danger'}}">
+                                        {{runItem.status.toUpperCase()}}
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-if="vmRuns.runs.length !== 0">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            &nbsp;
+                            <span class="pull-right">
+                                <span ui-sref="run-execute">
+                                    <span class="glyphicon glyphicon-duplicate"></span>
+                                    copy&run &nbsp;
+                                </span>
+                                <span class="glyphicon glyphicon-inbox"></span>
+                                archive
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <h4>{{vmRuns.runs[vmRuns.selectedRun].name}}</h4>
+                            <b>Status:</b>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success"
+                                     style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%">
+                                    {{vmRuns.progress.passed}}
+                                </div>
+                                <div class="progress-bar progress-bar-danger"
+                                     style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%">
+                                    {{vmRuns.progress.failed}}
+                                </div>
+                            </div>
+                            <b>Environment details:</b>
+                            <div>
+                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.runs[vmRuns.selectedRun].envFull">
+                                    <i>{{envParamKey}}</i>: {{envParamValue}}
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</span></th>
+                            </tr>
+                            </thead>
+                            <tbody ng-repeat="cluster in vmRuns.testClusters">
+                                <tr ng-hide="vmRuns.testClusters.length < 2">
+                                    <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
+                                </tr>
+                                <tr ng-repeat="test in cluster">
+                                    <td>{{test.name}}</td>
+                                    <td>
+                                        <span class="label label-{{test.status==='passed'?'success':'danger'}}">
+                                            {{test.status.toUpperCase()}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
