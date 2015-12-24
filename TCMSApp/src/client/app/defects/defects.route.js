@@ -19,7 +19,7 @@
                     url: '/defects/list',
                     templateUrl: 'app/defects/defects.html',
                     controller: 'DefectsController',
-                    controllerAs: 'vm',
+                    controllerAs: 'vmDefects',
                     title: 'Defects',
                     settings: {
                         nav: 4,
