@@ -13,15 +13,14 @@
         .module('app.admin')
         .controller('TeamController', TeamController);
 
-    TeamController.$inject = ['logger', 'Trello', 'TeamMembersFactory'];
+    TeamController.$inject = ['logger', 'TeamMembersFactory'];
 
-    function TeamController(logger, Trello, TeamMembersFactory) {
+    function TeamController(logger, TeamMembersFactory) {
         var vmTeam = this;
         vmTeam.users = [];
         vmTeam.organization = "test04498212";
 
         vmTeam.getUsers = TeamMembersFactory.getUsers;
-        //vmTeam.me = {};
         vmTeam.addUser = addUser;
         vmTeam.deleteUser = TeamMembersFactory.deleteUser;
 
@@ -29,7 +28,6 @@
         activate();
         setDefaultInput();
         TeamMembersFactory.auth();
-        //getMe();
         TeamMembersFactory.getUsers(vmTeam.users, vmTeam.organization);
 
         /**
@@ -38,25 +36,6 @@
          */
         function activate() {
             logger.info('Activated Team view', '', 'Team Info');
-        }
-
-        /**
-         * Set `vmTeam.me` as current user from Trello
-         * @memberOf teamController
-         */
-        function getMe() {
-
-            Trello.rest('GET', 'members/me',
-                {
-
-                }, function(res) {
-
-                    logger.info('', res, 'Hello ' + res.fullName);
-
-                    vmTeam.me = res;
-                }, function(err) {
-                    logger.error('Error in getMe()', err, err.responseText);
-                });
         }
 
         /**

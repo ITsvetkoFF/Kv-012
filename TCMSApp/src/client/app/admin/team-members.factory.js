@@ -16,6 +16,11 @@
 
     function TeamMembersFactory(Trello, logger) {
 
+        /**
+         * Variable, that will be returned by the factory
+         * @memberOf teamMembersFactory;
+         * @type {{auth: teamMembersFactory.auth, getUsers: teamMembersFactory.getUsers, deleteUser: teamMembersFactory.deleteUser, addUser: teamMembersFactory.addUser}}
+         */
         var result = {
             auth: auth,
             getUsers: getUsers,
@@ -26,8 +31,12 @@
         auth();
 
         /**
-         * Trello authorize
+         * Trello authorize. Must be one for application. In development
          * @memberOf teamMembersFactory;
+         * @example
+         * ```
+         * auth();
+         * ```
          */
         function auth() {
             Trello.authorize({
@@ -52,8 +61,12 @@
         /**
          * Update array of users
          * @memberOf teamMembersFactory;
-         * @param {Array.<User>} users
+         * @param {Array.<User>} users updatable array of users
          * @param {String} organization name of the current project
+         * @example
+         * ```
+         * getUsers(vm.users, vm.organization);
+         * ```
          */
         function getUsers(users, organization) {
 
@@ -88,8 +101,8 @@
         /**
          * Adds users to Trello
          * @memberOf teamMembersFactory;
-         * @param {Object} newUser option object
-         * @param {Array.<User>} users
+         * @param {Object} newUser option object `{newName: string, newEmail: string, newRole: string}`
+         * @param {Array.<User>} users updatable array of users
          * @param {String} organization name of the current project
          */
         function addUser(newUser, users, organization) {
@@ -112,26 +125,29 @@
         }
 
         /**
-         * Deletes users to Trello
-         * @memberOf teamMembersFactory;
-         * @param array
-         * @param index
-         * @param organization
-         * @param me
+         * Deletes users from Trello and update existing array of users
+         * @memberOf teamMembersFactory
+         * @param {Array.<User>} users updatable array of users
+         * @param {Integer} index index of deleted user
+         * @param {String} organization name of the current project
          * @returns {*}
+         * @example
+         * ```
+         * deleteUser(vm.users, $index, vm.organization)
+         * ```
          */
-        function deleteUser(array, index, organization) {
+        function deleteUser(users, index, organization) {
 
-            var deletedUser = array[index];
+            var deletedUser = users[index];
 
             if(me.id == deletedUser.id) {
                 logger.warning('You can\'t delete yourself =)', '', 'Ooops!');
             } else {
-                Trello.rest('DELETE', 'organizations/' + organization + '/members/' + array[index].id,
+                Trello.rest('DELETE', 'organizations/' + organization + '/members/' + users[index].id,
                     {},
                     function (res) {
                         logger.success('User ' + deletedUser.fullName +  ' deleted');
-                        getUsers(array, organization);
+                        getUsers(users, organization);
                     },
                     function (err) {
                         logger.error('', err, err.responseText);
