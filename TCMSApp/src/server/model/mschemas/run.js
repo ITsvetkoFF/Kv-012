@@ -6,11 +6,23 @@ var Schema = mongoose.Schema;
 
     // define schema
     var runSchema = new Schema({
+        name: {
+            type: String,
+            required: true
+        },
+        author: {
+           type: {
+               firstName: String,
+               lastName: String
+           },
+            required: true
+        },
         previousRunId: mongoose.Schema.Types.ObjectId,
         dateStart: {type: Date, required: true},
         dateEnd: {type: Date, required: true},
         build: Number,
-        environment: String,
+        envShort: String,
+        envFull: {},
         status: {
             type: String,
             validate: {
