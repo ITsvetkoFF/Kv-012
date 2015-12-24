@@ -1,30 +1,43 @@
+/**
+ * @ngdoc factory
+ * @name fakeDefectsFactory
+ * @memberOf app.fakers
+ * @example
+ * FakeDefectsFactory(1);
+ * @description
+ *  Generates specified amount of fake defects objects
+ *
+ */
+
 (function () {
     "use strict";
 
     angular
         .module('app.fakers')
-        .factory('getDefects', getDefects);
+        .factory('FakeDefectsFactory', FakeDefectsFactory);
 
 
-    function getDefects() {
+    FakeDefectsFactory.$inject = ['faker'];
+
+    function FakeDefectsFactory(faker) {
         /**
-         * @function getDefects
-         * @description return array of fake defects
+         * Return array of fake defects
+         * {
+         *        randomID: "string"
+         *        name: "string"
+         *        whoFind: "string"
+         *        assignedTo: "string"
+         *        dateOfDefectCreation: "date"
+         *        description: "string"
+         *        priority: "string"
+         *        stepsToReproduce: "string"
+         *        testRunId: "int"
+         *
+         *   }
+         * @memberOf fakeDefectsFactory
          * @param {Number} quantity [1] - quantity of generated fake dafects
          * @returns {Array} - array of run objects
-         * {
-                 randomID: "string"
-                 name: "string"
-                 whoFind: "string"
-                 assignedTo: "string"
-                 dateOfDefectCreation: "date"
-                 description: "string"
-                 priority: "string"
-                 stepsToReproduce: "string"
-                 testRunId: "int"
-
-         }
-         ]
+         *
          */
         function fakeDefect(quantity) {
             var quantity = quantity || 1;

@@ -58,8 +58,7 @@
                 users[i] = {
 
                     "_id": i + 1,
-                    "firstName": faker.name.firstName(),
-                    "lastName": faker.name.lastName(),
+                    "fullName": faker.name.findName(),
                     "username": faker.internet.userName(),
                     "password": faker.internet.password(),
                     "email": faker.internet.email(),
