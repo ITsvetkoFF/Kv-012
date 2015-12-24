@@ -1,0 +1,82 @@
+ /* Downloaded font */
+* {
+    font-family: Open Sans;
+}
+
+ body, html {
+     height: 100%;
+ }
+.wrapper-first {
+    background-image: url("../images/home.jpg");
+    background-size: cover;
+    /*height: 100vh;*/
+    min-height: 100%;
+}
+
+.wrapper-second {
+    background-image: url("../images/about.jpg");
+    color: #363030;
+    /*height: 100vh;*/
+    min-height: 100%;
+    background-size: cover;
+    /*font-size: 140%;*/
+}
+
+.wrapper-third {
+    background-image: url("../images/contact.jpg");
+    background-size: cover;
+    /*height: 90vh;*/
+    min-height: 100%;
+    /*font-size: 120%;*/
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    color: #000;
+}
+
+footer {
+    background-color: #1b1b1b;
+    color: grey;
+    padding: 10px;
+    height:50px;
+}
+
+.jumbotron {
+    background: none;
+    color: #fff;
+}
+
+.modal-content {
+    background: linear-gradient(to bottom right, #324a56, #38bac7);
+    color: #fff;
+}
+
+.aside {
+    padding: 50px;
+    list-style-type: none;
+    color: #2b669a;
+    margin-right: -20px;
+
+}
+.aside p {
+    color: #000;
+}
+
+.aside li {
+    padding-bottom: 10px;
+}
+.about {
+    padding: 50px;
+}
+
+
+header {
+    font-size: 120%;
+}
+
+iframe {
+    width: 100%;
+}

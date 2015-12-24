@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.layout')
         .controller('ShellController', ShellController);
 
-    ShellController.$inject = ['$rootScope', '$timeout', 'config', 'logger'];
+    ShellController.$inject = ['$rootScope', '$timeout', 'config', 'logger', '$state'];
     /* @ngInject */
-    function ShellController($rootScope, $timeout, config, logger) {
+    function ShellController($rootScope, $timeout, config, logger, $state) {
         var vm = this;
         vm.busyMessage = 'Please wait ...';
         vm.isBusy = true;
@@ -27,9 +27,26 @@
 
         function hideSplash() {
             //Force a 1 second delay so we can see the splash.
-            $timeout(function() {
+            $timeout(function () {
                 $rootScope.showSplash = false;
             }, 1000);
         }
+
+        if (window.localStorage.getItem('authorized') == 'true') {
+            vm.showShell = true;
+        } else {
+            vm.showShell = false;
+            $state.go('index');
+        }
+
+        $rootScope.$on('authorized', function () {
+            vm.showShell = true;
+        });
+
+        $rootScope.$on('deauthorized', function () {
+            vm.showShell = false;
+        })
+
+
     }
 })();
