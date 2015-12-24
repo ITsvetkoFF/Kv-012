@@ -10,7 +10,7 @@
         var directive = {
             bindToController: true,
             controller: TopNavController,
-            controllerAs: 'vm',
+            controllerAs: 'vmNav',
             restrict: 'EA',
             replace: true,
             scope: {
