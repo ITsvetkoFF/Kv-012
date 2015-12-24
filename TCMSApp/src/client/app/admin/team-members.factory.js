@@ -28,8 +28,6 @@
             addUser: addUser,
         };
 
-        auth();
-
         /**
          * Trello authorize. Must be one for application. In development
          * @memberOf teamMembersFactory;
@@ -38,6 +36,8 @@
          * auth();
          * ```
          */
+
+        auth();
         function auth() {
             Trello.authorize({
                 type: 'popup',
