@@ -25,6 +25,10 @@
 
         auth();
 
+        /**
+         * Trello authorize
+         * @memberOf teamMembersFactory;
+         */
         function auth() {
             Trello.authorize({
                 type: 'popup',
@@ -45,9 +49,15 @@
             });
         }
 
-        function getUsers(array, organization) {
+        /**
+         * Update array of users
+         * @memberOf teamMembersFactory;
+         * @param {Array.<User>} users
+         * @param {String} organization name of the current project
+         */
+        function getUsers(users, organization) {
 
-            array.length = 0;
+            users.length = 0;
 
             var length;
 
@@ -61,7 +71,7 @@
 
                         if (res.length != 0) {
                             for (var i = 0; i < res.length; i++) {
-                                array.push(res[i]);
+                                users.push(res[i]);
                             }
                         }
                     } else {
@@ -75,7 +85,14 @@
                 });
         }
 
-        function addUser(newUser, array, organization) {
+        /**
+         * Adds users to Trello
+         * @memberOf teamMembersFactory;
+         * @param {Object} newUser option object
+         * @param {Array.<User>} users
+         * @param {String} organization name of the current project
+         */
+        function addUser(newUser, users, organization) {
 
             var name = newUser.newName;
 
@@ -87,13 +104,22 @@
                 },
                 function (res) {
                     logger.success('User ' + name + ' added');
-                    getUsers(array, organization);
+                    getUsers(users, organization);
                 },
                 function (err) {
                     logger.error('', err, err.responseText);
                 });
         }
 
+        /**
+         * Deletes users to Trello
+         * @memberOf teamMembersFactory;
+         * @param array
+         * @param index
+         * @param organization
+         * @param me
+         * @returns {*}
+         */
         function deleteUser(array, index, organization, me) {
 
             var deletedUser = array[index];

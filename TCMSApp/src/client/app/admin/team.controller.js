@@ -16,21 +16,21 @@
     TeamController.$inject = ['logger', 'Trello', 'TeamMembersFactory'];
 
     function TeamController(logger, Trello, TeamMembersFactory) {
-        var teamVm = this;
-        teamVm.users = [];
-        teamVm.organization = "test04498212";
+        var vmTeam = this;
+        vmTeam.users = [];
+        vmTeam.organization = "test04498212";
 
-        teamVm.getUsers = TeamMembersFactory.getUsers;
+        vmTeam.getUsers = TeamMembersFactory.getUsers;
 
-        teamVm.addUser = addUser;
-        teamVm.deleteUser = TeamMembersFactory.deleteUser;
+        vmTeam.addUser = addUser;
+        vmTeam.deleteUser = TeamMembersFactory.deleteUser;
 
 
         activate();
         setDefaultInput();
         TeamMembersFactory.auth();
         getMe();
-        TeamMembersFactory.getUsers(teamVm.users, teamVm.organization);
+        TeamMembersFactory.getUsers(vmTeam.users, vmTeam.organization);
 
         /**
          * Info about activating the view
@@ -41,7 +41,7 @@
         }
 
         /**
-         * Set `teamVm.me` as current user from Trello
+         * Set `vmTeam.me` as current user from Trello
          * @memberOf teamController
          */
         function getMe() {
@@ -51,7 +51,7 @@
 
                 }, function(res) {
                     logger.info('', res, 'Hello ' + res.fullName);
-                    teamVm.me = res;
+                    vmTeam.me = res;
                 }, function(err) {
                     logger.error('Error in getMe()', err, err.responseText);
                 });
@@ -63,10 +63,10 @@
          */
         function addUser() {
             TeamMembersFactory.addUser({
-                newName: teamVm.newName,
-                newEmail: teamVm.newEmail,
-                newRole: teamVm.newRole
-            }, teamVm.users, teamVm.organization);
+                newName: vmTeam.newName,
+                newEmail: vmTeam.newEmail,
+                newRole: vmTeam.newRole
+            }, vmTeam.users, vmTeam.organization);
 
             setDefaultInput();
         }
@@ -76,10 +76,10 @@
          * @memberOF teamController
          */
         function setDefaultInput() {
-            teamVm.memberFilter = '';
-            teamVm.newName = '';
-            teamVm.newEmail = '';
-            teamVm.newRole = 'normal';
+            vmTeam.memberFilter = '';
+            vmTeam.newName = '';
+            vmTeam.newEmail = '';
+            vmTeam.newRole = 'normal';
         }
     }
 })();
