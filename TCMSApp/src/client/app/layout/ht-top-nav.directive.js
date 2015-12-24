@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .directive('htTopNav', htTopNav);
 
     /* @ngInject */
-    function htTopNav () {
+    function htTopNav() {
         var directive = {
             bindToController: true,
             controller: TopNavController,
@@ -19,10 +19,10 @@
             templateUrl: 'app/layout/ht-top-nav.html'
         };
 
-        TopNavController.$inject = ['$state'];
+        TopNavController.$inject = ['$state', '$rootScope', '$scope'];
 
         /* @ngInject */
-        function TopNavController($state) {
+        function TopNavController($state, $rootScope, $scope) {
             var vm = this;
             vm.isCurrent = isCurrent;
 
@@ -34,8 +34,22 @@
                 return $state.current.title.substr(0, menuName.length) === menuName ? 'active' : '';
             }
 
+            $rootScope.$on('authorized', function () {
+                Trello.members.get("me", function (member) {
+                    vm.profileName = member.fullName;
+                });
+            });
+
+            $scope.logOut = function () {
+                Trello.deauthorize();
+                $rootScope.$broadcast('deauthorized');
+                window.localStorage.setItem('authorized', 'false');
+                $state.go('index');
+
+            }
         }
 
         return directive;
     }
+
 })();
