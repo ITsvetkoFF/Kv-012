@@ -20,7 +20,7 @@
                     url: '/runs/list',
                     templateUrl: 'app/runs/runs.html',
                     controller: 'RunsController',
-                    controllerAs: 'vm',
+                    controllerAs: 'vmRuns',
                     title: 'Runs',
                     settings: {
                         nav: 4,
