@@ -21,7 +21,6 @@
                     <input type="text" class="form-control" placeholder="Search for..." ng-model="vmTeam.query">
                 </form>
             </h1>
-
         </div>
         <hr>
 
@@ -31,16 +30,16 @@
                     <div class="form-group">
                         <label for="new-member-name" hidden>Name</label>
                         <input type="text" class="form-control" id="new-member-name" placeholder="Full name"
-                               ng-model="vmTeam.newName">
+                               ng-model="vmTeam.newName" required>
                     </div>
                     <div class="form-group">
                         <label for="new-member-email" hidden>Email</label>
                         <input type="email" class="form-control" id="new-member-email" placeholder="Email"
-                               ng-model="vmTeam.newEmail">
+                               ng-model="vmTeam.newEmail" required>
                     </div>
                     <div class="form-group">
                         <label for="new-member-permissions" hidden>Permissions</label>
-                        <select class="form-control" id="new-member-permissions" ng-model="vmTeam.newRole">
+                        <select class="form-control" id="new-member-permissions" ng-model="vmTeam.newRole" required>
                             <option value="admin">Admin</option>
                             <option value="normal">Normal</option>
                         </select>
@@ -52,12 +51,11 @@
                         class="glyphicon glyphicon-refresh"></i></button>
                 </form>
                 <br/>
-
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         Members
                     </div>
-                    <table class="table">
+                    <table class="table table-condensed table-hover">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -70,18 +68,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="user in vmTeam.users | filter:vmTeam.query | filter:vmTeam.memberFilter | orderBy:fullName">
+                        <tr ng-repeat="user in vmTeam.users | filter:vmTeam.query | filter:vmTeam.memberFilter | orderBy:fullName" style="cursor: pointer;">
                             <td>{{user.id}}</td>
                             <td>
                                 <img
                                      ng-src="https://trello-avatars.s3.amazonaws.com/{{user.avatarHash}}/170.png"
-                                     alt="avatar" width="20"/>
+                                     width="20"/>
                                 <span class="h6">{{ user.fullName; }}</span>
                             </td>
                             <td>{{user.username}}</td>
                             <td>{{user.memberType}}</td>
                             <td>{{user.confirmed}}</td>
-                            <td>{{user.url}}</td>
+                            <td>
+                                <a ng-href="{{user.url}}">{{user.url}}</a>
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-danger" ng-click="vmTeam.deleteUser(vmTeam.users, $index, vmTeam.organization);"><i
                                     class="glyphicon glyphicon-trash"></i></button>
@@ -90,7 +90,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
