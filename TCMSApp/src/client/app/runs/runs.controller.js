@@ -18,14 +18,16 @@
     function RunsController(logger, FakeRuns, moment) {
 
         var vm = this;
-        vm.runs = FakeRuns(13, 10, 3);
+        vm.runs = FakeRuns(23, 10, 3);
         vm.moment = moment;
         vm.selectRun = selectRun;
         vm.selectedRuns = [];
-        vm.selectedRun = 0;
+        vm.selectedRun = (vm.runs.length===0?null:vm.runs[0]);
         vm.progress = getProgress();
         vm.runCheckBoxClick = runCheckBoxClick;
         vm.testClusters = clusterizeTests();
+        vm.filterFields = {"date": "date", "name": "name", "build": "build", "environment": "envShort", "env": "envShort",
+            "author": "author", "status": "status", "envFull": "envFull", "env full": "envFull"};
 
         activate();
 
@@ -38,6 +40,30 @@
          */
         function activate() {
             logger.info('Activated Runs View');
+            toStringOverloaders();
+        }
+
+        function toStringOverloaders(){
+            for(var i=0; i<vm.runs.length; i++){
+                vm.runs[i].author.toString = function(type){
+                    if(type === 'short')
+                        return this.last+' '+this.first.slice(0,1)+'.';
+                    return this.last+' '+this.first;
+                };
+
+                var envFullProto = {
+                    toString: function(){
+                        var result = "";
+                        var keys = Object.keys(this);
+                        for(var i=0; i<keys.length; i++){
+                            result += keys[i]+": "+this[keys[i]]+"; ";
+                        }
+                        return result;
+                    }
+                };
+
+                vm.runs[i].envFull.__proto__ = envFullProto;
+            }
         }
 
         /**
@@ -45,13 +71,13 @@
          * @returns {{passed: number, failed: number, length: *}}
          */
         function getProgress(){
-            if(vm.runs.length === 0) return;
+            if(vm.selectedRun === null) return;
 
-            var progress = {passed: 0, failed: 0, length: vm.runs[vm.selectedRun].tests.length};
+            var progress = {passed: 0, failed: 0, length: vm.selectedRun.tests.length};
 
-            for(var i=0; i<vm.runs[vm.selectedRun].tests.length; i++){
-                if(vm.runs[vm.selectedRun].tests[i].status === 'passed') progress.passed++;
-                if(vm.runs[vm.selectedRun].tests[i].status === 'failed') progress.failed++;
+            for(var i=0; i<vm.selectedRun.tests.length; i++){
+                if(vm.selectedRun.tests[i].status === 'passed') progress.passed++;
+                if(vm.selectedRun.tests[i].status === 'failed') progress.failed++;
             }
 
             return progress;
@@ -59,13 +85,17 @@
 
         /**
          * change selected run index and recalculate progress object
-         * @param index
+         * @param id
          */
-        function selectRun(index){
-            if(index !== vm.selectedRun){
-                vm.selectedRun = index;
-                vm.progress = getProgress();
-                vm.testClusters = clusterizeTests();
+        function selectRun(id){
+            if(id !== vm.selectedRun._id){
+                for(var i=0; i<vm.runs.length; i++){
+                    if(vm.runs[i]._id === id) {
+                        vm.selectedRun = vm.runs[i];
+                        break;
+                    }
+
+                }
             }
         }
 
@@ -87,7 +117,7 @@
         function clusterizeTests(){
             if(vm.runs.length === 0) return;
 
-            var tests = vm.runs[vm.selectedRun].tests;
+            var tests = vm.selectedRun.tests;
 
             if(tests.length === 0) return [];
 
