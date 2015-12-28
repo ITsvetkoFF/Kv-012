@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="../">
+    <title>JSDoc: source : runs.controller.js</title>
+    <link type="text/css" rel="stylesheet" href="css/jsdoc-default.css">
+    <link href="css/prettify-tomorrow.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+    <script src="js/prettify.js"></script>
+    <script src="js/angular.min.js"></script>
+  </head>
+  <body ng-app="">
+    <nav>
+      <h2><a href="index.html">Index</a></h2>
+      <ul class="module">
+        <!-- app_admin -->
+        <h3>
+          <a href="" ng-click="moduleapp_admin = !moduleapp_admin">
+            module: app.admin
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_admin">+</i>
+        </h3>
+        <li id="app.admin" ng-hide="moduleapp_admin">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_admincontroller = !app_admincontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_admincontroller">+</i>
+            </h3>
+            <ul ng-hide="app_admincontroller">
+              <li>
+                <a href="app.admin.teamController.html">teamController</a>
+              </li>
+            </ul>
+          </ul><ul class="group">
+            <h3>
+              <a href="" ng-click="app_adminfactory = !app_adminfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_adminfactory">+</i>
+            </h3>
+            <ul ng-hide="app_adminfactory">
+              <li>
+                <a href="app.admin.teamMembersFactory.html">teamMembersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_fakers -->
+        <h3>
+          <a href="" ng-click="moduleapp_fakers = !moduleapp_fakers">
+            module: app.fakers
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_fakers">+</i>
+        </h3>
+        <li id="app.fakers" ng-hide="moduleapp_fakers">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_fakersfactory = !app_fakersfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_fakersfactory">+</i>
+            </h3>
+            <ul ng-hide="app_fakersfactory">
+              <li>
+                <a href="app.fakers.fakeDefectsFactory.html">fakeDefectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeProjectsFactory.html">fakeProjectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeRunsFactory.html">fakeRunsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeTestsFactory.html">fakeTestsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeUsersFactory.html">fakeUsersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_runs -->
+        <h3>
+          <a href="" ng-click="moduleapp_runs = !moduleapp_runs">
+            module: app.runs
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_runs">+</i>
+        </h3>
+        <li id="app.runs" ng-hide="moduleapp_runs">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_runscontroller = !app_runscontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_runscontroller">+</i>
+            </h3>
+            <ul ng-hide="app_runscontroller">
+              <li>
+                <a href="app.runs.runController.html">runController</a>
+              </li><li>
+                <a href="app.runs.runsController.html">runsController</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div id="content" class="page-wrap">
+      <h1 class="title">
+        source : runs.controller.js
+      </h1>
+      <div id="main" class="big-container">
+        <!-- source code html -->
+        <article>
+          <pre class="prettyprint source linenums"><code>/** * @ngdoc controller * @name runsController * @memberOf app.runs * @descripiton Controls runs view logic */(function () {    'use strict';    angular        .module('app.runs')        .controller('RunsController', RunsController);    RunsController.$inject = ['logger', 'FakeRunsFactory'];    function RunsController(logger, FakeRunsFactory) {        var vm = this;        vm.title = 'Admin';        activate();        /**         * Activates logger notification         *         * @memberOf runsController         * @example         * activate();         */        function activate() {            logger.info('Activated Runs View');        }    }})();</code></pre>
+        </article>
+        <!-- index.html -->
+        <!-- class files -->
+      </div>
+      <footer style="clear:both">
+        Documentation generated by
+        <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+        using
+        <a href="https://github.com/allenhwkim/angular-jsdoc">Angular-JSDoc template</a>
+      </footer>
+    </div>
+    <!--%= prettyJson %-->
+    <script>
+      prettyPrint();
+      var lineNo = window.location.hash.match(/#line([0-9]+)$/);
+      lineNo && document.querySelector("ol li:nth-child("+(lineNo[1])+")").scrollIntoView();
+    </script>
+  </body>
+</html>

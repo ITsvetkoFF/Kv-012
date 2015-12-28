@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="../">
+    <title>JSDoc: source : fake-tests.factory.js</title>
+    <link type="text/css" rel="stylesheet" href="css/jsdoc-default.css">
+    <link href="css/prettify-tomorrow.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+    <script src="js/prettify.js"></script>
+    <script src="js/angular.min.js"></script>
+  </head>
+  <body ng-app="">
+    <nav>
+      <h2><a href="index.html">Index</a></h2>
+      <ul class="module">
+        <!-- app_admin -->
+        <h3>
+          <a href="" ng-click="moduleapp_admin = !moduleapp_admin">
+            module: app.admin
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_admin">+</i>
+        </h3>
+        <li id="app.admin" ng-hide="moduleapp_admin">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_admincontroller = !app_admincontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_admincontroller">+</i>
+            </h3>
+            <ul ng-hide="app_admincontroller">
+              <li>
+                <a href="app.admin.teamController.html">teamController</a>
+              </li>
+            </ul>
+          </ul><ul class="group">
+            <h3>
+              <a href="" ng-click="app_adminfactory = !app_adminfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_adminfactory">+</i>
+            </h3>
+            <ul ng-hide="app_adminfactory">
+              <li>
+                <a href="app.admin.teamMembersFactory.html">teamMembersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_fakers -->
+        <h3>
+          <a href="" ng-click="moduleapp_fakers = !moduleapp_fakers">
+            module: app.fakers
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_fakers">+</i>
+        </h3>
+        <li id="app.fakers" ng-hide="moduleapp_fakers">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_fakersfactory = !app_fakersfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_fakersfactory">+</i>
+            </h3>
+            <ul ng-hide="app_fakersfactory">
+              <li>
+                <a href="app.fakers.fakeDefectsFactory.html">fakeDefectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeProjectsFactory.html">fakeProjectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeRunsFactory.html">fakeRunsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeTestsFactory.html">fakeTestsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeUsersFactory.html">fakeUsersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_runs -->
+        <h3>
+          <a href="" ng-click="moduleapp_runs = !moduleapp_runs">
+            module: app.runs
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_runs">+</i>
+        </h3>
+        <li id="app.runs" ng-hide="moduleapp_runs">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_runscontroller = !app_runscontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_runscontroller">+</i>
+            </h3>
+            <ul ng-hide="app_runscontroller">
+              <li>
+                <a href="app.runs.runController.html">runController</a>
+              </li><li>
+                <a href="app.runs.runsController.html">runsController</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div id="content" class="page-wrap">
+      <h1 class="title">
+        source : fake-tests.factory.js
+      </h1>
+      <div id="main" class="big-container">
+        <!-- source code html -->
+        <article>
+          <pre class="prettyprint source linenums"><code>/** * @ngdoc factory * @name fakeTestsFactory * @memberOf app.fakers * @example * fakeTestsFactory(1); * @description *  Returns a test suite with test cases, filled with steps * */(function() {    'use strict';    angular.module('app.fakers')        .factory('FakeTestsFactory', FakeTestsFactory);    FakeTestsFactory.$inject = ['faker'];    function FakeTestsFactory(faker) {        return {            /**             *             * Returns a test suite with test cases, filled with steps             *             * ```             * {               * _id: "int"               * suiteName: "string"               * suiteDescription: "string"               * project: "int"               * suitePriority: "int"               * tests:               * [                   * {                       * _id: "int"                       * testName: "string"                       * testDescription: "string"                        * automated: "bool"                        * preConditions: "string"                        * steps:                        * [                            *{                            *    stepNumber: "int"                            *    stepDescription: "string"                           *     expectedResult: "string"                          *  },                         *   {                        *        stepNumber: "int"                       *         stepDescription: "string"                      *          expectedResult: "string"                     *       }                    *    ]                   * },                   * {                       * _id: "int"                       * testName: "string"                       * testDescription: "string"                       * automated: "bool"                       * pre-conditions: "string"                       * steps:                       * [                         *   {                         *       stepNumber: "int"                        *        stepDescription: "string"                       *         expectedResult: "string"                      *      },                      *      {                     *           stepNumber: "int"                    *            stepDescription: "string"                   *             expectedResult: "string"                  *          }                 *       ]                *    }               * ]              *  }             * ```             *             *             * @memberOf fakeTestsFactory             * @param {Number} testNumber             * @returns {Array.&lt;{Object}>} an array of objects             */            getTests: function (testNumber) {                // Test Suite creating                var testSuite = {};                testSuite._id = faker.random.uuid();                testSuite.suiteName = faker.lorem.sentence(2, 5);                testSuite.project = faker.random.uuid();                testSuite.suitePriority = Math.floor(Math.random() * (3 - 1 + 1)) + 1;                testSuite.tests = [];                var i = 0, l = testNumber;                // Test cases adding                for (i = 0; i &lt; l; i++) {                    // Test case creating                    var testCase = {};                    testCase._id = faker.random.uuid();                    testCase.testName = faker.lorem.sentence(2, 7);                    testCase.testDescription = faker.lorem.sentence(4, 30);                    testCase.automated = faker.random.boolean();                    testCase.preConditions = faker.lorem.sentence(5, 20);                    // Test case steps creating                    var numSteps = Math.floor(Math.random() * (40 - 3 + 1)) + 3;                    testCase.steps = [];                    var j;                    for (j = 0; j &lt; numSteps; j++) {                        var step = {};                        step.stepNumber = j + 1;                        step.stepDescription = faker.lorem.sentence(3, 15);                        step.expectedResult = faker.lorem.sentence(2, 10);                        testCase.steps.push(step);                    }                    testSuite.tests.push(testCase);                }                return testSuite;            }        }    }})();</code></pre>
+        </article>
+        <!-- index.html -->
+        <!-- class files -->
+      </div>
+      <footer style="clear:both">
+        Documentation generated by
+        <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+        using
+        <a href="https://github.com/allenhwkim/angular-jsdoc">Angular-JSDoc template</a>
+      </footer>
+    </div>
+    <!--%= prettyJson %-->
+    <script>
+      prettyPrint();
+      var lineNo = window.location.hash.match(/#line([0-9]+)$/);
+      lineNo && document.querySelector("ol li:nth-child("+(lineNo[1])+")").scrollIntoView();
+    </script>
+  </body>
+</html>

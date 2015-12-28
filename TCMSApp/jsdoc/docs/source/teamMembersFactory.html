@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="../">
+    <title>JSDoc: source : team-members.factory.js</title>
+    <link type="text/css" rel="stylesheet" href="css/jsdoc-default.css">
+    <link href="css/prettify-tomorrow.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+    <script src="js/prettify.js"></script>
+    <script src="js/angular.min.js"></script>
+  </head>
+  <body ng-app="">
+    <nav>
+      <h2><a href="index.html">Index</a></h2>
+      <ul class="module">
+        <!-- app_admin -->
+        <h3>
+          <a href="" ng-click="moduleapp_admin = !moduleapp_admin">
+            module: app.admin
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_admin">+</i>
+        </h3>
+        <li id="app.admin" ng-hide="moduleapp_admin">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_admincontroller = !app_admincontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_admincontroller">+</i>
+            </h3>
+            <ul ng-hide="app_admincontroller">
+              <li>
+                <a href="app.admin.teamController.html">teamController</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_fakers -->
+        <h3>
+          <a href="" ng-click="moduleapp_fakers = !moduleapp_fakers">
+            module: app.fakers
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_fakers">+</i>
+        </h3>
+        <li id="app.fakers" ng-hide="moduleapp_fakers">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_fakersfactory = !app_fakersfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_fakersfactory">+</i>
+            </h3>
+            <ul ng-hide="app_fakersfactory">
+              <li>
+                <a href="app.fakers.fakeDefectsFactory.html">fakeDefectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeProjectsFactory.html">fakeProjectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeRunsFactory.html">fakeRunsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeTestsFactory.html">fakeTestsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeUsersFactory.html">fakeUsersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_runs -->
+        <h3>
+          <a href="" ng-click="moduleapp_runs = !moduleapp_runs">
+            module: app.runs
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_runs">+</i>
+        </h3>
+        <li id="app.runs" ng-hide="moduleapp_runs">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_runscontroller = !app_runscontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_runscontroller">+</i>
+            </h3>
+            <ul ng-hide="app_runscontroller">
+              <li>
+                <a href="app.runs.runController.html">runController</a>
+              </li><li>
+                <a href="app.runs.runsController.html">runsController</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- undefined -->
+        <h3>
+          <a href="" ng-click="moduleundefined = !moduleundefined">
+            module: undefined
+          </a>
+          <i ng-cloak="" ng-show="moduleundefined">+</i>
+        </h3>
+        <li id="undefined" ng-hide="moduleundefined">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="undefinedfactory = !undefinedfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="undefinedfactory">+</i>
+            </h3>
+            <ul ng-hide="undefinedfactory">
+              <li>
+                <a href="teamMembersFactory.html">teamMembersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div id="content" class="page-wrap">
+      <h1 class="title">
+        source : team-members.factory.js
+      </h1>
+      <div id="main" class="big-container">
+        <!-- source code html -->
+        <article>
+          <pre class="prettyprint source linenums"><code>/** * @ngdoc factory * @name teamMembersFactory * @description * Some methods for manipulating members in current team * @returns {Object} object with Trello methods */(function () {    "use strict";    angular        .module('app.admin')        .factory('TeamMembersFactory', TeamMembersFactory);    TeamMembersFactory.$inject = ['Trello', 'logger'];    function TeamMembersFactory(Trello, logger) {        /**         * Used during team view development.         * It authorize our Trello application         * @memberOf teamMembersFactory         * @example         * ```         * TeamMembersFactory.auth();         * ```         */        function auth() {            Trello.authorize({                type: 'popup',                name: 'testApp',                scope: {                    read: true,                    write: true,                    account: true                },                expiration: 'never',                success: function () {                    logger.info('', '', 'Success trello auth');                },                error: function (err) {                    logger.error('', '', res.responseText);                    console.log('error auth');                }            });        }        /**         *          * @param {Array} users array where this method push returned users from Trello         * @param {String} organization our current organization (project)         * @example         * ```         * TeamMembersFactory.getUsers(vm.users);         * ```         */        function getUsers(users, organization) {            users.length = 0;            var length;            Trello.rest('GET', 'organizations/' + organization + '/members',                {                    fields: 'all'                },                function (res) {                    if(res != 0) {                        length = res.length;                        if (res.length != 0) {                            for (var i = 0; i &lt; res.length; i++) {                                users.push(res[i]);                            }                        }                    } else {                        length = 0;                    }                    logger.success(length + ' users successfully loaded');                },                function (err) {                    logger.error('Something wrong with users loading...', '', err.responseText);                });        }        function addUser(newUser, array, organization) {            var name = newUser.newName;            Trello.rest('PUT', 'organizations/' + organization + '/members',                {                    fullName: newUser.newName,                    email: newUser.newEmail,                    type: newUser.newRole                },                function (res) {                    logger.success('User ' + name + ' added');                    getUsers(array, organization);                },                function (err) {                    logger.error('', err, err.responseText);                });        }        function deleteUser(array, index, organization, me) {            var deletedUser = array[index];            if(me.id == deletedUser.id) {                logger.warning('You can\'t delete yourself =)', '', 'Ooops!');            } else {                Trello.rest('DELETE', 'organizations/' + organization + '/members/' + array[index].id,                    {},                    function (res) {                        logger.success('User ' + deletedUser.fullName +  ' deleted');                        getUsers(array, organization);                    },                    function (err) {                        logger.error('', err, err.responseText);                    });            }            return deletedUser;        }        return {            auth: auth,            getUsers: getUsers,            deleteUser: deleteUser,            addUser: addUser        }    }})();</code></pre>
+        </article>
+        <!-- index.html -->
+        <!-- class files -->
+      </div>
+      <footer style="clear:both">
+        Documentation generated by
+        <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+        using
+        <a href="https://github.com/allenhwkim/angular-jsdoc">Angular-JSDoc template</a>
+      </footer>
+    </div>
+    <!--%= prettyJson %-->
+    <script>
+      prettyPrint();
+      var lineNo = window.location.hash.match(/#line([0-9]+)$/);
+      lineNo && document.querySelector("ol li:nth-child("+(lineNo[1])+")").scrollIntoView();
+    </script>
+  </body>
+</html>
