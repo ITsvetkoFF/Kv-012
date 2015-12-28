@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+  <head>
+    <title>JSDoc: Index</title>
+    <link type="text/css" rel="stylesheet" href="css/jsdoc-default.css">
+    <link href="css/prettify-tomorrow.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+    <script src="js/prettify.js"></script>
+    <script src="js/angular.min.js"></script>
+  </head>
+  <body ng-app="">
+    <nav>
+      <h2><a href="index.html">Index</a></h2>
+      <ul class="module">
+        <!-- app_admin -->
+        <h3>
+          <a href="" ng-click="moduleapp_admin = !moduleapp_admin">
+            module: app.admin
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_admin">+</i>
+        </h3>
+        <li id="app.admin" ng-hide="moduleapp_admin">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_admincontroller = !app_admincontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_admincontroller">+</i>
+            </h3>
+            <ul ng-hide="app_admincontroller">
+              <li>
+                <a href="app.admin.teamController.html">teamController</a>
+              </li>
+            </ul>
+          </ul><ul class="group">
+            <h3>
+              <a href="" ng-click="app_adminfactory = !app_adminfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_adminfactory">+</i>
+            </h3>
+            <ul ng-hide="app_adminfactory">
+              <li>
+                <a href="app.admin.teamMembersFactory.html">teamMembersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_fakers -->
+        <h3>
+          <a href="" ng-click="moduleapp_fakers = !moduleapp_fakers">
+            module: app.fakers
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_fakers">+</i>
+        </h3>
+        <li id="app.fakers" ng-hide="moduleapp_fakers">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_fakersfactory = !app_fakersfactory">
+                factory
+              </a>
+              <i ng-cloak="" ng-show="app_fakersfactory">+</i>
+            </h3>
+            <ul ng-hide="app_fakersfactory">
+              <li>
+                <a href="app.fakers.fakeDefectsFactory.html">fakeDefectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeProjectsFactory.html">fakeProjectsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeRunsFactory.html">fakeRunsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeTestsFactory.html">fakeTestsFactory</a>
+              </li><li>
+                <a href="app.fakers.fakeUsersFactory.html">fakeUsersFactory</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul><ul class="module">
+        <!-- app_runs -->
+        <h3>
+          <a href="" ng-click="moduleapp_runs = !moduleapp_runs">
+            module: app.runs
+          </a>
+          <i ng-cloak="" ng-show="moduleapp_runs">+</i>
+        </h3>
+        <li id="app.runs" ng-hide="moduleapp_runs">
+          <ul class="group">
+            <h3>
+              <a href="" ng-click="app_runscontroller = !app_runscontroller">
+                controller
+              </a>
+              <i ng-cloak="" ng-show="app_runscontroller">+</i>
+            </h3>
+            <ul ng-hide="app_runscontroller">
+              <li>
+                <a href="app.runs.runController.html">runController</a>
+              </li><li>
+                <a href="app.runs.runsController.html">runsController</a>
+              </li>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div id="content" class="page-wrap">
+      <h1 class="title">
+        Index
+      </h1>
+      <div id="main" class="big-container">
+        <!-- source code html -->
+        <!-- index.html -->
+        <section class="section-readme">
+          <article>
+            <h1>TCMSApp</h1><p><strong>Generated from HotTowel Angular</strong></p>
+<blockquote>
+<p><em>Opinionated Angular style guide for teams by <a href="//twitter.com/john_papa">@john_papa</a></em></p>
+<p>More details about the styles and patterns used in this app can be found in my <a href="https://github.com/johnpapa/angularjs-styleguide">Angular Style Guide</a> and my <a href="http://jpapa.me/ngclean">Angular Patterns: Clean Code</a> course at <a href="http://pluralsight.com/training/Authors/Details/john-papa">Pluralsight</a> and working in teams.</p>
+</blockquote>
+<h2>Prerequisites</h2><ol>
+<li><p>Install <a href="http://nodejs.org">Node.js</a></p>
+<ul>
+<li>on OSX use <a href="http://brew.sh">homebrew</a> <code>brew install node</code></li>
+<li>on Windows use <a href="https://chocolatey.org/">chocolatey</a> <code>choco install nodejs</code></li>
+</ul>
+</li>
+<li><p>Install Yeoman <code>npm install -g yo</code></p>
+</li>
+<li><p>Install these NPM packages globally</p>
+<pre class="prettyprint source lang-bash"><code> npm install -g bower gulp nodemon</code></pre><blockquote>
+<p>Refer to these <a href="https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md">instructions on how to not require sudo</a></p>
+</blockquote>
+</li>
+</ol>
+<h2>Running HotTowel</h2><h3>Linting</h3><ul>
+<li>Run code analysis using <code>gulp vet</code>. This runs jshint, jscs, and plato.</li>
+</ul>
+<h3>Tests</h3><ul>
+<li>Run the unit tests using <code>gulp test</code> (via karma, mocha, sinon).</li>
+</ul>
+<h3>Running in dev mode</h3><ul>
+<li><p>Run the project with <code>gulp serve-dev</code></p>
+</li>
+<li><p>opens it in a browser and updates the browser with any files changes.</p>
+</li>
+</ul>
+<h3>Building the project</h3><ul>
+<li>Build the optimized project using <code>gulp build</code></li>
+<li>This create the optimized code for the project and puts it in the build folder</li>
+</ul>
+<h3>Running the optimized code</h3><ul>
+<li>Run the optimize project from the build folder with <code>gulp serve-build</code></li>
+</ul>
+<h3>Running docs generating</h3><ul>
+<li>Create documentation to the project with <code>gulp docs</code></li>
+<li>Open <code>jsdoc/docs</code> and run <code>index.html</code></li>
+</ul>
+<h2>Exploring HotTowel</h2><p>HotTowel Angular starter project</p>
+<h3>Structure</h3><p>The structure also contains a gulpfile.js and a server folder. The server is there just so we can serve the app using node. Feel free to use any server you wish.</p>
+<pre class="prettyprint source"><code>/src
+    /client
+        /app
+        /content</code></pre><p>Structure also available from <a href="https://drive.google.com/open?id=0BwRHcu8QwGBvZkNhY2tzb2tERmc">here</a>. Open it with MindMup</p>
+<h3>Installing Packages</h3><p>When you generate the project it should run these commands, but if you notice missing packages, run these again:</p>
+<ul>
+<li><code>npm install</code></li>
+<li><code>bower install</code></li>
+</ul>
+<h3>The Modules</h3><p>The app has 10 feature modules and depends on a series of external modules and custom but cross-app modules</p>
+<pre class="prettyprint source"><code>app --> [
+        app.admin --> [
+            app.core,
+            app.widgets
+        ],
+        app.dashboard --> [
+            app.core,
+            app.widgets
+        ],
+        app.layout --> [
+            app.core
+        ],
+        app.widgets,
+        app.core --> [
+            ngAnimate,
+            ngSanitize,
+            ui.router,
+            blocks.exception,
+            blocks.logger,
+            blocks.router,
+            app.fakers
+        ],
+        app.fakers --> [
+            app.core
+        ],
+        app.defects --> [
+            app.core,
+            app.widgets
+        ],
+        app.reports --> [
+                    app.core,
+                    app.widgets
+        ],
+        app.runs --> [
+                    app.core,
+                    app.widgets
+        ],
+        app.tests --> [
+                    app.core,
+                    app.widgets
+        ]
+    ]</code></pre><p>Structure also available from <a href="https://drive.google.com/open?id=0BwRHcu8QwGBvZkNhY2tzb2tERmc">here</a>. Open it with MindMup</p>
+<h4>core Module</h4><p>Core modules are ones that are shared throughout the entire application and may be customized for the specific application. Example might be common data services.</p>
+<p>This is an aggregator of modules that the application will need. The <code>core</code> module takes the blocks, common, and Angular sub-modules as dependencies.</p>
+<h4>blocks Modules</h4><p>Block modules are reusable blocks of code that can be used across projects simply by including them as dependencies.</p>
+<h5>blocks.logger Module</h5><p>The <code>blocks.logger</code> module handles logging across the Angular app.</p>
+<h5>blocks.exception Module</h5><p>The <code>blocks.exception</code> module handles exceptions across the Angular app.</p>
+<p>It depends on the <code>blocks.logger</code> module, because the implementation logs the exceptions.</p>
+<h5>blocks.router Module</h5><p>The <code>blocks.router</code> module contains a routing helper module that assists in adding routes to the $routeProvider.</p>
+<h5>app.fakers Module</h5><p>The <code>app.fakers</code> module handles generating of fake data of entities</p>
+<h4>runs Module</h4><p>Runs module control behavior of the runs template</p>
+<h4>test Module</h4><p>Test module control behavior of the tests template</p>
+<h4>reports Module</h4><p>Reports module control behavior of the report template</p>
+<h4>defects Module</h4><p>Defects module control behavior of the defects template</p>
+<h2>Gulp Tasks</h2><h3>Task Listing</h3><ul>
+<li><p><code>gulp help</code></p>
+<p>  Displays all of the available gulp tasks.</p>
+</li>
+</ul>
+<h3>Code Analysis</h3><ul>
+<li><p><code>gulp vet</code></p>
+<p>  Performs static code analysis on all javascript files. Runs jshint and jscs.</p>
+</li>
+<li><p><code>gulp vet --verbose</code></p>
+<p>  Displays all files affected and extended information about the code analysis.</p>
+</li>
+<li><p><code>gulp plato</code></p>
+<p>  Performs code analysis using plato on all javascript files. Plato generates a report in the reports folder.</p>
+</li>
+</ul>
+<h3>Testing</h3><ul>
+<li><p><code>gulp serve-specs</code></p>
+<p>  Serves and browses to the spec runner html page and runs the unit tests in it. Injects any changes on the fly and re runs the tests. Quick and easy view of tests as an alternative to terminal via <code>gulp test</code>.</p>
+</li>
+<li><p><code>gulp test</code></p>
+<p>  Runs all unit tests using karma runner, mocha, chai and sinon with phantomjs. Depends on vet task, for code analysis.</p>
+</li>
+<li><p><code>gulp test --startServers</code></p>
+<p>  Runs all unit tests and midway tests. Cranks up a second node process to run a server for the midway tests to hit a web api.</p>
+</li>
+<li><p><code>gulp autotest</code></p>
+<p>  Runs a watch to run all unit tests.</p>
+</li>
+<li><p><code>gulp autotest --startServers</code></p>
+<p>  Runs a watch to run all unit tests and midway tests. Cranks up a second node process to run a server for the midway tests to hit a web api.</p>
+</li>
+</ul>
+<h3>Cleaning Up</h3><ul>
+<li><p><code>gulp clean</code></p>
+<p>  Remove all files from the build and temp folders</p>
+</li>
+<li><p><code>gulp clean-images</code></p>
+<p>  Remove all images from the build folder</p>
+</li>
+<li><p><code>gulp clean-code</code></p>
+<p>  Remove all javascript and html from the build folder</p>
+</li>
+<li><p><code>gulp clean-fonts</code></p>
+<p>  Remove all fonts from the build folder</p>
+</li>
+<li><p><code>gulp clean-styles</code></p>
+<p>  Remove all styles from the build folder</p>
+</li>
+</ul>
+<h3>Fonts and Images</h3><ul>
+<li><p><code>gulp fonts</code></p>
+<p>  Copy all fonts from source to the build folder</p>
+</li>
+<li><p><code>gulp images</code></p>
+<p>  Copy all images from source to the build folder</p>
+</li>
+</ul>
+<h3>Styles</h3><ul>
+<li><p><code>gulp styles</code></p>
+<p>  Compile less files to CSS, add vendor prefixes, and copy to the build folder</p>
+</li>
+</ul>
+<h3>Bower Files</h3><ul>
+<li><p><code>gulp wiredep</code></p>
+<p>  Looks up all bower components' main files and JavaScript source code, then adds them to the <code>index.html</code>.</p>
+<p>  The <code>.bowerrc</code> file also runs this as a postinstall task whenever <code>bower install</code> is run.</p>
+</li>
+</ul>
+<h3>Angular HTML Templates</h3><ul>
+<li><p><code>gulp templatecache</code></p>
+<p>  Create an Angular module that adds all HTML templates to Angular's $templateCache. This pre-fetches all HTML templates saving XHR calls for the HTML.</p>
+</li>
+<li><p><code>gulp templatecache --verbose</code></p>
+<p>  Displays all files affected by the task.</p>
+</li>
+</ul>
+<h3>Serving Development Code</h3><ul>
+<li><p><code>gulp serve-dev</code></p>
+<p>  Serves the development code and launches it in a browser. The goal of building for development is to do it as fast as possible, to keep development moving efficiently. This task serves all code from the source folders and compiles less to css in a temp folder.</p>
+</li>
+<li><p><code>gulp serve-dev --nosync</code></p>
+<p>  Serves the development code without launching the browser.</p>
+</li>
+<li><p><code>gulp serve-dev --debug</code></p>
+<p>  Launch debugger with node-inspector.</p>
+</li>
+<li><p><code>gulp serve-dev --debug-brk</code></p>
+<p>  Launch debugger and break on 1st line with node-inspector.</p>
+</li>
+</ul>
+<h3>Building Production Code</h3><ul>
+<li><p><code>gulp optimize</code></p>
+<p>  Optimize all javascript and styles, move to a build folder, and inject them into the new index.html</p>
+</li>
+<li><p><code>gulp build</code></p>
+<p>  Copies all fonts, copies images and runs <code>gulp optimize</code> to build the production code to the build folder.</p>
+</li>
+<li><p><code>gulp docs</code></p>
+<p>  Generates documentation to <code>jsdoc/docs</code> project directory.</p>
+</li>
+</ul>
+<h3>Serving Production Code</h3><ul>
+<li><p><code>gulp serve-build</code></p>
+<p>  Serve the optimized code from the build folder and launch it in a browser.</p>
+</li>
+<li><p><code>gulp serve-build --nosync</code></p>
+<p>  Serve the optimized code from the build folder and manually launch the browser.</p>
+</li>
+<li><p><code>gulp serve-build --debug</code></p>
+<p>  Launch debugger with node-inspector.</p>
+</li>
+<li><p><code>gulp serve-build --debug-brk</code></p>
+<p>  Launch debugger and break on 1st line with node-inspector.</p>
+</li>
+</ul>
+<h3>Bumping Versions</h3><ul>
+<li><p><code>gulp bump</code></p>
+<p>  Bump the minor version using semver.
+  --type=patch // default
+  --type=minor
+  --type=major
+  --type=pre
+  --ver=1.2.3 // specific version</p>
+</li>
+</ul>
+<h3>Generating documentation</h3><ul>
+<li><p><code>gulp docs</code></p>
+<p>  Generate an actual documentation of your project with JSdoc code.</p>
+</li>
+</ul>
+<h2>License</h2><p>MIT</p>
+          </article>
+        </section>
+        <!-- class files -->
+      </div>
+      <footer style="clear:both">
+        Documentation generated by
+        <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+        using
+        <a href="https://github.com/allenhwkim/angular-jsdoc">Angular-JSDoc template</a>
+      </footer>
+    </div>
+    <!--%= prettyJson %-->
+    <script>
+      prettyPrint();
+      var lineNo = window.location.hash.match(/#line([0-9]+)$/);
+      lineNo && document.querySelector("ol li:nth-child("+(lineNo[1])+")").scrollIntoView();
+    </script>
+  </body>
+</html>
