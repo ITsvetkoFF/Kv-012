@@ -33,13 +33,25 @@
                 config: {
                     url: '/runs/execute',
                     templateUrl: 'app/runs/run-execute.html',
-                    controller: 'RunsController',
-                    controllerAs: 'vm',
-                    title: 'Create Test Case',
-                    settings: {
-                        nav: 5,
-                        content: '<i class="fa fa-team"></i> Execute Run'
-                    }
+                    controller: 'RunController',
+                    controllerAs: 'vmRunExecute',
+                    title: 'Execute run'
+                }
+            },
+            // new nested route and controller for addDefect modal window
+            {
+                state: 'generate-defect',
+                config: {
+                    url: '/create-defect',
+                    templateUrl: 'app/defects/add-defect.template.html',
+                    controller: 'AddDefectController',
+                    controllerAs: 'vmAddDefect',
+                    title: 'Defect',
+                    params: {
+                        previousState: null,
+                        run: null
+                    },
+                    parent: "run-execute"
                 }
             }
         ];

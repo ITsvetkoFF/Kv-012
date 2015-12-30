@@ -5,7 +5,7 @@
  * @example
  * fakeTestsFactory(1);
  * @description
- *  Returns a test suite with test cases, filled with steps
+ *  Returns an array of suites with test cases, filled with steps
  *
  */
 
@@ -19,11 +19,11 @@
 
     function FakeTestsFactory(faker) {
 
-        return {
+        return getSuites;
 
             /**
              *
-             * Returns a test suite with test cases, filled with steps
+             * Returns a an array of suites with test cases, filled with steps
              *
              * ```
              * {
@@ -84,7 +84,20 @@
              * @returns {Array.<{Object}>} an array of objects
              */
 
-            getTests: function (testNumber) {
+                function getSuites(suitesNumber) {
+                  var suites = [];
+                  var i;
+                  var n = suitesNumber;
+                  for (i = 0; i < n; i++) {
+                      var casesNumber = Math.floor(Math.random() * (20 - 7)) + 7;
+                      suites[i] = getSuite(casesNumber);
+                      suites[i]._id = i+1;
+                    }
+
+                  return suites;
+                }
+
+                function getSuite(testNumber) {
                 // Test Suite creating
                 var testSuite = {};
                 testSuite.suiteName = faker.lorem.sentence(2, 5);
@@ -135,7 +148,6 @@
 
                 return testSuite;
             }
-        }
 
     }
 

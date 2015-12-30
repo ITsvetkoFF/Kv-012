@@ -12,9 +12,9 @@
 
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
+    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', 'toastrConfig'];
     /* @ngInject */
-    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, toastrConfig) {
 
         delete window.moment;
         delete window.faker;
@@ -24,6 +24,10 @@
         }
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
-    }
 
+        // toastr configuration
+        angular.extend(toastrConfig, {
+            positionClass: 'toast-bottom-right'
+        });
+    }
 })();

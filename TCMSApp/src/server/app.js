@@ -3,24 +3,53 @@
 
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+var restify = require('express-restify-mongoose');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
 
+var docs = require("express-mongoose-docs");
+
 var environment = process.env.NODE_ENV;
+
+
+var router = express.Router();
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-app.use('/api', require('./routes'));
+
+//Get mongoose models
+var defect =  require('./model/mschemas/defect');
+var project =  require('./model/mschemas/project');
+var run =  require('./model/mschemas/run');
+var suite =  require('./model/mschemas/suite');
+var user =  require('./model/mschemas/user');
+
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
 console.log('NODE_ENV=' + environment);
+
+
+
+// Create API with 'express-restify-mongoose'
+restify.serve(router, defect);
+restify.serve(router, project);
+restify.serve(router, run);
+restify.serve(router, suite);
+restify.serve(router, user);
+
+app.use(router)
+
+//Generate API Docs
+docs(app, mongoose);
+
 
 switch (environment){
     case 'build':
@@ -35,6 +64,11 @@ switch (environment){
         break;
     default:
         console.log('** DEV **');
+        // Connect to local MongoDB
+        mongoose.connect("mongodb://localhost/TCMSdb", function(err) {
+            if (err) console.log('\x1b[41m', "Connection failed " + err,'\x1b[0m');
+        });
+
         app.use(express.static('./src/client/'));
         app.use(express.static('./'));
         app.use(express.static('./tmp'));
@@ -44,6 +78,7 @@ switch (environment){
         });
         // Any deep link calls should return index.html
         app.use('/*', express.static('./src/client/index.html'));
+
         break;
 }
 
@@ -53,3 +88,4 @@ app.listen(port, function() {
         '\n__dirname = ' + __dirname  +
         '\nprocess.cwd = ' + process.cwd());
 });
+
