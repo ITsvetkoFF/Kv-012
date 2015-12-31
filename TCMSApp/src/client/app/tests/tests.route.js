@@ -33,7 +33,7 @@
                     url: '/tests/create',
                     templateUrl: 'app/tests/test-create.html',
                     controller: 'TestsController',
-                    controllerAs: 'vmTests',
+                    controllerAs: 'vmCase',
                     title: 'Create Test Case',
                     settings: {
                         nav: 5,
