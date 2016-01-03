@@ -24,13 +24,10 @@
         }
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
+
+        // toastr configuration
+        angular.extend(toastrConfig, {
+            positionClass: 'toast-bottom-right'
+        });
     }
-
-    // toastr configuration
-    angular.extend(toastrConfig, {
-        positionClass: 'toast-bottom-right'
-    });
-
-
-
 })();
