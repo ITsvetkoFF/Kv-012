@@ -115,8 +115,10 @@
           <div class="clearfix">
             <div class="col-sm-3">
               <div class="form-group">
-                <label for="caseAttachment">Attachment:</label>
-                <input type="file" id="caseAttachment" name="caseAttachment">
+                <input type="file" id="caseAttachment" name="caseAttachment" tabindex="-1" style="display:none">
+                <label for="caseAttachment" style="cursor:pointer">
+                  <i class="fa fa-paperclip fa-lg"></i> Attach file
+                </label>
               </div>
             </div>
             <div class="col-sm-3">
@@ -131,7 +133,7 @@
               <div class="clearfix">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="step{{s}}">Step: {{ $index + 1 }}</label>
+                    <label for="step{{s}}">Step: {{ ::$index + 1 }}</label>
                     <textarea class="form-control" rows="5"  class="form-control" id="step{{s}}" name="step{{s}}" placeholder="Step"></textarea>
                   </div>
                 </div>
@@ -144,8 +146,15 @@
               </div>
               <div class="clearfix">
                 <div class="col-sm-12">
-                  <input type="file">
-                  <button type="button" class="btn btn-link pull-right" ng-click="vmCase.delStep($index);"><i class="fa fa-trash fa-lg"></i></button>
+                  
+                  
+                  <input type="file" tabindex="-1" id="file{{$index}}" style="display:none">
+                  <label for="file{{$index}}" style="cursor:pointer">
+                    <i class="fa fa-paperclip fa-lg"></i> Attach file
+                  </label>
+                  <span ng-click="vmCase.delStep($index);" tabindex="-1" style="font-weight:bold; cursor:pointer" class="pull-right">
+                    <i class="fa fa-trash fa-lg"></i> Delete step
+                  </span>
                 </div>
               </div>
               <hr>
