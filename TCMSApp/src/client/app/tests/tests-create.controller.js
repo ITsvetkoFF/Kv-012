@@ -5,9 +5,9 @@
         .module('app.tests')
         .controller('TestsCreateController', TestsCreateController);
 
-    TestsCreateController.$inject = ['logger', 'FakeTestsFactory', '$uibModal'];
+    TestsCreateController.$inject = ['logger', 'FakeTestsFactory', '$uibModal', 'TestsService'];
     /* @ngInject */
-    function TestsCreateController(logger, FakeTestsFactory, $uibModal) {
+    function TestsCreateController(logger, FakeTestsFactory, $uibModal, TestsService) {
         var vm = this;
 
         activate();
@@ -15,6 +15,7 @@
         vm.stepList = [1,2];
         vm.addStep = addStep;
         vm.delStep = delStep;
+        vm.currentSuite = TestsService.getCurrentSuite();
 
         function activate() {
             logger.info('Activated New Case View');
