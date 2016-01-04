@@ -22,9 +22,7 @@
               <div class="form-group">
                 <label for="caseSuite">Suite:</label>
                 <select class="form-control" id="caseSuite" name="caseSuite">
-                  <option>Suite 1</option>
-                  <option>Suite 2</option>
-                  <option>Suite 3</option>
+                  <option>{{ vmCase.currentSuite }}</option>
                   <option>None</option>
                 </select>
               </div>
@@ -115,8 +113,10 @@
           <div class="clearfix">
             <div class="col-sm-3">
               <div class="form-group">
-                <label for="caseAttachment">Attachment:</label>
-                <input type="file" id="caseAttachment" name="caseAttachment">
+                <input type="file" id="caseAttachment" name="caseAttachment" tabindex="-1" style="display:none">
+                <label for="caseAttachment" style="cursor:pointer">
+                  <i class="fa fa-paperclip fa-lg"></i> Attach file
+                </label>
               </div>
             </div>
             <div class="col-sm-3">
@@ -127,62 +127,51 @@
 
 <!-- STEPS -->
         <div class="well well-sm">
-          <div class="clearfix">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="step1">Step 1:</label>
-                <textarea class="form-control" rows="5"  class="form-control" id="step1" name="step1" placeholder="Step"></textarea>
+            <div  ng-repeat="s in vmCase.stepList track by $index">
+              <div class="clearfix">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="step{{s}}">Step: {{ ::$index + 1 }}</label>
+                    <textarea class="form-control" rows="5"  class="form-control" id="step{{s}}" name="step{{s}}" placeholder="Step"></textarea>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="step{{s}}ExpRes">Expected result:</label>
+                    <textarea class="form-control" rows="5"  class="form-control" id="step{{s}}ExpRes" name="step{{s}}ExpRes" placeholder="Expected result"></textarea>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="step1ExpRes">Expected result:</label>
-                <textarea class="form-control" rows="5"  class="form-control" id="step1ExpRes" name="step1ExpRes" placeholder="Expected result"></textarea>
+              <div class="clearfix">
+                <div class="col-sm-12">
+                  
+                  
+                  <input type="file" tabindex="-1" id="file{{$index}}" style="display:none">
+                  <label for="file{{$index}}" style="cursor:pointer">
+                    <i class="fa fa-paperclip fa-lg"></i> Attach file
+                  </label>
+                  <span ng-click="vmCase.delStep($index);" tabindex="-1" style="font-weight:bold; cursor:pointer" class="pull-right">
+                    <i class="fa fa-trash fa-lg"></i> Delete step
+                  </span>
+                </div>
               </div>
+              <hr>
             </div>
-          </div>
-          <div class="clearfix">
-            <div class="col-sm-12">
-              <input type="file">
-              <button type="button" class="btn btn-link pull-right"><i class="fa fa-trash fa-lg"></i></button>
-            </div>
-          </div>
-          <hr>
-
-          <div class="clearfix">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="step2">Step 2:</label>
-                <textarea class="form-control" rows="5"  class="form-control" id="step1" name="step1" placeholder="Step"></textarea>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="step2ExpRes">Expected result:</label>
-                <textarea class="form-control" rows="5"  class="form-control" id="step2ExpRes" name="step2ExpRes" placeholder="Expected result"></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="clearfix">
-            <div class="col-sm-12">
-              <input type="file">
-              <button type="button" class="btn btn-link pull-right"><i class="fa fa-trash fa-lg"></i></button>
-            </div>
-          </div>
-          <hr>
 
           <div class="clearfix">
             <div class="col-sm-12">
-              <button type="button" class="btn btn-default pull-left">Add New Step</button>
+              <a href="#step{{vmCase.stepList.length}}">
+                <button type="link" ng-click="vmCase.addStep();" class="btn btn-default pull-left">Add New Step</button>
+              </a>
             </div>
           </div>
+
         </div><!-- closing well 2 -->
 
         <div class="pull-right container-fluid">
           <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
           <button type="button" class="btn btn-warning"><i class="fa fa-times"></i> Cancel</button>
         </div>
-
 
   </div>
 </section>
