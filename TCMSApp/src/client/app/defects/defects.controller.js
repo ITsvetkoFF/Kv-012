@@ -5,9 +5,9 @@
         .module('app.defects')
         .controller('DefectsController', DefectsController);
 
-    DefectsController.$inject = ['logger', '$uibModal', 'getDefects'];
+    DefectsController.$inject = ['logger', '$uibModal', 'getDefects', '$state'];
     /* @ngInject */
-    function DefectsController(logger, $uibModal, getDefects) {
+    function DefectsController(logger, $uibModal, getDefects, $state) {
         var vm = this;
         vm.arrayDefects = getDefects.fakeDefect(10);
         vm.toogledAll = false;
@@ -21,18 +21,7 @@
             vm.currentDefect == null;
         }
 
-        vm.open = function () {
-            $uibModal.open({
-                templateUrl: 'addBugs.html',
-                controller: function ($uibModalInstance) {
-                    var vmDefectModal = this;
-                    vmDefectModal.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-                },
-                controllerAs: 'vmDefectModal'
-            });
-        };
+        vm.previousState = $state.$current.name;
 
         activate();
 

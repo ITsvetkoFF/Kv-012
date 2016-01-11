@@ -12,15 +12,27 @@
         .module('app.runs')
         .controller('RunController', RunController);
 
-    RunController.$inject = [];
+    RunController.$inject = ["logger", "$state"];
 
-    function RunController() {
-        /**
-         * Bind view model as "vm"
-         * @memberOf runController
-         * @type {RunController}
-         */
+    function RunController(logger, $state) {
+
         var vm = this;
+
+        // object that contains details of current run
+        vm.run = {
+            runId: 1,
+            info: "info about current run"
+        };
+
+        // name of current state, that will be sent as previous state for "Add defect" modal window
+        // should be used by any controller that uses "Add defect" modal
+        vm.previousState = $state.$current.name;
+
+        activate();
+
+        function activate() {
+            logger.info("Activated run execute view!");
+        }
 
     }
 })();
