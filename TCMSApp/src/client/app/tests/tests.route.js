@@ -14,11 +14,11 @@
     function getStates() {
         return [
             {
-                state: 'tests',
+                state: 'tests-list',
                 config: {
                     url: '/tests/list',
-                    templateUrl: 'app/tests/tests.html',
-                    controller: 'TestsController',
+                    templateUrl: 'app/tests/tests-list.html',
+                    controller: 'TestsListController',
                     controllerAs: 'vmTests',
                     title: 'Tests',
                     settings: {
@@ -28,12 +28,12 @@
                 }
             },
             {
-                state: 'test-create',
+                state: 'tests-create',
                 config: {
                     url: '/tests/create',
-                    templateUrl: 'app/tests/test-create.html',
-                    controller: 'TestsController',
-                    controllerAs: 'vmTests',
+                    templateUrl: 'app/tests/tests-create.html',
+                    controller: 'TestsCreateController',
+                    controllerAs: 'vmCase',
                     title: 'Create Test Case',
                     settings: {
                         nav: 5,
