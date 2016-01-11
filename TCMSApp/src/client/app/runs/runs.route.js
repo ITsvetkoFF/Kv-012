@@ -38,7 +38,7 @@
                     title: 'Execute run'
                 }
             },
-            // new nested route and controller for addBug modal window
+            // new nested route and controller for addDefect modal window
             {
                 state: 'generate-defect',
                 config: {
