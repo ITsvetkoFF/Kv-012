@@ -1,0 +1,51 @@
+<div>
+    <script type="text/ng-template" id="addDefectModalTemplate.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="vmDefectModal.cancel()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add defect</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+            <div class="form-group col-md-9">
+            <label for="errorname">Bugs Name</label>
+        <input type="text" class="form-control" id="errorname" placeholder="ErrorName". ng-value="vmDefectModal.run">
+            </div>
+            <div class="form-group col-md-3">
+            <label>Priority:</label>
+        <select class="form-control">
+            <option>Critical</option>
+            <option>High</option>
+            <option>Normal</option>
+            <option>Low</option>
+            </select>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-md-6">
+            <label for="whoFind">Who Find:</label>
+        <input type="text" class="form-control" id="whoFind" placeholder="Who Find">
+            </div>
+            <div class="form-group col-md-6">
+            <label for="assignedTo">Assigned to:</label>
+        <input type="text" class="form-control" id="assignedTo" placeholder="Assigned to">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for="description">Description:</label>
+        <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+
+            </div>
+            <div class="form-group" enctype="multipart/form-data" method="post">
+            <input type="file" value="Attach file" id="choose-file">
+            </div>
+            <div class="form-group">
+            <label for="testCase">Steps To Reproduce:</label>
+        <textarea class="form-control" id="testCase" rows="2" placeholder="TestCase"></textarea>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="vmDefectModal.cancel()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="vmDefectModal.cancel()">Post</button>
+            </div>
+    </script>
+</div>
