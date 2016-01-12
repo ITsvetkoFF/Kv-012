@@ -1,22 +1,21 @@
-<div ng-controller="SidebarController as vm">
-    <ht-sidebar when-done-animating="vm.sidebarReady()">
+<div ng-controller="SidebarController as vmSidebar">
+    <ht-sidebar when-done-animating="vmSidebar.sidebarReady()">
         <div class="sidebar-filler"></div>
         <div class="sidebar-dropdown"><a href="#">Menu</a></div>
         <div class="sidebar-inner">
             <ul class="navi">
-                <li class="nlightblue fade-selection-animation">
-                    <a> Project TCMS</a>
-                </li>
-                <li class="nlightblue fade-selection-animation">
-                    <a> Project 2</a>
-                </li>
-                <li class="nlightblue fade-selection-animation">
-                    <a> Project 3</a>
-                </li>
-                <li class="nlightblue fade-selection-animation">
-                    <a> Project 4</a>
+                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames">
+                    <a> {{projectName}} </a>
                 </li>
             </ul>
+            <div class="container-fluid" style="margin-top: 15px;">
+                <div class="row-fluid options">
+                    <button class="btn btn-success" ng-click="vmSidebar.open()">
+                        <i class="fa fa-plus"></i>
+                        Add Project
+                    </button>
+                </div>
+            </div>
         </div>
     </ht-sidebar>
 </div>
