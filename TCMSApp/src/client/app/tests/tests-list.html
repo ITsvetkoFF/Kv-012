@@ -1,125 +1,133 @@
-<div class="matter">
-  <div class="container">
+<section class="mainbar">
+    <div class="matter">
+        <div class="container-fluid">
 
-<!-- header -->
-    <div class="clearfix">
-      <h1>
-        Tests
-        <form class="form-inline pull-right">
-          <input type="text" class="form-control" placeholder="Filter">
-        </form>
-      </h1>
-    </div>
-    <hr>
+            <!-- header -->
+            <div class="clearfix">
+                <h1>
+                    Tests
+                    <form class="form-inline pull-right">
+                        <input type="text" class="form-control" placeholder="Filter">
+                    </form>
+                </h1>
+            </div>
+            <hr>
 
-<!--main content-->
-    <div class="row">
+            <!--main content-->
+            <div class="row">
 
-<!-- suites -->
-      <div class="col-xs-3">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3>Suites <button type="button" class="btn btn-primary btn-xs" ng-click="vmTests.openAddSuite()">NEW</button></h3>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-hover" style="font-size:larger">
-              <tbody>
-                <tr ng-repeat="s in vmTests.f track by $index" 
-                    ng-click="vmTests.setSuite(s)" 
-                    style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }">
-                  <td>{{ ::s.suiteName }}</td>
-                  <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-<!-- cases -->
-      <div class="col-sm-9">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3>Test cases <a ui-sref="tests-create" class="btn btn-primary btn-xs">NEW</a></h3>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr >
-                  <th>
-                    <input type="checkbox" ng-click = "vmTests.checkedAllCases = !vmTests.checkedAllCases">
-                  </th>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th>Priority</th>
-                  <th>Created</th>
-                  <th>Automated</th>
-                  <th>Steps</th>
-                  <th>Bugs</th>
-                  <th>Assignee</th>
-                  <th>Run</th>
-                </tr>
-              </thead>
-
-              <tbody ng-repeat="tc in vmTests.currentSuite.tests" style="border:0">
-                <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
-                  <td ng-click="$event.stopPropagation();">
-                    <input type="checkbox" ng-checked="vmTests.checkedAllCases">
-                  </td>
-                  <td>{{ ::tc.testName }}</td>
-                  <td>{{ ::vmTests.currentSuite._id + "-" + tc._id}}</td>
-                  <td>{{ ::tc.casePriority }}</td>
-                  <td>{{ ::tc.dateStart | date }}</td>
-                  <td>{{ ::tc.automated }}</td>
-                  <td>{{ ::tc.steps.length }}</td>
-                  <td>{{ ::tc.issues }}</td>
-                  <td>{{ ::tc.assignee }}</td>
-                  <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
-                </tr>
-                <tr ng-if="seeCase" style="background-color: #eee">
-                  <td colspan="10">
-                    <div class="container-fluid text-center" style="padding: 20px 0">
-                      <div class="clearfix">
-                        <div class="col-xs-2"><b>Sprint: </b>{{ ::tc.sprint }}</div>
-                        <div class="col-xs-3"><b>Category: </b>{{ ::tc.category }}</div>
-                        <div class="col-xs-4"><b>Reference: </b>{{ ::tc.reference }}</div>
-                        <div class="col-xs-3"><b>File: </b><a href="#">{{ ::tc.fileName }}.zip</i></a></div>
-                      </div>
+                <!-- suites -->
+                <div class="col-xs-3">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3>Suites
+                                <button type="button" class="btn btn-primary btn-xs" ng-click="vmTests.openAddSuite()">
+                                    NEW
+                                </button>
+                            </h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="font-size:larger">
+                                <tbody>
+                                <tr ng-repeat="s in vmTests.f track by $index"
+                                    ng-click="vmTests.setSuite(s)"
+                                    style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }">
+                                    <td>{{ ::s.suiteName }}</td>
+                                    <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="container-fluid" style="padding-bottom: 20px">
-                      <div class="clearfix">
-                        <div class="col-xs-12">{{ ::tc.preConditions }}</div>
-                      </div>
+                </div>
+
+                <!-- cases -->
+                <div class="col-sm-9">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3>Test cases <a ui-sref="tests-create" class="btn btn-primary btn-xs">NEW</a></h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox"
+                                               ng-click="vmTests.checkedAllCases = !vmTests.checkedAllCases">
+                                    </th>
+                                    <th>Name</th>
+                                    <th>ID</th>
+                                    <th>Priority</th>
+                                    <th>Created</th>
+                                    <th>Automated</th>
+                                    <th>Steps</th>
+                                    <th>Bugs</th>
+                                    <th>Assignee</th>
+                                    <th>Run</th>
+                                </tr>
+                                </thead>
+
+                                <tbody ng-repeat="tc in vmTests.currentSuite.tests" style="border:0">
+                                <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
+                                    <td ng-click="$event.stopPropagation();">
+                                        <input type="checkbox" ng-checked="vmTests.checkedAllCases">
+                                    </td>
+                                    <td>{{ ::tc.testName }}</td>
+                                    <td>{{ ::vmTests.currentSuite._id + "-" + tc._id}}</td>
+                                    <td>{{ ::tc.casePriority }}</td>
+                                    <td>{{ ::tc.dateStart | date }}</td>
+                                    <td>{{ ::tc.automated }}</td>
+                                    <td>{{ ::tc.steps.length }}</td>
+                                    <td>{{ ::tc.issues }}</td>
+                                    <td>{{ ::tc.assignee }}</td>
+                                    <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                </tr>
+                                <tr ng-if="seeCase" style="background-color: #eee">
+                                    <td colspan="10">
+                                        <div class="container-fluid text-center" style="padding: 20px 0">
+                                            <div class="clearfix">
+                                                <div class="col-xs-2"><b>Sprint: </b>{{ ::tc.sprint }}</div>
+                                                <div class="col-xs-3"><b>Category: </b>{{ ::tc.category }}</div>
+                                                <div class="col-xs-4"><b>Reference: </b>{{ ::tc.reference }}</div>
+                                                <div class="col-xs-3"><b>File: </b><a href="#">{{ ::tc.fileName
+                                                    }}.zip</i></a></div>
+                                            </div>
+                                        </div>
+                                        <div class="container-fluid" style="padding-bottom: 20px">
+                                            <div class="clearfix">
+                                                <div class="col-xs-12">{{ ::tc.preConditions }}</div>
+                                            </div>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Step</th>
+                                                <th>Step info</th>
+                                                <th>Expected result</th>
+                                                <th>File</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="step in tc.steps">
+                                                <td>{{ ::step.stepNumber }}</td>
+                                                <td>{{ ::step.stepDescription }}</td>
+                                                <td>{{ ::step.expectedResult }}</td>
+                                                <td>download</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Step</th>
-                          <th>Step info</th>
-                          <th>Expected result</th>
-                          <th>File</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr ng-repeat="step in tc.steps">
-                          <td>{{ ::step.stepNumber }}</td>
-                          <td>{{ ::step.stepDescription }}</td>
-                          <td>{{ ::step.expectedResult }}</td>
-                          <td>download</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div> <!-- panel -->
+                </div> <!-- panel -->
 
-    </div> <!-- row -->
+            </div> <!-- row -->
 
-</div> <!-- container -->
-</div> <!-- matter -->
+        </div> <!-- container -->
+    </div> <!-- matter -->
+</section> <!-- mainbar -->
 
 
