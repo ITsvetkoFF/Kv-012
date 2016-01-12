@@ -102,7 +102,7 @@
                 var testSuite = {};
                 testSuite.suiteName = faker.lorem.sentence(2, 5);
                 testSuite.project = faker.random.uuid();
-                testSuite.suitePriority = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+                testSuite.suitePriority = Math.floor(Math.random() * 4) ;
                 testSuite.suiteDescription = faker.lorem.sentence(4, 30);
                 testSuite.tests = [];
 
@@ -119,11 +119,11 @@
                     testCase.testDescription = faker.lorem.sentence(4, 30);
                     testCase.automated = faker.random.boolean();
                     testCase.preConditions = faker.lorem.sentence(5, 20);
-                    testCase.casePriority = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+                    testCase.casePriority = Math.floor(Math.random() * 4); 
                     testCase.issues = Math.floor(Math.random() * (7 - 1 + 1)) + 1;
-                    testCase.dateStart = faker.date.past();
-                    testCase.assignee = faker.name.lastName();
-                    testCase.sprint = Math.floor(Math.random() * 20);
+                    testCase.created = faker.date.past();
+                    testCase.creator = faker.name.lastName();
+                    testCase.caseSprint = Math.floor(Math.random() * 20);
                     testCase.reference = faker.internet.url();
                     testCase.category = faker.lorem.words(1)[0];
                     testCase.fileName = faker.lorem.words(1)[0];

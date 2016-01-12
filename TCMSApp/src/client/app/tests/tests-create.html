@@ -1,5 +1,6 @@
 <section class="matter">
   <div class="container">
+    <form name="caseForm">
 
         <h1 class="text-center">Create New Test Case</h1>
         <hr>
@@ -9,33 +10,40 @@
           <div class="col-sm-12">
             <div class="form-group">
               <b>Title:</b>
-              <input type="text" class="form-control" placeholder="Test case title" ng-model="vmCase.testName">
+              <input type="text" class="form-control" placeholder="Test case title" name="testName" ng-model="vmCase.testName" required>
             </div>
             <div class="form-group">
               <b>Description:</b>
-              <textarea class="form-control" rows="3" placeholder="Input test case description here" 
-              ng-model="vmCase.testDescription"></textarea>
+              <textarea class="form-control" rows="3" placeholder="Input test case description here" name="testDescription"
+              ng-model="vmCase.testDescription" required></textarea>
             </div>
           </div>
 
           <div class="clearfix">
 
-            <div class="col-sm-6">
+            <div class="col-sm-5">
               <div class="form-group">
                 <b>Suite:</b>
-                <input type="text" class="form-control" value="{{ ::vmCase.currentSuite.suiteName }}" disabled>
+                <input type="text" class="form-control" value="{{::vmCase.currentSuite.suiteName}}" disabled>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-1">
               <div class="form-group">
-                <b>Test Case ID:</b>
-                <input type="text" class="form-control" id="caseId" value="555-1" disabled>
+                <b>ID:</b>
+                <input type="text" class="form-control" id="caseId" value="{{::vmCase._id}}" disabled>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-group">
                 <b>Created:</b>
-                <input type="date" class="form-control" id="caseDate" disabled>
+                <input type="text" class="form-control" id="caseDate" 
+                value="{{::vmCase.created | date:'MM/dd/yyyy' }}" disabled>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <b>Creator:</b>
+                <input type="text" class="form-control" value="{{::vmCase.creator}}" disabled>
               </div>
             </div>
 
@@ -46,52 +54,37 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <b>Priority:</b>
-                <select class="form-control">
-                  <option value="4">Critical</option>
-                  <option value="3">High</option>
-                  <option value="2" selected>Medium</option>
-                  <option value="1">Low</option>
+                <select class="form-control" ng-model="vmCase.casePriority">
+                  <option ng-repeat="option in vmCase.priority" value="{{option.id}}">
+                    {{option.name}}
+                  </option>
                 </select>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-group">
                 <b>Category:</b>
-                <select class="form-control">
-                  <option value="1">Acceptance</option>
-                  <option value="2">Accessibility</option>
-                  <option value="3">Automated</option>
-                  <option value="4">Compatibility</option>
-                  <option value="5">Destructive</option>
-                  <option value="6">Functional</option>
-                  <option value="7" selected="selected">Other</option>
-                  <option value="8">Performance</option>
-                  <option value="9">Regression</option>
-                  <option value="10">Security</option>
-                  <option value="11">Smoke &amp; Sanity</option>
-                  <option value="12">Usability</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Assignee:</b>
-                <select class="form-control">
-                  <option selected>None</option>
-                  <option>Jane Doe</option>
-                  <option>John Doe</option>
+                <select class="form-control" ng-model="vmCase.caseCategory">
+                  <option ng-repeat="option in vmCase.category" value="{{option.id}}">
+                    {{option.name}}
+                  </option>
                 </select>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-group">
                 <b>Sprint:</b>
-                <select class="form-control" ng-model='vmCase.sprint'>
-                  <option selected>None</option>
-                  <option>Sprint 1</option>
-                  <option>Sprint 2</option>
-                  <option>Sprint 3</option>
+                <select class="form-control" ng-model="vmCase.caseSprint">
+                  <option ng-repeat="option in vmCase.sprint track by $index" value="{{option}}">
+                    {{option}}
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <b>Reference:</b>
+               <input type="url" class="form-control">
               </div>
             </div>
 
@@ -101,7 +94,7 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <b>Preconditions:</b>
-                <textarea class="form-control" rows="3" placeholder="Test case preconditions"
+                <textarea class="form-control" rows="3" placeholder="Test case preconditions" name="preConditions"
                 ng-model="vmCase.preConditions"></textarea>
               </div>
             </div>
@@ -162,10 +155,13 @@
         </div><!-- closing well 2 -->
 
         <div class="pull-right container-fluid">
-          <button type="submit" class="btn btn-primary" ng-click="vmCase.submitAddCase()"><i class="fa fa-check"></i> Submit</button>
+          <button type="submit" class="btn btn-primary" ng-click="vmCase.submitAddCase()" ui-sref="tests-list"
+          ng-disabled="caseForm.testName.$invalid || vmCase.steps.length < 1 || vmCase.stepsEmpty()">
+            <i class="fa fa-check"></i> Submit</button>
           <button type="button" class="btn btn-warning" ui-sref="tests-list"><i class="fa fa-times"></i> Cancel</button>
         </div>
 
+    </form>
   </div>
 </section>
 
