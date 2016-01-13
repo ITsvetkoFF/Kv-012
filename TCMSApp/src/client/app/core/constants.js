@@ -5,5 +5,6 @@
     angular
         .module('app.core')
         .constant('moment', moment)
-        .constant('faker', faker);
+        .constant('faker', faker)
+        .constant('Trello', Trello)
 })();

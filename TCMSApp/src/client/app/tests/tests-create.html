@@ -1,168 +1,170 @@
-<section class="matter">
-  <div class="container">
-    <form name="caseForm">
+<section class="mainbar">
+  <section class="matter">
+    <div class="container-fluid">
+      <form name="caseForm">
 
-        <h1 class="text-center">Create New Test Case</h1>
-        <hr>
+          <h1 class="text-center">Create New Test Case</h1>
+          <hr>
 
-        <div class="well well-sm">
+          <div class="well well-sm">
 
-          <div class="col-sm-12">
-            <div class="form-group">
-              <b>Title:</b>
-              <input type="text" class="form-control" placeholder="Test case title" name="testName" ng-model="vmCase.testName" required>
-            </div>
-            <div class="form-group">
-              <b>Description:</b>
-              <textarea class="form-control" rows="3" placeholder="Input test case description here" name="testDescription"
-              ng-model="vmCase.testDescription" required></textarea>
-            </div>
-          </div>
-
-          <div class="clearfix">
-
-            <div class="col-sm-5">
-              <div class="form-group">
-                <b>Suite:</b>
-                <input type="text" class="form-control" value="{{::vmCase.currentSuite.suiteName}}" disabled>
-              </div>
-            </div>
-            <div class="col-sm-1">
-              <div class="form-group">
-                <b>ID:</b>
-                <input type="text" class="form-control" id="caseId" value="{{::vmCase._id}}" disabled>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Created:</b>
-                <input type="text" class="form-control" id="caseDate" 
-                value="{{::vmCase.created | date:'MM/dd/yyyy' }}" disabled>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Creator:</b>
-                <input type="text" class="form-control" value="{{::vmCase.creator}}" disabled>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="clearfix">
-
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Priority:</b>
-                <select class="form-control" ng-model="vmCase.casePriority">
-                  <option ng-repeat="option in vmCase.priority" value="{{option.id}}">
-                    {{option.name}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Category:</b>
-                <select class="form-control" ng-model="vmCase.caseCategory">
-                  <option ng-repeat="option in vmCase.category" value="{{option.id}}">
-                    {{option.name}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Sprint:</b>
-                <select class="form-control" ng-model="vmCase.caseSprint">
-                  <option ng-repeat="option in vmCase.sprint track by $index" value="{{option}}">
-                    {{option}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <b>Reference:</b>
-               <input type="url" class="form-control">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="clearfix">
             <div class="col-sm-12">
               <div class="form-group">
-                <b>Preconditions:</b>
-                <textarea class="form-control" rows="3" placeholder="Test case preconditions" name="preConditions"
-                ng-model="vmCase.preConditions"></textarea>
+                <b>Title:</b>
+                <input type="text" class="form-control" placeholder="Test case title" name="testName" ng-model="vmCase.testName" required>
               </div>
-            </div>
-          </div>
-
-          <div class="clearfix">
-            <div class="col-sm-3">
               <div class="form-group">
-                <input type="file" tabindex="-1" id="caseAttachment" style="display:none">
-                <label for="caseAttachment" style="cursor:pointer">
-                  <i class="fa fa-paperclip fa-lg"></i> Attach file
-                </label>
+                <b>Description:</b>
+                <textarea class="form-control" rows="3" placeholder="Input test case description here" name="testDescription"
+                ng-model="vmCase.testDescription" required></textarea>
               </div>
             </div>
-            <div class="col-sm-3">
-            </div>
-          </div>
 
-        </div> <!-- closing well 1 -->
+            <div class="clearfix">
 
-<!-- STEPS -->
-        <div class="well well-sm">
-            <div  ng-repeat="s in vmCase.steps track by $index">
-              <div class="clearfix">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <b>Step: {{ ::s.stepNumber }}</b>
-                    <textarea class="form-control" rows="5" placeholder="Step" ng-model="s.stepDescription"></textarea>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <b>Expected result:</b>
-                    <textarea class="form-control" rows="5" placeholder="Expected result" ng-model="s.expectedResult"></textarea>
-                  </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <b>Suite:</b>
+                  <input type="text" class="form-control" value="{{::vmCase.currentSuite.suiteName}}" disabled>
                 </div>
               </div>
-              <div class="clearfix">
-                <div class="col-sm-12">
-                  <input type="file" tabindex="-1" id="file{{$index}}" style="display:none">
-                  <label for="file{{$index}}" style="cursor:pointer">
+              <div class="col-sm-1">
+                <div class="form-group">
+                  <b>ID:</b>
+                  <input type="text" class="form-control" id="caseId" value="{{::vmCase._id}}" disabled>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Created:</b>
+                  <input type="text" class="form-control" id="caseDate" 
+                  value="{{::vmCase.created | date:'MM/dd/yyyy' }}" disabled>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Creator:</b>
+                  <input type="text" class="form-control" value="{{::vmCase.creator}}" disabled>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="clearfix">
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Priority:</b>
+                  <select class="form-control" ng-model="vmCase.casePriority">
+                    <option ng-repeat="option in vmCase.priority" value="{{option.id}}">
+                      {{option.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Category:</b>
+                  <select class="form-control" ng-model="vmCase.caseCategory">
+                    <option ng-repeat="option in vmCase.category" value="{{option.id}}">
+                      {{option.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Sprint:</b>
+                  <select class="form-control" ng-model="vmCase.caseSprint">
+                    <option ng-repeat="option in vmCase.sprint track by $index" value="{{option}}">
+                      {{option}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <b>Reference:</b>
+                 <input type="url" class="form-control">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="clearfix">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <b>Preconditions:</b>
+                  <textarea class="form-control" rows="3" placeholder="Test case preconditions" name="preConditions"
+                  ng-model="vmCase.preConditions"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <input type="file" tabindex="-1" id="caseAttachment" style="display:none">
+                  <label for="caseAttachment" style="cursor:pointer">
                     <i class="fa fa-paperclip fa-lg"></i> Attach file
                   </label>
-                  <span ng-click="vmCase.delStep($index);" tabindex="-1" style="cursor:pointer" class="pull-right">
-                    <i class="fa fa-trash fa-lg"></i> <b>Delete step</b>
-                  </span>
                 </div>
               </div>
-              <hr>
+              <div class="col-sm-3">
+              </div>
             </div>
 
-          <div class="clearfix">
-            <div class="col-sm-12">
-              <button type="link" ng-click="vmCase.addStep();" class="btn btn-default pull-left">Add New Step</button>
+          </div> <!-- closing well 1 -->
+
+  <!-- STEPS -->
+          <div class="well well-sm">
+              <div  ng-repeat="s in vmCase.steps track by $index">
+                <div class="clearfix">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <b>Step: {{ ::s.stepNumber }}</b>
+                      <textarea class="form-control" rows="5" placeholder="Step" ng-model="s.stepDescription"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <b>Expected result:</b>
+                      <textarea class="form-control" rows="5" placeholder="Expected result" ng-model="s.expectedResult"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <div class="col-sm-12">
+                    <input type="file" tabindex="-1" id="file{{$index}}" style="display:none">
+                    <label for="file{{$index}}" style="cursor:pointer">
+                      <i class="fa fa-paperclip fa-lg"></i> Attach file
+                    </label>
+                    <span ng-click="vmCase.delStep($index);" tabindex="-1" style="cursor:pointer" class="pull-right">
+                      <i class="fa fa-trash fa-lg"></i> <b>Delete step</b>
+                    </span>
+                  </div>
+                </div>
+                <hr>
+              </div>
+
+            <div class="clearfix">
+              <div class="col-sm-12">
+                <button type="link" ng-click="vmCase.addStep();" class="btn btn-default pull-left">Add New Step</button>
+              </div>
             </div>
+
+          </div><!-- closing well 2 -->
+
+          <div class="pull-right container-fluid">
+            <button type="submit" class="btn btn-primary" ng-click="vmCase.submitAddCase()" ui-sref="tests-list"
+            ng-disabled="caseForm.testName.$invalid || vmCase.steps.length < 1 || vmCase.stepsEmpty()">
+              <i class="fa fa-check"></i> Submit</button>
+            <button type="button" class="btn btn-warning" ui-sref="tests-list"><i class="fa fa-times"></i> Cancel</button>
           </div>
 
-        </div><!-- closing well 2 -->
-
-        <div class="pull-right container-fluid">
-          <button type="submit" class="btn btn-primary" ng-click="vmCase.submitAddCase()" ui-sref="tests-list"
-          ng-disabled="caseForm.testName.$invalid || vmCase.steps.length < 1 || vmCase.stepsEmpty()">
-            <i class="fa fa-check"></i> Submit</button>
-          <button type="button" class="btn btn-warning" ui-sref="tests-list"><i class="fa fa-times"></i> Cancel</button>
-        </div>
-
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </section>
 
 

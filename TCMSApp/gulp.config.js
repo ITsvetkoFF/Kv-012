@@ -1,6 +1,7 @@
 module.exports = function() {
     var client = './src/client/';
     var server = './src/server/';
+    var mongodbPath = './src/mongodb/';
     var clientApp = client + 'app/';
     var report = './report/';
     var root = './';
@@ -47,6 +48,7 @@ module.exports = function() {
         report: report,
         root: root,
         server: server,
+        mongodbPath : mongodbPath,
         source: 'src/',
         stubsjs: [
             bower.directory + 'angular-mocks/angular-mocks.js',
