@@ -8,7 +8,6 @@ var path = require('path');
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({lazy: true});
 var shell = require('gulp-shell');
-var exec = require('child_process').exec;
 
 var colors = $.util.colors;
 var envenv = $.util.env;
@@ -336,8 +335,6 @@ gulp.task('autotest', function(done) {
  * --nosync
  */
 gulp.task('serve-dev', ['inject'], function() {
-    mongo(config.mongodbPath);
-    console.log("\x1b[36m", 'Running mongodb on '+ config.mongodbPath,'\x1b[0m')
     serve(true /*isDev*/);
 });
 
@@ -432,24 +429,6 @@ function orderSrc (src, order) {
     return gulp
         .src(src)
         .pipe($.if(order, $.order(order)));
-}
-
-/**
- * start mongo server
- * @param  {String} path - path to database files
- */
-function mongo(path) {
-    return runCommand('mongod --dbpath ' + path);
-}
-
-/**
- * Running shell command
- */
-function runCommand(command) {
-    return exec(command, function (err, stdout, stderr) {
-      console.log(stdout);
-      console.log(stderr);
-    });
 }
 
 /**

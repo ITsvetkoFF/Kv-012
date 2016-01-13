@@ -22,16 +22,6 @@
 
     >Refer to these [instructions on how to not require sudo](https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md)
 
-4. Install MondoDB
- - on OSX use [tutorial](https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-os-x/)
- - on Windows use [tutorial](https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-windows/)
- - on Linux use [tutorial](https://docs.mongodb.org/v3.0/administration/install-on-linux/)
-
-Create DB Storage: folder named 'mongodb' inside 'src' folder
-
-    /src
-        /mongodb
-
 ## Running HotTowel
 
 ### Linting
@@ -222,9 +212,6 @@ The `blocks.router` module contains a routing helper module that assists in addi
 
     Serves the development code and launches it in a browser. The goal of building for development is to do it as fast as possible, to keep development moving efficiently. This task serves all code from the source folders and compiles less to css in a temp folder.
 
-    It is also runs mongod --dbpath './src/mongodb'
-    MongoBD created with name 'TCMSdb'
-
 - `gulp serve-dev --nosync`
 
     Serves the development code without launching the browser.
@@ -236,10 +223,6 @@ The `blocks.router` module contains a routing helper module that assists in addi
 - `gulp serve-dev --debug-brk`
 
     Launch debugger and break on 1st line with node-inspector.
-
-### API
-API is generated with 'express-restify-mongoose'.
-Documentation is stored [here](http://localhost:3000/apiDocs/)
 
 ### Building Production Code
 

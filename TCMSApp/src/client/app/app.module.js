@@ -10,8 +10,7 @@
         'app.runs',
         'app.defects',
         'app.reports',
-        'app.layout',
-        'app.apis'
+        'app.layout'
     ]);
 
 })();
