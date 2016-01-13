@@ -12,23 +12,18 @@
 
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', 'toastrConfig'];
+    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
     /* @ngInject */
-    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, toastrConfig) {
+    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
 
         delete window.moment;
         delete window.faker;
-        delete window.Trello;
 
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
-
-        // toastr configuration
-        angular.extend(toastrConfig, {
-            positionClass: 'toast-bottom-right'
-        });
     }
+
 })();

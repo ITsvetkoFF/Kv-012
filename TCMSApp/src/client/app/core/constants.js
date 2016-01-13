@@ -6,5 +6,44 @@
         .module('app.core')
         .constant('moment', moment)
         .constant('faker', faker)
-        .constant('Trello', Trello)
+        .constant('filterFields', filterFields())
+
+    function filterFields(){
+        return {
+            runs: {
+                getFields: getRunsFields,
+                getFieldsOperators: getRunsFieldsOperators
+            }
+        };
+
+        //required
+        function getRunsFields(){
+            return {
+                "date": "date",
+                "name": "name",
+                "build": "build",
+                "environment": "envShort",
+                "env": "envShort",
+                "author": "author",
+                "status": "status",
+                "envFull": "envFull",
+                "env full": "envFull"
+            };
+        }
+
+        //oly for hints and optional
+        function getRunsFieldsOperators(){
+            return{
+                "date": [':', '>', '<', '='],
+                "name": [':', '='],
+                "build": [':', '<', '>', '='],
+                "environment": [':', '='],
+                "env": [':', '='],
+                "author": [':', '='],
+                "status": [':', '='],
+                "envFull": [':'],
+                "env full": [':']
+            }
+        }
+    }
 })();
