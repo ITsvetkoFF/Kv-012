@@ -1,6 +1,15 @@
+<style>
+    .mainbar{
+        margin-left: 0;
+    }
+    .navi{
+        visibility: visible;
+    }
+</style>
+
 <section class="mainbar">
     <div class="matter">
-        <div class="container-fluid">
+        <div class="container">
             <div class="clearfix">
                 <h1>
                     Runs
@@ -11,7 +20,23 @@
                             <option>Archived runs</option>
                             <option>All runs</option>
                         </select>
-                        <input type="text" class="form-control" placeholder="Filter">
+                        <smart-filter type="runs">
+                            <div class="input-group" uib-dropdown is-open="status.isopen">
+                                <buttton class="input-group-addon" uib-dropdown-toggle>
+                                    Filters
+                                    <span class="caret"></span>
+                                </buttton>
+                                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem" ng-click="$parent.filterQuery='status=failed'"><a href="#">status=failed</a></li>
+                                    <li role="menuitem" ng-click="$parent.filterQuery='status=passed'"><a href="#">status=passed</a></li>
+                                    <li role="menuitem" ng-click="$parent.filterQuery='date> month ago'"><a href="#">date> month ago</a></li>
+                                    <li role="menuitem" ng-click="$parent.filterQuery='date> year ago'"><a href="#">date> year ago</a></li>
+                                </ul>
+                                <input type="text" class="form-control" placeholder="Filter" ng-bind="$parent.filterQuery"
+                                       ng-model="$parent.filterQuery" typeahead-wait-ms="150" uib-typeahead="key for key in hintKeys"
+                                       typeahead-input-formatter="inputFormatter($model)">
+                            </div>
+                        </smart-filter>
                     </form>
                 </h1>
             </div>
@@ -59,12 +84,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="runItem in vmRuns.runs" ng-click="vmRuns.selectRun($index)">
+                            <tr ng-repeat="runItem in vmRuns.runs|smartFilter:filterQuery:vmRuns.filterFields"
+                                    ng-click="vmRuns.selectRun(runItem._id)">
                                 <th>
                                     <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
                                 </th>
                                 <td>
-                                    {{vmRuns.moment(runItem.date).format('DD.MM.YY')}}
+                                    {{runItem.date.toString()}}
                                 </td>
                                 <td>
                                     {{runItem.name}}
@@ -76,7 +102,7 @@
                                     {{runItem.envShort}}
                                 </td>
                                 <td>
-                                    {{runItem.author.last+' '+runItem.author.first.slice(0,1)+'.'}}
+                                    {{runItem.author.toString('short')}}
                                 </td>
                                 <td>
                                     <span class="label label-{{runItem.status==='passed'?'success':'danger'}}">
@@ -114,9 +140,12 @@
                                     {{vmRuns.progress.failed}}
                                 </div>
                             </div>
+                            <div>
+                                <b>Author: </b>{{vmRuns.selectedRun.author.toString()}}
+                            </div>
                             <b>Environment details:</b>
                             <div>
-                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.runs[vmRuns.selectedRun].envFull">
+                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.selectedRun.envFull">
                                     <i>{{envParamKey}}</i>: {{envParamValue}}
                                 </div>
                             </div>
@@ -147,4 +176,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>>
