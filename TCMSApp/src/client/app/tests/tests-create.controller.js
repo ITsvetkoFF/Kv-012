@@ -32,7 +32,7 @@
         var lastTest = vm.currentSuite.tests[testsLen - 1];
         vm._id = 1;
         if (testsLen > 0) vm._id = lastTest._id + 1;
-        // else
+        // other
         vm.casePriority = '2';
         vm.caseCategory = '10';
         vm.creator = "John Doe";
