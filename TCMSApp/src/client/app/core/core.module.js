@@ -5,6 +5,6 @@
         .module('app.core', [
             'ngAnimate', 'ngSanitize',
             'blocks.exception', 'blocks.logger', 'blocks.router',
-            'ui.router', 'ngplus', 'ui.bootstrap', 'app.fakers'
+            'ui.router', 'ngplus', 'ui.bootstrap', 'app.fakers', 'app.apis'
         ]);
 })();

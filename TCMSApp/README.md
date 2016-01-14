@@ -51,6 +51,10 @@ Create DB Storage: folder named 'mongodb' inside 'src' folder
 
 ### Running the optimized code
  - Run the optimize project from the build folder with `gulp serve-build`
+ 
+### Running docs generating
+ - Create documentation to the project with `gulp docs`
+ - Open `jsdoc/docs` and run `index.html`
 
 ## Exploring HotTowel
 HotTowel Angular starter project
@@ -62,6 +66,8 @@ The structure also contains a gulpfile.js and a server folder. The server is the
 		/client
 			/app
 			/content
+			
+Structure also available from [here](https://drive.google.com/open?id=0BwRHcu8QwGBvZkNhY2tzb2tERmc). Open it with MindMup
 
 ### Installing Packages
 When you generate the project it should run these commands, but if you notice missing packages, run these again:
@@ -70,7 +76,7 @@ When you generate the project it should run these commands, but if you notice mi
  - `bower install`
 
 ### The Modules
-The app has 4 feature modules and depends on a series of external modules and custom but cross-app modules
+The app has 10 feature modules and depends on a series of external modules and custom but cross-app modules
 
 ```
 app --> [
@@ -92,10 +98,31 @@ app --> [
 			ui.router,
 			blocks.exception,
 			blocks.logger,
-			blocks.router
-		]
+			blocks.router,
+			app.fakers
+		],
+		app.fakers --> [
+		    app.core
+		],
+		app.defects --> [
+		    app.core,
+            app.widgets
+		],
+		app.reports --> [
+        		    app.core,
+                    app.widgets
+        ],
+        app.runs --> [
+        		    app.core,
+                    app.widgets
+        ],
+        app.tests --> [
+        		    app.core,
+                    app.widgets
+        ]
     ]
 ```
+Structure also available from [here](https://drive.google.com/open?id=0BwRHcu8QwGBvZkNhY2tzb2tERmc). Open it with MindMup
 
 #### core Module
 Core modules are ones that are shared throughout the entire application and may be customized for the specific application. Example might be common data services.
@@ -115,6 +142,21 @@ It depends on the `blocks.logger` module, because the implementation logs the ex
 
 ##### blocks.router Module
 The `blocks.router` module contains a routing helper module that assists in adding routes to the $routeProvider.
+
+##### app.fakers Module
+The `app.fakers` module handles generating of fake data of entities
+
+#### runs Module
+Runs module control behavior of the runs template
+
+#### test Module
+Test module control behavior of the tests template
+
+#### reports Module
+Reports module control behavior of the report template
+
+#### defects Module
+Defects module control behavior of the defects template
 
 ## Gulp Tasks
 
@@ -250,6 +292,10 @@ Documentation is stored [here](http://localhost:3000/apiDocs/)
 - `gulp build`
 
     Copies all fonts, copies images and runs `gulp optimize` to build the production code to the build folder.
+    
+- `gulp docs`
+
+    Generates documentation to `jsdoc/docs` project directory.
 
 ### Serving Production Code
 
@@ -279,6 +325,12 @@ Documentation is stored [here](http://localhost:3000/apiDocs/)
     --type=major
     --type=pre
     --ver=1.2.3 // specific version
+    
+### Generating documentation
+
+- `gulp docs`
+
+    Generate an actual documentation of your project with JSdoc code.
 
 ## License
 

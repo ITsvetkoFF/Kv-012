@@ -25,8 +25,8 @@
                 config: {
                     url: '/team',
                     templateUrl: 'app/admin/team.html',
-                    controller: 'AdminController',
-                    controllerAs: 'vm',
+                    controller: 'TeamController',
+                    controllerAs: 'vmTeam',
                     title: 'Manage Team',
                     parent: 'admin'
                 }
