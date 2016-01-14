@@ -4,8 +4,8 @@
         <div class="sidebar-dropdown"><a href="#">Menu</a></div>
         <div class="sidebar-inner">
             <ul class="navi">
-                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames">
-                    <a> {{projectName}} </a>
+                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames | orderBy:'-'" >
+                    <a ng-click="vmSidebar.setCurrentProject(projectName)"> {{projectName}} </a>
                 </li>
             </ul>
             <div class="container-fluid" style="margin-top: 15px;">

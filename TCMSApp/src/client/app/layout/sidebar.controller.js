@@ -6,15 +6,26 @@
         .controller('SidebarController', SidebarController);
 
     SidebarController.$inject = ['$state', 'routerHelper', '$uibModal', 'moment', 'logger',
-        'sidebarFactory', 'authservice', 'createProjectFactory'];
+        'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$scope'];
     /* @ngInject */
     function SidebarController($state, routerHelper, $uibModal, moment, logger,
-                               sidebarFactory, authservice, createProjectFactory) {
+                               sidebarFactory, authservice, createProjectFactory, $q, $scope) {
+
         var vm = this;
-
         vm.projectsNames = sidebarFactory.findProjectsNames();
+        vm.open = open;
+        vm.setCurrentProject = setCurrentProject;
 
-        vm.open = function () {
+        // TODO: this is the "save last project" feature in simple.
+        (function () {
+            if (sidebarFactory.findProjectsNames().length === 0) {
+                logger.error("Create the first project to start");
+            } else {
+                vm.setCurrentProject(vm.projectsNames[0]);
+            }
+        })();
+
+        function open() {
             var modalCreateProject = $uibModal.open({
                     templateUrl: 'app/layout/add-project.html',
                     controller: function ($uibModalInstance) {
@@ -32,18 +43,27 @@
                             else logger.error('Please fill the project name.');
 
                             function createOrganization(projectName, projectDescription) {
+
                                 var Trello = authservice.authorize();
+
                                 if (Trello.authorized()) {
-                                    createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
-                                        .then(
-                                            function (res) {
-                                                changeModal();
-                                                vm.projectsNames = sidebarFactory.findProjectsNames();
-                                            },
-                                            function (err) {
-                                                logger.error('New project has not been created.');
+
+                                    $q.when(
+                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
+                                    ).then(function (res) {
+
+                                            vm.projectsNames = sidebarFactory.findProjectsNames();
+
+                                            if (sidebarFactory.findProjectsNames().length === 1) {
+                                                vm.setCurrentProject(vm.projectsNames[0]);
                                             }
-                                        );
+
+                                            changeModal();
+                                        },
+                                        function (err) {
+                                            logger.error('New project has not been created.');
+                                        }
+                                    );
                                 }
                             }
                         }
@@ -69,5 +89,9 @@
                 }
             );
         };
+
+        function setCurrentProject(name) {
+            createProjectFactory.setCurrentProject(name);
+        }
     }
 })();

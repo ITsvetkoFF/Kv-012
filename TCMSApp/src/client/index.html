@@ -39,9 +39,8 @@
         </div>
     </div>
 
-
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://api.trello.com/1/client.js?key=50c269d155e10e2d93a95a16c3b2d9b3"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://trello.com/1/client.js?key=d48beaf476ea9793e45e4d8878e53916"></script>
 
     <!-- build:js js/lib.js -->
     <!-- bower:js -->
@@ -54,6 +53,7 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="/bower_components/faker/build/build/faker.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -77,8 +77,11 @@
     <script src="/src/client/app/widgets/widgets.module.js"></script>
     <script src="/src/client/app/admin/admin.controller.js"></script>
     <script src="/src/client/app/admin/admin.route.js"></script>
+    <script src="/src/client/app/admin/team-members.factory.js"></script>
+    <script src="/src/client/app/admin/team.controller.js"></script>
     <script src="/src/client/app/apis/trello/auth.service.js"></script>
     <script src="/src/client/app/apis/trello/create-project.service.js"></script>
+    <script src="/src/client/app/apis/trello/team.factory.js"></script>
     <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
     <script src="/src/client/app/blocks/exception/exception.js"></script>
     <script src="/src/client/app/blocks/fakers/fake-defects.factory.js"></script>
@@ -118,6 +121,5 @@
     <!-- inject:templates:js -->
     <!-- endinject -->
     <!-- endbuild -->
-
 </body>
 </html>
