@@ -28,7 +28,8 @@
 
         // toastr configuration
         angular.extend(toastrConfig, {
-            positionClass: 'toast-bottom-right'
+            positionClass: 'toast-bottom-right',
+            timeOut: 1000
         });
     }
 })();
