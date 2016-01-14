@@ -28,7 +28,28 @@ var Schema = mongoose.Schema;
             enum: ['passed', 'executing', 'failed', 'none'],
             default: 'none'
         },
-        tests: [mongoose.Schema.Types.ObjectId]
+        tests: [{
+            testName: {type: String, required: true},
+            testDescription: {type: String, required: true},
+            suiteId: mongoose.Schema.Types.ObjectId,
+            automated: Boolean,
+            preConditions: {type: String, required: true},
+            steps: [{
+                stepNumber: Number,
+                stepDescription: {type: String, required: true},
+                expectedResult: {type: String, required: true},
+                status: {
+                    type: String,
+                    enum: ['passed', 'blocked', 'failed', 'none'],
+                    default: 'none'
+                }
+            }],
+            status: {
+                type: String,
+                enum: ['passed', 'executing', 'failed', 'none'],
+                default: 'none'
+            }
+        }]
     });
     var run = mongoose.model('Run',runSchema);
 module.exports = run;
