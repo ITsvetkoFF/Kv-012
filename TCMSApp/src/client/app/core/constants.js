@@ -14,5 +14,5 @@
                 projectsURL: '/api/v1/Projects',
                 suitesURL: '/api/v1/Suites',
                 usersURL: '	/api/v1/Users'
-        })
+        });
 })();
