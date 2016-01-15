@@ -1,11 +1,5 @@
-<style>
-    .mainbar {
-        margin-left: 0;
-    }
-</style>
-
 <section class="mainbar">
-    <div class="container">
+    <div class="container-fluid">
         <div class="clearfix">
             <h1>
                 Team
@@ -26,30 +20,67 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <form class="form-inline">
+
+                <!--add user form-->
+                <form class="form-inline" name="teamForm" ng-submit="vmTeam.addUser(teamForm.$valid);" novalidate>
                     <div class="form-group">
                         <label for="new-member-name" hidden>Name</label>
-                        <input type="text" class="form-control" id="new-member-name" placeholder="Full name"
-                               ng-model="vmTeam.newName" required>
+                        <input
+                            type        ="text"
+                            class       ="form-control"
+                            id          ="new-member-name"
+                            name        ="name"
+                            placeholder ="Full name"
+                            ng-model    ="vmTeam.newName"
+                            ng-minlength="2"
+                            ng-maxlength="20"
+                            required>
+
                     </div>
                     <div class="form-group">
                         <label for="new-member-email" hidden>Email</label>
-                        <input type="email" class="form-control" id="new-member-email" placeholder="Email"
-                               ng-model="vmTeam.newEmail" required>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="new-member-email"
+                            name="email"
+                            placeholder="Email"
+                            ng-model="vmTeam.newEmail"
+                            ng-minlength="5"
+                            ng-maxlength="30"
+                            required>
+
                     </div>
                     <div class="form-group">
                         <label for="new-member-permissions" hidden>Permissions</label>
-                        <select class="form-control" id="new-member-permissions" ng-model="vmTeam.newRole" required>
+                        <select
+                            class="form-control"
+                            id="new-member-permissions"
+                            ng-model="vmTeam.newRole"
+                            required>
+
                             <option value="admin">Admin</option>
                             <option value="normal">Normal</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="vmTeam.addUser();"><i class="glyphicon glyphicon-plus"></i>
+                    <button class="btn btn-primary" type="submit" ng-disabled="teamForm.$invalid"><i class="glyphicon glyphicon-plus"></i>
                         Add
                     </button>
-                    <button class="btn btn-primary" ng-click="vmTeam.getUsers(vmTeam.users, vmTeam.organization);"><i
-                        class="glyphicon glyphicon-refresh"></i></button>
+                    <button class="btn btn-primary" type="button" ng-click="vmTeam.getUsers(vmTeam.Trello, vmTeam.users, vmTeam.organization);"><i
+                        class="glyphicon glyphicon-refresh"></i>
+                    </button>
+
+                    <!-- form validation messages-->
+                    <div ng-messages="teamForm.name.$error">
+                        <p ng-message="minlength" class="alert alert-warning">The name is too short</p>
+                        <p ng-message="maxlength" class="alert alert-warning">The name is too long</p>
+                    </div>
+                    <div ng-messages="teamForm.email.$error">
+                        <p ng-message="minlength" class="alert alert-warning">The email is too short</p>
+                        <p ng-message="maxlength" class="alert alert-warning">The email is too long</p>
+                    </div>
                 </form>
+
                 <br/>
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -58,7 +89,6 @@
                     <table class="table table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Role</th>
@@ -69,11 +99,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="user in vmTeam.users | filter:vmTeam.query | filter:vmTeam.memberFilter | orderBy:fullName" style="cursor: pointer;">
-                            <td>{{user.id}}</td>
                             <td>
-                                <img
-                                     ng-src="https://trello-avatars.s3.amazonaws.com/{{user.avatarHash}}/170.png"
-                                     width="20"/>
+                                <img ng-src="{{user.avatarImgUrl}}" width="20"/>
                                 <span class="h6">{{ user.fullName; }}</span>
                             </td>
                             <td>{{user.username}}</td>
@@ -83,7 +110,7 @@
                                 <a ng-href="{{user.url}}">{{user.url}}</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" ng-click="vmTeam.deleteUser(vmTeam.users, $index, vmTeam.organization);"><i
+                                <button type="button" class="btn btn-danger" ng-click="vmTeam.deleteUser(vmTeam.Trello, vmTeam.users, $index, vmTeam.organization);"><i
                                     class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
@@ -92,27 +119,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="deleteTeamMate" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Are you shure???</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want remove <b>{{vmTeam.name}}</b> from project?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-archive" data-dismiss="modal">Archive</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 </section>

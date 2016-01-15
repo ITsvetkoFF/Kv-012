@@ -28,7 +28,7 @@
         }
 
         // Adds project to LocalStorage
-        function addProject(projectName, projectDescription) {
+        function addProject(projectName, projectDescription, trelloData) {
 
             var project = {
                 name: projectName,
@@ -36,11 +36,11 @@
                 dateStart: moment(),
                 dateEnd: new Date(),
                 users: [],
-                suites: []
+                suites: [],
+                trello: trelloData
             };
 
             localStorage.setItem('project-' + project.name, JSON.stringify(project));
-
         }
 
     }
