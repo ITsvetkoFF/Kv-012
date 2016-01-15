@@ -13,19 +13,19 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['logger', 'FakeRunsFactory', 'moment'];
+    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper', 'filterFields'];
 
-    function RunsController(logger, FakeRuns, moment) {
+    function RunsController($scope, logger, FakeRuns, dataWrapper, filterFields) {
 
         var vm = this;
-        vm.runs = FakeRuns(13, 10, 3);
-        vm.moment = moment;
+        vm.runs = dataWrapper.wrapRuns(FakeRuns(100, 10, 3));
         vm.selectRun = selectRun;
         vm.selectedRuns = [];
-        vm.selectedRun = 0;
+        vm.selectedRun = (vm.runs.length===0?null:vm.runs[0]);
         vm.progress = getProgress();
         vm.runCheckBoxClick = runCheckBoxClick;
         vm.testClusters = clusterizeTests();
+        vm.filterFields = filterFields.runs.getFields();
 
         activate();
 
@@ -45,13 +45,13 @@
          * @returns {{passed: number, failed: number, length: *}}
          */
         function getProgress(){
-            if(vm.runs.length === 0) return;
+            if(vm.selectedRun === null) return;
 
-            var progress = {passed: 0, failed: 0, length: vm.runs[vm.selectedRun].tests.length};
+            var progress = {passed: 0, failed: 0, length: vm.selectedRun.tests.length};
 
-            for(var i=0; i<vm.runs[vm.selectedRun].tests.length; i++){
-                if(vm.runs[vm.selectedRun].tests[i].status === 'passed') progress.passed++;
-                if(vm.runs[vm.selectedRun].tests[i].status === 'failed') progress.failed++;
+            for(var i=0; i<vm.selectedRun.tests.length; i++){
+                if(vm.selectedRun.tests[i].status === 'passed') progress.passed++;
+                if(vm.selectedRun.tests[i].status === 'failed') progress.failed++;
             }
 
             return progress;
@@ -59,11 +59,17 @@
 
         /**
          * change selected run index and recalculate progress object
-         * @param index
+         * @param id
          */
-        function selectRun(index){
-            if(index !== vm.selectedRun){
-                vm.selectedRun = index;
+        function selectRun(id){
+            if(id !== vm.selectedRun._id){
+                for(var i=0; i<vm.runs.length; i++){
+                    if(vm.runs[i]._id === id) {
+                        vm.selectedRun = vm.runs[i];
+                        break;
+                    }
+
+                }
                 vm.progress = getProgress();
                 vm.testClusters = clusterizeTests();
             }
@@ -87,7 +93,7 @@
         function clusterizeTests(){
             if(vm.runs.length === 0) return;
 
-            var tests = vm.runs[vm.selectedRun].tests;
+            var tests = vm.selectedRun.tests;
 
             if(tests.length === 0) return [];
 

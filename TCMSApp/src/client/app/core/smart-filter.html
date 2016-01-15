@@ -1,0 +1,14 @@
+<div class="input-group" uib-dropdown is-open="status.isopen">
+    <buttton class="input-group-addon" uib-dropdown-toggle ng-if="fastQueries">
+        Filters
+        <span class="caret"></span>
+    </buttton>
+    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button" ng-if="fastQueries">
+        <li role="menuitem" ng-click="fastFilter(query)" ng-repeat="query in fastQueries track by $index">
+            <a href="#" ng-bind="::query"></a>
+        </li>
+    </ul>
+    <input type="text" class="form-control" placeholder="Filter" ng-bind="$parent.filterQuery"
+           ng-model="$parent.filterQuery" typeahead-wait-ms="150" uib-typeahead="key for key in hintKeys"
+           typeahead-input-formatter="inputFormatter($model)">
+</div>
