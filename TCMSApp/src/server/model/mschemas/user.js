@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
     var userSchema = new Schema({
         firstName: {type: String, required: true},
         lastName: {type: String, required: true},
-        userName: {type: String, required: true},
+        userName: {type: String, required: true, unique: true},
         password: {type: String, required: true},
         email: {
             type: String,
@@ -39,15 +39,11 @@ var Schema = mongoose.Schema;
         role: {
             type: String,
             required: true,
-            validate: {
-                validator: function (v) {
-                    return /administrator|tester/i.test(v);
-                },
-                message: '{VALUE} is not a valid user role'
-            }
+            enum: ['tester', 'administrator']
         }
 
     });
+
     var user = mongoose.model('User', userSchema);
 module.exports = user;
 

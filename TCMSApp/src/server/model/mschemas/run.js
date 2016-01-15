@@ -25,43 +25,29 @@ var Schema = mongoose.Schema;
         envFull: {},
         status: {
             type: String,
-            validate: {
-                validator: function (v) {
-                    return /passed|executing|failed/.test(v);
-                },
-                message: '{VALUE} is not valid status!'
-            },
-            default: 'executing'
+            enum: ['passed', 'executing', 'failed', 'none'],
+            default: 'none'
         },
-        //the
         tests: [{
             testName: {type: String, required: true},
             testDescription: {type: String, required: true},
+            suiteId: mongoose.Schema.Types.ObjectId,
             automated: Boolean,
             preConditions: {type: String, required: true},
             steps: [{
                 stepNumber: Number,
                 stepDescription: {type: String, required: true},
                 expectedResult: {type: String, required: true},
-
                 status: {
                     type: String,
-                    validate: {
-                        validator: function (v) {
-                            return /passed, blocked, failed/.test(v);
-                        },
-                        message: '{VALUE} is not valid status!'
-                    }
+                    enum: ['passed', 'blocked', 'failed', 'none'],
+                    default: 'none'
                 }
             }],
             status: {
                 type: String,
-                validate: {
-                    validator: function (v) {
-                        return /passed|executing|failed/.test(v);
-                    },
-                    message: '{VALUE} is not valid status!'
-                }
+                enum: ['passed', 'executing', 'failed', 'none'],
+                default: 'none'
             }
         }]
     });

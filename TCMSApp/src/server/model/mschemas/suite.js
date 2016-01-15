@@ -13,13 +13,24 @@ var testSuiteSchema = new Schema({
     tests: [{
         testName: {type: String, required: true},
         testDescription: {type: String, required: true},
+        suiteId: mongoose.Schema.Types.ObjectId,
         automated: Boolean,
         preConditions: {type: String, required: true},
         steps: [{
             stepNumber: Number,
             stepDescription: {type: String, required: true},
-            expectedResult: {type: String, required: true}
-        }]
+            expectedResult: {type: String, required: true},
+            status: {
+                type: String,
+                enum: ['passed', 'blocked', 'failed', 'none'],
+                default: 'none'
+            }
+        }],
+        status: {
+            type: String,
+            enum: ['passed', 'executing', 'failed', 'none'],
+            default: 'none'
+        }
     }]
 });
 var testSuite = mongoose.model('Suite', testSuiteSchema);
