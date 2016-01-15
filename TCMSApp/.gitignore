@@ -6,6 +6,4 @@ bower_components/
 # other
 .tmp
 .idea/*
-build/
 jsdoc/
-mongodb/
