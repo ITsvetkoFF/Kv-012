@@ -1,6 +1,6 @@
 <section class="mainbar">
     <div class="matter">
-        <div class="container-fluid">
+        <div class="container">
             <div class="clearfix">
                 <h1>
                     Runs
@@ -11,7 +11,9 @@
                             <option>Archived runs</option>
                             <option>All runs</option>
                         </select>
-                        <input type="text" class="form-control" placeholder="Filter">
+                        <smart-filter type="runs"
+                                      fast-queries="['status=failed', 'status=passed', 'date> month ago', 'date> year ago']">
+                        </smart-filter>
                     </form>
                 </h1>
             </div>
@@ -59,29 +61,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="runItem in vmRuns.runs" ng-click="vmRuns.selectRun($index)">
+                            <tr ng-repeat="runItem in vmRuns.runs|smartFilter:filterQuery:vmRuns.filterFields"
+                                    ng-click="vmRuns.selectRun(runItem._id)">
                                 <th>
                                     <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
                                 </th>
+                                <td ng-bind="::runItem.date.toString()"></td>
+                                <td ng-bind="::runItem.name"></td>
+                                <td ng-bind="::runItem.build"></td>
+                                <td ng-bind="::runItem.envShort"></td>
+                                <td ng-bind="::runItem.author.toString('short')"></td>
                                 <td>
-                                    {{vmRuns.moment(runItem.date).format('DD.MM.YY')}}
-                                </td>
-                                <td>
-                                    {{runItem.name}}
-                                </td>
-                                <td>
-                                    {{runItem.build}}
-                                </td>
-                                <td>
-                                    {{runItem.envShort}}
-                                </td>
-                                <td>
-                                    {{runItem.author.last+' '+runItem.author.first.slice(0,1)+'.'}}
-                                </td>
-                                <td>
-                                    <span class="label label-{{runItem.status==='passed'?'success':'danger'}}">
-                                        {{runItem.status.toUpperCase()}}
-                                    </span>
+                                    <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
+                                          ng-bind="::runItem.status.toUpperCase()"></span>
                                 </td>
                             </tr>
                             </tbody>
@@ -102,22 +94,25 @@
                             </span>
                         </div>
                         <div class="panel-body">
-                            <h4>{{vmRuns.runs[vmRuns.selectedRun].name}}</h4>
+                            <h4 ng-bind="::vmRuns.selectedRun.name"></h4>
                             <b>Status:</b>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success"
-                                     style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%">
-                                    {{vmRuns.progress.passed}}
+                                     style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%"
+                                     ng-bind="::vmRuns.progress.passed">
                                 </div>
                                 <div class="progress-bar progress-bar-danger"
-                                     style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%">
-                                    {{vmRuns.progress.failed}}
+                                     style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%"
+                                     ng-bind="::vmRuns.progress.failed">
                                 </div>
+                            </div>
+                            <div>
+                                <b>Author: </b>{{::vmRuns.selectedRun.author.toString()}}
                             </div>
                             <b>Environment details:</b>
                             <div>
-                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.runs[vmRuns.selectedRun].envFull">
-                                    <i>{{envParamKey}}</i>: {{envParamValue}}
+                                <div ng-repeat="(envParamKey, envParamValue) in vmRuns.selectedRun.envFull">
+                                    <i ng-bind="::envParamKey"></i>: {{::envParamValue}}
                                 </div>
                             </div>
                         </div>
@@ -133,11 +128,10 @@
                                     <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
                                 </tr>
                                 <tr ng-repeat="test in cluster">
-                                    <td>{{test.name}}</td>
+                                    <td ng-bind="::test.name"></td>
                                     <td>
-                                        <span class="label label-{{test.status==='passed'?'success':'danger'}}">
-                                            {{test.status.toUpperCase()}}
-                                        </span>
+                                        <span class="label label-{{test.status==='passed'?'success':'danger'}}"
+                                              ng-bind="::test.status.toUpperCase()"></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -147,4 +141,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>

@@ -155,6 +155,7 @@ module.exports = function() {
                 config.specHelpers,
                 clientApp + '**/*.module.js',
                 clientApp + '**/*.js',
+                clientApp + '**/*.html',
                 temp + config.templateCache.file,
                 config.serverIntegrationSpecs
             ),
@@ -171,6 +172,7 @@ module.exports = function() {
             preprocessors: {}
         };
         options.preprocessors[clientApp + '**/!(*.spec)+(.js)'] = ['coverage'];
+        options.preprocessors[clientApp + '**/*.html'] = ['ng-html2js'];
         return options;
     }
 };
