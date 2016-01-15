@@ -8,4 +8,5 @@ bower_components/
 .idea/*
 build/
 jsdoc/
-mongodb/
+src/mongodb/
+
