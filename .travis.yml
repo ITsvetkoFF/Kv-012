@@ -5,5 +5,5 @@ before_script:
   - cd TCMSApp/
   - npm install -g gulp
 script: 
-  - gulp test
+  - gulp vet
   - gulp autotest
