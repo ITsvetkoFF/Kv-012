@@ -3,10 +3,12 @@ node_js:
   - "4.1"
 before_script:
   - cd TCMSApp/
-  - npm install codecov.io --save
+  - npm install codecov.io
+  - npm install istanbul
   - npm install -b bower
   - npm install -g gulp
   - npm install
 script: 
   - gulp test
+after_script:
   - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
