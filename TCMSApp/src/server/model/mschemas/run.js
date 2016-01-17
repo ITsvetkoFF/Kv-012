@@ -4,14 +4,14 @@ var Schema = mongoose.Schema;
 
 // create  the run model
 
-    // define schema
-    var runSchema = new Schema({
+// define schema
+var runSchema = new Schema({
         name: {
             type: String,
             required: true
         },
         author: {
-           type: {
+            type: {
                firstName: String,
                lastName: String
            },
@@ -65,5 +65,5 @@ var Schema = mongoose.Schema;
             }
         }]
     });
-    var run = mongoose.model('Run',runSchema);
+var run = mongoose.model('Run',runSchema);
 module.exports = run;

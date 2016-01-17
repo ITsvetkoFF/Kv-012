@@ -13,12 +13,13 @@
         .module('app.admin')
         .controller('TeamController', TeamController);
 
-    TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q', 'createProjectFactory', 'authservice'];
+    TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q',
+                              'createProjectFactory', 'authservice'];
 
     function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice) {
         var vmTeam = this;
         vmTeam.users = [];
-        vmTeam.organization = "";
+        vmTeam.organization = '';
 
         vmTeam.addUser = addUser;
         vmTeam.getUsers = TrelloTeamFactory.getUsers;
@@ -30,7 +31,7 @@
         setDefaultInput();
 
         // not listening CurrentProjectChanged
-        $scope.$on("CurrentProjectChanged", function() {
+        $scope.$on('CurrentProjectChanged', function() {
 
             vmTeam.organization = createProjectFactory.getCurrentProject().trello.name;
 
@@ -54,10 +55,10 @@
 
         /**
          * `PUT` user to project organization in Trello
-         * @memberOF teamController
+         * @memberOf teamController
          */
         function addUser(isValidForm) {
-            if( isValidForm ) {
+            if (isValidForm) {
                 TrelloTeamFactory.addUser(vmTeam.Trello, {
                     newName: vmTeam.newName,
                     newEmail: vmTeam.newEmail,
@@ -70,7 +71,7 @@
 
         /**
          * Set default input values into `Add user` form
-         * @memberOF teamController
+         * @memberOf teamController
          */
         function setDefaultInput() {
             vmTeam.memberFilter = '';

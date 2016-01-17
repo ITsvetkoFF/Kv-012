@@ -11,10 +11,9 @@ var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
 
-var docs = require("express-mongoose-docs");
+var docs = require('express-mongoose-docs');
 
 var environment = process.env.NODE_ENV;
-
 
 var router = express.Router();
 
@@ -23,7 +22,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-
 //Get mongoose models
 var defect =  require('./model/mschemas/defect');
 var project =  require('./model/mschemas/project');
@@ -31,12 +29,9 @@ var run =  require('./model/mschemas/run');
 var suite =  require('./model/mschemas/suite');
 var user =  require('./model/mschemas/user');
 
-
 console.log('About to crank up node');
 console.log('PORT=' + port);
 console.log('NODE_ENV=' + environment);
-
-
 
 // Create API with 'express-restify-mongoose'
 restify.serve(router, defect);
@@ -45,11 +40,10 @@ restify.serve(router, run);
 restify.serve(router, suite);
 restify.serve(router, user);
 
-app.use(router)
+app.use(router);
 
 //Generate API Docs
 docs(app, mongoose);
-
 
 switch (environment){
     case 'build':
@@ -65,8 +59,8 @@ switch (environment){
     default:
         console.log('** DEV **');
         // Connect to local MongoDB
-        mongoose.connect("mongodb://localhost/TCMSdb", function(err) {
-            if (err) console.log('\x1b[41m', "Connection failed " + err,'\x1b[0m');
+        mongoose.connect('mongodb://localhost/TCMSdb', function(err) {
+            if (err) console.log('\x1b[41m', 'Connection failed ' + err,'\x1b[0m');
         });
 
         app.use(express.static('./src/client/'));

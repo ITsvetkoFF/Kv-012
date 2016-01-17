@@ -20,7 +20,7 @@
             for (i = 0; i < l; i++) {
                 if (localStorage.key(i).indexOf('project') + 1) {
                     var proj = JSON.parse(localStorage.getItem(localStorage.key(i)));
-                    name = proj.name;
+                    var name = proj.name;
                     names.push(name);
                 }
             }

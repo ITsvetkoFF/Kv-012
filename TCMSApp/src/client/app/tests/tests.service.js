@@ -7,8 +7,8 @@
 
     TestsService.$inject = ['FakeTestsFactory'];
 
-    function TestsService(FakeTestsFactory) {
-        var suites = FakeTestsFactory(10); 
+    function TestsService(fakeTestsFactory) {
+        var suites = fakeTestsFactory(10);
         var currentSuite = suites[0];
         var category = [
             {id: '0', name: 'Acceptance'},
@@ -50,7 +50,7 @@
             getSprint: function() {
                 return sprint;
             }
-        }
+        };
 
     }
 

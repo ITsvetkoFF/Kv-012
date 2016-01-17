@@ -1,10 +1,10 @@
-(function(){
+(function() {
     'use strict';
 
     angular.module('app.core')
-        .constant('filterFields', filterFields())
+        .constant('filterFields', filterFields());
 
-    function filterFields(){
+    function filterFields() {
         return {
             runs: {
                 getFields: getRunsFields,
@@ -13,29 +13,29 @@
         };
 
         //required
-        function getRunsFields(){
+        function getRunsFields() {
             return {
-                "date": "date",
-                "name": "name",
-                "build": "build",
-                "env": "envShort",
-                "author": "author",
-                "status": "status",
-                "envFull": "envFull"
+                'date': 'date',
+                'name': 'name',
+                'build': 'build',
+                'env': 'envShort',
+                'author': 'author',
+                'status': 'status',
+                'envFull': 'envFull'
             };
         }
 
         //oly for hints and optional
-        function getRunsFieldsOperators(){
-            return{
-                "date": [':', '>', '<', '='],
-                "name": [':', '='],
-                "build": [':', '<', '>', '='],
-                "env": [':', '='],
-                "author": [':', '='],
-                "status": [':', '='],
-                "envFull": [':']
-            }
+        function getRunsFieldsOperators() {
+            return {
+                'date': [':', '>', '<', '='],
+                'name': [':', '='],
+                'build': [':', '<', '>', '='],
+                'env': [':', '='],
+                'author': [':', '='],
+                'status': [':', '='],
+                'envFull': [':']
+            };
         }
     }
 })();

@@ -35,21 +35,20 @@
         // other
         vm.casePriority = '2';
         vm.caseCategory = '10';
-        vm.creator = "John Doe";
+        vm.creator = 'John Doe';
         vm.caseSprint = vm.sprint[vm.sprint.length - 1].toString();
-
 
         function activate() {
             logger.info('Activated New Case View');
         }
 
-        function addStep(){
+        function addStep() {
             var stepNumber = vm.steps.length + 1;
             var newStep = {
-                           stepNumber: stepNumber,
-                           stepDescription: "",
-                           expectedResult: ""
-                          };
+                stepNumber: stepNumber,
+                stepDescription: '',
+                expectedResult: ''
+            };
             vm.steps.push(newStep);
         }
 
@@ -61,8 +60,8 @@
             var i;
             var stepsLen = vm.steps.length;
             var empty = false;
-            for (var i = 0; i < stepsLen; i++) {
-                if (vm.steps[i].stepDescription == "" || vm.steps[i].expectedResult == "") {empty = true;}
+            for (i = 0; i < stepsLen; i++) {
+                if (vm.steps[i].stepDescription === '' || vm.steps[i].expectedResult === '') {empty = true;}
             }
             return empty;
         }

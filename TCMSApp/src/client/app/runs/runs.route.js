@@ -7,7 +7,6 @@
 
     appRun.$inject = ['routerHelper'];
 
-
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
     }
@@ -51,7 +50,7 @@
                         previousState: null,
                         run: null
                     },
-                    parent: "run-execute"
+                    parent: 'run-execute'
                 }
             }
         ];

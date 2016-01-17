@@ -11,14 +11,14 @@
         var vm = this;
         vm.arrayDefects = getDefects.fakeDefect(10);
         vm.toogledAll = false;
-        if(vm.arrayDefects) {
+        if (vm.arrayDefects) {
             vm.currentDefect = vm.arrayDefects[0];
             vm.setCurrentDefect = function (x) {
                 vm.currentDefect = x;
-            }
+            };
         }
-        else{
-            vm.currentDefect == null;
+        else {
+            vm.currentDefect = null;
         }
 
         vm.previousState = $state.$current.name;

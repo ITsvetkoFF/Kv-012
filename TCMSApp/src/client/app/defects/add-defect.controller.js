@@ -6,18 +6,18 @@
  */
 
 (function() {
-    "use strict";
+    'use strict';
 
     angular
-        .module("app.defects")
-        .controller("AddDefectController", AddDefectController);
+        .module('app.defects')
+        .controller('AddDefectController', AddDefectController);
 
-    AddDefectController.$inject = ["$uibModal", "$state", "$scope", "$stateParams", "$rootScope", "logger"];
+    AddDefectController.$inject = ['$uibModal', '$state', '$scope', '$stateParams', '$rootScope', 'logger'];
 
     function AddDefectController($uibModal, $state, $scope, $stateParams, $rootScope, logger) {
 
         var vm = this;
-        vm.open = open;
+        vm.open = openAddDefectModal;
 
         vm.open();
 
@@ -25,9 +25,9 @@
          * Opens "Add defect" modal window
          * @memberOf addDefectController
          */
-        function open() {
-            if( !$stateParams.previousState ) {
-                $state.go("dashboard");
+        function openAddDefectModal () {
+            if (!$stateParams.previousState) {
+                $state.go('dashboard');
             } else {
                 $uibModal.open({
                     templateUrl: 'addDefectModalTemplate.html',
@@ -35,7 +35,7 @@
                         var vmDefectModal = this;
                         var allowStateChange = false;
 
-                        if($stateParams.run) {
+                        if ($stateParams.run) {
                             vmDefectModal.run = $stateParams.run.info;
                         }
 
@@ -47,17 +47,17 @@
                         };
 
                         // prevent state changing without interraction with modal controlls
-                        $scope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-                            if ( !allowStateChange ) {
-                                logger.warning("Please Save or Cancel this dialog!", "", "Save or Cancel");
+                        $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+                            if (!allowStateChange) {
+                                logger.warning('Please Save or Cancel this dialog!', '', 'Save or Cancel');
                                 event.preventDefault();
                             }
-                        })
+                        });
                     },
                     controllerAs: 'vmDefectModal',
-                    backdrop: "static"
+                    backdrop: 'static'
                 });
             }
-        };
+        }
     }
 })();

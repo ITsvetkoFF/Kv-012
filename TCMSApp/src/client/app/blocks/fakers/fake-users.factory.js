@@ -7,9 +7,8 @@
  *  fakeUsersFactory(1);
  */
 
-!function () {
+(function () {
     'use strict';
-
 
     angular
         .module('app.fakers')
@@ -57,32 +56,27 @@
 
                 users[i] = {
 
-                    "_id": i + 1,
-                    "fullName": faker.name.findName(),
-                    "username": faker.internet.userName(),
-                    "password": faker.internet.password(),
-                    "email": faker.internet.email(),
-                    "phone": faker.phone.phoneNumberFormat(),
-                    "skype": faker.internet.userName(),
-                    "website": faker.internet.domainName(),
-                    "companyName": faker.company.companyName(),
-                    "avatar": faker.image.avatar(),
-                    "role": "tester"
+                    '_id': i + 1,
+                    'fullName': faker.name.findName(),
+                    'username': faker.internet.userName(),
+                    'password': faker.internet.password(),
+                    'email': faker.internet.email(),
+                    'phone': faker.phone.phoneNumberFormat(),
+                    'skype': faker.internet.userName(),
+                    'website': faker.internet.domainName(),
+                    'companyName': faker.company.companyName(),
+                    'avatar': faker.image.avatar(),
+                    'role': 'tester'
                 };
             }
             // first user will be always administrator
-            users[0].role = "administrator";
+            users[0].role = 'administrator';
 
             return users;
-
-        };
+        }
 
         return createUsers;
-    };
+    }
 
-
-
-}();
-
-
+})();
 

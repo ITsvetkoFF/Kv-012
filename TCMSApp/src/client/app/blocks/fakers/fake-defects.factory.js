@@ -1,5 +1,5 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
         .module('app.fakers')
@@ -29,7 +29,7 @@
              ]
              */
             fakeDefect: function (quantity) {
-                var quantity = quantity || 1;
+                quantity = quantity || 1;
                 var priorityVariant = ['Critical', 'High', 'Normal', 'Low'];
                 var result = [];
                 for (var i = 0; i < quantity; ++i) {
@@ -61,7 +61,7 @@
                 return result;
             }
 
-        }
+        };
     }
 })();
 

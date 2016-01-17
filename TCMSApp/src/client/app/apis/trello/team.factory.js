@@ -15,7 +15,7 @@
  */
 
 (function () {
-    "use strict";
+    'use strict';
 
     angular
         .module('app.trello')
@@ -28,7 +28,11 @@
         /**
          * Variable, that will be returned by the factory
          * @memberOf trelloTeamFactory;
-         * @type {{auth: teamMembersFactory.auth, getUsers: teamMembersFactory.getUsers, deleteUser: teamMembersFactory.deleteUser, addUser: teamMembersFactory.addUser}}
+         * @type
+         * {{auth: teamMembersFactory.auth,
+         * getUsers: teamMembersFactory.getUsers,
+         * deleteUser: teamMembersFactory.deleteUser,
+         * addUser: teamMembersFactory.addUser}}
          */
         var result = {
             getUsers: getUsers,
@@ -57,17 +61,17 @@
 
             var length;
 
-            console.log("Trello auth: " + Trello.authorized());
+            console.log('Trello auth: ' + Trello.authorized());
             Trello.rest('GET', 'organizations/' + organization + '/members',
                 {
                     fields: 'all',
                     //key: Trello.key
                 },
                 function (res) {
-                    if (res != 0) {
+                    if (res !== 0) {
                         length = res.length;
 
-                        if (res.length != 0) {
+                        if (res.length !== 0) {
                             for (var i = 0; i < res.length; i++) {
                                 users.push(res[i]);
                                 _setAvatarUrl(res[i]);
@@ -82,15 +86,15 @@
                     logger.error('Something wrong with users loading...', '', err.responseText);
                 });
 
-            console.log("Trello authorized: " + Trello.authorized());
+            console.log('Trello authorized: ' + Trello.authorized());
 
         }
 
         function _setAvatarUrl(user) {
             if (!user.avatarHash) {
-                user.avatarImgUrl = "images/img_not_found.gif";
+                user.avatarImgUrl = 'images/img_not_found.gif';
             } else {
-                user.avatarImgUrl = "https://trello-avatars.s3.amazonaws.com/" + user.avatarHash + "/170.png";
+                user.avatarImgUrl = 'https://trello-avatars.s3.amazonaws.com/' + user.avatarHash + '/170.png';
             }
 
         }
@@ -139,9 +143,9 @@
 
             var deletedUser = users[index];
 
-            if ( me ) {
+            if (me) {
 
-                if ( me.id == deletedUser.id ) {
+                if (me.id === deletedUser.id) {
 
                     logger.warning('You can\'t delete yourself =)', '', 'Ooops!');
 
@@ -159,7 +163,7 @@
                         });
                 }
             } else {
-                logger.error("trello/me not loaded");
+                logger.error('trello/me not loaded');
             }
 
             return deletedUser;

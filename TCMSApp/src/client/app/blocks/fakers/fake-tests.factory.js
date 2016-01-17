@@ -21,83 +21,83 @@
 
         return getSuites;
 
-            /**
-             *
-             * Returns a an array of suites with test cases, filled with steps
-             *
-             * ```
-             * {
-               * _id: "int"
-               * suiteName: "string"
-               * suiteDescription: "string"
-               * project: "int"
-               * suitePriority: "int"
-               * tests:
-               * [
-                   * {
-                       * _id: "int"
-                       * testName: "string"
-                       * testDescription: "string"
-                        * automated: "bool"
-                        * preConditions: "string"
-                        * steps:
-                        * [
-                            *{
-                            *    stepNumber: "int"
-                            *    stepDescription: "string"
-                           *     expectedResult: "string"
-                          *  },
-                         *   {
-                        *        stepNumber: "int"
-                       *         stepDescription: "string"
-                      *          expectedResult: "string"
-                     *       }
-                    *    ]
-                   * },
-                   * {
-                       * _id: "int"
-                       * testName: "string"
-                       * testDescription: "string"
-                       * automated: "bool"
-                       * pre-conditions: "string"
-                       * steps:
-                       * [
-                         *   {
-                         *       stepNumber: "int"
-                        *        stepDescription: "string"
-                       *         expectedResult: "string"
-                      *      },
-                      *      {
-                     *           stepNumber: "int"
-                    *            stepDescription: "string"
-                   *             expectedResult: "string"
-                  *          }
-                 *       ]
-                *    }
-               * ]
-              *  }
-             * ```
-             *
-             *
-             * @memberOf fakeTestsFactory
-             * @param {Number} testNumber
-             * @returns {Array.<{Object}>} an array of objects
-             */
+        /**
+         *
+         * Returns a an array of suites with test cases, filled with steps
+         *
+         * ```
+         * {
+           * _id: "int"
+           * suiteName: "string"
+           * suiteDescription: "string"
+           * project: "int"
+           * suitePriority: "int"
+           * tests:
+           * [
+               * {
+                   * _id: "int"
+                   * testName: "string"
+                   * testDescription: "string"
+                    * automated: "bool"
+                    * preConditions: "string"
+                    * steps:
+                    * [
+                        *{
+                        *    stepNumber: "int"
+                        *    stepDescription: "string"
+                       *     expectedResult: "string"
+                      *  },
+                     *   {
+                    *        stepNumber: "int"
+                   *         stepDescription: "string"
+                  *          expectedResult: "string"
+                 *       }
+                *    ]
+               * },
+               * {
+                   * _id: "int"
+                   * testName: "string"
+                   * testDescription: "string"
+                   * automated: "bool"
+                   * pre-conditions: "string"
+                   * steps:
+                   * [
+                     *   {
+                     *       stepNumber: "int"
+                    *        stepDescription: "string"
+                   *         expectedResult: "string"
+                  *      },
+                  *      {
+                 *           stepNumber: "int"
+                *            stepDescription: "string"
+               *             expectedResult: "string"
+              *          }
+             *       ]
+            *    }
+           * ]
+          *  }
+         * ```
+         *
+         *
+         * @memberOf fakeTestsFactory
+         * @param {Number} testNumber
+         * @returns {Array.<{Object}>} an array of objects
+         */
 
-                function getSuites(suitesNumber) {
-                  var suites = [];
-                  var i;
-                  var n = suitesNumber;
-                  for (i = 0; i < n; i++) {
-                      var casesNumber = Math.floor(Math.random() * (20 - 7)) + 7;
-                      suites[i] = getSuite(casesNumber);
-                      suites[i]._id = i+1;
-                    }
+        function getSuites(suitesNumber) {
+            var suites = [];
+            var i;
+            var n = suitesNumber;
+            for (i = 0; i < n; i++) {
+                var casesNumber = Math.floor(Math.random() * (20 - 7)) + 7;
+                suites[i] = getSuite(casesNumber);
+                suites[i]._id = i + 1;
+            }
 
-                  return suites;
-                }
+            return suites;
+        }
 
-                function getSuite(testNumber) {
+        function getSuite(testNumber) {
                 // Test Suite creating
                 var testSuite = {};
                 testSuite.suiteName = faker.lorem.sentence(2, 5);
@@ -119,7 +119,7 @@
                     testCase.testDescription = faker.lorem.sentence(4, 30);
                     testCase.automated = faker.random.boolean();
                     testCase.preConditions = faker.lorem.sentence(5, 20);
-                    testCase.casePriority = Math.floor(Math.random() * 4); 
+                    testCase.casePriority = Math.floor(Math.random() * 4);
                     testCase.issues = Math.floor(Math.random() * (7 - 1 + 1)) + 1;
                     testCase.created = faker.date.past();
                     testCase.creator = faker.name.lastName();

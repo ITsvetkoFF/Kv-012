@@ -7,7 +7,7 @@
  */
 
 (function () {
-    "use strict";
+    'use strict';
 
     angular
         .module('app.admin')
@@ -17,10 +17,18 @@
 
     function TeamMembersFactory(Trello, logger) {
 
+        var me = me || {};
+
+        getMe();
+
         /**
          * Variable, that will be returned by the factory
          * @memberOf teamMembersFactory;
-         * @type {{auth: teamMembersFactory.auth, getUsers: teamMembersFactory.getUsers, deleteUser: teamMembersFactory.deleteUser, addUser: teamMembersFactory.addUser}}
+         * @type
+         * {auth: teamMembersFactory.auth,
+         * getUsers: teamMembersFactory.getUsers,
+         * deleteUser: teamMembersFactory.deleteUser,
+         * addUser: teamMembersFactory.addUser}
          */
         var result = {
             getUsers: getUsers,
@@ -49,10 +57,10 @@
                     fields: 'all'
                 },
                 function (res) {
-                    if(res != 0) {
+                    if (res !== 0) {
                         length = res.length;
 
-                        if (res.length != 0) {
+                        if (res.length !== 0) {
                             for (var i = 0; i < res.length; i++) {
                                 users.push(res[i]);
                             }
@@ -110,7 +118,7 @@
 
             var deletedUser = users[index];
 
-            if(me.id == deletedUser.id) {
+            if (me.id === deletedUser.id) {
                 logger.warning('You can\'t delete yourself =)', '', 'Ooops!');
             } else {
                 Trello.rest('DELETE', 'organizations/' + organization + '/members/' + users[index].id,
@@ -126,10 +134,6 @@
 
             return deletedUser;
         }
-
-        var me = me || {};
-
-        getMe();
 
         /**
          * Sets local `me` to current user From Trello
