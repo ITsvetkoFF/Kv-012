@@ -3,6 +3,7 @@ node_js:
   - "4.1"
 before_script:
   - cd TCMSApp/
+  - npm install codecov.io --save
   - npm install -b bower
   - npm install -g gulp
   - npm install
