@@ -8,4 +8,3 @@ before_script:
   - npm install
 script: 
   - gulp vet
-  - gulp autotest
