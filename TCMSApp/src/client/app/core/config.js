@@ -19,6 +19,8 @@
         delete window.moment;
         delete window.faker;
         delete window.Trello;
+        delete window.jQuery;
+        delete window.$;
 
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
@@ -28,8 +30,10 @@
 
         // toastr configuration
         angular.extend(toastrConfig, {
-            positionClass: 'toast-bottom-right',
-            timeOut: 1000
+            positionClass: 'toast-bottom-right'
         });
+
+
     }
+
 })();
