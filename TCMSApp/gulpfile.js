@@ -32,10 +32,10 @@ gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 gulp.task('docs', shell.task([
     'node ' +
-    'node_modules/jsdoc/jsdoc.js '+
-    '-c node_modules/angular-jsdoc/common/conf.json '+   // config file
-    '-t node_modules/angular-jsdoc/angular-template '+   // template file
-    '-d jsdoc/docs '+                           // output directory
+    'node_modules/jsdoc/jsdoc.js ' +
+    '-c node_modules/angular-jsdoc/common/conf.json ' +   // config file
+    '-t node_modules/angular-jsdoc/angular-template ' +   // template file
+    '-d jsdoc/docs ' +                           // output directory
     './README.md ' +                            // to include README.md as index contents
     '-r src'                                    // source code directory
 ]));
@@ -337,7 +337,7 @@ gulp.task('autotest', function(done) {
  */
 gulp.task('serve-dev', ['inject'], function() {
     mongo(config.mongodbPath);
-    console.log("\x1b[36m", 'Running mongodb on '+ config.mongodbPath,'\x1b[0m')
+    console.log('\x1b[36m', 'Running mongodb on ' + config.mongodbPath,'\x1b[0m');
     serve(true /*isDev*/);
 });
 
@@ -447,8 +447,8 @@ function mongo(path) {
  */
 function runCommand(command) {
     return exec(command, function (err, stdout, stderr) {
-      console.log(stdout);
-      console.log(stderr);
+        console.log(stdout);
+        console.log(stderr);
     });
 }
 

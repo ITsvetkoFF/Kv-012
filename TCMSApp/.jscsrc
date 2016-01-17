@@ -1,9 +1,10 @@
 {
-    "excludeFiles": ["node_modules/**", "bower_components/**"],
+    "maxErrors": null,
+
+    "excludeFiles": ["node_modules/**", "bower_components/**"
+    ],
 
     "requireCurlyBraces": [
-        "if",
-        "else",
         "for",
         "while",
         "do",
@@ -12,11 +13,11 @@
     ],
     "requireOperatorBeforeLineBreak": true,
     "requireCamelCaseOrUpperCaseIdentifiers": true,
-    "maximumLineLength": {
-      "value": 100,
-      "allowComments": true,
-      "allowRegex": true
-    },
+    //    "maximumLineLength": {
+    //      "value": 120,
+    //      "allowComments": true,
+    //      "allowRegex": true
+    //    },
     "validateIndentation": 4,
     "validateQuoteMarks": "'",
 
@@ -54,11 +55,15 @@
     "disallowSpacesInsideParentheses": true,
 
     "jsDoc": {
-        "checkAnnotations": true,
-        "checkParamNames": true,
-        "requireParamTypes": true,
-        "checkReturnTypes": true,
-        "checkTypes": true
+        "checkAnnotations": {
+            "preset": "jsdoc3",
+            "extra": {
+                "ngdoc": "some",
+                "methodOf": "some",
+                "description": "some",
+                "memberOf": "some"
+            }
+        }
     },
 
     "disallowMultipleLineBreaks": true,

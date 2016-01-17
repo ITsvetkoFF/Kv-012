@@ -1,4 +1,4 @@
-(function(){
+(function() {
     'use strict';
 
     angular.module('app.core')
@@ -6,30 +6,29 @@
 
     dataWrapper.$inject = ['moment'];
 
-    function dataWrapper(moment){
+    function dataWrapper(moment) {
         var service = {
             wrapRuns: wrapRuns
         };
 
-        function wrapRuns(runs){
-            if(!angular.isArray(runs)) return [];
+        function wrapRuns(runs) {
+            if (!angular.isArray(runs)) return [];
 
             var envFullProto = {
-                toString: function(){
-                    var result = "";
+                toString: function() {
+                    var result = '';
                     var keys = Object.keys(this);
-                    for(var i=0; i<keys.length; i++){
-                        result += keys[i]+": "+this[keys[i]]+"; ";
+                    for (var i = 0; i < keys.length; i++) {
+                        result += keys[i] + ': ' + this[keys[i]] + '; ';
                     }
                     return result;
                 }
             };
 
-            for(var i=0; i<runs.length; i++){
-                runs[i].author.toString = function(type){
-                    if(type === 'short')
-                        return this.last+' '+this.first.slice(0,1)+'.';
-                    return this.first+' '+this.last;
+            for (var i = 0; i < runs.length; i++) {
+                runs[i].author.toString = function(type) {
+                    if (type === 'short') return this.last + ' ' + this.first.slice(0,1) + '.';
+                    else return this.first + ' ' + this.last;
                 };
 
                 runs[i].date = {
@@ -39,7 +38,7 @@
                     }
                 };
 
-                runs[i].envFull.__proto__ = envFullProto;
+                runs[i].envFull.__proto__ = envFullProto;  // jshint ignore:line
             }
 
             return runs;

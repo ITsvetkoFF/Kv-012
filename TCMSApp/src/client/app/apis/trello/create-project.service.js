@@ -37,14 +37,18 @@
                             desc: projectDescription
 
                         }).then(function (res) {
-                                logger.success('Project ' + projectName + ' created. Description: ' + projectDescription, '', 'Project created');
+                            logger.success(
+                                'Project ' + projectName + ' created. Description: ' + projectDescription,
+                                '',
+                                'Project created'
+                            );
 
-                                Trello.get('members/me/organizations').then(
+                            Trello.get('members/me/organizations').then(
                                     function (res) {
                                         organizations = res;
 
-                                        for (var i = 0; i < organizations.length; i++ ) {
-                                            if ( organizations[i].displayName === projectName) {
+                                        for (var i = 0; i < organizations.length; i++) {
+                                            if (organizations[i].displayName === projectName) {
                                                 trelloData = organizations[i];
                                                 break;
                                             }
@@ -58,7 +62,7 @@
 
                                     }
                                 );
-                            },
+                        },
                             function (err) {
                                 logger.error('Project has not been created.', '', 'Error');
                                 deferred.reject();
@@ -72,7 +76,7 @@
             );
 
             function sameProjectExists(res, projectName) {
-                return (res.filter(function(e){ return e.displayName === projectName }).length > 0);
+                return (res.filter(function(e) { return e.displayName === projectName; }).length > 0);
             }
 
             return deferred.promise;
@@ -81,7 +85,7 @@
 
         function setCurrentProject(name) {
             current.name = name;
-            $rootScope.$broadcast("CurrentProjectChanged");
+            $rootScope.$broadcast('CurrentProjectChanged');
         }
 
         function getCurrentProject() {
@@ -89,5 +93,4 @@
         }
     }
 })();
-
 

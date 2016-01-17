@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //create  the defect model
-    //define schema
-    var defectSchema = new Schema({
+//define schema
+var defectSchema = new Schema({
         randomId: Number,
         name: {type: String, required: true},
         whoFind: String,
@@ -15,7 +15,7 @@ var Schema = mongoose.Schema;
             required: true,
             validate: {
                 validator: function(v) {
-                    return /critical|high|normal|low/i.tests()
+                    return /critical|high|normal|low/i.tests();
                 },
                 message: '{Value} is not allowed'
             }
@@ -24,5 +24,5 @@ var Schema = mongoose.Schema;
         stepsToReproduce: [String],
         testRunId: Number
     });
-    var defect = mongoose.model('Defect', defectSchema) ;
+var defect = mongoose.model('Defect', defectSchema) ;
 module.exports = defect;

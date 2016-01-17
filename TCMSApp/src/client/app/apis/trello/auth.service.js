@@ -37,13 +37,13 @@
         function authorize() {
 
             Trello.authorize({
-                type: "popup",
-                name: "Getting Started Application",
+                type: 'popup',
+                name: 'Getting Started Application',
                 scope: {
                     read: true,
                     write: true
                 },
-                expiration: "never",
+                expiration: 'never',
                 success: function(res) {
                     $rootScope.$broadcast('TrelloAuthorized');
                 }

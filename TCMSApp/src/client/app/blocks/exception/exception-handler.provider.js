@@ -47,7 +47,7 @@
      * @param  {Object} logger
      * @return {Function} the decorated $exceptionHandler service
      */
-     function extendExceptionHandler($delegate, exceptionHandler, $injector) {
+    function extendExceptionHandler($delegate, exceptionHandler, $injector) {
         return function (exception, cause) {
             var logger = $injector.get('logger');
             var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';

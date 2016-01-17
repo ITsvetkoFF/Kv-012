@@ -12,7 +12,7 @@
         .module('app.runs')
         .controller('RunController', RunController);
 
-    RunController.$inject = ["logger", "$state"];
+    RunController.$inject = ['logger', '$state'];
 
     function RunController(logger, $state) {
 
@@ -21,7 +21,7 @@
         // object that contains details of current run
         vm.run = {
             runId: 1,
-            info: "info about current run"
+            info: 'info about current run'
         };
 
         // name of current state, that will be sent as previous state for "Add defect" modal window
@@ -31,7 +31,7 @@
         activate();
 
         function activate() {
-            logger.info("Activated run execute view!");
+            logger.info('Activated run execute view!');
         }
 
     }

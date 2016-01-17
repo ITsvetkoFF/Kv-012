@@ -15,7 +15,7 @@
         vm.checkedAllCases = false; // checkbox for testCases
         vm.openAddSuite = openAddSuite; // open modal for new suite
         vm.f = TestsService.getFakeSuites();// f for faker, array of suites
-        vm.currentSuite = TestsService.getCurrentSuite(); // on upload we see first suite 
+        vm.currentSuite = TestsService.getCurrentSuite(); // on upload we see first suite
         vm.category = TestsService.getCategory();
         vm.priority = TestsService.getPriority();
         vm.sprint = TestsService.getSprint();
@@ -60,12 +60,12 @@
 
                     function cancelAddSuite() {
                         $uibModalInstance.dismiss('cancel');
-                    };
-                    
+                    }
+
                 },
                 controllerAs: 'vmSuite'
             });
-        };
+        }
 
     }
 

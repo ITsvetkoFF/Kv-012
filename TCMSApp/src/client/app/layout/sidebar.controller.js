@@ -13,19 +13,19 @@
 
         var vm = this;
         vm.projectsNames = sidebarFactory.findProjectsNames();
-        vm.open = open;
+        vm.open = openModalCreateProject;
         vm.setCurrentProject = setCurrentProject;
 
         // TODO: this is the "save last project" feature in simple.
         (function () {
             if (sidebarFactory.findProjectsNames().length === 0) {
-                logger.error("Create the first project to start");
+                logger.error('Create the first project to start');
             } else {
                 vm.setCurrentProject(vm.projectsNames[0]);
             }
         })();
 
-        function open() {
+        function openModalCreateProject () {
             var modalCreateProject = $uibModal.open({
                     templateUrl: 'app/layout/add-project.html',
                     controller: function ($uibModalInstance) {
@@ -52,14 +52,14 @@
                                         createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
                                     ).then(function (res) {
 
-                                            vm.projectsNames = sidebarFactory.findProjectsNames();
+                                        vm.projectsNames = sidebarFactory.findProjectsNames();
 
-                                            if (sidebarFactory.findProjectsNames().length === 1) {
-                                                vm.setCurrentProject(vm.projectsNames[0]);
-                                            }
+                                        if (sidebarFactory.findProjectsNames().length === 1) {
+                                            vm.setCurrentProject(vm.projectsNames[0]);
+                                        }
 
-                                            changeModal();
-                                        },
+                                        changeModal();
+                                    },
                                         function (err) {
                                             logger.error('New project has not been created.');
                                         }
@@ -88,7 +88,7 @@
                     controllerAs: 'vmModal'
                 }
             );
-        };
+        }
 
         function setCurrentProject(name) {
             createProjectFactory.setCurrentProject(name);

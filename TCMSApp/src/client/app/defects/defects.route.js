@@ -40,7 +40,7 @@
                         previousState: null,
                         run: null
                     },
-                    parent: "defects"
+                    parent: 'defects'
                 }
             }
         ];
