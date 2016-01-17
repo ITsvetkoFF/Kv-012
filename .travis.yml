@@ -3,8 +3,9 @@ node_js:
   - "4.1"
 before_script:
   - cd TCMSApp/
-  - npm install
+  - npm install -b bower
   - npm install -g gulp
+  - npm install
 script: 
   - gulp vet
   - gulp autotest
