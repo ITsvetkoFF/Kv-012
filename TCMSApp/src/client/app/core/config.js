@@ -19,6 +19,8 @@
         delete window.moment;
         delete window.faker;
         delete window.Trello;
+        delete window.jQuery;
+        delete window.$;
 
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
