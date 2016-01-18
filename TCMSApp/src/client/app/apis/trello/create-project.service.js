@@ -5,9 +5,9 @@
         .module('app.trello')
         .factory('createProjectFactory', createProjectFactory);
 
-    createProjectFactory.$inject = ['Trello', 'logger', 'sidebarFactory', '$q', '$rootScope'];
+    createProjectFactory.$inject = ['Trello', 'logger', 'sidebarFactory', '$q', '$rootScope', 'ManageTrelloProject'];
     /* @ngInject */
-    function createProjectFactory(Trello, logger, sidebarFactory, $q, $rootScope) {
+    function createProjectFactory(Trello, logger, sidebarFactory, $q, $rootScope, ManageTrelloProject) {
 
         var current = {};
         var organizations = [];
@@ -37,13 +37,15 @@
                             desc: projectDescription
 
                         }).then(function (res) {
-                            logger.success(
-                                'Project ' + projectName + ' created. Description: ' + projectDescription,
-                                '',
-                                'Project created'
-                            );
+                                logger.success(
+                                    'Project ' + projectName + ' created. Description: ' + projectDescription,
+                                    '',
+                                    'Project created'
+                                );
 
-                            Trello.get('members/me/organizations').then(
+                                setDefaultBoards();
+
+                                Trello.get('members/me/organizations').then(
                                     function (res) {
                                         organizations = res;
 
@@ -62,7 +64,7 @@
 
                                     }
                                 );
-                        },
+                            },
                             function (err) {
                                 logger.error('Project has not been created.', '', 'Error');
                                 deferred.reject();
@@ -76,7 +78,9 @@
             );
 
             function sameProjectExists(res, projectName) {
-                return (res.filter(function(e) { return e.displayName === projectName; }).length > 0);
+                return (res.filter(function (e) {
+                    return e.displayName === projectName;
+                }).length > 0);
             }
 
             return deferred.promise;
@@ -90,6 +94,11 @@
 
         function getCurrentProject() {
             return JSON.parse(localStorage.getItem('project-' + current.name));
+        }
+
+        function setDefaultBoards() {
+            ManageTrelloProject.addBoard('Backlog');
+            ManageTrelloProject.addBoard('Working');
         }
     }
 })();
