@@ -4,7 +4,6 @@ node_js:
 before_script:
   - cd TCMSApp/
   - npm install codecov.io
-  - npm install istanbul
   - npm install -b bower
   - npm install -g gulp
   - npm install
