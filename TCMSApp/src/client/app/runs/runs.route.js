@@ -27,16 +27,7 @@
                     }
                 }
             },
-            {
-                state: 'run-execute',
-                config: {
-                    url: '/runs/execute',
-                    templateUrl: 'app/runs/run-execute.html',
-                    controller: 'RunController',
-                    controllerAs: 'vmRunExecute',
-                    title: 'Execute run'
-                }
-            },
+
             // new nested route and controller for addDefect modal window
             {
                 state: 'generate-defect',

@@ -1,0 +1,128 @@
+<div class="matter">
+    <div class="container">
+        <div class="clearfix">
+            <h1>
+                <form class="form-inline pull-right">
+                    <div class="form-control">
+                        00:00
+                    </div>
+
+                    <a class="btn btn-default fa fa-pause"></a>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default tabsNotSelected"  ui-sref="runs-edit({run: vmRunsExecute.run})">
+                            Edit</button>
+                        <button type="button" class="btn btn-default tabsSelected"  ui-sref="runs-execute()" >Run</button>
+                    </div>
+                </form> {{vmRunsExecute.run.name}}
+            </h1>
+        </div>
+        <hr/>
+        <!--main content-->
+        <div class="row">
+            <!--sidebar-->
+            <div class="col-md-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                       <h3>Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <b>Status</b>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success"
+                                 style="width: {{vmRunsExecute.progress.passed/vmRunsExecute.progress.length*100}}%">
+                                {{vmRunsExecute.progress.passed}}
+                            </div>
+                            <div class="progress-bar progress-bar-danger" style="width: {{vmRunsExecute.progress.failed/vmRunsExecute.progress.length*100}}%">
+                                {{vmRunsExecute.progress.failed}}
+                            </div>
+                        </div>
+                        <div>
+                            <a href="#">Environment</a>
+                            <br>
+                            <p ng-bind="vmRunsExecute.run.envShort"></p>
+                        </div>
+                        <div>
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" name="Checkout-all-steps" ng-model="vmRunsExecute.checkoutAllSteps" > Checkout all steps
+                                </label>
+                            </div>
+                            <b>Suites&Tests</b>
+                            <ul ng-repeat="suite in vmRunsExecute.suites">
+                                <li  ng-click="vmRunsExecute.selectedSuite = vmRunsExecute.suites[$index]" ng-bind="::suite">
+                                </li>
+                                <div ng-if="vmRunsExecute.selectedSuite === vmRunsExecute.suites[$index]">
+                                <ul ng-repeat="test in vmRunsExecute.run.tests">
+                                    <li  ng-if="vmRunsExecute.selectedSuite === test.suite" ng-bind="::test.name" ng-click="vmRunsExecute.selectedTest = test"></li>
+                                </ul>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--article-->
+            <div class="col-md-9">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                            <h3 ng-if="!vmRunsExecute.checkoutAllSteps"> {{(vmRunsExecute.selectedTest.name || 'Select test case')+": list of steps"}}</h3>
+                            <h3 ng-if="vmRunsExecute.checkoutAllSteps">List of all steps</h3>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                №
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Expected result
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody ng-if="!vmRunsExecute.checkoutAllSteps">
+                        <tr ng-repeat="step in vmRunsExecute.selectedTest.steps">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="::step.action"></td>
+                            <td ng-bind="::step.expected"></td>
+                            <td>
+                                <span class="label label-{{step.status==='passed'?'success':'danger'}}" ng-click="step.status = (step.status==='passed'? 'failed':'passed')">
+                                        {{step.status.toUpperCase()}}
+                                    </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody ng-if="vmRunsExecute.checkoutAllSteps" ng-repeat="test in vmRunsExecute.run.tests">
+                        <tr class="info">
+                            <td colspan="2">Test</td>
+                            <td colspan="2">{{test.name}}</td>
+                        </tr>
+                        <tr ng-repeat="step in test.steps" >
+                            <td  ng-bind="$index+1"></td>
+                            <td  ng-bind="::step.action"></td>
+                            <td ng-bind="::step.expected"></td>
+                            <td >
+                                <span class="label label-{{step.status==='passed'?'success':'danger'}}" ng-click="step.status = (step.status==='passed'? 'failed':'passed')">
+                                        {{step.status.toUpperCase()}}
+                                    </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+                </div>
+            </div>
+        </div>
+
