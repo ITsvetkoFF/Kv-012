@@ -14,9 +14,7 @@
         var trelloData = {};
 
         return {
-            createProjAndOrg: createProjAndOrg,
-            setCurrentProject: setCurrentProject,
-            getCurrentProject: getCurrentProject
+            createProjAndOrg: createProjAndOrg
         };
 
         function createProjAndOrg(Trello, projectName, projectDescription) {
@@ -36,37 +34,26 @@
                             displayName: projectName,
                             desc: projectDescription
 
-                        }).then(function (res) {
-                            logger.success(
-                                'Project ' + projectName + ' created. Description: ' + projectDescription,
-                                '',
-                                'Project created'
-                            );
+                        }).then(
 
-                            Trello.get('members/me/organizations').then(
-                                    function (res) {
-                                        organizations = res;
+                            function (res) {
 
-                                        for (var i = 0; i < organizations.length; i++) {
-                                            if (organizations[i].displayName === projectName) {
-                                                trelloData = organizations[i];
-                                                break;
-                                            }
-                                        }
+                                logger.success('Project ' + projectName +
+                                    ' created. Description: ' + projectDescription, '', 'Project created');
 
-                                        sidebarFactory.addProject(projectName, projectDescription, trelloData);
+                                trelloData.trelloOrganizationId = res.id;
 
-                                        deferred.resolve();
-                                    },
-                                    function (err) {
+                                sidebarFactory.addProject(projectName, projectDescription, trelloData);
 
-                                    }
-                                );
-                        },
+                                deferred.resolve();
+
+                            },
+
                             function (err) {
                                 logger.error('Project has not been created.', '', 'Error');
                                 deferred.reject();
-                            });
+                            }
+                        );
                     }
                 },
                 function () {
@@ -81,15 +68,6 @@
 
             return deferred.promise;
 
-        }
-
-        function setCurrentProject(name) {
-            current.name = name;
-            $rootScope.$broadcast('CurrentProjectChanged');
-        }
-
-        function getCurrentProject() {
-            return JSON.parse(localStorage.getItem('project-' + current.name));
         }
     }
 })();
