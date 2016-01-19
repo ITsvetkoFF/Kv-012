@@ -11,7 +11,6 @@
 
         var current = {};
         var organizations = [];
-        var trelloData = {};
 
         return {
             createProjAndOrg: createProjAndOrg,
@@ -43,27 +42,11 @@
                                     'Project created'
                                 );
 
-                                setDefaultBoards();
+                                setDefaultContents(res);
 
-                                Trello.get('members/me/organizations').then(
-                                    function (res) {
-                                        organizations = res;
+                                sidebarFactory.addProject(projectName, projectDescription, res);
 
-                                        for (var i = 0; i < organizations.length; i++) {
-                                            if (organizations[i].displayName === projectName) {
-                                                trelloData = organizations[i];
-                                                break;
-                                            }
-                                        }
-
-                                        sidebarFactory.addProject(projectName, projectDescription, trelloData);
-
-                                        deferred.resolve();
-                                    },
-                                    function (err) {
-
-                                    }
-                                );
+                                deferred.resolve();
                             },
                             function (err) {
                                 logger.error('Project has not been created.', '', 'Error');
@@ -96,9 +79,48 @@
             return JSON.parse(localStorage.getItem('project-' + current.name));
         }
 
-        function setDefaultBoards() {
-            ManageTrelloProject.addBoard('Backlog');
-            ManageTrelloProject.addBoard('Working');
+        function setDefaultContents(organization) {
+
+            var backlog, working, bLists, wLists, labels
+                , idOrganization = organization.id;
+
+            backlog = new ManageTrelloProject.Board('Backlog');
+            working = new ManageTrelloProject.Board('Working');
+
+            bLists = [
+                new ManageTrelloProject.List(backlog.name + ' - Defects'),
+                new ManageTrelloProject.List(backlog.name + ' - Enhancements'),
+                new ManageTrelloProject.List(backlog.name + ' - Tests'),
+                new ManageTrelloProject.List(backlog.name + ' - Ideas')
+            ];
+            wLists = [
+                // only one because there are also default lists: To Do, Doing, Done
+                new ManageTrelloProject.List('To be tested')
+                //new ManageTrelloProject.List(working.name + ' - To do'),
+                //new ManageTrelloProject.List(working.name + ' - In progress'),
+                //new ManageTrelloProject.List(working.name + ' - Done')
+            ];
+            labels = [
+                new ManageTrelloProject.Label('critical', 'red'),
+                new ManageTrelloProject.Label('high', 'orange'),
+                new ManageTrelloProject.Label('medium', 'yellow'),
+                new ManageTrelloProject.Label('low', 'blue'),
+                new ManageTrelloProject.Label('success', 'green')
+            ];
+
+            for (var i = 0; i < bLists.length; i++) {
+                backlog.lists.push(bLists[i]);
+            }
+            for (var i = 0; i < wLists.length; i++) {
+                working.lists.push(wLists[i]);
+            }
+            for (var i = 0; i < labels.length; i++) {
+                backlog.labels.push(labels[i]);
+                working.labels.push(labels[i]);
+            }
+
+            ManageTrelloProject.addBoard(backlog, idOrganization);
+            ManageTrelloProject.addBoard(working, idOrganization);
         }
     }
 })();

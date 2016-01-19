@@ -32,6 +32,7 @@
 
                         var vmModal = this;
                         vmModal.createProjAndOrg = createProjAndOrg;
+                        vmModal.dismiss = modalCreateProject.dismiss;
 
                         // Function creates Project and Trello Organization
                         function createProjAndOrg() {
