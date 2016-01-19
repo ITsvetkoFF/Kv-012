@@ -33,6 +33,7 @@
                         var vmModal = this;
                         vmModal.createProjAndOrg = createProjAndOrg;
                         vmModal.dismiss = modalCreateProject.dismiss;
+                        vmModal.createDefaultDashboards = true;
 
                         // Function creates Project and Trello Organization
                         function createProjAndOrg() {
@@ -50,7 +51,7 @@
                                 if (Trello.authorized()) {
 
                                     $q.when(
-                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
+                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription, vmModal.createDefaultDashboards)
                                     ).then(function (res) {
 
                                         vm.projectsNames = sidebarFactory.findProjectsNames();

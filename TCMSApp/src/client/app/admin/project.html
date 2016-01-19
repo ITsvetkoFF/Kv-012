@@ -1,0 +1,41 @@
+<section class="mainbar">
+    <div class="container-fluid">
+        <div class="clearfix">
+            <h1>Project settings</h1>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <uib-tabset>
+                    <uib-tab select="vmProject.refreshBoards();">
+                        <uib-tab-heading>Dashboards</uib-tab-heading>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Boards
+                            </div>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Lists</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="board in vmProject.boards">
+                                    <td>{{ board.name }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </uib-tab>
+                    <uib-tab ng-if="vmProject.hasSprints">
+                        <uib-tab-heading>Srpints</uib-tab-heading>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</section>

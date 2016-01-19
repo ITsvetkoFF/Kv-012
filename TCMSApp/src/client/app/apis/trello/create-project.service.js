@@ -18,7 +18,7 @@
             getCurrentProject: getCurrentProject
         };
 
-        function createProjAndOrg(Trello, projectName, projectDescription) {
+        function createProjAndOrg(Trello, projectName, projectDescription, createDefaultDashboards) {
 
             var deferred = $q.defer();
 
@@ -42,7 +42,9 @@
                                     'Project created'
                                 );
 
-                                setDefaultContents(res);
+                                if (createDefaultDashboards) {
+                                    setDefaultContents(res);
+                                }
 
                                 sidebarFactory.addProject(projectName, projectDescription, res);
 

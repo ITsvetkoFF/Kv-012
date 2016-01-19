@@ -23,6 +23,7 @@
 
     function ManageTrelloProject(logger, Trello, $q) {
         return {
+            Organization: Organization,
             Board: Board,
             List: List,
             Label: Label,
@@ -155,16 +156,33 @@
          * @param idBoard
          */
         function addLabel(label, idBoard) {
-            Trello.post('labels', {
-                name: label.name,
-                color: label.color,
-                idBoard: idBoard
-            }).then(function (res) {
-                return res;
-            }, function (err) {
-                logger.error(err.responseText, '', 'Label have not posted');
-            });
+            if(label instanceof Label) {
+                Trello.post('labels', {
+                    name: label.name,
+                    color: label.color,
+                    idBoard: idBoard
+                }).then(function (res) {
+                    return res;
+                }, function (err) {
+                    logger.error(err.responseText, '', 'Label have not posted');
+                });
+            } else {
+                logger.error('addLabel error');
+            }
         }
+
+        function Organization() {
+
+        }
+        Organization.getBoards = function(idOrganization) {
+            Trello
+                .get('organizations/' + idOrganization + '/boards')
+                .then(function(res) {
+                    return res;
+                }, function(err) {
+
+                });
+        };
 
         /**
          *
@@ -184,6 +202,7 @@
          */
         function List(name) {
             this.name = name || 'unnamed list';
+            this.cards = [];
         }
 
         /**

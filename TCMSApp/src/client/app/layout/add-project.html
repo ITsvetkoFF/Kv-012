@@ -4,7 +4,7 @@
             <h4 class="modal-title"> Create new project </h4>
         </div>
         <div class="modal-body">
-            <form action="" name="addProjectForm">
+            <form action="" name="addProjectForm" novalidate>
                 <div class="form-group">
                     <label for="projectName">Name</label>
                     <input
@@ -25,16 +25,29 @@
                     type="text"
                     class="form-control"
                     id="projectDescription"
+                    name="projectDescription"
                     ng-init="vmModal.projectDescription=''"
-                    ng-model="vmModal.projectDescription"></textarea>
+                    ng-model="vmModal.projectDescription"
+                    ng-maxlength="200">
+
+                </textarea>
                 </div>
                 <div class="form-group">
                     <label>
                         <input type="checkbox"/> Implement sprints
                     </label>
                 </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" ng-model="vmModal.createDefaultDashboards"/> Create default dashboards
+                    </label>
+                </div>
                 <div ng-messages="addProjectForm.projectName.$error">
-                    <div ng-message="minlength" class="alert alert-warning">Min length</div>
+                    <div ng-message="minlength" class="alert alert-warning">The name must have minimum 2 chars</div>
+                    <div ng-message="maxlength" class="alert alert-warning">Maximum name length is 40 chars</div>
+                </div>
+                <div ng-messages="addProjectForm.projectDescription.$error">
+                    <div ng-message="maxlength" class="alert alert-warning">Maximum description length is 200 chars</div>
                 </div>
             </form>
         </div>
@@ -46,7 +59,8 @@
             </button>
             <button
                 class="btn btn-success"
-                ng-click="vmModal.createProjAndOrg()">
+                ng-click="vmModal.createProjAndOrg()"
+                ng-disabled="!addProjectForm.$valid">
                 Create
             </button>
         </div>
