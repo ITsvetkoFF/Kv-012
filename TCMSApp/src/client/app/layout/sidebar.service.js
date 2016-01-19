@@ -4,30 +4,33 @@
     angular.module('app.layout')
         .factory('sidebarFactory', sidebarFactory);
 
-    sidebarFactory.$inject = ['moment'];
+    sidebarFactory.$inject = ['moment', '$http', '$q', 'logger'];
 
-    function sidebarFactory(moment) {
+    function sidebarFactory(moment, $http, $q, logger) {
 
         return {
             findProjectsNames: findProjectsNames,
             addProject: addProject
         };
 
-        // Returns all proects names from LocalStorage
+        // Gets proects from DB
         function findProjectsNames() {
-            var i, names = [], l = localStorage.length;
 
-            for (i = 0; i < l; i++) {
-                if (localStorage.key(i).indexOf('project') + 1) {
-                    var proj = JSON.parse(localStorage.getItem(localStorage.key(i)));
-                    var name = proj.name;
-                    names.push(name);
+            var deferred = $q.defer();
+
+            $http.get('/api/v1/Projects').success(function(projects) {
+                var i, names = [];
+                for (i = 0; i < projects.length; i++) {
+                    names.push(projects[i].name);
                 }
-            }
-            return names;
+
+                deferred.resolve(names);
+            });
+
+            return deferred.promise;
         }
 
-        // Adds project to LocalStorage
+        // Adds project to DB
         function addProject(projectName, projectDescription, trelloData) {
 
             var project = {
@@ -37,10 +40,13 @@
                 dateEnd: new Date(),
                 users: [],
                 suites: [],
-                trello: trelloData
+                trelloOrganizationId: trelloData.trelloOrganizationId
             };
 
-            localStorage.setItem('project-' + project.name, JSON.stringify(project));
+            $http.post('/api/v1/Projects', project).success(function(project) {
+                logger.success('Project ' + project.name + ' added to DB.');
+            });
+
         }
 
     }

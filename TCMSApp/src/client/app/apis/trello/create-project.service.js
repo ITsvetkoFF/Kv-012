@@ -11,11 +11,10 @@
 
         var current = {};
         var organizations = [];
+        var trelloData = {};
 
         return {
-            createProjAndOrg: createProjAndOrg,
-            setCurrentProject: setCurrentProject,
-            getCurrentProject: getCurrentProject
+            createProjAndOrg: createProjAndOrg
         };
 
         function createProjAndOrg(Trello, projectName, projectDescription, createDefaultDashboards) {
@@ -35,25 +34,26 @@
                             displayName: projectName,
                             desc: projectDescription
 
-                        }).then(function (res) {
-                                logger.success(
-                                    'Project ' + projectName + ' created. Description: ' + projectDescription,
-                                    '',
-                                    'Project created'
-                                );
+                        }).then(
 
-                                if (createDefaultDashboards) {
-                                    setDefaultContents(res);
-                                }
+                            function (res) {
 
-                                sidebarFactory.addProject(projectName, projectDescription, res);
+                                logger.success('Project ' + projectName +
+                                    ' created. Description: ' + projectDescription, '', 'Project created');
+
+                                trelloData.trelloOrganizationId = res.id;
+
+                                sidebarFactory.addProject(projectName, projectDescription, trelloData);
 
                                 deferred.resolve();
+
                             },
+
                             function (err) {
                                 logger.error('Project has not been created.', '', 'Error');
                                 deferred.reject();
-                            });
+                            }
+                        );
                     }
                 },
                 function () {
@@ -70,15 +70,6 @@
 
             return deferred.promise;
 
-        }
-
-        function setCurrentProject(name) {
-            current.name = name;
-            $rootScope.$broadcast('CurrentProjectChanged');
-        }
-
-        function getCurrentProject() {
-            return JSON.parse(localStorage.getItem('project-' + current.name));
         }
 
         function setDefaultContents(organization) {
