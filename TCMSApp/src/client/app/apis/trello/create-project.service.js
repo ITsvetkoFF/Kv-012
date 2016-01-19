@@ -35,13 +35,16 @@
                             desc: projectDescription
 
                         }).then(
-
                             function (res) {
 
                                 logger.success('Project ' + projectName +
                                     ' created. Description: ' + projectDescription, '', 'Project created');
 
                                 trelloData.trelloOrganizationId = res.id;
+
+                                if (createDefaultDashboards) {
+                                    setDefaultContents(res);
+                                }
 
                                 sidebarFactory.addProject(projectName, projectDescription, trelloData);
 
@@ -74,8 +77,7 @@
 
         function setDefaultContents(organization) {
 
-            var backlog, working, bLists, wLists, labels
-                , idOrganization = organization.id;
+            var backlog, working, bLists, wLists, labels, idOrganization = organization.id;
 
             backlog = new ManageTrelloProject.Board('Backlog');
             working = new ManageTrelloProject.Board('Working');
@@ -104,10 +106,10 @@
             for (var i = 0; i < bLists.length; i++) {
                 backlog.lists.push(bLists[i]);
             }
-            for (var i = 0; i < wLists.length; i++) {
+            for (i = 0; i < wLists.length; i++) {
                 working.lists.push(wLists[i]);
             }
-            for (var i = 0; i < labels.length; i++) {
+            for (i = 0; i < labels.length; i++) {
                 backlog.labels.push(labels[i]);
                 working.labels.push(labels[i]);
             }

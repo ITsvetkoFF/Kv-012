@@ -46,15 +46,15 @@
 
                 var idBoard = res.id;
 
-                if (board.lists.length != 0) {
+                if (board.lists.length !== 0) {
                     for (var i = 0; i < board.lists.length; i++) {
                         addList(board.lists[i], idBoard);
                     }
                 }
 
-                if (board.labels.length != 0) {
-                    for (var i = 0; i < board.labels.length; i++) {
-                        addLabel(board.labels[i], idBoard);
+                if (board.labels.length !== 0) {
+                    for (var j = 0; j < board.labels.length; j++) {
+                        addLabel(board.labels[j], idBoard);
                     }
                 }
 
@@ -147,7 +147,7 @@
                 return res;
             }, function (err) {
                 logger.error(err.responseText, '', 'List have not posted');
-            })
+            });
         }
 
         /**
@@ -156,7 +156,7 @@
          * @param idBoard
          */
         function addLabel(label, idBoard) {
-            if(label instanceof Label) {
+            if (label instanceof Label) {
                 Trello.post('labels', {
                     name: label.name,
                     color: label.color,

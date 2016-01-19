@@ -5,9 +5,9 @@
         .module('app.admin')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'createProjectFactory'];
+    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'createProjectFactory', '$q'];
 
-    function ProjectController(logger, createProjectFactory, ManageTrelloProject) {
+    function ProjectController(logger, createProjectFactory, ManageTrelloProject, $q) {
         var vmProject = this;
         vmProject.hasSprints = true;
         vmProject.boards = [];
@@ -32,6 +32,6 @@
                 }, function(err) {
 
                 });
-        };
+        }
     }
 })();

@@ -48,7 +48,8 @@
                                 if (Trello.authorized()) {
 
                                     $q.when(
-                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription, vmModal.createDefaultDashboards)
+                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription,
+                                            vmModal.createDefaultDashboards)
                                     ).then(function (res) {
                                             sidebarFactory.findProjectsNames().then(function(data) {
                                                 vm.projectsNames = data;
