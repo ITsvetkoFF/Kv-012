@@ -1,11 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('app.apis', [
-        'app.trello',
+    angular.module('app.landing', [
         'app.core',
         'app.widgets'
-    ]);
+      ]);
 
 })();
-
