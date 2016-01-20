@@ -9,6 +9,14 @@
             runs: {
                 getFields: getRunsFields,
                 getFieldsOperators: getRunsFieldsOperators
+            },
+            defects: {
+                getFields: getDefectsFields,
+                getFieldsOperators: getDefectsOperators
+            },
+            tests: {
+                getFields: getTestsFields,
+                getFieldsOperators: getTestsOperators
             }
         };
 
@@ -37,5 +45,50 @@
                 'envFull': [':']
             };
         }
+
+        function getDefectsFields() {
+            return {
+                'date': 'dateOfDefectCreation',
+                'name': 'name',
+                'priority': 'priority',
+                'author': 'assignedTo',
+                'found': 'whoFind'
+            };
+        }
+
+        function getDefectsOperators() {
+            return {
+                'date': [':', '>', '<', '='],
+                'name': [':', '='],
+                'priority': [':', '='],
+                'author': [':', '='],
+                'found': [':', '=']
+            };
+        }
+
+        function getTestsFields() {
+            return {
+                'date': 'created',
+                'name': 'testName',
+                'priority': 'casePriority',
+                'creator': 'creator',
+                'category': 'category',
+                'sprint': 'caseSprint',
+                'bugs': 'issues'
+            };
+        }
+
+        function getTestsOperators() {
+            return {
+                'date': [':', '>', '<', '='],
+                'name': [':', '='],
+                'priority': [':', '='],
+                'creator': [':', '='],
+                'category': [':', '='],
+                'sprint': [':', '>', '<', '='],
+                'bugs':[':', '>', '<', '=']
+            };
+        }
+
     }
 })();

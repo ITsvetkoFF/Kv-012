@@ -7,7 +7,9 @@
         <h1>
           Tests
           <form class="form-inline pull-right">
-            <input type="text" class="form-control" placeholder="Filter">
+              <smart-filter type="tests"
+                            fast-queries="['priority=High', 'priority=Low', 'priority=Normal', 'priority=Critical']">
+              </smart-filter>
           </form>
         </h1>
       </div>
@@ -25,8 +27,8 @@
             <div class="table-responsive">
               <table class="table table-hover" style="font-size:larger">
                 <tbody>
-                  <tr ng-repeat="s in vmTests.f track by $index" 
-                      ng-click="vmTests.setSuite(s)" 
+                  <tr ng-repeat="s in vmTests.f track by $index"
+                      ng-click="vmTests.setSuite(s)"
                       style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }">
                     <td>{{ ::s.suiteName }}</td>
                     <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
@@ -72,15 +74,15 @@
                   </tr>
                 </thead>
 
-                <tbody ng-repeat="tc in vmTests.currentSuite.tests" style="border:0">
+                <tbody ng-repeat="tc in vmTests.currentSuite.tests|smartFilter:filterQuery:vmTests.filterFields" style="border:0">
                   <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
                     <td ng-click="$event.stopPropagation();">
                       <input type="checkbox" ng-checked="vmTests.checkedAllCases">
                     </td>
                     <td>{{ ::tc.testName }}</td>
                     <td>{{ ::vmTests.currentSuite._id + "-" + tc._id}}</td>
-                    <td>{{ ::vmTests.priority[tc.casePriority].name }}</td>
-                    <td>{{ ::tc.created | date:'MM/dd/yyyy' }}</td>
+                    <td>{{ ::tc.casePriority }}</td>
+                    <td>{{ ::tc.created | date:'MM.dd.yyyy' }}</td>
                     <td>{{ ::tc.steps.length }}</td>
                     <td>{{ ::tc.issues }}</td>
                     <td>{{ ::tc.creator }}</td>

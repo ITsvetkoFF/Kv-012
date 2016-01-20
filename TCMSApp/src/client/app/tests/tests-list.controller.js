@@ -5,9 +5,9 @@
         .module('app.tests')
         .controller('TestsListController', TestsListController);
 
-    TestsListController.$inject = ['logger','$uibModal', 'TestsService'];
+    TestsListController.$inject = ['logger','$uibModal', 'TestsService', 'filterFields'];
     /* @ngInject */
-    function TestsListController(logger, $uibModal, TestsService) {
+    function TestsListController(logger, $uibModal, TestsService, filterFields) {
         var vm = this;
 
         activate();
@@ -20,6 +20,7 @@
         vm.priority = TestsService.getPriority();
         vm.sprint = TestsService.getSprint();
         vm.setSuite = setSuite;
+        vm.filterFields = filterFields.tests.getFields();
 
         function activate() {
             logger.info('Activated Tests View');
