@@ -439,7 +439,11 @@ function orderSrc (src, order) {
  * @param  {String} path - path to database files
  */
 function mongo(path) {
-    return runCommand('mongod --dbpath ' + path);
+    if (process.arch === 'x64') {
+        return runCommand('mongod --dbpath ' + path);
+    } else {
+        return runCommand('mongod --storageEngine=mmapv1 --dbpath ' + path);
+    }
 }
 
 /**

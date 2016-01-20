@@ -6,19 +6,14 @@ var Schema = mongoose.Schema;
 //define schema
 var defectSchema = new Schema({
         randomId: Number,
-        name: {type: String, required: true},
+        name: {type: String, required: true, unique: true},
         whoFind: String,
         assignedTo: String,
         dateOfDefectCreation: Date,
         priority: {
             type: String,
             required: true,
-            validate: {
-                validator: function(v) {
-                    return /critical|high|normal|low/i.tests();
-                },
-                message: '{Value} is not allowed'
-            }
+            enum: ['critical', 'low', 'high', 'normal']
         },
         description: {type: String, required: true},
         stepsToReproduce: [String],
