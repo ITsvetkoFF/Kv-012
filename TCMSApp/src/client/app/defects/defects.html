@@ -28,21 +28,12 @@
                 </form>
                 <h1>Defects
                     <button type="button" class="btn btn-success btn-xs" ui-sref="add-defect({ previousState: vmDefects.previousState })">Add Defect</button>
+
                 </h1>
 
             </div>
             <hr>
 
-            <div class="row" ng-if="!vmDefects.currentDefect">
-                <div class="col-sm-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h5>Defects haven't been added</h5>
-                        </div>
-                    </div>
-                    <img src="../images/no-defects.jpg" class="img-responsive col-sm-offset-4" alt="no-defects" >
-                </div>
-            </div>
             <div class="row" ng-if="vmDefects.currentDefect">
                 <div class="col-sm-8">
                     <div class="panel panel-info">
@@ -80,7 +71,7 @@
                                     {{defect.name}}
                                 </td>
                                 <td>
-                                    {{defect.dateOfDefectCreation}}
+                                    {{defect.dateOfDefectCreation | date:'dd.MM.yyyy \'at\' H:mm:ss'}}
                                 </td>
                                 <td>
                                     {{defect.priority}}
@@ -121,9 +112,25 @@
                                 <b>Steps to reproduce:</b>
                                 {{vmDefects.currentDefect.stepsToReproduce}}
                                 <br>
+                               <!-- <div ng-if="vmDefects.currentDefect.chooseFile">
+                                <b>Attached files</b>
+                                {{vmDefects.currentDefect.chooseFile}}
+                                <br>
+                                </div>-->
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vmDefects.countOfDefects == 0">
+                <div class="col-sm-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h5>{{vmDefects.statusMessage}}</h5>
+                        </div>
+                    </div>
+                    <img src="../images/no-defects.jpg" class="img-responsive col-sm-offset-4" alt="no-defects" >
                 </div>
             </div>
         </div>

@@ -7,12 +7,12 @@
         <div class="modal-body">
             <div class="row">
             <div class="form-group col-md-9">
-            <label for="errorname">Bugs Name</label>
-        <input type="text" class="form-control" id="errorname" placeholder="ErrorName". ng-value="vmDefectModal.run">
+            <label for="errorname">Name of the defect:</label>
+        <input type="text" class="form-control" id="errorname" ng-model="vmDefectModal.bugName">
             </div>
             <div class="form-group col-md-3">
             <label>Priority:</label>
-        <select class="form-control">
+        <select class="form-control" ng-model="vmDefectModal.priority">
             <option>Critical</option>
             <option>High</option>
             <option>Normal</option>
@@ -22,30 +22,30 @@
             </div>
             <div class="row">
             <div class="form-group col-md-6">
-            <label for="whoFind">Who Find:</label>
-        <input type="text" class="form-control" id="whoFind" placeholder="Who Find">
+            <label for="whoFind">Who Found:</label>
+        <input type="text" class="form-control" id="whoFind" ng-model="vmDefectModal.whoFind">
             </div>
             <div class="form-group col-md-6">
             <label for="assignedTo">Assigned to:</label>
-        <input type="text" class="form-control" id="assignedTo" placeholder="Assigned to">
+        <input type="text" class="form-control" id="assignedTo" ng-model="vmDefectModal.assignedTo">
             </div>
             </div>
             <div class="form-group">
             <label for="description">Description:</label>
-        <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+        <textarea class="form-control" id="description" rows="3" ng-model="vmDefectModal.description"></textarea>
 
             </div>
             <div class="form-group" enctype="multipart/form-data" method="post">
-            <input type="file" value="Attach file" id="choose-file">
+            <input type="file" value="Attach file" id="choose-file" ng-model="vmDefectModal.chooseFile">
             </div>
             <div class="form-group">
             <label for="testCase">Steps To Reproduce:</label>
-        <textarea class="form-control" id="testCase" rows="2" placeholder="TestCase"></textarea>
+        <textarea class="form-control" id="testCase" rows="2" ng-model="vmDefectModal.stepsToReproduce"></textarea>
             </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vmDefectModal.cancel()">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="vmDefectModal.cancel()">Post</button>
+            <button type="button" class="btn btn-primary" ng-click="vmDefectModal.post()">Post</button>
             </div>
     </script>
 </div>
