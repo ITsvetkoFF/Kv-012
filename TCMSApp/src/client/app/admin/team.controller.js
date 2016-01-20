@@ -14,29 +14,17 @@
         .controller('TeamController', TeamController);
 
     TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q',
-                              'createProjectFactory', 'authservice'];
+        'createProjectFactory', 'authservice', 'Trello', '$http'];
 
-    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice) {
+    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice, Trello, $http) {
+
         var vmTeam = this;
         vmTeam.users = [];
-        vmTeam.organization = '';
-
         vmTeam.addUser = addUser;
         vmTeam.getUsers = TrelloTeamFactory.getUsers;
         vmTeam.deleteUser = TrelloTeamFactory.deleteUser;
 
-        vmTeam.Trello = authservice.authorize();
-
         activate();
-        setDefaultInput();
-
-        // not listening CurrentProjectChanged
-        $scope.$on('CurrentProjectChanged', function() {
-
-            vmTeam.organization = createProjectFactory.getCurrentProject().trello.name;
-
-            vmTeam.getUsers(vmTeam.Trello, vmTeam.users, vmTeam.organization);
-        });
 
         /**
          * Info about activating the view
@@ -44,13 +32,9 @@
          */
         function activate() {
             logger.info('Activated Team view', '', 'Team Info');
-
-            $q.when(
-                TrelloTeamFactory.getMe(vmTeam.Trello)
-            ).then(function() {
-                    vmTeam.organization = createProjectFactory.getCurrentProject().trello.name;
-                    vmTeam.getUsers(vmTeam.Trello, vmTeam.users, vmTeam.organization);
-                });
+            authservice.authorize();
+            TrelloTeamFactory.getUsers(vmTeam.users);
+            setDefaultInput();
         }
 
         /**
@@ -59,11 +43,15 @@
          */
         function addUser(isValidForm) {
             if (isValidForm) {
-                TrelloTeamFactory.addUser(vmTeam.Trello, {
+                TrelloTeamFactory.addUser({
                     newName: vmTeam.newName,
                     newEmail: vmTeam.newEmail,
                     newRole: vmTeam.newRole
-                }, vmTeam.users, vmTeam.organization);
+                }).then(function(res) {
+                    TrelloTeamFactory.getUsers(vmTeam.users);
+                }, function(err) {
+                    logger.error(err.responseText);
+                });
 
                 setDefaultInput();
             }

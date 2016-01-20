@@ -21,14 +21,13 @@
         .module('app.trello')
         .factory('TrelloTeamFactory', TrelloTeamFactory);
 
-    TrelloTeamFactory.$inject = ['logger', 'authservice', '$rootScope'];
+    TrelloTeamFactory.$inject = ['logger', 'authservice', '$rootScope', 'Trello', '$q', '$http'];
 
-    function TrelloTeamFactory(logger, authservice, $rootScope) {
+    function TrelloTeamFactory(logger, authservice, $rootScope, Trello, $q, $http) {
 
         /**
          * Variable, that will be returned by the factory
          * @memberOf trelloTeamFactory;
-         * @type
          * {{auth: teamMembersFactory.auth,
          * getUsers: teamMembersFactory.getUsers,
          * deleteUser: teamMembersFactory.deleteUser,
@@ -38,11 +37,21 @@
             getUsers: getUsers,
             deleteUser: deleteUser,
             addUser: addUser,
-            getMe: _getMe,
-            auth: authservice.authorize
+            getMe: getMe
         };
 
-        var me;
+        // temporary method for my needs
+        function getCurrentProject() {
+
+            var deferred = $q.defer();
+
+            $http.get('/api/v1/projects')
+                .success(function (data) {
+                    deferred.resolve(data[0]);
+                });
+
+            return deferred.promise;
+        }
 
         /**
          * Update array of users
@@ -55,39 +64,38 @@
          * getUsers(vm.users, vm.organization);
          * ```
          */
-        function getUsers(Trello, users, organization) {
+        function getUsers(users) {
 
             users.length = 0;
 
             var length;
 
-            console.log('Trello auth: ' + Trello.authorized());
-            Trello.rest('GET', 'organizations/' + organization + '/members',
-                {
-                    fields: 'all',
-                    //key: Trello.key
-                },
-                function (res) {
-                    if (res !== 0) {
-                        length = res.length;
+            getCurrentProject().then(function (currentProject) {
+                Trello.rest('GET', 'organizations/' + currentProject.trelloOrganizationId + '/members',
+                    {
+                        fields: 'all'
+                    },
+                    function (res) {
+                        if (res !== 0) {
+                            length = res.length;
 
-                        if (res.length !== 0) {
-                            for (var i = 0; i < res.length; i++) {
-                                users.push(res[i]);
-                                _setAvatarUrl(res[i]);
+                            if (res.length !== 0) {
+                                for (var i = 0; i < res.length; i++) {
+                                    users.push(res[i]);
+                                    _setAvatarUrl(res[i]);
+                                }
                             }
+                        } else {
+                            length = 0;
                         }
-                    } else {
-                        length = 0;
-                    }
-                    logger.success(length + ' users successfully loaded');
-                },
-                function (err) {
-                    logger.error('Something wrong with users loading...', '', err.responseText);
-                });
-
-            console.log('Trello authorized: ' + Trello.authorized());
-
+                        logger.success(length + ' users successfully loaded');
+                    },
+                    function (err) {
+                        logger.error('Something wrong with users loading...', '', err.responseText);
+                    });
+            }, function (err) {
+                logger.error(err.responseText);
+            });
         }
 
         function _setAvatarUrl(user) {
@@ -106,25 +114,29 @@
          * @param {Array.<User>} users updatable array of users
          * @param {String} organization name of the current project
          */
-        function addUser(Trello, newUser, users, organization) {
+        function addUser(newUser) {
 
-            var name = newUser.newName;
+            var deferred = $q.defer();
 
-            Trello.rest('PUT', 'organizations/' + organization + '/members',
-                {
-                    fullName: newUser.newName,
-                    email: newUser.newEmail,
-                    type: newUser.newRole,
-                    //key: Trello.key
-                },
-                function (res) {
-                    logger.success('User ' + name + ' added');
+            getCurrentProject().then(function (currentProject) {
+                Trello.rest('PUT', 'organizations/' + currentProject.trelloOrganizationId + '/members',
+                    {
+                        fullName: newUser.newName,
+                        email: newUser.newEmail,
+                        type: newUser.newRole
+                    },
+                    function (res) {
+                        deferred.resolve(res);
+                        logger.success('User ' + res.fullName + ' added');
+                    },
+                    function (err) {
+                        logger.error('', err, err.responseText);
+                    });
+            }, function (err) {
+                logger.error(err.responseText);
+            });
 
-                    getUsers(Trello, users, organization);
-                },
-                function (err) {
-                    logger.error('', err, err.responseText);
-                });
+            return deferred.promise;
         }
 
         /**
@@ -139,32 +151,36 @@
          * deleteUser(vm.users, $index, vm.organization)
          * ```
          */
-        function deleteUser(Trello, users, index, organization) {
+        function deleteUser(users, index) {
 
             var deletedUser = users[index];
 
-            if (me) {
-
-                if (me.id === deletedUser.id) {
-
-                    logger.warning('You can\'t delete yourself =)', '', 'Ooops!');
-
+            getMe().then(function (me) {
+                if (me) {
+                    if (me.id === deletedUser.id) {
+                        logger.warning('You can\'t delete yourself =)', '', 'Ooops!');
+                    } else {
+                        getCurrentProject()
+                            .then(function (currentProject) {
+                                Trello.rest('DELETE', 'organizations/' + currentProject.trelloOrganizationId + '/members/' + users[index].id,
+                                    {},
+                                    function (res) {
+                                        logger.success('User ' + res.fullName + ' deleted');
+                                        getUsers(users);
+                                    },
+                                    function (err) {
+                                        logger.error('', err, err.responseText);
+                                    });
+                            }, function (err) {
+                                logger.error(err.responseText);
+                            });
+                    }
                 } else {
-                    Trello.rest('DELETE', 'organizations/' + organization + '/members/' + users[index].id,
-                        {
-                            //key: Trello.key
-                        },
-                        function (res) {
-                            logger.success('User ' + deletedUser.fullName + ' deleted');
-                            getUsers(Trello, users, organization);
-                        },
-                        function (err) {
-                            logger.error('', err, err.responseText);
-                        });
+                    logger.error('trello/me not loaded');
                 }
-            } else {
-                logger.error('trello/me not loaded');
-            }
+            }, function (err) {
+                logger.error(err.responseText);
+            });
 
             return deletedUser;
         }
@@ -173,18 +189,17 @@
          * Sets local `me` to current user From Trello
          * @memberOf trelloTeamFactory;
          */
-        function _getMe(Trello) {
-            Trello.rest('GET', 'members/me',
-                {
-                    //key: Trello.key
-                },
-                function (res) {
-                    logger.info('', res, 'Hello ' + res.fullName);
-                    me = res;
-                },
-                function (err) {
+        function getMe() {
+            var deferred = $q.defer();
+
+            Trello.get('members/me')
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, function (err) {
                     logger.error('Error in _getMe()', err, err.responseText);
                 });
+
+            return deferred.promise;
         }
 
         return result;
