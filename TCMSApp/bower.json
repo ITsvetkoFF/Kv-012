@@ -28,7 +28,8 @@
     "angular-toastr": "~1.6.0",
     "bootstrap-css-only": "~3.3.5",
     "faker": "Faker#~3.0.1",
-    "angular-messages": "~1.4.8"
+    "angular-messages": "~1.4.8",
+    "isteven-angular-multiselect": "angular-multi-select#~4.0.0"
   },
   "resolutions": {
     "angular": "1.3.17"

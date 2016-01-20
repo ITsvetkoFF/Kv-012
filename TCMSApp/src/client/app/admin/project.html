@@ -8,10 +8,14 @@
             <div class="col-sm-12">
                 <uib-tabset>
                     <uib-tab select="vmProject.refreshBoards();">
-                        <uib-tab-heading>Dashboards</uib-tab-heading>
+                        <uib-tab-heading>Boards</uib-tab-heading>
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Boards
+                                <button
+                                    class="btn btn-primary"
+                                    ng-click="vmProject.refreshBoards()">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
                             </div>
                             <table class="table table-condensed table-hover">
                                 <thead>
@@ -24,8 +28,23 @@
                                 <tbody>
                                 <tr ng-repeat="board in vmProject.boards">
                                     <td>{{ board.name }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <isteven-multi-select
+                                            input-model="board.inputLists"
+                                            output-model="board.outputLists"
+                                            button-label="name"
+                                            item-label="name"
+                                            tick-property="ticked"
+                                            orientation="vertical"
+                                            helper-elements="all none"
+                                            output-properties="name ticked"
+                                            on-item-click="vmProject.deleteList( data );"
+                                            ></isteven-multi-select>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                                        <button class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

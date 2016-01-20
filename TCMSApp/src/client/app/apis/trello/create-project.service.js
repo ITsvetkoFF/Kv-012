@@ -42,13 +42,9 @@
 
                                 trelloData.trelloOrganizationId = res.id;
 
-                                if (createDefaultDashboards) {
-                                    setDefaultContents(res);
-                                }
-
                                 sidebarFactory.addProject(projectName, projectDescription, trelloData);
 
-                                deferred.resolve();
+                                deferred.resolve(res);
 
                             },
 
@@ -59,7 +55,7 @@
                         );
                     }
                 },
-                function () {
+                function (err) {
                     logger.error('Cannot connect to Trello.', '', 'Error');
                     deferred.reject();
                 }
@@ -73,49 +69,6 @@
 
             return deferred.promise;
 
-        }
-
-        function setDefaultContents(organization) {
-
-            var backlog, working, bLists, wLists, labels, idOrganization = organization.id;
-
-            backlog = new ManageTrelloProject.Board('Backlog');
-            working = new ManageTrelloProject.Board('Working');
-
-            bLists = [
-                new ManageTrelloProject.List(backlog.name + ' - Defects'),
-                new ManageTrelloProject.List(backlog.name + ' - Enhancements'),
-                new ManageTrelloProject.List(backlog.name + ' - Tests'),
-                new ManageTrelloProject.List(backlog.name + ' - Ideas')
-            ];
-            wLists = [
-                // only one because there are also default lists: To Do, Doing, Done
-                new ManageTrelloProject.List('To be tested')
-                //new ManageTrelloProject.List(working.name + ' - To do'),
-                //new ManageTrelloProject.List(working.name + ' - In progress'),
-                //new ManageTrelloProject.List(working.name + ' - Done')
-            ];
-            labels = [
-                new ManageTrelloProject.Label('critical', 'red'),
-                new ManageTrelloProject.Label('high', 'orange'),
-                new ManageTrelloProject.Label('medium', 'yellow'),
-                new ManageTrelloProject.Label('low', 'blue'),
-                new ManageTrelloProject.Label('success', 'green')
-            ];
-
-            for (var i = 0; i < bLists.length; i++) {
-                backlog.lists.push(bLists[i]);
-            }
-            for (i = 0; i < wLists.length; i++) {
-                working.lists.push(wLists[i]);
-            }
-            for (i = 0; i < labels.length; i++) {
-                backlog.labels.push(labels[i]);
-                working.labels.push(labels[i]);
-            }
-
-            ManageTrelloProject.addBoard(backlog, idOrganization);
-            ManageTrelloProject.addBoard(working, idOrganization);
         }
     }
 })();

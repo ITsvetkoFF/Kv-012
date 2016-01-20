@@ -36,11 +36,37 @@
                     <label>
                         <input type="checkbox"/> Implement sprints
                     </label>
-                </div>
-                <div class="form-group">
-                    <label>
+                    <label class="pull-right">
                         <input type="checkbox" ng-model="vmModal.createDefaultDashboards"/> Create default dashboards
                     </label>
+                </div>
+                <div class="form-group" ng-if="!vmModal.createDefaultDashboards">
+                    <label for="">Backlog </label>
+                    <br/>
+                    <isteven-multi-select
+                        input-model="vmModal.backlogLists"
+                        output-model="vmModal.outputBacklogLists"
+                        button-label="name"
+                        item-label="name"
+                        tick-property="ticked"
+                        orientation="vertical"
+                        helper-elements="all none"
+                        output-properties="name ticked"
+                        ></isteven-multi-select>
+                </div>
+                <div class="form-group" ng-if="!vmModal.createDefaultDashboards">
+                    <label for="">Working </label>
+                    <br/>
+                    <isteven-multi-select
+                        input-model="vmModal.workingLists"
+                        output-model="vmModal.outputWorkingLists"
+                        button-label="name"
+                        item-label="name"
+                        tick-property="ticked"
+                        orientation="vertical"
+                        helper-elements="all none"
+                        output-properties="name ticked"
+                        ></isteven-multi-select>
                 </div>
                 <div ng-messages="addProjectForm.projectName.$error">
                     <div ng-message="minlength" class="alert alert-warning">The name must have minimum 2 chars</div>

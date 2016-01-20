@@ -1,17 +1,3 @@
-/**
- * @ngdoc factory
- * @name manageTrelloProject
- * @memberOf app.trello
- * @description
- * Defines Trello boards, lists, labels e.t. from application
- * @example
- * ```
- * ...$inject = [..., 'ManageTrelloProject'];
- *
- * var newBoard = new ManageTrelloProject.Board("Name");
- * ManageTrelloProject.addBoard(newBoard, idOrganization);
- * ```
- */
 (function () {
     'use strict';
 
@@ -22,21 +8,84 @@
     ManageTrelloProject.$inject = ['logger', 'Trello', '$q'];
 
     function ManageTrelloProject(logger, Trello, $q) {
+
         return {
-            Organization: Organization,
+            getBacklogLists: getBacklogInputLists,
+            getWorkingLists: getWorkingInputLists,
             Board: Board,
             List: List,
             Label: Label,
             addBoard: addBoard,
+            getBoards: getBoards,
+            setBoardLists: setBoardLists,
+            getBoardLists: getBoardLists,
             addList: addList,
+            openList: openList,
+            closeList: closeList,
             addLabel: addLabel
         };
 
-        /**
-         *
-         * @param board
-         * @param idOrganization
-         */
+        function openList(idList) {
+            Trello.put('lists/' + idList + '/closed', { value: false })
+                .then(function(res) {
+
+                    deferred.resolve(res);
+                }, function(err) {
+                    logger.error(err.responseText);
+                });
+            return deferred.promise;
+        }
+
+        function setBoardLists(board) {
+
+            board.inputLists = [];
+
+            Trello.get('boards/' + board.id + '/lists')
+                .then(function(lists) {
+                    for (var i= 0; i < lists.length; i++) {
+                        board.inputLists.push({ name: lists[i].name, ticked: true , id: lists[i].id });
+                    }
+                }, function(err) {
+                    logger.error(err.responseText);
+                });
+        }
+
+        function getBacklogInputLists() {
+            return [
+                {name: "Product backlog", ticked: true},
+                {name: "Tests", ticked: true},
+                {name: "Defects", ticked: true},
+                {name: "Enhancements", ticked: true},
+                {name: "Implementations", ticked: true},
+                {name: "Ideas", ticked: true}
+            ]
+        }
+
+        function getWorkingInputLists() {
+            return [
+                {name: "To be tested", ticked: true},
+                {name: "To Do", ticked: true},
+                {name: "Doing", ticked: true},
+                {name: "Ready to verify", ticked: true},
+                {name: "Testing", ticked: true},
+                {name: "Done", ticked: true}
+            ]
+        }
+
+        function closeList(idList) {
+
+            var deferred = $q.defer();
+
+            Trello.put('lists/' + idList + '/closed', {value: true})
+                .then(function (res) {
+
+                    deferred.resolve(res);
+                }, function (err) {
+                    logger.error(err.responseText);
+                });
+            return deferred.promise;
+        }
+
         function addBoard(board, idOrganization) {
 
             Trello.post('boards', {
@@ -64,81 +113,6 @@
             });
         }
 
-        /**
-         *
-         * @param idList
-         */
-        function closeList(idList) {
-            Trello
-                .put('lists/' + idList, {
-                    closed: true
-                })
-                .then(
-                function (res) {
-
-                },
-                function (err) {
-
-                });
-        }
-
-        /**
-         *
-         * @param idBoard
-         */
-        function getLists(idBoard) {
-            Trello
-                .get('boards/' + idBoard + '/lists')
-                .then(function (res) {
-                    return res;
-                }, function(err) {
-
-                });
-        }
-
-        /**
-         *
-         * @param idList
-         * @param idCardSource
-         * @param due
-         * @param urlSource
-         */
-        function addCardCopy(idList, idCardSource, due, urlSource) {
-            Trello
-                .post('cards', {
-                    idList: idList,
-                    idCardSource: idCardSource,
-                    due: due || null,
-                    urlSource: urlSource || null
-                })
-                .then(function(res) {
-                    return res;
-                }, function(err) {
-
-                });
-        }
-
-        /**
-         *
-         * @param newName
-         * @param idOrganization
-         * @param idBoardSource
-         */
-        function copyBoard(newName, idOrganization, idBoardSource) {
-            Trello.post('boards', {
-                name: newName,
-                idOrganization: idOrganization,
-                idBoardSource: idBoardSource
-            }).then(function (res) {
-                return res;
-            });
-        }
-
-        /**
-         *
-         * @param list
-         * @param idBoard
-         */
         function addList(list, idBoard) {
             Trello.post('lists', {
                 name: list.name,
@@ -150,11 +124,18 @@
             });
         }
 
-        /**
-         *
-         * @param label
-         * @param idBoard
-         */
+        function getBoardLists(idBoard) {
+            var deferred = $q.defer();
+
+            Trello.get('boards/' + idBoard + '/lists')
+                .then(function (lists) {
+                    deferred.resolve(lists);
+                }, function (err) {
+                    logger.error(err.responseText);
+                });
+            return deferred.promise;
+        }
+
         function addLabel(label, idBoard) {
             if (label instanceof Label) {
                 Trello.post('labels', {
@@ -171,46 +152,26 @@
             }
         }
 
-        function Organization() {
-
-        }
-        Organization.getBoards = function(idOrganization) {
-            Trello
-                .get('organizations/' + idOrganization + '/boards')
-                .then(function(res) {
+        function getBoards(idOrganization) {
+            Trello.get('organizations/' + idOrganization + '/boards')
+                .then(function (res) {
                     return res;
-                }, function(err) {
+                }, function (err) {
 
                 });
-        };
+        }
 
-        /**
-         *
-         * @param name
-         * @constructor
-         */
         function Board(name) {
             this.name = name || 'unnamed board';
             this.lists = [];
             this.labels = [];
         }
 
-        /**
-         *
-         * @param name
-         * @constructor
-         */
         function List(name) {
             this.name = name || 'unnamed list';
             this.cards = [];
         }
 
-        /**
-         *
-         * @param name
-         * @param labelColor
-         * @constructor
-         */
         function Label(name, labelColor) {
             this.name = name || 'label';
             this.color = labelColor || null;

@@ -36,18 +36,20 @@
          */
         function authorize() {
 
-            Trello.authorize({
-                type: 'popup',
-                name: 'Getting Started Application',
-                scope: {
-                    read: true,
-                    write: true
-                },
-                expiration: 'never',
-                success: function(res) {
-                    $rootScope.$broadcast('TrelloAuthorized');
-                }
-            });
+            if (!Trello.authorized()) {
+                Trello.authorize({
+                    type: 'popup',
+                    name: 'Getting Started Application',
+                    scope: {
+                        read: true,
+                        write: true
+                    },
+                    expiration: 'never',
+                    success: function(res) {
+                        $rootScope.$broadcast('TrelloAuthorized');
+                    }
+                });
+            }
 
             return Trello;
         }
