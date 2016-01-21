@@ -37,6 +37,7 @@
         vm.caseCategory = '10';
         vm.creator = 'John Doe';
         vm.caseSprint = vm.sprint[vm.sprint.length - 1].toString();
+        vm.onCrtlEnterPress = onCrtlEnterPress;
 
         function activate() {
             logger.info('Activated New Case View');
@@ -86,6 +87,11 @@
 
         }
 
+        function onCrtlEnterPress(event) {
+            if (event.charCode === 10) {
+                addStep();
+            }
+        }
     }
 
 })();
