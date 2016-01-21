@@ -22,7 +22,6 @@
         vm.sprint = TestsService.getSprint();
         vm.steps = [];
         addStep();
-        addStep();
 
         // date
         var created = new Date();
