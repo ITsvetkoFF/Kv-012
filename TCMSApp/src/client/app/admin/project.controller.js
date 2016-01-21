@@ -23,16 +23,18 @@
         };
         vmProject.refreshBoards = refreshBoards;
 
-        activate();
+        vmProject.deleteList = closeList;
 
-        vmProject.deleteList = function(data) {
+        function closeList(data) {
             if (!data.ticked) {
                 ManageTrelloProject.closeList(data.id);
             } else {
                 ManageTrelloProject.openList(data.id);
             }
             refreshBoards();
-        };
+        }
+
+        activate();
 
         function activate() {
             logger.info('Manage project view activated');

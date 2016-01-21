@@ -37,6 +37,17 @@
             return deferred.promise;
         }
 
+        function closeList(idList) {
+            var deferred = $q.defer();
+            Trello.put('lists/' + idList + '/closed', {value: true})
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, function (err) {
+                    logger.error(err.responseText);
+                });
+            return deferred.promise;
+        }
+
         function setBoardLists(board) {
 
             board.inputLists = [];
@@ -94,7 +105,6 @@
                         }
                     });
 
-
                 }, function(err) {
                     console.error(err.responseText);
                 });
@@ -105,8 +115,12 @@
             modelLists.map(function(modelList) {
                 trelloLists.map(function(trelloList) {
                     if (modelList.name == trelloList.name) {
-                        modelList.ticked = true;
-                        modelList.id = trelloList.id;
+                        if (!trelloList.closed) {
+                            modelList.ticked = true;
+                            modelList.id = trelloList.id;
+                        } else {
+                            modelList.id = trelloList.id;
+                        }
                     }
                 });
             });
@@ -132,21 +146,6 @@
                 {name: 'Testing', ticked: false},
                 {name: 'Done', ticked: false}
             ];
-        }
-
-        function closeList(idList) {
-
-            var deferred = $q.defer();
-
-            Trello.put('lists/' + idList + '/closed', {value: true})
-                .then(function (res) {
-
-                    deferred.resolve(res);
-                }, function (err) {
-                    logger.error(err.responseText);
-                });
-
-            return deferred.promise;
         }
 
         function addBoard(board, idOrganization) {
@@ -190,7 +189,7 @@
         function getBoardLists(idBoard) {
             var deferred = $q.defer();
 
-            Trello.get('boards/' + idBoard + '/lists')
+            Trello.get('boards/' + idBoard + '/lists', {filter: 'all'})
                 .then(function (lists) {
                     deferred.resolve(lists);
                 }, function (err) {
