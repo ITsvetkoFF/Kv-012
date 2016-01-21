@@ -26,12 +26,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="board in vmProject.boards">
-                                    <td>{{ board.name }}</td>
+                                <tr>
+                                    <td>Backlog</td>
                                     <td>
                                         <isteven-multi-select
-                                            input-model="board.inputLists"
-                                            output-model="board.outputLists"
+                                            input-model="vmProject.backlog.inputLists"
+                                            output-model="vmProject.backlog.outputLists"
                                             button-label="name"
                                             item-label="name"
                                             tick-property="ticked"
@@ -43,7 +43,25 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
-                                        <button class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Working</td>
+                                    <td>
+                                        <isteven-multi-select
+                                            input-model="vmProject.working.inputLists"
+                                            output-model="vmProject.working.outputLists"
+                                            button-label="name"
+                                            item-label="name"
+                                            tick-property="ticked"
+                                            orientation="vertical"
+                                            helper-elements="all none"
+                                            output-properties="name ticked"
+                                            on-item-click="vmProject.deleteList( data );"
+                                            ></isteven-multi-select>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -19,7 +19,7 @@
             getBoards: getBoards,
             setBoardLists: setBoardLists,
             getBoardLists: getBoardLists,
-            refreshBoards: refreshBoards,
+            refreshBoard: refreshBoard,
             addList: addList,
             openList: openList,
             closeList: closeList,
@@ -29,10 +29,9 @@
         function openList(idList) {
             var deferred = $q.defer();
             Trello.put('lists/' + idList + '/closed', {value: false})
-                .then(function(res) {
-
+                .then(function (res) {
                     deferred.resolve(res);
-                }, function(err) {
+                }, function (err) {
                     logger.error(err.responseText);
                 });
             return deferred.promise;
@@ -43,55 +42,95 @@
             board.inputLists = [];
 
             Trello.get('boards/' + board.id + '/lists')
-                .then(function(lists) {
+                .then(function (lists) {
                     for (var i = 0; i < lists.length; i++) {
-                        board.inputLists.push({name: lists[i].name, ticked: true , id: lists[i].id});
+                        board.inputLists.push({name: lists[i].name, ticked: true, id: lists[i].id});
                     }
-                }, function(err) {
+                }, function (err) {
                     logger.error(err.responseText);
                 });
         }
 
-        function refreshBoards(vmboards) {
-            TrelloTeamFactory.getCurrentProject().then(function (currentProject) {
-                Trello.get('organizations/' + currentProject.trelloOrganizationId + '/boards')
-                    .then(function (boards) {
-                        vmboards.length = 0;
-                        for (var i = 0; i < boards.length; i++) {
-                            if (boards[i].name === 'Backlog') {
-                                boards[i].inputLists = getBacklogInputLists();
-                            }
-                            if (boards[i].name === 'Working') {
-                                boards[i].inputLists = getWorkingInputLists();
-                            }
+        function refreshBoard(model) {
+            TrelloTeamFactory.getCurrentProject()
+                .then(function(currentProject) {
+                    getBoardByName(model.name, currentProject)
+                        .then(function(board) {
 
-                            vmboards.push(boards[i]);
+                            getBoardLists(board.id)
+                                .then(function(lists) {
+
+                                    if (model.name === 'Backlog') {
+                                        model.inputLists = getBacklogInputLists();
+                                        //model.outputLists = model.inputLists;
+                                        setUpLists(lists, model.inputLists);
+                                    }
+                                    if (model.name === 'Working') {
+                                        model.inputLists = getWorkingInputLists();
+                                        //model.outputLists = model.inputLists;
+                                        setUpLists(lists, model.inputLists);
+                                    }
+
+                                }, function(err) {
+                                    console.error(err.responseText);
+                                });
+
+                        }, function(err) {
+                            console.error(err.responseText);
+                        });
+                }, function(err) {
+                    console.error(err.responseText);
+                });
+        }
+
+        function getBoardByName(name, currentProject) {
+            var deferred = $q.defer();
+            Trello.get('organizations/' + currentProject.trelloOrganizationId + '/boards')
+                .then(function(boards) {
+
+                    boards.map(function(board) {
+                        if ((!board.closed) && (board.name === name)) {
+                            deferred.resolve(board);
                         }
-                    }, function (err) {
-                        logger.error(err.responseText);
                     });
+
+
+                }, function(err) {
+                    console.error(err.responseText);
+                });
+            return deferred.promise;
+        }
+
+        function setUpLists(trelloLists, modelLists) {
+            modelLists.map(function(modelList) {
+                trelloLists.map(function(trelloList) {
+                    if (modelList.name == trelloList.name) {
+                        modelList.ticked = true;
+                        modelList.id = trelloList.id;
+                    }
+                });
             });
         }
 
         function getBacklogInputLists() {
             return [
-                {name: 'Product backlog',   ticked: true},
-                {name: 'Tests',             ticked: true},
-                {name: 'Defects',           ticked: true},
-                {name: 'Enhancements',      ticked: true},
-                {name: 'Implementations',   ticked: true},
-                {name: 'Ideas',             ticked: true}
+                {name: 'Product backlog', ticked: false},
+                {name: 'Tests', ticked: false},
+                {name: 'Defects', ticked: false},
+                {name: 'Enhancements', ticked: false},
+                {name: 'Implementations', ticked: false},
+                {name: 'Ideas', ticked: false}
             ];
         }
 
         function getWorkingInputLists() {
             return [
-                {name: 'To be tested',      ticked: true},
-                {name: 'To Do',             ticked: true},
-                {name: 'Doing',             ticked: true},
-                {name: 'Ready to verify',   ticked: true},
-                {name: 'Testing',           ticked: true},
-                {name: 'Done',              ticked: true}
+                {name: 'To be tested', ticked: false},
+                {name: 'To Do', ticked: false},
+                {name: 'Doing', ticked: false},
+                {name: 'Ready to verify', ticked: false},
+                {name: 'Testing', ticked: false},
+                {name: 'Done', ticked: false}
             ];
         }
 

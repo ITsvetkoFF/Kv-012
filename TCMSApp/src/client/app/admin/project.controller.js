@@ -11,7 +11,16 @@
         var vmProject = this;
 
         vmProject.hasSprints = true;
-        vmProject.boards = [];
+        vmProject.backlog = {
+            name: "Backlog",
+            inputLists: [],
+            outputLists: []
+        };
+        vmProject.working = {
+            name: "Working",
+            inputLists: [],
+            outputLists: []
+        };
         vmProject.refreshBoards = refreshBoards;
 
         activate();
@@ -32,7 +41,8 @@
         }
 
         function refreshBoards() {
-            ManageTrelloProject.refreshBoards(vmProject.boards);
+            ManageTrelloProject.refreshBoard(vmProject.backlog);
+            ManageTrelloProject.refreshBoard(vmProject.working);
         }
     }
 })();
