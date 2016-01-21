@@ -5,9 +5,9 @@
         .module('app.trello')
         .factory('ManageTrelloProject', ManageTrelloProject);
 
-    ManageTrelloProject.$inject = ['logger', 'Trello', '$q'];
+    ManageTrelloProject.$inject = ['logger', 'Trello', '$q', 'TrelloTeamFactory'];
 
-    function ManageTrelloProject(logger, Trello, $q) {
+    function ManageTrelloProject(logger, Trello, $q, TrelloTeamFactory) {
 
         return {
             getBacklogLists: getBacklogInputLists,
@@ -19,6 +19,7 @@
             getBoards: getBoards,
             setBoardLists: setBoardLists,
             getBoardLists: getBoardLists,
+            refreshBoards: refreshBoards,
             addList: addList,
             openList: openList,
             closeList: closeList,
@@ -26,7 +27,8 @@
         };
 
         function openList(idList) {
-            Trello.put('lists/' + idList + '/closed', { value: false })
+            var deferred = $q.defer();
+            Trello.put('lists/' + idList + '/closed', {value: false})
                 .then(function(res) {
 
                     deferred.resolve(res);
@@ -42,34 +44,55 @@
 
             Trello.get('boards/' + board.id + '/lists')
                 .then(function(lists) {
-                    for (var i= 0; i < lists.length; i++) {
-                        board.inputLists.push({ name: lists[i].name, ticked: true , id: lists[i].id });
+                    for (var i = 0; i < lists.length; i++) {
+                        board.inputLists.push({name: lists[i].name, ticked: true , id: lists[i].id});
                     }
                 }, function(err) {
                     logger.error(err.responseText);
                 });
         }
 
+        function refreshBoards(vmboards) {
+            TrelloTeamFactory.getCurrentProject().then(function (currentProject) {
+                Trello.get('organizations/' + currentProject.trelloOrganizationId + '/boards')
+                    .then(function (boards) {
+                        vmboards.length = 0;
+                        for (var i = 0; i < boards.length; i++) {
+                            if (boards[i].name === 'Backlog') {
+                                boards[i].inputLists = getBacklogInputLists();
+                            }
+                            if (boards[i].name === 'Working') {
+                                boards[i].inputLists = getWorkingInputLists();
+                            }
+
+                            vmboards.push(boards[i]);
+                        }
+                    }, function (err) {
+                        logger.error(err.responseText);
+                    });
+            });
+        }
+
         function getBacklogInputLists() {
             return [
-                {name: "Product backlog", ticked: true},
-                {name: "Tests", ticked: true},
-                {name: "Defects", ticked: true},
-                {name: "Enhancements", ticked: true},
-                {name: "Implementations", ticked: true},
-                {name: "Ideas", ticked: true}
-            ]
+                {name: 'Product backlog',   ticked: true},
+                {name: 'Tests',             ticked: true},
+                {name: 'Defects',           ticked: true},
+                {name: 'Enhancements',      ticked: true},
+                {name: 'Implementations',   ticked: true},
+                {name: 'Ideas',             ticked: true}
+            ];
         }
 
         function getWorkingInputLists() {
             return [
-                {name: "To be tested", ticked: true},
-                {name: "To Do", ticked: true},
-                {name: "Doing", ticked: true},
-                {name: "Ready to verify", ticked: true},
-                {name: "Testing", ticked: true},
-                {name: "Done", ticked: true}
-            ]
+                {name: 'To be tested',      ticked: true},
+                {name: 'To Do',             ticked: true},
+                {name: 'Doing',             ticked: true},
+                {name: 'Ready to verify',   ticked: true},
+                {name: 'Testing',           ticked: true},
+                {name: 'Done',              ticked: true}
+            ];
         }
 
         function closeList(idList) {
@@ -83,6 +106,7 @@
                 }, function (err) {
                     logger.error(err.responseText);
                 });
+
             return deferred.promise;
         }
 

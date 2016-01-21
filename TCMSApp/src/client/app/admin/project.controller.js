@@ -5,9 +5,9 @@
         .module('app.admin')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'createProjectFactory', '$q', '$rootScope', 'Trello', '$http', 'authservice'];
+    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'authservice'];
 
-    function ProjectController(logger, ManageTrelloProject, createProjectFactory, $q, $rootScope, Trello, $http, authservice) {
+    function ProjectController(logger, ManageTrelloProject, authservice) {
         var vmProject = this;
 
         vmProject.hasSprints = true;
@@ -17,7 +17,7 @@
         activate();
 
         vmProject.deleteList = function(data) {
-            if(!data.ticked) {
+            if (!data.ticked) {
                 ManageTrelloProject.closeList(data.id);
             } else {
                 ManageTrelloProject.openList(data.id);
@@ -31,33 +31,8 @@
             refreshBoards();
         }
 
-        // temporary method for my needs
-        function getCurrentProject() {
-
-            var deferred = $q.defer();
-
-            $http.get('/api/v1/projects')
-                .success(function (data) {
-                    deferred.resolve(data[0]);
-                });
-
-            return deferred.promise;
-        }
-
         function refreshBoards() {
-            getCurrentProject().then(function (currentProject) {
-                Trello.get('organizations/' + currentProject.trelloOrganizationId + '/boards')
-                    .then(function (boards) {
-                        vmProject.boards.length = 0;
-                        for (var i = 0; i < boards.length; i++) {
-
-                            ManageTrelloProject.setBoardLists(boards[i]);
-                            vmProject.boards.push(boards[i]);
-                        }
-                    }, function (err) {
-                        logger.error(err.responseText);
-                    });
-            });
+            ManageTrelloProject.refreshBoards(vmProject.boards);
         }
     }
 })();

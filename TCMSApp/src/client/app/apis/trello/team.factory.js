@@ -37,7 +37,8 @@
             getUsers: getUsers,
             deleteUser: deleteUser,
             addUser: addUser,
-            getMe: getMe
+            getMe: getMe,
+            getCurrentProject: getCurrentProject
         };
 
         // temporary method for my needs
@@ -162,7 +163,8 @@
                     } else {
                         getCurrentProject()
                             .then(function (currentProject) {
-                                Trello.rest('DELETE', 'organizations/' + currentProject.trelloOrganizationId + '/members/' + users[index].id,
+                                Trello.rest('DELETE', 'organizations/' + currentProject.trelloOrganizationId +
+                                    '/members/' + users[index].id,
                                     {},
                                     function (res) {
                                         logger.success('User ' + res.fullName + ' deleted');

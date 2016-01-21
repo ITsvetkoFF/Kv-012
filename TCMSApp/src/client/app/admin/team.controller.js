@@ -16,7 +16,8 @@
     TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q',
         'createProjectFactory', 'authservice', 'Trello', '$http'];
 
-    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice, Trello, $http) {
+    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice,
+                            Trello, $http) {
 
         var vmTeam = this;
         vmTeam.users = [];

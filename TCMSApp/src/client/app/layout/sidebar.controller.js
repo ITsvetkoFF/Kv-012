@@ -5,10 +5,10 @@
         .module('app.layout')
         .controller('SidebarController', SidebarController);
 
-    SidebarController.$inject = ['$state', 'routerHelper', '$uibModal', 'moment', 'logger',
+    SidebarController.$inject = ['$uibModal', 'moment', 'logger',
         'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$scope', 'ManageTrelloProject'];
     /* @ngInject */
-    function SidebarController($state, routerHelper, $uibModal, moment, logger,
+    function SidebarController($uibModal, moment, logger,
                                sidebarFactory, authservice, createProjectFactory, $q, $scope, ManageTrelloProject) {
 
         var vm = this;
@@ -57,10 +57,10 @@
                                         .then(function (res) {
 
                                             if (vmModal.createDefaultDashboards) {
-                                                ManageTrelloProject.get
-                                                setDefaultContents(res)
+                                                setDefaultContents(res);
                                             } else {
-                                                setCustomContent(res, vmModal.outputBacklogList, vmModal.outputWorkingList);
+                                                setCustomContent(res, vmModal.outputBacklogList,
+                                                    vmModal.outputWorkingList);
                                             }
 
                                             sidebarFactory.findProjectsNames().then(function (data) {
