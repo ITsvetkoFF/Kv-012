@@ -4,13 +4,13 @@
         <div class="sidebar-dropdown"><a href="#">Menu</a></div>
         <div class="sidebar-inner">
             <ul class="navi">
-                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames | orderBy:'-'" >
+                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames track by $index | orderBy:'-'" >
                     <a ng-click="vmSidebar.setCurrentProject(projectName)"> {{projectName}} </a>
                 </li>
             </ul>
             <div class="container-fluid" style="margin-top: 15px;">
                 <div class="row-fluid options">
-                    <button class="btn btn-success" ng-click="vmSidebar.open()">
+                    <button class="btn btn-success" ng-click="vmSidebar.open()" id="btnAddProject">
                         <i class="fa fa-plus"></i>
                         Add Project
                     </button>

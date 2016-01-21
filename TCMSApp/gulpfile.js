@@ -9,6 +9,7 @@ var _ = require('lodash');
 var $ = require('gulp-load-plugins')({lazy: true});
 var shell = require('gulp-shell');
 var exec = require('child_process').exec;
+var angularProtractor = require('gulp-angular-protractor');
 
 var colors = $.util.colors;
 var envenv = $.util.env;
@@ -164,7 +165,7 @@ gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function() {
  */
 gulp.task('serve-specs', ['build-specs'], function(done) {
     log('run the spec runner');
-    serve(true /* isDev */, true /* specRunner */);
+    serve('dev' /* currentEnv */, true /* specRunner */);
     done();
 });
 
@@ -314,10 +315,21 @@ gulp.task('clean-code', function(done) {
  * Run specs once and exit
  * To start servers and run midway specs as well:
  *    gulp test --startServers
+ * To run after end to end tests:
+ *    gulp test --e2e
  * @return {Stream}
  */
 gulp.task('test', ['vet', 'templatecache'], function(done) {
     startTests(true /*singleRun*/ , done);
+    if (args.e2e) e2e();
+});
+
+/**
+ * Start server, run end to end tests
+ * and shutdown server at finish
+ */
+gulp.task('e2e', function() {
+    e2e();
 });
 
 /**
@@ -338,7 +350,18 @@ gulp.task('autotest', function(done) {
 gulp.task('serve-dev', ['inject'], function() {
     mongo(config.mongodbPath);
     console.log('\x1b[36m', 'Running mongodb on ' + config.mongodbPath,'\x1b[0m');
-    serve(true /*isDev*/);
+    serve('dev' /*currentEnv*/);
+});
+
+/**
+ * serve the test environment
+ * --debug-brk or --debug
+ * --nosync
+ */
+gulp.task('serve-test', ['inject'], function() {
+    mongo(config.mongodbPath);
+    console.log('\x1b[36m', 'Running mongodb on ' + config.mongodbPath,'\x1b[0m');
+    serve('test' /*currentEnv*/);
 });
 
 /**
@@ -347,7 +370,7 @@ gulp.task('serve-dev', ['inject'], function() {
  * --nosync
  */
 gulp.task('serve-build', ['build'], function() {
-    serve(false /*isDev*/);
+    serve('build' /*currentEnv*/);
 });
 
 /**
@@ -460,12 +483,12 @@ function runCommand(command) {
  * serve the code
  * --debug-brk or --debug
  * --nosync
- * @param  {Boolean} isDev - dev or build mode
+ * @param  {String} currentEnv - dev, build or test mode
  * @param  {Boolean} specRunner - server spec runner html
  */
-function serve(isDev, specRunner) {
+function serve(currentEnv, specRunner) {
     var debugMode = '--debug';
-    var nodeOptions = getNodeOptions(isDev);
+    var nodeOptions = getNodeOptions(currentEnv);
 
     nodeOptions.nodeArgs = [debugMode + '=5858'];
 
@@ -484,7 +507,7 @@ function serve(isDev, specRunner) {
         })
         .on('start', function () {
             log('*** nodemon started');
-            startBrowserSync(isDev, specRunner);
+            startBrowserSync(currentEnv, specRunner);
         })
         .on('crash', function () {
             log('*** nodemon crashed: script crashed for some reason');
@@ -494,13 +517,13 @@ function serve(isDev, specRunner) {
         });
 }
 
-function getNodeOptions(isDev) {
+function getNodeOptions(currentEnv) {
     return {
         script: config.nodeServer,
         delayTime: 1,
         env: {
             'PORT': port,
-            'NODE_ENV': isDev ? 'dev' : 'build'
+            'NODE_ENV': currentEnv
         },
         watch: [config.server]
     };
@@ -517,7 +540,7 @@ function getNodeOptions(isDev) {
  * Start BrowserSync
  * --nosync will avoid browserSync
  */
-function startBrowserSync(isDev, specRunner) {
+function startBrowserSync(currentEnv, specRunner) {
     if (args.nosync || browserSync.active) {
         return;
     }
@@ -526,7 +549,7 @@ function startBrowserSync(isDev, specRunner) {
 
     // If build: watches the files, builds, and restarts browser-sync.
     // If dev: watches less, compiles it to css, browser-sync handles reload
-    if (isDev) {
+    if (currentEnv !== 'build') {
         gulp.watch([config.less], ['styles'])
             .on('change', changeEvent);
     } else {
@@ -536,8 +559,9 @@ function startBrowserSync(isDev, specRunner) {
 
     var options = {
         proxy: 'localhost:' + port,
+        open: (currentEnv !== 'test'),
         port: 3000,
-        files: isDev ? [
+        files: (currentEnv !== 'build') ? [
             config.client + '**/*.*',
             '!' + config.less,
             config.temp + '**/*.css'
@@ -717,6 +741,31 @@ function notify(options) {
     };
     _.assign(notifyOptions, options);
     notifier.notify(notifyOptions);
+}
+
+/**
+ * Start e2e tests
+ */
+function e2e() {
+    mongo(config.mongodbPath);
+    serve('test');
+    exec('mongo TCMSdb-test --eval "db.dropDatabase()"');
+    console.log('>>> DB dropped');
+
+    gulp
+        .src(['src/e2e/*'])
+        .pipe(angularProtractor({
+            'configFile': 'protractor.conf.js',
+            'debug': false,
+            'autoStartStopServer': true
+        }))
+        .on('error', function(e) {
+            console.log(e);
+        })
+        .on('end', function() {
+            process.kill(process.pid, 'SIGUSR2');
+        });
+
 }
 
 module.exports = gulp;
