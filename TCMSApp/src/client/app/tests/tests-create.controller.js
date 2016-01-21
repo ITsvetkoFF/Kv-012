@@ -87,10 +87,13 @@
         }
 
         function onCrtlEnterPress(event) {
-            if (event.charCode === 10) {
+            var charCode = (event.keyCode) ? event.keyCode : event.charCode;
+
+            if ((event.ctrlKey && charCode === 13) || (event.ctrlKey && charCode === 10)) {
                 addStep();
             }
         }
+
     }
 
 })();
