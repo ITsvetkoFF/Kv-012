@@ -38,7 +38,8 @@
                     }
                 };
 
-                runs[i].envFull.__proto__ = envFullProto;  // jshint ignore:line
+                Object.setPrototypeOf(runs[i].envFull, envFullProto);
+
             }
 
             return runs;
