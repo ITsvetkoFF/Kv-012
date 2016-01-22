@@ -25,7 +25,9 @@
             openList: openList,
             closeList: closeList,
             addLabel: addLabel,
-            changeList: changeList
+            changeList: changeList,
+            openAllLists: openAllLists,
+            closeAllLists: closeAllLists
         };
 
         function changeList(data) {
@@ -60,6 +62,12 @@
             return deferred.promise;
         }
 
+        function openAllLists(lists) {
+            lists.map(function(list) {
+                openList(list.id);
+            });
+        }
+
         function closeList(idList) {
             var deferred = $q.defer();
             Trello.put('lists/' + idList + '/closed', {value: true})
@@ -69,6 +77,12 @@
                     logger.error(err.responseText);
                 });
             return deferred.promise;
+        }
+
+        function closeAllLists(lists) {
+            lists.map(function(list) {
+                closeList(list.id);
+            });
         }
 
         function setBoardLists(board) {

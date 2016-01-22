@@ -23,6 +23,8 @@
         };
         vmProject.refreshBoards = refreshBoards;
         vmProject.changeList = changeList;
+        vmProject.selectAll = selectAll;
+        vmProject.selectNone = selectNone;
 
         activate();
 
@@ -33,6 +35,14 @@
                 }, function(err) {
                     logger.error(err.responseText);
                 });
+        }
+
+        function selectAll(lists) {
+            ManageTrelloProject.openAllLists(lists);
+        }
+
+        function selectNone(lists) {
+            ManageTrelloProject.closeAllLists(lists);
         }
 
         function activate() {
