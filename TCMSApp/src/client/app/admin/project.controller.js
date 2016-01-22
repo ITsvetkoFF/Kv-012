@@ -12,12 +12,12 @@
         var vmProject = this;
         vmProject.hasSprints = true;
         vmProject.backlog = {
-            name: "Backlog",
+            name: 'Backlog',
             inputLists: [],
             outputLists: []
         };
         vmProject.working = {
-            name: "Working",
+            name: 'Working',
             inputLists: [],
             outputLists: []
         };

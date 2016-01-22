@@ -100,9 +100,10 @@
 
             bLists = [];
             wLists = [];
+            var newList;
 
             for (var i = 0; i < outputBacklogList.length; i++) {
-                var newList = new ManageTrelloProject.List(outputBacklogList[i].name);
+                newList = new ManageTrelloProject.List(outputBacklogList[i].name);
                 newList.closed = !outputBacklogList[i].ticked;
                 bLists.push(newList);
             }

@@ -172,7 +172,7 @@
         function setUpLists(trelloLists, model) {
             model.inputLists.map(function (modelList) {
                 trelloLists.map(function (trelloList) {
-                    if (modelList.name == trelloList.name) {
+                    if (modelList.name === trelloList.name) {
                         if (!trelloList.closed) {
                             modelList.ticked = true;
                             modelList.id = trelloList.id;
@@ -183,28 +183,38 @@
                             modelList.idBoard = model.id;
                         }
                     }
-                })
+                });
             });
             //model.outputLists = model.inputLists;
         }
 
         function getBacklogInputLists() {
             return [
-                {icon: '<img src="src/client/images/lists/backlog.jpg"/>',          name: 'Product backlog', ticked: true},
-                {icon: '<img src="src/client/images/lists/tests.jpg"/>',            name: 'Tests', ticked: false},
-                {icon: '<img src="src/client/images/lists/defects.jpg"/>',          name: 'Defects', ticked: true},
-                {icon: '<img src="src/client/images/lists/enhancements.jpg"/>',     name: 'Enhancements', ticked: true},
-                {icon: '<img src="src/client/images/lists/implementation.jpg"/>',   name: 'Implementations', ticked: false},
-                {icon: '<img src="src/client/images/lists/ideas.jpg"/>',            name: 'Ideas', ticked: true}
+                {icon: '<img src="src/client/images/lists/backlog.jpg"/>',
+                    name: 'Product backlog', ticked: true},
+                {icon: '<img src="src/client/images/lists/tests.jpg"/>',
+                    name: 'Tests', ticked: false},
+                {icon: '<img src="src/client/images/lists/defects.jpg"/>',
+                    name: 'Defects', ticked: true},
+                {icon: '<img src="src/client/images/lists/enhancements.jpg"/>',
+                    name: 'Enhancements', ticked: true},
+                {icon: '<img src="src/client/images/lists/implementation.jpg"/>',
+                    name: 'Implementations', ticked: false},
+                {icon: '<img src="src/client/images/lists/ideas.jpg"/>',
+                    name: 'Ideas', ticked: true}
             ];
         }
 
         function getWorkingInputLists() {
             return [
-                {icon: '<img src="src/client/images/lists/to-be-tested.jpg"/>',          name: 'To be tested', ticked: true},
-                {icon: '<img src="src/client/images/lists/in-progress.jpg"/>',            name: 'In progress', ticked: true},
-                {icon: '<img src="src/client/images/lists/verify.jpg"/>',          name: 'Ready to verify', ticked: false},
-                {icon: '<img src="src/client/images/lists/tested.jpg"/>',     name: 'Already tested', ticked: true}
+                {icon: '<img src="src/client/images/lists/to-be-tested.jpg"/>',
+                    name: 'To be tested', ticked: true},
+                {icon: '<img src="src/client/images/lists/in-progress.jpg"/>',
+                    name: 'In progress', ticked: true},
+                {icon: '<img src="src/client/images/lists/verify.jpg"/>',
+                    name: 'Ready to verify', ticked: false},
+                {icon: '<img src="src/client/images/lists/tested.jpg"/>',
+                    name: 'Already tested', ticked: true}
             ];
         }
 
@@ -223,7 +233,7 @@
                             addList(bList, tBoard.id)
                                 .then(function (tList) {
                                     board.lists.map(function (bbList) {
-                                        if (bbList.name == tList.name) {
+                                        if (bbList.name === tList.name) {
                                             if (bbList.closed) {
                                                 closeList(tList.id);
                                             }
