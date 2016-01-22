@@ -42,8 +42,8 @@
         }
 
         function refreshBoards() {
-            ManageTrelloProject.refreshBoard(vmProject.backlog);
-            ManageTrelloProject.refreshBoard(vmProject.working);
+            ManageTrelloProject.refreshBacklogBoard(vmProject.backlog);
+            ManageTrelloProject.refreshWorkingBoard(vmProject.working);
         }
     }
 })();

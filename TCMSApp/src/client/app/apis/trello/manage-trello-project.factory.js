@@ -19,7 +19,8 @@
             getBoards: getBoards,
             setBoardLists: setBoardLists,
             getBoardLists: getBoardLists,
-            refreshBoard: refreshBoard,
+            refreshBacklogBoard: refreshBacklogBoard,
+            refreshWorkingBoard: refreshWorkingBoard,
             addList: addList,
             openList: openList,
             closeList: closeList,
@@ -30,13 +31,13 @@
         function changeList(data) {
             var deferred = $q.defer();
             if (data.ticked) {
-                openList(data)
+                openList(data.id)
                     .then(function (res) {
                         deferred.resolve(res);
                     }, function (err) {
                     });
             } else {
-                closeList(data)
+                closeList(data.id)
                     .then(function (res) {
                         deferred.resolve(res);
                     }, function (err) {
@@ -46,10 +47,10 @@
             return deferred.promise;
         }
 
-        function openList(data) {
+        function openList(idList) {
             var deferred = $q.defer();
 
-            Trello.put('lists/' + data.id + '/closed', {value: false})
+            Trello.put('lists/' + idList + '/closed', {value: false})
                 .then(function (list) {
                     deferred.resolve(list);
                 }, function (err) {
@@ -59,9 +60,9 @@
             return deferred.promise;
         }
 
-        function closeList(data) {
+        function closeList(idList) {
             var deferred = $q.defer();
-            Trello.put('lists/' + data.id + '/closed', {value: true})
+            Trello.put('lists/' + idList + '/closed', {value: true})
                 .then(function (list) {
                     deferred.resolve(list);
                 }, function (err) {
@@ -84,29 +85,15 @@
                 });
         }
 
-        function refreshBoard(model) {
+        function refreshBacklogBoard(model) {
             TrelloTeamFactory.getCurrentProject()
                 .then(function (currentProject) {
-                    getBoardByName(model.name, currentProject)
-                        .then(function (board) {
-                            model.id = board.id;
-                            // get CLOSED and OPEND lists
-                            getBoardLists(board.id)
+                    getBacklogBoard(currentProject)
+                        .then(function (backlogBoard) {
+                            getBoardLists(backlogBoard.id)
                                 .then(function (lists) {
-                                    if (model.name === 'Backlog') {
-                                        // write mockup lists
-                                        model.inputLists = getBacklogInputLists();
-                                        //model.outputLists = model.inputLists;
-
-                                        // compare and midify inputLists (mockup lists) with trello lists
-                                        setUpLists(lists, model);
-                                    }
-                                    if (model.name === 'Working') {
-                                        // write mockup lists
-                                        model.inputLists = getWorkingInputLists();
-                                        //model.outputLists = model.inputLists;
-                                        setUpLists(lists, model);
-                                    }
+                                    model.inputLists = getBacklogInputLists();
+                                    setUpLists(lists, model);
                                 }, function (err) {
                                     console.error(err.responseText);
                                 });
@@ -118,17 +105,50 @@
                 });
         }
 
-        function getBoardByName(name, currentProject) {
-            var deferred = $q.defer();
-            Trello.get('organizations/' + currentProject.trelloOrganizationId + '/boards')
-                .then(function (boards) {
+        function refreshWorkingBoard(model) {
+            TrelloTeamFactory.getCurrentProject()
+                .then(function (currentProject) {
+                    getWorkingBoard(currentProject)
+                        .then(function (workingBoard) {
+                            getBoardLists(workingBoard.id)
+                                .then(function (lists) {
+                                    model.inputLists = getWorkingInputLists();
+                                    setUpLists(lists, model);
+                                }, function (err) {
+                                    console.error(err.responseText);
+                                });
+                        }, function (err) {
+                            console.error(err.responseText);
+                        });
+                }, function (err) {
+                    console.error(err.responseText);
+                });
+        }
 
+        function getBacklogBoard(currentProject) {
+            var deferred = $q.defer();
+            getBoards(currentProject.trelloOrganizationId)
+                .then(function (boards) {
                     boards.map(function (board) {
-                        if ((!board.closed) && (board.name === name)) {
+                        if ((!board.closed) && (board.name === 'Backlog')) {
                             deferred.resolve(board);
                         }
                     });
+                }, function (err) {
+                    console.error(err.responseText);
+                });
+            return deferred.promise;
+        }
 
+        function getWorkingBoard(currentProject) {
+            var deferred = $q.defer();
+            getBoards(currentProject.trelloOrganizationId)
+                .then(function (boards) {
+                    boards.map(function (board) {
+                        if ((!board.closed) && (board.name === 'Working')) {
+                            deferred.resolve(board);
+                        }
+                    });
                 }, function (err) {
                     console.error(err.responseText);
                 });
@@ -215,20 +235,6 @@
             return deferred.promise;
         }
 
-        function closeAllLists(idBoard) {
-            var deferred = $q.defer();
-            getBoardLists(idBoard)
-                .then(function (lists) {
-                    lists.map(function (list) {
-                        closeList(list.id);
-                    });
-                    deferred.resolve(lists);
-                }, function (err) {
-                    logger.error(err.responseText);
-                });
-            return deferred.promise;
-        }
-
         function addList(list, idBoard) {
             var deferred = $q.defer();
             Trello.post('lists', {
@@ -271,13 +277,17 @@
         }
 
         function getBoards(idOrganization) {
+            var deferred = $q.defer();
             Trello.get('organizations/' + idOrganization + '/boards')
                 .then(function (res) {
-                    return res;
+                    deferred.resolve(res);
                 }, function (err) {
 
                 });
+            return deferred.promise;
         }
+
+        // Constructors
 
         function Board(name) {
             this.name = name || 'unnamed board';

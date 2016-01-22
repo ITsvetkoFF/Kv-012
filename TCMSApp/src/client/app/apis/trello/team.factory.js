@@ -48,7 +48,7 @@
 
             $http.get('/api/v1/projects')
                 .success(function (data) {
-                    deferred.resolve(data[0]);
+                    deferred.resolve(data[data.length - 1]);
                 });
 
             return deferred.promise;
