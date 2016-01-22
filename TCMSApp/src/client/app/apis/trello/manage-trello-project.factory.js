@@ -30,6 +30,8 @@
             closeAllLists: closeAllLists
         };
 
+        // Functions
+
         function changeList(data) {
             var deferred = $q.defer();
             if (data.ticked) {
