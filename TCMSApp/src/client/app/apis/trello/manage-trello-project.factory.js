@@ -158,10 +158,6 @@
         function setUpLists(trelloLists, model) {
             model.inputLists.map(function (modelList) {
                 trelloLists.map(function (trelloList) {
-
-                    // modelLists - 1 from all mockup lists
-                    // якщо в трело немає такого ліста то айдідіста і борда до нього не прикріпляться,
-                    // отже в елсе треба створити новий ліст і тоді прикріпити до модельки айді з респонзу
                     if (modelList.name == trelloList.name) {
                         if (!trelloList.closed) {
                             modelList.ticked = true;
@@ -180,21 +176,21 @@
 
         function getBacklogInputLists() {
             return [
-                {name: 'Product backlog', ticked: true},
-                {name: 'Tests', ticked: false},
-                {name: 'Defects', ticked: true},
-                {name: 'Enhancements', ticked: true},
-                {name: 'Implementations', ticked: false},
-                {name: 'Ideas', ticked: true}
+                {icon: '<img src="src/client/images/lists/backlog.jpg"/>',          name: 'Product backlog', ticked: true},
+                {icon: '<img src="src/client/images/lists/tests.jpg"/>',            name: 'Tests', ticked: false},
+                {icon: '<img src="src/client/images/lists/defects.jpg"/>',          name: 'Defects', ticked: true},
+                {icon: '<img src="src/client/images/lists/enhancements.jpg"/>',     name: 'Enhancements', ticked: true},
+                {icon: '<img src="src/client/images/lists/implementation.jpg"/>',   name: 'Implementations', ticked: false},
+                {icon: '<img src="src/client/images/lists/ideas.jpg"/>',            name: 'Ideas', ticked: true}
             ];
         }
 
         function getWorkingInputLists() {
             return [
-                {name: 'To be tested', ticked: true},
-                {name: 'In progress', ticked: true},
-                {name: 'Ready to verify', ticked: false},
-                {name: 'Already tested', ticked: true}
+                {icon: '<img src="src/client/images/lists/to-be-tested.jpg"/>',          name: 'To be tested', ticked: true},
+                {icon: '<img src="src/client/images/lists/in-progress.jpg"/>',            name: 'In progress', ticked: true},
+                {icon: '<img src="src/client/images/lists/verify.jpg"/>',          name: 'Ready to verify', ticked: false},
+                {icon: '<img src="src/client/images/lists/tested.jpg"/>',     name: 'Already tested', ticked: true}
             ];
         }
 
