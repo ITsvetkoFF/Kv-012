@@ -325,5 +325,4 @@
             this.color = labelColor || null;
         }
     }
-
 })();
