@@ -32,7 +32,6 @@
                         vmModal.dismiss = modalCreateProject.dismiss;
 
                         // data for trello boards creation
-                        vmModal.createDefaultDashboards = true;
                         vmModal.backlogLists = ManageTrelloProject.getBacklogLists();
                         vmModal.workingLists = ManageTrelloProject.getWorkingLists();
                         vmModal.outputBacklogList = vmModal.backlogLists;
@@ -56,12 +55,8 @@
                                     createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
                                         .then(function (res) {
 
-                                            if (vmModal.createDefaultDashboards) {
-                                                setDefaultContents(res);
-                                            } else {
-                                                setCustomContent(res, vmModal.outputBacklogList,
-                                                    vmModal.outputWorkingList);
-                                            }
+                                            setCustomContent(res, vmModal.outputBacklogList,
+                                                vmModal.outputWorkingList);
 
                                             sidebarFactory.findProjectsNames().then(function (data) {
                                                 vm.projectsNames = data;
@@ -97,46 +92,6 @@
             );
         }
 
-        function setDefaultContents(organization) {
-
-            var backlog, working, bLists, wLists, labels, idOrganization = organization.id;
-
-            backlog = new ManageTrelloProject.Board('Backlog');
-            working = new ManageTrelloProject.Board('Working');
-
-            bLists = [
-                new ManageTrelloProject.List('Defects'),
-                new ManageTrelloProject.List('Enhancements'),
-                new ManageTrelloProject.List('Tests'),
-                new ManageTrelloProject.List('Ideas')
-            ];
-            wLists = [
-                // only one because there are also default lists: To Do, Doing, Done
-                new ManageTrelloProject.List('To be tested')
-            ];
-            labels = [
-                new ManageTrelloProject.Label('critical', 'red'),
-                new ManageTrelloProject.Label('high', 'orange'),
-                new ManageTrelloProject.Label('medium', 'yellow'),
-                new ManageTrelloProject.Label('low', 'blue'),
-                new ManageTrelloProject.Label('success', 'green')
-            ];
-
-            for (var i = 0; i < bLists.length; i++) {
-                backlog.lists.push(bLists[i]);
-            }
-            for (i = 0; i < wLists.length; i++) {
-                working.lists.push(wLists[i]);
-            }
-            for (i = 0; i < labels.length; i++) {
-                backlog.labels.push(labels[i]);
-                working.labels.push(labels[i]);
-            }
-
-            ManageTrelloProject.addBoard(backlog, idOrganization);
-            ManageTrelloProject.addBoard(working, idOrganization);
-        }
-
         function setCustomContent(organization, outputBacklogList, outputWorkingList) {
             var backlog, working, bLists, wLists, idOrganization = organization.id;
 
@@ -147,14 +102,14 @@
             wLists = [];
 
             for (var i = 0; i < outputBacklogList.length; i++) {
-                if (outputBacklogList[i].ticked) {
-                    bLists.push(new ManageTrelloProject.List(outputBacklogList[i].name));
-                }
+                var newList = new ManageTrelloProject.List(outputBacklogList[i].name);
+                newList.closed = !outputBacklogList[i].ticked;
+                bLists.push(newList);
             }
             for (i = 0; i < outputWorkingList.length; i++) {
-                if (outputWorkingList[i].ticked) {
-                    wLists.push(new ManageTrelloProject.List(outputWorkingList[i].name));
-                }
+                newList = new ManageTrelloProject.List(outputWorkingList[i].name);
+                newList.closed = !outputWorkingList[i].ticked;
+                wLists.push(newList);
             }
             for (i = 0; i < bLists.length; i++) {
                 backlog.lists.push(bLists[i]);

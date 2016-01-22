@@ -8,8 +8,8 @@
     ProjectController.$inject = ['logger', 'ManageTrelloProject', 'authservice'];
 
     function ProjectController(logger, ManageTrelloProject, authservice) {
-        var vmProject = this;
 
+        var vmProject = this;
         vmProject.hasSprints = true;
         vmProject.backlog = {
             name: "Backlog",
@@ -22,19 +22,18 @@
             outputLists: []
         };
         vmProject.refreshBoards = refreshBoards;
-
-        vmProject.deleteList = closeList;
-
-        function closeList(data) {
-            if (!data.ticked) {
-                ManageTrelloProject.closeList(data.id);
-            } else {
-                ManageTrelloProject.openList(data.id);
-            }
-            refreshBoards();
-        }
+        vmProject.changeList = changeList;
 
         activate();
+
+        function changeList(data) {
+            ManageTrelloProject.changeList(data)
+                .then(function(list) {
+                    refreshBoards();
+                }, function(err) {
+                    logger.error(err.responseText);
+                });
+        }
 
         function activate() {
             logger.info('Manage project view activated');
