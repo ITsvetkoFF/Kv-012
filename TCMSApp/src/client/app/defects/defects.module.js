@@ -3,7 +3,8 @@
 
     angular.module('app.defects', [
         'app.core',
-        'app.widgets'
+        'app.widgets',
+        'ngResource'
       ]);
 
 })();
