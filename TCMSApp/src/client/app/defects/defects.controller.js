@@ -1,3 +1,11 @@
+/**
+ * @ngdoc controller
+ * @name defectsController
+ * @memberOf app.defects
+ * @description
+ * Controlls defects entities
+ */
+
 (function () {
     'use strict';
 

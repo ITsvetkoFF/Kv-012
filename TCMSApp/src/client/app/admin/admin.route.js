@@ -43,6 +43,17 @@
                 }
             },
             {
+                state: 'admin.project',
+                config: {
+                    url: '/project',
+                    templateUrl: 'app/admin/project.html',
+                    controller: 'ProjectController',
+                    controllerAs: 'vmProject',
+                    title: 'Manage Project',
+                    parent: 'admin'
+                }
+            },
+            {
                 state: 'profile',
                 config: {
                     url: '/profile',

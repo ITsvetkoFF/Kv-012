@@ -5,30 +5,37 @@
         .module('app.layout')
         .controller('SidebarController', SidebarController);
 
-    SidebarController.$inject = ['$state', 'routerHelper', '$uibModal', 'moment', 'logger',
-        'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$scope'];
+    SidebarController.$inject = ['$uibModal', 'moment', 'logger',
+        'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$scope', 'ManageTrelloProject'];
     /* @ngInject */
-    function SidebarController($state, routerHelper, $uibModal, moment, logger,
-                               sidebarFactory, authservice, createProjectFactory, $q, $scope) {
+    function SidebarController($uibModal, moment, logger,
+                               sidebarFactory, authservice, createProjectFactory, $q, $scope, ManageTrelloProject) {
 
         var vm = this;
         vm.open = openModalCreateProject;
         vm.projectsNames = [];
 
-        sidebarFactory.findProjectsNames().then(function(data) {
+        sidebarFactory.findProjectsNames().then(function (data) {
             vm.projectsNames = data;
             if (data.length === 0) {
                 logger.error('Create the first project to start');
             } //else {TODO: here we will request current project from user object}
         });
 
-        function openModalCreateProject () {
+        function openModalCreateProject() {
             var modalCreateProject = $uibModal.open({
                     templateUrl: 'app/layout/add-project.html',
                     controller: function ($uibModalInstance) {
 
                         var vmModal = this;
                         vmModal.createProjAndOrg = createProjAndOrg;
+                        vmModal.dismiss = modalCreateProject.dismiss;
+
+                        // data for trello boards creation
+                        vmModal.backlogLists = ManageTrelloProject.getBacklogLists();
+                        vmModal.workingLists = ManageTrelloProject.getWorkingLists();
+                        vmModal.outputBacklogList = vmModal.backlogLists;
+                        vmModal.outputWorkingList = vmModal.workingLists;
 
                         // Function creates Project and Trello Organization
                         function createProjAndOrg() {
@@ -45,20 +52,20 @@
 
                                 if (Trello.authorized()) {
 
-                                    $q.when(
-                                        createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
-                                    ).then(function (res) {
-                                            sidebarFactory.findProjectsNames().then(function(data) {
+                                    createProjectFactory.createProjAndOrg(Trello, projectName, projectDescription)
+                                        .then(function (res) {
+
+                                            setCustomContent(res, vmModal.outputBacklogList,
+                                                vmModal.outputWorkingList);
+
+                                            sidebarFactory.findProjectsNames().then(function (data) {
                                                 vm.projectsNames = data;
 
                                                 changeModal();
                                             });
-                                        },
-
-                                        function (err) {
+                                        }, function (err) {
                                             logger.error('New project has not been created.');
-                                        }
-                                    );
+                                        });
                                 }
                             }
                         }
@@ -83,6 +90,37 @@
                     controllerAs: 'vmModal'
                 }
             );
+        }
+
+        function setCustomContent(organization, outputBacklogList, outputWorkingList) {
+            var backlog, working, bLists, wLists, idOrganization = organization.id;
+
+            backlog = new ManageTrelloProject.Board('Backlog');
+            working = new ManageTrelloProject.Board('Working');
+
+            bLists = [];
+            wLists = [];
+            var newList;
+
+            for (var i = 0; i < outputBacklogList.length; i++) {
+                newList = new ManageTrelloProject.List(outputBacklogList[i].name);
+                newList.closed = !outputBacklogList[i].ticked;
+                bLists.push(newList);
+            }
+            for (i = 0; i < outputWorkingList.length; i++) {
+                newList = new ManageTrelloProject.List(outputWorkingList[i].name);
+                newList.closed = !outputWorkingList[i].ticked;
+                wLists.push(newList);
+            }
+            for (i = 0; i < bLists.length; i++) {
+                backlog.lists.push(bLists[i]);
+            }
+            for (i = 0; i < wLists.length; i++) {
+                working.lists.push(wLists[i]);
+            }
+
+            ManageTrelloProject.addBoard(backlog, idOrganization);
+            ManageTrelloProject.addBoard(working, idOrganization);
         }
     }
 })();

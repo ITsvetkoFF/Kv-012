@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('app.core')
@@ -15,7 +15,7 @@
             if (!angular.isArray(runs)) return [];
 
             var envFullProto = {
-                toString: function() {
+                toString: function () {
                     var result = '';
                     var keys = Object.keys(this);
                     for (var i = 0; i < keys.length; i++) {
@@ -26,8 +26,8 @@
             };
 
             for (var i = 0; i < runs.length; i++) {
-                runs[i].author.toString = function(type) {
-                    if (type === 'short') return this.last + ' ' + this.first.slice(0,1) + '.';
+                runs[i].author.toString = function (type) {
+                    if (type === 'short') return this.last + ' ' + this.first.slice(0, 1) + '.';
                     else return this.first + ' ' + this.last;
                 };
 
@@ -37,8 +37,7 @@
                         return moment(this.value).format('DD.MM.YY');
                     }
                 };
-
-                Object.setPrototypeOf(runs[i].envFull, envFullProto);
+                runs[i].envFull.__proto__ = envFullProto;  // jshint ignore:line
 
             }
 

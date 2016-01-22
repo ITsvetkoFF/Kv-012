@@ -13,9 +13,9 @@
         .module('app.admin')
         .factory('TeamMembersFactory', TeamMembersFactory);
 
-    TeamMembersFactory.$inject = ['Trello', 'logger'];
+    TeamMembersFactory.$inject = ['Trello', 'logger', '$q'];
 
-    function TeamMembersFactory(Trello, logger) {
+    function TeamMembersFactory(Trello, logger, $q) {
 
         var me = me || {};
 
@@ -140,17 +140,17 @@
          * @memberOf teamMembersFactory;
          */
         function getMe() {
-            Trello.rest('GET', 'members/me',
-                {
+            var deferred = $q.defer();
 
-                }, function(res) {
+            Trello.get('members/me').then(function(res) {
+                logger.info('', res, 'Hello ' + res.fullName);
+                me = res;
+                deferred.resolve(res);
+            }, function(err) {
+                logger.error('Error in getMe()', err, err.responseText);
+            });
 
-                    logger.info('', res, 'Hello ' + res.fullName);
-
-                    me = res;
-                }, function(err) {
-                    logger.error('Error in getMe()', err, err.responseText);
-                });
+            return deferred.promise;
         }
 
         return result;

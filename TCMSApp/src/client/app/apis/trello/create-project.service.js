@@ -5,9 +5,9 @@
         .module('app.trello')
         .factory('createProjectFactory', createProjectFactory);
 
-    createProjectFactory.$inject = ['Trello', 'logger', 'sidebarFactory', '$q', '$rootScope'];
+    createProjectFactory.$inject = ['Trello', 'logger', 'sidebarFactory', '$q', '$rootScope', 'ManageTrelloProject'];
     /* @ngInject */
-    function createProjectFactory(Trello, logger, sidebarFactory, $q, $rootScope) {
+    function createProjectFactory(Trello, logger, sidebarFactory, $q, $rootScope, ManageTrelloProject) {
 
         var current = {};
         var organizations = [];
@@ -17,7 +17,7 @@
             createProjAndOrg: createProjAndOrg
         };
 
-        function createProjAndOrg(Trello, projectName, projectDescription) {
+        function createProjAndOrg(Trello, projectName, projectDescription, createDefaultDashboards) {
 
             var deferred = $q.defer();
 
@@ -35,7 +35,6 @@
                             desc: projectDescription
 
                         }).then(
-
                             function (res) {
 
                                 logger.success('Project ' + projectName +
@@ -45,7 +44,7 @@
 
                                 sidebarFactory.addProject(projectName, projectDescription, trelloData);
 
-                                deferred.resolve();
+                                deferred.resolve(res);
 
                             },
 
@@ -56,14 +55,16 @@
                         );
                     }
                 },
-                function () {
+                function (err) {
                     logger.error('Cannot connect to Trello.', '', 'Error');
                     deferred.reject();
                 }
             );
 
             function sameProjectExists(res, projectName) {
-                return (res.filter(function(e) { return e.displayName === projectName; }).length > 0);
+                return (res.filter(function (e) {
+                    return e.displayName === projectName;
+                }).length > 0);
             }
 
             return deferred.promise;

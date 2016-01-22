@@ -22,7 +22,7 @@
             <div class="col-sm-12">
 
                 <!--add user form-->
-                <form class="form-inline" name="teamForm" ng-submit="vmTeam.addUser(teamForm.$valid);" novalidate>
+                <form class="form-inline" id="teamForm" name="teamForm" ng-submit="vmTeam.addUser(teamForm.$valid);" novalidate>
                     <div class="form-group">
                         <label for="new-member-name" hidden>Name</label>
                         <input
@@ -66,7 +66,7 @@
                     <button class="btn btn-primary" type="submit" ng-disabled="teamForm.$invalid"><i class="glyphicon glyphicon-plus"></i>
                         Add
                     </button>
-                    <button class="btn btn-primary" type="button" ng-click="vmTeam.getUsers(vmTeam.Trello, vmTeam.users, vmTeam.organization);"><i
+                    <button class="btn btn-primary" type="button" ng-click="vmTeam.getUsers(vmTeam.users);"><i
                         class="glyphicon glyphicon-refresh"></i>
                     </button>
 
@@ -110,7 +110,7 @@
                                 <a ng-href="{{user.url}}">{{user.url}}</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" ng-click="vmTeam.deleteUser(vmTeam.Trello, vmTeam.users, $index, vmTeam.organization);"><i
+                                <button type="button" class="btn btn-danger" ng-click="vmTeam.deleteUser(vmTeam.users, $index);"><i
                                     class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
