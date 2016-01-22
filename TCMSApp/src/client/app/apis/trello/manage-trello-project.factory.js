@@ -192,11 +192,9 @@
         function getWorkingInputLists() {
             return [
                 {name: 'To be tested', ticked: true},
-                {name: 'To Do', ticked: true},
-                {name: 'Doing', ticked: true},
+                {name: 'In progress', ticked: true},
                 {name: 'Ready to verify', ticked: false},
-                {name: 'Testing', ticked: false},
-                {name: 'Done', ticked: true}
+                {name: 'Already tested', ticked: true}
             ];
         }
 
