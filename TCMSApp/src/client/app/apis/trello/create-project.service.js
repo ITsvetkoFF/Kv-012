@@ -17,7 +17,7 @@
             createProjAndOrg: createProjAndOrg
         };
 
-        function createProjAndOrg(Trello, projectName, projectDescription) {
+        function createProjAndOrg(projectName, projectDescription) {
 
             var deferred = $q.defer();
 

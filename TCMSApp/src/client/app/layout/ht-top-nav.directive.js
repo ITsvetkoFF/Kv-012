@@ -19,12 +19,14 @@
             templateUrl: 'app/layout/ht-top-nav.html'
         };
 
-        TopNavController.$inject = ['$state'];
+        TopNavController.$inject = ['$rootScope', '$state', 'user'];
 
         /* @ngInject */
-        function TopNavController($state) {
+        function TopNavController($rootScope, $state, user) {
             var vm = this;
             vm.isCurrent = isCurrent;
+            vm.user = user;
+            vm.logOut = logOut;
 
             function isCurrent(route) {
                 if (!$state.current || !$state.current.title) {
@@ -32,6 +34,12 @@
                 }
                 var menuName = route;
                 return $state.current.title.substr(0, menuName.length) === menuName ? 'active' : '';
+            }
+
+            function logOut() {
+                user.deauthorize();
+                $rootScope.$broadcast('UserDeauthorized');
+                $state.go('index');
             }
 
         }
