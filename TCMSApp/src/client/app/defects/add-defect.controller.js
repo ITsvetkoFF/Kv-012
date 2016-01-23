@@ -73,7 +73,7 @@
                                     whoFind: vmDefectModal.whoFind,
                                     assignedTo: vmDefectModal.assignedTo,
                                     dateOfDefectCreation: vmDefectModal.dateOfDefectCreation,
-                                    priority: vmDefectModal.priority.toLowerCase(),
+                                    priority: vmDefectModal.priority,
                                     chooseFile: vmDefectModal.chooseFile,
                                     description: vmDefectModal.description,
                                     stepsToReproduce: vmDefectModal.stepsToReproduce,

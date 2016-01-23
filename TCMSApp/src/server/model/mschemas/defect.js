@@ -13,7 +13,7 @@ var defectSchema = new Schema({
         priority: {
             type: String,
             required: true,
-            enum: ['critical', 'low', 'high', 'normal']
+            enum: ['Critical', 'Low', 'High', 'Normal']
         },
         description: {type: String, required: true},
         stepsToReproduce: [String],

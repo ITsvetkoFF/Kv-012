@@ -16,13 +16,9 @@
                     </select>
 
                     <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                             <span class="input-group-btn">
-                                  <button class="btn btn-info" type="button"><span
-                                      class="glyphicon glyphicon-search"></span></button>
-                            </span>
-                        </div>
+                        <smart-filter type="defects"
+                                      fast-queries="['priority=High', 'priority=Low', 'priority=Normal', 'priority=Critical']">
+                        </smart-filter>
                         <!-- /input-group -->
                     </div>
                 </form>
@@ -62,7 +58,7 @@
 
                             </tr>
                             </thead>
-                            <tbody ng-repeat="defect in vmDefects.arrayDefects">
+                            <tbody ng-repeat="defect in vmDefects.arrayDefects|smartFilter:filterQuery:vmDefects.filterFields">
                             <tr ng-click="vmDefects.setCurrentDefect(defect)" ng-class="{'selected-row': vmDefects.currentDefect == defect}">
                                 <th>
                                     <input type="checkbox" ng-checked="vmDefects.toogledAll">

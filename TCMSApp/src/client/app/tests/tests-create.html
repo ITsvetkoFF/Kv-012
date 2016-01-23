@@ -37,7 +37,7 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <b>Created:</b>
-                  <input type="text" class="form-control" id="caseDate" 
+                  <input type="text" class="form-control" id="caseDate"
                   value="{{::vmCase.created | date:'MM/dd/yyyy' }}" disabled>
                 </div>
               </div>
@@ -56,7 +56,7 @@
                 <div class="form-group">
                   <b>Priority:</b>
                   <select class="form-control" ng-model="vmCase.casePriority">
-                    <option ng-repeat="option in vmCase.priority" value="{{option.id}}">
+                    <option ng-repeat="option in vmCase.priority" value="{{option.name}}">
                       {{option.name}}
                     </option>
                   </select>
