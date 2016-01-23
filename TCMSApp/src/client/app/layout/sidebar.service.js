@@ -44,7 +44,7 @@
             };
 
             $http.post('/api/v1/Projects', project).success(function(project) {
-                logger.success('Project ' + project.name + ' added to DB.');
+                console.log('Project ' + project.name + ' added to DB.');
             });
 
         }
