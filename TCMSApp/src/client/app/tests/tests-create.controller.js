@@ -5,9 +5,9 @@
         .module('app.tests')
         .controller('TestsCreateController', TestsCreateController);
 
-    TestsCreateController.$inject = ['logger', 'TestsService'];
+    TestsCreateController.$inject = ['logger', 'TestsService', '$timeout'];
     /* @ngInject */
-    function TestsCreateController(logger, TestsService) {
+    function TestsCreateController(logger, TestsService, $timeout) {
         var vm = this;
 
         activate();
@@ -53,7 +53,7 @@
         }
 
         function delStep($index) {
-            vm.steps.splice($index,1);
+            vm.steps.splice($index, 1);
         }
 
         function stepsEmpty() {
@@ -61,7 +61,9 @@
             var stepsLen = vm.steps.length;
             var empty = false;
             for (i = 0; i < stepsLen; i++) {
-                if (vm.steps[i].stepDescription === '' || vm.steps[i].expectedResult === '') {empty = true;}
+                if (vm.steps[i].stepDescription === '' || vm.steps[i].expectedResult === '') {
+                    empty = true;
+                }
             }
             return empty;
         }
@@ -91,6 +93,11 @@
 
             if ((event.ctrlKey && charCode === 13) || (event.ctrlKey && charCode === 10)) {
                 addStep();
+                $timeout(function () {
+                    var textareas = document.getElementsByTagName('textarea');
+                    var last = textareas[textareas.length - 2];
+                    last.focus();
+                }, 0);
             }
         }
 
