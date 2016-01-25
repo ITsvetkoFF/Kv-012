@@ -42,10 +42,15 @@
             <label for="testCase">Steps To Reproduce:</label>
         <textarea class="form-control" id="testCase" rows="2" ng-model="vmDefectModal.stepsToReproduce"></textarea>
             </div>
+            <div class="errorMessage">
+                * - required fields<br>
+                {{vmDefectModal.error}}
+            </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vmDefectModal.cancel()">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="vmDefectModal.post()">Post</button>
+                <button ng-disabled="!vmDefectModal.noActivePostDefect()" type="button" class="btn btn-primary"
+                        ng-click="vmDefectModal.post()">Post</button>
             </div>
     </script>
 </div>

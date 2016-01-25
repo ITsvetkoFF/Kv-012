@@ -81,12 +81,18 @@
                                 };
 
                                 var defectsInfo = $resource(apiUrl.defects, {}, {});
+                                var result = defectsInfo.save(sample).$promise.then(function success() {
+                                    vmDefectModal.error = 'Success.';
+                                    $uibModalInstance.close();
+                                    $state.go($stateParams.
+                                        previousState, $stateParams, {
+                                        reload: true, inherit: false,
+                                        notify: true
+                                    });
+                                }, function error(message) {
+                                    vmDefectModal.error = 'Error: ' + message.status + ' ' + message.statusText + '.';
+                                });
 
-                                defectsInfo.save(sample);
-                                // updateDefects();
-                                $uibModalInstance.close();
-                                $state.go($stateParams.previousState, $stateParams, {reload: true, inherit: false,
-                                    notify: true});
                             };
 
                             // prevent state changing without interraction with modal controlls
@@ -96,6 +102,19 @@
                                     event.preventDefault();
                                 }
                             });
+
+                            vmDefectModal.noActivePostDefect = function () {
+                                if (vmDefectModal.description !== undefined &&
+                                    vmDefectModal.bugName !== undefined &&
+                                    vmDefectModal.description.length !== 0 &&
+                                    vmDefectModal.bugName.length !== 0) {
+                                    return true;
+                                }
+                                else {
+
+                                    return false;
+                                }
+                            };
                         },
                         controllerAs: 'vmDefectModal',
                         backdrop: 'static'
