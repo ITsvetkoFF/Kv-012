@@ -11,7 +11,8 @@
                     <a class="btn btn-default fa fa-pause"></a>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default tabsNotSelected"  ui-sref="runs-edit({run: vmRunsExecute.run})">
+                        <button type="button" class="btn btn-default tabsNotSelected"
+                                ui-sref="runs-edit({id: vmRunsExecute.run._id, run: vmRunsExecute.run})">
                             Edit</button>
                         <button type="button" class="btn btn-default tabsSelected"  ui-sref="runs-execute()" >Run</button>
                     </div>
@@ -51,11 +52,13 @@
                             </div>
                             <b>Suites&Tests</b>
                             <ul ng-repeat="suite in vmRunsExecute.suites">
-                                <li  ng-click="vmRunsExecute.selectedSuite = vmRunsExecute.suites[$index]" ng-bind="::suite">
+                                <li  ng-click="vmRunsExecute.selectedSuite = vmRunsExecute.suites[$index];
+                                 vmRunsExecute.checkoutAllSteps = false" ng-bind="::suite">
                                 </li>
                                 <div ng-if="vmRunsExecute.selectedSuite === vmRunsExecute.suites[$index]">
                                 <ul ng-repeat="test in vmRunsExecute.run.tests">
-                                    <li  ng-if="vmRunsExecute.selectedSuite === test.suite" ng-bind="::test.name" ng-click="vmRunsExecute.selectedTest = test"></li>
+                                    <li  ng-if="vmRunsExecute.selectedSuite === test.suite" ng-bind="::test.name" ng-click="vmRunsExecute.selectedTest = test;
+                                 vmRunsExecute.checkoutAllSteps = false"></li>
                                 </ul>
                                 </div>
                             </ul>
