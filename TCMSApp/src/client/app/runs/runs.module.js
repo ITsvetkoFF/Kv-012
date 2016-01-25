@@ -3,7 +3,8 @@
 
     angular.module('app.runs', [
         'app.core',
-        'app.widgets'
+        'app.widgets',
+        'ngResource'
       ]);
 
 })();

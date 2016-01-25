@@ -12,21 +12,33 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper', 'filterFields'];
+    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper',
+        'filterFields', 'RunsApiService', 'moment'];
 
-    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields) {
+    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment) {
 
         var vm = this;
-        vm.runs = dataWrapper.wrapRuns(fakeRuns(100, 10, 3));
-        vm.selectRun = selectRun;
-        vm.selectedRuns = [];
-        vm.selectedRun = (vm.runs.length === 0 ? null : vm.runs[0]);
-        vm.progress = getProgress();
-        vm.runCheckBoxClick = runCheckBoxClick;
-        vm.testClusters = clusterizeTests();
-        vm.filterFields = filterFields.runs.getFields();
+        RunsApiService.query().$promise.then(processData);
 
-        activate();
+        function processData(result) {
+
+            if (result.length === 0) {
+                result = fakeRuns(100, 10, 3);
+                result.forEach(function (data) { RunsApiService.save(data);});
+
+            }
+
+            vm.runs = result;
+            vm.selectRun = selectRun;
+            vm.selectedRuns = [];
+            vm.selectedRun = (vm.runs.length === 0 ? null : vm.runs[0]);
+            vm.progress = getProgress();
+            vm.runCheckBoxClick = runCheckBoxClick;
+            vm.testClusters = clusterizeTests();
+            vm.filterFields = filterFields.runs.getFields();
+
+            activate();
+        }
 
         /**
          * Activates logger notification
@@ -111,5 +123,6 @@
             return clusters;
 
         }
+
     }
 })();

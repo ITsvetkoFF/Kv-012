@@ -5,17 +5,38 @@
         .module('app.runsExec')
         .controller('RunsExecuteController', RunsExecuteController);
 
-    RunsExecuteController.$inject = ['$stateParams','logger','moment'];
+    RunsExecuteController.$inject = ['$stateParams', '$state', 'logger','moment','RunsApiService'];
 
-    function RunsExecuteController($stateParams) {
+    function RunsExecuteController($stateParams, $state, logger, moment,  RunsApiService) {
 
         var vm = this;
-        //TODO: change this temporary solution of exchanging run data between edit and run tabs
-        vm.run = JSON.parse(JSON.stringify($stateParams.run));//creating of the deep copy
-        vm.progress = getProgress();
-        vm.suites = getSuites();
-        vm.selectedSuite = vm.suites[0];
-        vm.selectedTest = vm.run.tests[0];
+
+        activate();
+
+        function activate() {
+
+            if ($stateParams.run === undefined) {
+                RunsApiService.get({id: $stateParams.id}).$promise.then(processData, processError);
+            }
+            else
+            {
+                processData($stateParams.run);
+            }
+
+        }
+
+        function processError(error) {
+            $state.go('runs/list');
+        }
+
+        function processData(result) {
+            //TODO: change this temporary solution of exchanging run data between edit and run tabs
+            vm.run = JSON.parse(JSON.stringify(result));//creating of the deep copy
+            vm.progress = getProgress();
+            vm.suites = getSuites();
+            vm.selectedSuite = vm.suites[0];
+            vm.selectedTest = vm.run.tests[0];
+        }
 
         function getProgress() {
 
