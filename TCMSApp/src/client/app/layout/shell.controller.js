@@ -9,8 +9,6 @@
     /* @ngInject */
     function ShellController($rootScope, $timeout, config, logger, $scope, user) {
         var vm = this;
-        vm.busyMessage = 'Please wait ...';
-        vm.isBusy = true;
         $rootScope.showSplash = true;
         vm.navline = {
             title: config.appTitle,
@@ -27,6 +25,13 @@
         $scope.$on('UserDeauthorized', function() {
             vm.showBars = false;
         });
+
+        vm.sidebar = {
+            visible: true,
+            sidebarToggle: function(visible) {
+                this.visible = !visible;
+            }
+        };
 
         activate();
 

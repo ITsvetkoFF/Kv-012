@@ -1,11 +1,10 @@
-<div ng-controller="SidebarController as vmSidebar">
-    <ht-sidebar when-done-animating="vmSidebar.sidebarReady()">
-        <div class="sidebar-filler"></div>
-        <div class="sidebar-dropdown"><a href="#">Menu</a></div>
-        <div class="sidebar-inner">
+<div class="sidebar" ng-show="vmSidebar.sidebar.visible">
+    <div class="sidebar-inner">
+        <img src="../images/busy.gif" ng-if="!vmSidebar.synchronized"/>
+        <div  ng-if="vmSidebar.synchronized">
             <ul class="navi">
-                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames track by $index | orderBy:'-'" >
-                    <a ng-click="vmSidebar.setCurrentProject(projectName)"> {{projectName}} </a>
+                <li class="nlightblue fade-selection-animation" ng-repeat="project in vmSidebar.projects track by project.id " >
+                    <a href="project.id"> {{project.name}} </a>
                 </li>
             </ul>
             <div class="container-fluid" style="margin-top: 15px;">
@@ -17,5 +16,5 @@
                 </div>
             </div>
         </div>
-    </ht-sidebar>
+    </div>
 </div>

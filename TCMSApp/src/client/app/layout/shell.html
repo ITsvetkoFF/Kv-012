@@ -1,9 +1,10 @@
 <div ng-controller="ShellController as vmShell">
-    <ht-top-nav navline="vmShell.navline" ng-if="vmShell.showBars"></ht-top-nav>
 
-    <div ng-include="'app/layout/sidebar.html'" ng-if="vmShell.showBars"></div>
+    <ht-top-nav sidebar="vmShell.sidebar"  navline="vmShell.navline"></ht-top-nav>
 
-    <section id="content" class="content">
+    <ht-sidebar sidebar="vmShell.sidebar"></ht-sidebar>
+
+    <section id="content" class="content" ng-class="{'sidebar-visible': vmShell.sidebar.visible}">
 
         <div ui-view class="shuffle-animation"></div>
 

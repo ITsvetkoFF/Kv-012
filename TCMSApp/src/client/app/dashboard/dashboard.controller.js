@@ -1,3 +1,10 @@
+/**
+ * @ngdoc controller
+ * @name dashboardController
+ * @memberOf app.dashboard
+ * @description Controls dashboard view logic
+ */
+
 (function () {
     'use strict';
 
@@ -10,39 +17,13 @@
 
     function DashboardController($q, dataservice, logger, user, $state) {
         var vm = this;
-        vm.news = {
-            title: 'TCMSApp',
-            description: 'Hot Towel Angular is a SPA template for Angular developers.'
-        };
-        vm.messageCount = 0;
-        vm.people = [];
-        vm.title = 'Dashboard';
 
         activate();
 
         function activate() {
-            if (!user.authorized) {
-                $state.go('index');
-            }
-            var promises = [getMessageCount(), getPeople()];
 
-            return $q.all(promises).then(function() {
-                logger.info('Activated Dashboard View');
-            });
-        }
+            logger.info('Activated Dashboard View');
 
-        function getMessageCount() {
-            return dataservice.getMessageCount().then(function (data) {
-                vm.messageCount = data;
-                return vm.messageCount;
-            });
-        }
-
-        function getPeople() {
-            return dataservice.getPeople().then(function (data) {
-                vm.people = data;
-                return vm.people;
-            });
         }
 
     }

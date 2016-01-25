@@ -52,7 +52,7 @@
                 expiration: 'never',
                 success: function() {
                     if (Trello.authorized()) {
-                        $rootScope.$broadcast('UserAuthorized');
+                        $rootScope.$broadcast('TrelloUserAuthorized');
                     }
                 }
             });
