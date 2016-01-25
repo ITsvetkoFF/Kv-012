@@ -41,12 +41,12 @@ describe('Tests Create Controller', function () {
                 controller.addStep();
                 controller.addStep();
                 var steps = controller.steps.length;
-                controller.delStep();
+                controller.delStep(steps - 1);
                 var newSteps = controller.steps.length;
                 expect(steps - 1).to.equal(newSteps);
             });
 
-            it('should check is steps are empty', function () {
+            it('should check are steps empty', function () {
                 controller.addStep();
                 expect(controller.stepsEmpty()).to.equal(true);
             });
