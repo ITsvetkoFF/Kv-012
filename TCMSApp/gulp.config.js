@@ -157,7 +157,8 @@ module.exports = function() {
                 clientApp + '**/*.js',
                 clientApp + '**/*.html',
                 temp + config.templateCache.file,
-                config.serverIntegrationSpecs
+                config.serverIntegrationSpecs,
+                './bower_components/jquery/dist/jquery.js'
             ),
             exclude: [],
             coverage: {
