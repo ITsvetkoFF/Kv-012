@@ -5,9 +5,9 @@
         .module('app.admin')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'authservice'];
+    ProjectController.$inject = ['logger', 'ManageTrelloProject', 'user', '$state'];
 
-    function ProjectController(logger, ManageTrelloProject, authservice) {
+    function ProjectController(logger, ManageTrelloProject, user, $state) {
 
         var vmProject = this;
         vmProject.hasSprints = true;
@@ -46,8 +46,10 @@
         }
 
         function activate() {
+            if (!user.authorized) {
+                $state.go('index');
+            }
             logger.info('Manage project view activated');
-            authservice.authorize();
             refreshBoards();
         }
 

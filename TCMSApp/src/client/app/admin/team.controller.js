@@ -14,10 +14,10 @@
         .controller('TeamController', TeamController);
 
     TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q',
-        'createProjectFactory', 'authservice', 'Trello', '$http'];
+        'createProjectFactory', 'user', 'Trello', '$http', '$state'];
 
-    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice,
-                            Trello, $http) {
+    function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, user,
+                            Trello, $http, $state) {
 
         var vmTeam = this;
         vmTeam.users = [];
@@ -32,8 +32,10 @@
          * @memberOf teamController
          */
         function activate() {
+            if (!user.authorized) {
+                $state.go('index');
+            }
             logger.info('Activated Team view', '', 'Team Info');
-            authservice.authorize();
             TrelloTeamFactory.getUsers(vmTeam.users);
             setDefaultInput();
         }
