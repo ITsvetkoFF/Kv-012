@@ -4,7 +4,7 @@ describe('manage-trello-project factory', function () {
 
     beforeEach(function () {
         bard.appModule('app.trello');
-        bard.inject('ManageTrelloProject');
+        bard.inject('ManageTrelloProject', 'Trello');
     });
 
     describe('trello instances creation', function () {
@@ -77,6 +77,27 @@ describe('manage-trello-project factory', function () {
 
             it('should create Label.color with length = 0', function () {
                 label2.color.should.equals('green');
+            });
+        });
+
+        describe('work with lists', function () {
+
+            it('should return array with same items for Backlog', function () {
+                var lists = ManageTrelloProject.getBacklogLists();
+                lists.map(function (list) {
+                    expect(list).to.have.property('icon');
+                    expect(list).to.have.property('name');
+                    expect(list).to.have.property('ticked');
+                });
+            });
+
+            it('should return array with same items for Working', function () {
+                var lists = ManageTrelloProject.getWorkingLists();
+                lists.map(function (list) {
+                    expect(list).to.have.property('icon');
+                    expect(list).to.have.property('name');
+                    expect(list).to.have.property('ticked');
+                });
             });
         });
     });

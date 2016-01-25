@@ -187,7 +187,6 @@
                     }
                 });
             });
-            //model.outputLists = model.inputLists;
         }
 
         function getBacklogInputLists() {

@@ -5,18 +5,15 @@
         .module('app.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['logger', 'user', '$state'];
+    AdminController.$inject = ['logger'];
     /* @ngInject */
-    function AdminController(logger, user, $state) {
+    function AdminController(logger) {
         var vm = this;
         vm.title = 'Admin';
 
         activate();
 
         function activate() {
-            if (!user.authorized) {
-                $state.go('index');
-            }
             logger.info('Activated Admin View');
         }
     }
