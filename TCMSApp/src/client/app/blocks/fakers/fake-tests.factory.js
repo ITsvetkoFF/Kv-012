@@ -113,13 +113,14 @@
 
                     // Test case creating
                     var testCase = {};
+                    var priorities = ['Critical', 'High', 'Normal', 'Low'];
 
                     testCase._id = 1 + i;
                     testCase.testName = faker.lorem.sentence(2, 1);
                     testCase.testDescription = faker.lorem.sentence(4, 30);
                     testCase.automated = faker.random.boolean();
                     testCase.preConditions = faker.lorem.sentence(5, 20);
-                    testCase.casePriority = Math.floor(Math.random() * 4);
+                    testCase.casePriority = priorities[faker.random.number(priorities.length - 1)];
                     testCase.issues = Math.floor(Math.random() * (7 - 1 + 1)) + 1;
                     testCase.created = faker.date.past();
                     testCase.creator = faker.name.lastName();

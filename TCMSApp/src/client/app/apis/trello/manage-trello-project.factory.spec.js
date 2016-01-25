@@ -82,10 +82,10 @@ describe('manage-trello-project factory', function () {
     });
 
     describe('trello functions', function () {
-        var Trello, jQuery = {};
+        var jQuery = {};
 
         beforeEach(function () {
-            Trello = (function () {
+            (function () {
                 var opts = {
                     "version": 1,
                     "apiEndpoint": "https://api.trello.com",

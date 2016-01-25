@@ -35,10 +35,10 @@
                             desc: projectDescription
 
                         }).then(
+
                             function (res) {
 
-                                logger.success('Project ' + projectName +
-                                    ' created. Description: ' + projectDescription, '', 'Project created');
+                                logger.success(projectName + ' created', '', 'Project created');
 
                                 trelloData.trelloOrganizationId = res.id;
 

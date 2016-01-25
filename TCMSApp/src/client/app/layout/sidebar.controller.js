@@ -18,7 +18,7 @@
         sidebarFactory.findProjectsNames().then(function (data) {
             vm.projectsNames = data;
             if (data.length === 0) {
-                logger.error('Create the first project to start');
+                logger.warning('Create the first project to start');
             } //else {TODO: here we will request current project from user object}
         });
 

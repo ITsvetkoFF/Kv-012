@@ -56,6 +56,23 @@ switch (environment){
         // Any deep link calls should return index.html
         app.use('/*', express.static('./build/index.html'));
         break;
+    case 'test':
+        console.log('** TEST **');
+        // Connect to local MongoDB
+        mongoose.connect('mongodb://localhost/TCMSdb-test', function(err) {
+            if (err) console.log('\x1b[41m', 'Connection failed ' + err,'\x1b[0m');
+        });
+
+        app.use(express.static('./src/client/'));
+        app.use(express.static('./'));
+        app.use(express.static('./tmp'));
+        // Any invalid calls for templateUrls are under app/* and should return 404
+        app.use('/app/*', function(req, res, next) {
+            four0four.send404(req, res);
+        });
+        // Any deep link calls should return index.html
+        app.use('/*', express.static('./src/client/index.html'));
+        break;
     default:
         console.log('** DEV **');
         // Connect to local MongoDB

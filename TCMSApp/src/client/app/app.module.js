@@ -11,6 +11,7 @@
         'app.defects',
         'app.reports',
         'app.layout',
+        'app.landing',
         'app.apis',
         'app.runsExec'
     ]);

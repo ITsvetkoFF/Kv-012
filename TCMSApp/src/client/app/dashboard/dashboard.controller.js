@@ -5,10 +5,10 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$q', 'dataservice', 'logger'];
+    DashboardController.$inject = ['$q', 'dataservice', 'logger', 'user', '$state'];
     /* @ngInject */
 
-    function DashboardController($q, dataservice, logger) {
+    function DashboardController($q, dataservice, logger, user, $state) {
         var vm = this;
         vm.news = {
             title: 'TCMSApp',
@@ -21,6 +21,9 @@
         activate();
 
         function activate() {
+            if (!user.authorized) {
+                $state.go('index');
+            }
             var promises = [getMessageCount(), getPeople()];
 
             return $q.all(promises).then(function() {
