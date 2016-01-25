@@ -4,7 +4,7 @@ describe('manage-trello-project factory', function() {
 
     beforeEach(function() {
         bard.appModule('app.trello');
-        bard.inject('ManageTrelloProject');
+        bard.inject('ManageTrelloProject', '$httpBackend');
     });
 
     describe('trello instances creation', function() {
@@ -76,7 +76,7 @@ describe('manage-trello-project factory', function() {
             });
 
             it('should create Label.color with length = 0', function() {
-                expect(label2.color).to.equals('green');
+                label2.color.should.equals('green');
             });
         });
     });
