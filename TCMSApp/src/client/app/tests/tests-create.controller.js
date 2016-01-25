@@ -22,7 +22,6 @@
         vm.sprint = TestsService.getSprint();
         vm.steps = [];
         addStep();
-        addStep();
 
         // date
         var created = new Date();
@@ -37,6 +36,7 @@
         vm.caseCategory = '10';
         vm.creator = 'John Doe';
         vm.caseSprint = vm.sprint[vm.sprint.length - 1].toString();
+        vm.onCrtlEnterPress = onCrtlEnterPress;
 
         function activate() {
             logger.info('Activated New Case View');
@@ -84,6 +84,14 @@
             TestsService.setCurrentSuite(vm.currentSuite);
             logger.success('New Case created');
 
+        }
+
+        function onCrtlEnterPress(event) {
+            var charCode = (event.keyCode) ? event.keyCode : event.charCode;
+
+            if ((event.ctrlKey && charCode === 13) || (event.ctrlKey && charCode === 10)) {
+                addStep();
+            }
         }
 
     }
