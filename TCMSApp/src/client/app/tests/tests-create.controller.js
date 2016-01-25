@@ -12,6 +12,7 @@
 
         activate();
 
+        vm.title = 'Create Test Case';
         vm.addStep = addStep;
         vm.delStep = delStep;
         vm.stepsEmpty = stepsEmpty;
