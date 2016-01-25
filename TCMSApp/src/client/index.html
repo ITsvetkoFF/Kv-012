@@ -15,16 +15,20 @@
     <!-- build:css styles/lib.css -->
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
     <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-    <link rel="stylesheet" href="/bower_components/bootstrap-css-only/css/bootstrap.css" />
+    <link rel='stylesheet' href='/bower_components/angular-toastr/dist/angular-toastr.css' />
+    <link rel='stylesheet' href='/bower_components/bootstrap-css-only/css/bootstrap.css' />
     <!-- endbower -->
     <!-- endbuild -->
+
+    <!--TODO: add fonts to less-->
+    <link rel='stylesheet' href='styles/landing-styles.css' />
 
     <!-- build:css styles/app.css -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/.tmp/styles.css">
     <!-- endinject -->
     <!-- endbuild -->
+
 </head>
 <body>
     <div ng-include="'app/layout/shell.html'"></div>
@@ -71,6 +75,7 @@
     <script src="/src/client/app/core/core.module.js"></script>
     <script src="/src/client/app/dashboard/dashboard.module.js"></script>
     <script src="/src/client/app/defects/defects.module.js"></script>
+    <script src="/src/client/app/landing/landing.module.js"></script>
     <script src="/src/client/app/layout/layout.module.js"></script>
     <script src="/src/client/app/reports/reports.module.js"></script>
     <script src="/src/client/app/runs/runs-exec/runs-exec.module.js"></script>
@@ -84,6 +89,7 @@
     <script src="/src/client/app/apis/trello/auth.service.js"></script>
     <script src="/src/client/app/apis/trello/create-project.service.js"></script>
     <script src="/src/client/app/apis/trello/team.factory.js"></script>
+    <script src="/src/client/app/apis/trello/user-trello.factory.js"></script>
     <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
     <script src="/src/client/app/blocks/exception/exception.js"></script>
     <script src="/src/client/app/blocks/fakers/fake-defects.factory.js"></script>
@@ -101,11 +107,14 @@
     <script src="/src/client/app/core/smart-filter.constants.js"></script>
     <script src="/src/client/app/core/smart-filter.directive.js"></script>
     <script src="/src/client/app/core/smart-filter.filter.js"></script>
+    <script src="/src/client/app/core/user.factory.js"></script>
     <script src="/src/client/app/dashboard/dashboard.controller.js"></script>
     <script src="/src/client/app/dashboard/dashboard.route.js"></script>
     <script src="/src/client/app/defects/add-defect.controller.js"></script>
     <script src="/src/client/app/defects/defects.controller.js"></script>
     <script src="/src/client/app/defects/defects.route.js"></script>
+    <script src="/src/client/app/landing/landing.controller.js"></script>
+    <script src="/src/client/app/landing/landing.route.js"></script>
     <script src="/src/client/app/layout/ht-sidebar.directive.js"></script>
     <script src="/src/client/app/layout/ht-top-nav.directive.js"></script>
     <script src="/src/client/app/layout/shell.controller.js"></script>
@@ -130,6 +139,5 @@
     <!-- inject:templates:js -->
     <!-- endinject -->
     <!-- endbuild -->
-
 </body>
 </html>

@@ -20,7 +20,7 @@
 @color_siderbar_inner: #f5f5f5;
 @border-width: 1px;
 @border-style: solid;
-@main-font: "Segoe UI", Arial, Helvetica, sans-serif;
+@main-font: 'open_sansregular', Arial, Helvetica, sans-serif;
 @main-font-size: 13px;
 @block: block;
 
@@ -31,6 +31,8 @@
     -o-transition: @arguments;
     transition: @arguments;
 }
+
+
 
 * {
     /*-webkit-box-shadow: none !important;
@@ -330,3 +332,73 @@ a.fa:hover {
 .tabsNotSelected{
     background-color: @color_white;
 }
+
+//---------landing styles---------//
+
+.wrapper-first {
+    background-size: cover;
+    background-image: url("../images/home.jpg");
+    min-height: 100%;
+    margin-top: -5px;
+}
+
+.wrapper-second {
+    background-image: url("../images/about.jpg");
+    color: #363030;
+    min-height: 100%;
+    background-size: cover;
+}
+
+.wrapper-third {
+    background-image: url("../images/contact.jpg");
+    background-size: cover;
+    min-height: 100%;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    color: #000;
+}
+
+footer {
+    background-color: #1b1b1b;
+    color: grey;
+    padding: 10px;
+    height:50px;
+}
+
+.jumbotron {
+    background: none;
+    color: #fff;
+}
+
+.aside {
+    padding: 50px;
+    list-style-type: none;
+    color: #2b669a;
+    margin-right: -20px;
+
+}
+.aside p {
+    color: #000;
+}
+
+.aside li {
+    padding-bottom: 10px;
+}
+.about {
+    padding: 50px;
+}
+
+
+header {
+    font-size: 120%;
+}
+
+iframe {
+    width: 100%;
+}
+
+//---------end landing styles---------//

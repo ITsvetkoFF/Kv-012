@@ -17,7 +17,7 @@
             createProjAndOrg: createProjAndOrg
         };
 
-        function createProjAndOrg(Trello, projectName, projectDescription) {
+        function createProjAndOrg(projectName, projectDescription) {
 
             var deferred = $q.defer();
 
@@ -38,8 +38,7 @@
 
                             function (res) {
 
-                                logger.success('Project ' + projectName +
-                                    ' created. Description: ' + projectDescription, '', 'Project created');
+                                logger.success(projectName + ' created', '', 'Project created');
 
                                 trelloData.trelloOrganizationId = res.id;
 

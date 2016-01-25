@@ -1,7 +1,7 @@
 <div ng-controller="ShellController as vmShell">
-    <ht-top-nav navline="vmShell.navline"></ht-top-nav>
+    <ht-top-nav navline="vmShell.navline" ng-if="vmShell.showBars"></ht-top-nav>
 
-    <div ng-include="'app/layout/sidebar.html'"></div>
+    <div ng-include="'app/layout/sidebar.html'" ng-if="vmShell.showBars"></div>
 
     <section id="content" class="content">
 
