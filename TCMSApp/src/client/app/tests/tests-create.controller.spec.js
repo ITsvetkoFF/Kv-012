@@ -46,7 +46,7 @@ describe('Tests Create Controller', function () {
                 expect(steps - 1).to.equal(newSteps);
             });
 
-            it('should check are steps empty', function () {
+            it('should check if steps are empty', function () {
                 controller.addStep();
                 expect(controller.stepsEmpty()).to.equal(true);
             });
