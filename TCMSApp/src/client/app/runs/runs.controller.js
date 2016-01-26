@@ -18,26 +18,36 @@
     function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment) {
 
         var vm = this;
-        RunsApiService.query().$promise.then(processData);
+        vm.deleteSelectedRuns = deleteSelectedRuns;
+        vm.selectedRuns = [];
+        vm.runCheckBoxClick = runCheckBoxClick;
+        vm.refreshView = refreshView;
+        vm.processData = processData;
+
+        refreshView();
 
         function processData(result) {
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
-                result.forEach(function (data) { RunsApiService.save(data);});
+                result.forEach(function (data) {
+                    RunsApiService.save(data);
+                });
 
             }
 
             vm.runs = result;
             vm.selectRun = selectRun;
-            vm.selectedRuns = [];
             vm.selectedRun = (vm.runs.length === 0 ? null : vm.runs[0]);
             vm.progress = getProgress();
-            vm.runCheckBoxClick = runCheckBoxClick;
             vm.testClusters = clusterizeTests();
             vm.filterFields = filterFields.runs.getFields();
 
             activate();
+        }
+
+        function refreshView() {
+            RunsApiService.query().$promise.then(processData);
         }
 
         /**
@@ -108,7 +118,7 @@
 
             if (tests.length === 0) return [];
 
-            tests = tests.sort(function(a, b) {
+            tests = tests.sort(function (a, b) {
                 return (a.suite <= b.suite ? 0 : 1);
             });
             var clusters = [[tests[0]]];
@@ -124,5 +134,20 @@
 
         }
 
+        function deleteSelectedRuns() {
+            var length = vm.selectedRuns.length;
+            for (var i = 0; i < length; i++) {
+                RunsApiService.remove({id: vm.runs[vm.selectedRuns[i]]._id}).$promise.then(function() {
+                    refreshView();
+                }, function(err) {
+                    refreshView();
+                });
+                vm.runs.splice(vm.selectedRuns[i], 1);
+                for (var j = i + 1; j < length; j++) {
+                    vm.selectedRuns[j]--;
+                }
+            }
+            vm.selectedRuns.length = 0;
+        }
     }
 })();

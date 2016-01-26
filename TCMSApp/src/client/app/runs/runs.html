@@ -28,11 +28,25 @@
                 <div class="col-sm-8" ng-if="vmRuns.runs.length !== 0">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            Current runs
-                            <span class="pull-right" ng-show="vmRuns.selectedRuns.length > 0">
-                                <span class="glyphicon glyphicon-inbox"></span>
-                                archive
-                            </span>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6">
+                                    Current runs
+                                </div>
+                                <div class="col-xs-6 col-sm-6">
+                                    <span class="pull-right" ng-if="vmRuns.selectedRuns.length > 0" style="margin-right: 10px;">
+                                        <i class="glyphicon glyphicon-inbox"></i>
+                                        Archive
+                                    </span>
+                                    <span
+                                        class="pull-right"
+                                        ng-if="vmRuns.selectedRuns.length > 0"
+                                        style="margin-right: 10px;"
+                                        ng-click="vmRuns.deleteSelectedRuns()">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        Delete
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <table class="table">
                             <thead>
