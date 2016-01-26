@@ -19,7 +19,7 @@ var runSchema = new Schema({
         },
         previousRunId: mongoose.Schema.Types.ObjectId,
         dateStart: {type: Date, required: true},
-        dateEnd: {type: Date, required: true},
+        dateEnd: {type: Date},
         build: Number,
         envShort: String,
         envFull: {},
@@ -35,33 +35,24 @@ var runSchema = new Schema({
         },
         //the
         tests: [{
-            testName: {type: String, required: true},
-            testDescription: {type: String, required: true},
+            name: {type: String, required: true},
+            testDescription: {type: String},
             automated: Boolean,
-            preConditions: {type: String, required: true},
+            preConditions: {type: String},
+            suite: String,
             steps: [{
-                stepNumber: Number,
-                stepDescription: {type: String, required: true},
-                expectedResult: {type: String, required: true},
+                number: Number,
+                action: {type: String, required: true},
+                expected: {type: String, required: true},
 
                 status: {
                     type: String,
-                    validate: {
-                        validator: function (v) {
-                            return /passed, blocked, failed/.test(v);
-                        },
-                        message: '{VALUE} is not valid status!'
-                    }
+                    enum:['passed','blocked', 'failed']
                 }
             }],
             status: {
                 type: String,
-                validate: {
-                    validator: function (v) {
-                        return /passed|executing|failed/.test(v);
-                    },
-                    message: '{VALUE} is not valid status!'
-                }
+                enum:['passed','blocked', 'failed']
             }
         }]
     });

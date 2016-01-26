@@ -1,6 +1,6 @@
 <section class="mainbar">
     <div class="matter">
-        <div class="container">
+        <div class="container-fluid">
             <div class="clearfix">
                 <h1>
                     Runs
@@ -66,11 +66,11 @@
                                 <th>
                                     <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
                                 </th>
-                                <td ng-bind="::runItem.date.toString()"></td>
+                                <td ng-bind="::runItem.dateStart|date : 'shortDate'"></td>
                                 <td ng-bind="::runItem.name"></td>
                                 <td ng-bind="::runItem.build"></td>
                                 <td ng-bind="::runItem.envShort"></td>
-                                <td ng-bind="::runItem.author.toString('short')"></td>
+                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}</td>
                                 <td>
                                     <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
                                           ng-bind="::runItem.status.toUpperCase()"></span>
@@ -85,7 +85,7 @@
                         <div class="panel-heading">
                             &nbsp;
                             <span class="pull-right">
-                                <span ui-sref="runs-execute({run: vmRuns.selectedRun})">
+                                <span ui-sref="runs-execute({id:vmRuns.selectedRun._id, run: vmRuns.selectedRun})">
                                     <span class="glyphicon glyphicon-duplicate"></span>
                                     copy&run &nbsp;
                                 </span>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div>
-                                <b>Author: </b>{{::vmRuns.selectedRun.author.toString()}}
+                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
                             </div>
                             <b>Environment details:</b>
                             <div>
@@ -120,7 +120,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Status</span></th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody ng-repeat="cluster in vmRuns.testClusters">

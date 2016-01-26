@@ -23,7 +23,7 @@
          * Generate specified number of fake run objects
          * ```
          * {
-          *    "_id": "int",
+          *
           *    "previousRunId": "int",
           *    "date": "date",
           *    "build": "string",
@@ -31,7 +31,7 @@
           *    "envFull": "string",
           *    "status": "string: ['passed', 'failed', 'not run']",
           *    "tests": [{
-          *        "_id": "int",
+          *
           *        "status": "string: ['passed', 'failed', 'not run']",
           *        "name": 'string',
           *        "suite": 'string',
@@ -109,7 +109,6 @@
                 while (++i < quantity) {
                     steps = getSteps(faker.random.number({max: stepsMaxCount, min: 1}));
                     var test = {
-                        _id: faker.random.number(1000),
                         status: checkStatus(steps),
                         name: faker.lorem.sentence(2, 3).slice(0, -1),
                         suite: suites[faker.random.number(suites.length - 1)],
@@ -137,13 +136,11 @@
                 };
                 var tests = getTests(faker.random.number({max: testsMaxCount, min: 1}));
                 var run = {
-                    _id: faker.random.number(1000000),
-                    previousRunId: faker.random.number(1000000),
-                    date: faker.date.past(),
+                    dateStart: faker.date.past(),
                     build: faker.random.number(1000),
                     author: {
-                        'first': faker.name.firstName(),
-                        'last': faker.name.lastName()
+                        'firstName': faker.name.firstName(),
+                        'lastName': faker.name.lastName()
                     },
                     envShort: OSShort[env['OS']] + '/' + browsersShort[env['Browser']],
                     envFull: {

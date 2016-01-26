@@ -16,15 +16,15 @@
             {
                 state: 'runs-edit',
                 config: {
-                    url: '/runs/edit',
+                    url: '/runs/:id/edit',
                     templateUrl: 'app/runs/runs-exec/runs-edit.html',
                     controller: 'RunsEditController',
                     controllerAs: 'vmRunsEdit',
                     title: 'Edit Test Run',
                     params: {
                         run: {
-                            value: {},
-                            squash: false
+                            value: undefined,
+                            squash: false//the paraneter won't be shown in the url
                         }
                     }
                 }
@@ -32,15 +32,15 @@
             {
                 state: 'runs-execute',
                 config: {
-                    url: '/runs/execute',
+                    url: '/runs/:id/execute',
                     templateUrl: 'app/runs/runs-exec/runs-execute.html',
                     controller: 'RunsExecuteController',
                     controllerAs: 'vmRunsExecute',
                     title: 'Execute Test Run',
                     params: {
                         run: {
-                            value: {},
-                            squash: false
+                            value: undefined,
+                            squash: false//the paraneter won't be shown in the url
                         }
                     }
                 }
