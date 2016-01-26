@@ -5,12 +5,24 @@ describe('Tests Create Controller', function () {
 
     beforeEach(function () {
         bard.appModule('app.tests');
-        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice');
+        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice', 'TestsService');
     });
 
     beforeEach(function () {
         var scope = {};
         controller = $controller('TestsCreateController', {$scope: scope});
+        sinon.stub(TestsService, 'getCurrentSuite', function () {
+            return 1;
+        });
+        sinon.stub(TestsService, 'getCategory', function () {
+            return 'Acceptance';
+        });
+        sinon.stub(TestsService, 'getPriority', function () {
+            return 'Critical';
+        });
+        sinon.stub(TestsService, 'getSprint', function () {
+            return 1;
+        });
         $rootScope.$apply();
     });
 
@@ -21,7 +33,15 @@ describe('Tests Create Controller', function () {
             expect(controller).to.be.defined;
         });
 
+        it('should set some values to TestService object', function () {
+            expect(TestsService.getCurrentSuite()).to.equal(1);
+            expect(TestsService.getCategory()).to.equal('Acceptance');
+            expect(TestsService.getPriority()).to.equal('Critical');
+            expect(TestsService.getSprint()).to.equal(1);
+        });
+
         describe('after activate', function () {
+
             it('should have title of Create Test Case', function () {
                 expect(controller.title).to.equal('Create Test Case');
             });
@@ -49,6 +69,14 @@ describe('Tests Create Controller', function () {
             it('should check if steps are empty', function () {
                 controller.addStep();
                 expect(controller.stepsEmpty()).to.equal(true);
+            });
+
+            it('should check if steps are not empty', function () {
+                controller.steps = [];
+                controller.addStep();
+                controller.steps[0].stepDescription = 'not empty';
+                controller.steps[0].expectedResult = 'not empty';
+                expect(controller.stepsEmpty()).to.equal(false);
             });
 
             it('should submit adding case', function () {

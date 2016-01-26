@@ -10,8 +10,6 @@
     function TestsCreateController(logger, TestsService, $timeout) {
         var vm = this;
 
-        activate();
-
         vm.title = 'Create Test Case';
         vm.addStep = addStep;
         vm.delStep = delStep;
@@ -39,7 +37,11 @@
         vm.caseSprint = vm.sprint[vm.sprint.length - 1].toString();
         vm.onCrtlEnterPress = onCrtlEnterPress;
 
+        activate();
+
         function activate() {
+            console.log(vm);
+            console.log(vm.currentSuite);
             logger.info('Activated New Case View');
         }
 
@@ -80,7 +82,6 @@
             newCase.issues = 0;
             newCase.testDescription = vm.testDescription;
             newCase.caseSprint = vm.caseSprint;
-            console.log(typeof(newCase.caseSprint));
             newCase.preConditions = vm.preConditions;
             newCase.steps = vm.steps;
             vm.currentSuite.tests.push(newCase);
