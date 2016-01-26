@@ -14,7 +14,8 @@
             restrict: 'EA',
             replace: true,
             scope: {
-                'navline': '='
+                'navline': '=',
+                'sidebar': '='
             },
             templateUrl: 'app/layout/ht-top-nav.html'
         };

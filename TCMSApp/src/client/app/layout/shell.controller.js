@@ -9,14 +9,14 @@
     /* @ngInject */
     function ShellController($rootScope, $timeout, config, logger, $scope, user) {
         var vm = this;
-        vm.busyMessage = 'Please wait ...';
-        vm.isBusy = true;
         $rootScope.showSplash = true;
+
         vm.navline = {
             title: config.appTitle,
             text: 'TCMS',
-            link: 'http://google.com'
+            currentProject: ''
         };
+
         vm.user = user;
         vm.showBars = false;
 
@@ -27,6 +27,13 @@
         $scope.$on('UserDeauthorized', function() {
             vm.showBars = false;
         });
+
+        vm.sidebar = {
+            sidebarToggle: function() {
+
+                this.visible = !this.visible;
+            }
+        };
 
         activate();
 

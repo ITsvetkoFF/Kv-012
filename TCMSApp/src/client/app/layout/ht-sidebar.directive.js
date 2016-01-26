@@ -7,37 +7,106 @@
 
     /* @ngInject */
     function htSidebar () {
-        // Opens and closes the sidebar menu.
-        // Usage:
-        //  <div ht-sidebar">
-        //  <div ht-sidebar whenDoneAnimating="vm.sidebarReady()">
-        // Creates:
-        //  <div ht-sidebar class="sidebar">
         var directive = {
-            link: link,
+            bindToController: true,
+            controller: SidebarController,
+            controllerAs: 'vmSidebar',
             restrict: 'EA',
+            replace: true,
             scope: {
-                whenDoneAnimating: '&?'
-            }
+                'sidebar': '='
+            },
+            templateUrl: 'app/layout/sidebar.html'
         };
-        return directive;
 
-        function link(scope, element, attrs) {
-            var $sidebarInner = element.find('.sidebar-inner');
-            var $dropdownElement = element.find('.sidebar-dropdown a');
-            element.addClass('sidebar');
+        SidebarController.$inject = ['$uibModal', 'logger',
+            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope'];
 
-            function dropdown(e) {
-                var dropClass = 'dropy';
-                e.preventDefault();
-                if (!$dropdownElement.hasClass(dropClass)) {
-                    $sidebarInner.slideDown(350, scope.whenDoneAnimating);
-                    $dropdownElement.addClass(dropClass);
-                } else if ($dropdownElement.hasClass(dropClass)) {
-                    $dropdownElement.removeClass(dropClass);
-                    $sidebarInner.slideUp(350, scope.whenDoneAnimating);
-                }
+        /* @ngInject */
+
+        function SidebarController($uibModal, logger,
+                sidebarFactory, authservice, createProjectFactory, $q, $rootScope) {
+
+            var vm = this;
+            vm.open = openModalCreateProject;
+            vm.synchronized = false;
+
+            var Trello = authservice.authorize();
+
+            createProjectFactory.syncProjAndOrg(Trello).then(function (res) {
+                sidebarFactory.findProjects().then(function(data) {
+                    vm.projects = data;
+                    if (data.length === 0) {
+                        logger.error('Create the first project to start');
+                    } else {
+                        //Temporary set first project as first current
+                        $rootScope.currentProject = data[0];
+                    }
+                    vm.synchronized = true;
+                });
+            });
+
+            function openModalCreateProject () {
+                var modalCreateProject = $uibModal.open({
+                        templateUrl: 'app/layout/add-project.html',
+                        controller: function ($uibModalInstance) {
+
+                            var vmModal = this;
+                            vmModal.createProjAndOrg = createProjAndOrg;
+
+                            // Function creates Project and Trello Organization
+                            function createProjAndOrg() {
+                                var projectName = vmModal.projectName,
+                                    projectDescription = vmModal.projectDescription;
+
+                                if (projectName !== '')
+                                    createOrganization(projectName, projectDescription);
+                                else logger.error('Please fill the project name.');
+
+                                function createOrganization(projectName, projectDescription) {
+
+                                    if (Trello.authorized()) {
+
+                                        createProjectFactory.createProjAndOrg(Trello,
+                                            projectName, projectDescription).then(function (res) {
+
+                                                sidebarFactory.findProjects().then(function(data) {
+                                                    vm.projects = data;
+                                                    changeModal();
+                                                });
+                                            },
+
+                                            function (err) {
+                                                logger.error('New project has not been created.');
+                                            }
+                                        );
+                                    }
+                                }
+                            }
+
+                            function changeModal() {
+                                modalCreateProject.dismiss();
+
+                                var modalProjectCreated = $uibModal.open({
+                                    templateUrl: 'app/layout/project-added.html',
+                                    controller: function () {
+
+                                        var vmSidebarModal = this;
+
+                                        vmSidebarModal.exit = function () {
+                                            modalProjectCreated.dismiss();
+                                        };
+                                    },
+                                    controllerAs: 'vmSidebarModal'
+                                });
+                            }
+                        },
+                        controllerAs: 'vmModal'
+                    }
+                );
             }
         }
+
+        return directive;
     }
 })();
