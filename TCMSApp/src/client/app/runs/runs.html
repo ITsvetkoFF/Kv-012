@@ -12,7 +12,8 @@
                             <option>All runs</option>
                         </select>
                         <smart-filter type="runs"
-                                      fast-queries="['status=failed', 'status=passed', 'date> month ago', 'date> year ago']">
+                                      fast-queries="['status=failed', 'status=passed', 'date> month ago', 'date> year ago']"
+                                      ng-keyup="vmRuns.checkSelectAll()">
                         </smart-filter>
                     </form>
                 </h1>
@@ -38,7 +39,13 @@
                             <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="selectAll"
+                                        ng-model="vmRuns.checkAllModel.checked"
+                                        ng-true-value="true"
+                                        ng-false-value="false"
+                                        ng-click="vmRuns.selectAll($event)">
                                 </th>
                                 <th>
                                     Date
@@ -62,15 +69,23 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="runItem in vmRuns.runs|smartFilter:filterQuery:vmRuns.filterFields"
-                                    ng-click="vmRuns.selectRun(runItem._id)">
-                                <th>
-                                    <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
-                                </th>
+                                ng-click="vmRuns.selectRun(runItem._id)">
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        class="runCheckBox"
+                                        ng-model="vmRuns.setCheckboxModel(runItem._id).checked"
+                                        ng-true-value="true"
+                                        ng-false-value="false"
+                                        ng-value="runItem._id"
+                                        ng-click="vmRuns.runCheckBoxClick($event, $index)">
+                                </td>
                                 <td ng-bind="::runItem.dateStart|date : 'shortDate'"></td>
                                 <td ng-bind="::runItem.name"></td>
                                 <td ng-bind="::runItem.build"></td>
                                 <td ng-bind="::runItem.envShort"></td>
-                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}</td>
+                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
+                                </td>
                                 <td>
                                     <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
                                           ng-bind="::runItem.status.toUpperCase()"></span>
@@ -96,6 +111,7 @@
                         <div class="panel-body">
                             <h4 ng-bind="::vmRuns.selectedRun.name"></h4>
                             <b>Status:</b>
+
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success"
                                      style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%"
@@ -107,9 +123,11 @@
                                 </div>
                             </div>
                             <div>
-                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
+                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}}
+                                {{::vmRuns.selectedRun.author.lastName}}
                             </div>
                             <b>Environment details:</b>
+
                             <div>
                                 <div ng-repeat="(envParamKey, envParamValue) in vmRuns.selectedRun.envFull">
                                     <i ng-bind="::envParamKey"></i>: {{::envParamValue}}
@@ -124,16 +142,16 @@
                             </tr>
                             </thead>
                             <tbody ng-repeat="cluster in vmRuns.testClusters">
-                                <tr ng-hide="vmRuns.testClusters.length < 2">
-                                    <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
-                                </tr>
-                                <tr ng-repeat="test in cluster">
-                                    <td ng-bind="::test.name"></td>
-                                    <td>
+                            <tr ng-hide="vmRuns.testClusters.length < 2">
+                                <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
+                            </tr>
+                            <tr ng-repeat="test in cluster">
+                                <td ng-bind="::test.name"></td>
+                                <td>
                                         <span class="label label-{{test.status==='passed'?'success':'danger'}}"
                                               ng-bind="::test.status.toUpperCase()"></span>
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

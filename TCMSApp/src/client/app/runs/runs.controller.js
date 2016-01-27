@@ -13,22 +13,45 @@
         .controller('RunsController', RunsController);
 
     RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper',
-        'filterFields', 'RunsApiService', 'moment'];
+        'filterFields', 'RunsApiService', 'moment', '$document'];
 
-    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment) {
+    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment, $document) {
 
         var vm = this;
+        var checkboxesOnView;
+        vm.checkAllModel = {
+            checked: false
+        };
+        vm.setCheckboxModel = function (runId) {
+            return vm.checkboxesModels.filter(function (model) {
+                return model.runId === runId;
+            })[0];
+        };
+        vm.selectAll = selectAll;
+        vm.checkSelectAll = checkSelectAll;
+
         RunsApiService.query().$promise.then(processData);
 
         function processData(result) {
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
-                result.forEach(function (data) { RunsApiService.save(data);});
+                result.forEach(function (data) {
+                    RunsApiService.save(data);
+                });
 
             }
 
             vm.runs = result;
+            vm.checkboxesModels = [];
+
+            vm.runs.map(function (run) {
+                vm.checkboxesModels.push({
+                    checked: false,
+                    runId: run._id
+                });
+            });
+
             vm.selectRun = selectRun;
             vm.selectedRuns = [];
             vm.selectedRun = (vm.runs.length === 0 ? null : vm.runs[0]);
@@ -38,6 +61,47 @@
             vm.filterFields = filterFields.runs.getFields();
 
             activate();
+        }
+
+        function selectAll(event) {
+            checkboxesOnView = getRunCheckboxesOnView();
+            if (event.target.checked) {
+                for (var i = 0; i < checkboxesOnView.length; i++) {
+                    vm.checkboxesModels.map(function (model) {
+                        if (checkboxesOnView[i].value === model.runId) {
+                            model.checked = true;
+                            addSelectedRunId(model.runId);
+                        }
+                    });
+                }
+            } else {
+                for (var j = 0; j < checkboxesOnView.length; j++) {
+                    vm.checkboxesModels.map(function (model) {
+                        if (checkboxesOnView[j].value === model.runId) {
+                            model.checked = false;
+                            vm.selectedRuns.splice(vm.selectedRuns.indexOf(model.runId), 1);
+                        }
+                    });
+                }
+            }
+        }
+
+        function addSelectedRunId(runId) {
+            var exists = false;
+            vm.selectedRuns.map(function (selectedRunId) {
+                if (runId === selectedRunId) {
+                    exists = true;
+                    return undefined;
+                }
+            });
+            if (!exists) {
+                vm.selectedRuns.push(runId);
+            }
+        }
+
+        // select checkboxes by class. Do not remove 'runCheckBox' class!!!
+        function getRunCheckboxesOnView() {
+            return $document.find('.runCheckBox');
         }
 
         /**
@@ -91,10 +155,26 @@
          * @param e - event object
          * @param i - index of run
          */
-        function runCheckBoxClick(e, i) {
+        function runCheckBoxClick(e, index) {
             e.stopPropagation();
-            if (e.target.checked) vm.selectedRuns.push(i);
-            else vm.selectedRuns.splice(vm.selectedRuns.indexOf(i), 1);
+            if (e.target.checked) {
+                addSelectedRunId(e.target.value);
+                checkSelectAll();
+            }
+            else {
+                vm.selectedRuns.splice(vm.selectedRuns.indexOf(e.target.value), 1);
+                vm.checkAllModel.checked = false;
+            }
+        }
+
+        function checkSelectAll() {
+            checkboxesOnView = getRunCheckboxesOnView();
+            vm.checkAllModel.checked = true;
+            for (var i = 0; i < checkboxesOnView.length; i++) {
+                if (!checkboxesOnView[i].checked) {
+                    vm.checkAllModel.checked = false;
+                }
+            }
         }
 
         /**
@@ -108,7 +188,7 @@
 
             if (tests.length === 0) return [];
 
-            tests = tests.sort(function(a, b) {
+            tests = tests.sort(function (a, b) {
                 return (a.suite <= b.suite ? 0 : 1);
             });
             var clusters = [[tests[0]]];
