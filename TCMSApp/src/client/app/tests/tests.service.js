@@ -21,7 +21,7 @@
             {id: '7', name: 'Security'},
             {id: '8', name: 'Smoke & Sanity'},
             {id: '9', name: 'Usability'},
-            {id: '10', name: 'Other'},
+            {id: '10', name: 'Other'}
         ];
         var priority = [
             {id: '0', name: 'Critical'},

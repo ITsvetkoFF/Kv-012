@@ -12,13 +12,14 @@ describe('Tests Create Controller', function () {
         var scope = {};
         controller = $controller('TestsCreateController', {$scope: scope});
         sinon.stub(TestsService, 'getCurrentSuite', function () {
-            return 1;
-        });
-        sinon.stub(TestsService, 'getCategory', function () {
-            return 'Acceptance';
-        });
-        sinon.stub(TestsService, 'getPriority', function () {
-            return 'Critical';
+            return {
+                '_id': 1,
+                'project': 'test Project',
+                'suiteDescription': 'test description',
+                'suiteName': 'test suite name',
+                'suitePriority': 'test suite priority',
+                'tests': []
+            };
         });
         sinon.stub(TestsService, 'getSprint', function () {
             return 1;
@@ -31,13 +32,6 @@ describe('Tests Create Controller', function () {
     describe('Tests Create Controller', function () {
         it('should be created successfully', function () {
             expect(controller).to.be.defined;
-        });
-
-        it('should set some values to TestService object', function () {
-            expect(TestsService.getCurrentSuite()).to.equal(1);
-            expect(TestsService.getCategory()).to.equal('Acceptance');
-            expect(TestsService.getPriority()).to.equal('Critical');
-            expect(TestsService.getSprint()).to.equal(1);
         });
 
         describe('after activate', function () {
@@ -82,6 +76,13 @@ describe('Tests Create Controller', function () {
             it('should submit adding case', function () {
                 controller.submitAddCase();
                 expect($log.info.logs).to.match(/New Case created/);
+            });
+
+            it('should set new test case to current suite', function () {
+                controller.currentSuite = TestsService.getCurrentSuite();
+                controller.submitAddCase();
+                var expectLen = controller.currentSuite.tests.length;
+                expect(expectLen).to.equal(1);
             });
 
         });

@@ -40,8 +40,6 @@
         activate();
 
         function activate() {
-            console.log(vm);
-            console.log(vm.currentSuite);
             logger.info('Activated New Case View');
         }
 
