@@ -9,8 +9,16 @@
 
     function RunsApiService($resource, apiUrl) {
 
-        return $resource(apiUrl.host + apiUrl.runs + '/:id', {id: '@id'});
+        return {
+            getRuns: $resource(apiUrl.host + apiUrl.runs + '/:id', {id: '@id'}),
+            getTestsOfRun: function (runID) {
+                return $resource(apiUrl.host + apiUrl.runTests + '?query={"run" : "' + runID + '"}');
+            },
+            getSuite: function (suiteID) {
+                return $resource(apiUrl.host + apiUrl.suites + '/' + suiteID);
+            }
 
+        };
     }
 
 })();

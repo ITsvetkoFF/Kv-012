@@ -13,6 +13,7 @@
         'app.layout',
         'app.landing',
         'app.apis',
+        'ngResource',
         'app.runsExec'
     ]);
 
