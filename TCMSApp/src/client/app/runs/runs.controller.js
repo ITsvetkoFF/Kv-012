@@ -18,14 +18,14 @@
     function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment, $q) {
 
         var vm = this;
-        RunsApiService.getRuns.query().$promise.then(processData);
+        RunsApiService.getRuns().query().$promise.then(processData);
 
         function processData(result) {
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
                 result.forEach(function (data) {
-                    RunsApiService.save(data);
+                    RunsApiService.getRuns().save(data);
                 });
 
             }
@@ -122,8 +122,6 @@
                 }
                 clusters[clusters.length - 1].push(tests[i]);
             }
-
-            console.log(clusters);
             return clusters;
 
         }
