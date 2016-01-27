@@ -1,60 +1,47 @@
 // import the necessary modules
 var mongoose = require('mongoose');
+var runTestSchema = require('./test').runTestSchema;
 var Schema = mongoose.Schema;
 
 // create  the run model
 
 // define schema
 var runSchema = new Schema({
-        name: {
-            type: String,
-            required: true
-        },
-        author: {
-            type: {
-               firstName: String,
-               lastName: String
-           },
-            required: true
-        },
-        previousRunId: mongoose.Schema.Types.ObjectId,
-        dateStart: {type: Date, required: true},
-        dateEnd: {type: Date},
-        build: Number,
-        envShort: String,
-        envFull: {},
-        status: {
-            type: String,
-            validate: {
-                validator: function (v) {
-                    return /passed|executing|failed/.test(v);
-                },
-                message: '{VALUE} is not valid status!'
-            },
-            default: 'executing'
-        },
-        //the
-        tests: [{
-            name: {type: String, required: true},
-            testDescription: {type: String},
-            automated: Boolean,
-            preConditions: {type: String},
-            suite: String,
-            steps: [{
-                number: Number,
-                action: {type: String, required: true},
-                expected: {type: String, required: true},
-
-                status: {
-                    type: String,
-                    enum:['passed','blocked', 'failed']
-                }
-            }],
-            status: {
-                type: String,
-                enum:['passed','blocked', 'failed']
-            }
-        }]
-    });
-var run = mongoose.model('Run',runSchema);
+    name: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: {
+            firstName: String,
+            lastName: String
+        }
+    },
+    previousRunId: mongoose.Schema.Types.ObjectId,
+    dateStart: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    dateEnd: {type: Date},
+    build: Number,
+    envShort: String,
+    envFull: {},
+    status: {
+        type: String,
+        enum: [
+            'new',  // created, but not executed yet
+            'passed',  // all the steps passed successfully
+            'executing',  // run is being executed at the moment
+            'failed',  // one or more steps were failed
+            'pending'  // last execution was not finished
+        ],
+        default: 'new'
+    },
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
+});
+var run = mongoose.model('Run', runSchema);
 module.exports = run;

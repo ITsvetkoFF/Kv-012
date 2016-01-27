@@ -5,11 +5,9 @@
         .module('app.tests')
         .service('TestsService', TestsService);
 
-    TestsService.$inject = ['FakeTestsFactory'];
+    TestsService.$inject = ['logger', 'FakeTestsFactory', '$http', '$q', '$resource', 'apiUrl'];
 
-    function TestsService(fakeTestsFactory) {
-        var suites = fakeTestsFactory(10);
-        var currentSuite = suites[0];
+    function TestsService(logger, FakeTestsFactory, $http, $q, $resource, apiUrl) {
         var category = [
             {id: '0', name: 'Acceptance'},
             {id: '1', name: 'Accessibility'},
@@ -23,35 +21,19 @@
             {id: '9', name: 'Usability'},
             {id: '10', name: 'Other'},
         ];
-        var priority = [
-            {id: '0', name: 'Critical'},
-            {id: '1', name: 'High'},
-            {id: '2', name: 'Medium'},
-            {id: '3', name: 'Low'}
-        ];
         var sprint = [1,2,3];
 
         return {
-            getCurrentSuite: function () {
-                return currentSuite;
+            getSuites: function() {
+                return $resource(apiUrl.host + apiUrl.suites);
             },
-            setCurrentSuite: function(value) {
-                currentSuite = value;
+            getTestsOfSuite: function(suiteID) {
+                return $resource(apiUrl.host + apiUrl.suiteTests + '?query={"suite" : "' + suiteID + '"}');
             },
-            getFakeSuites: function() {
-                return suites;
-            },
-            getPriority: function() {
-                return priority;
-            },
-            getCategory: function() {
-                return category;
-            },
-            getSprint: function() {
-                return sprint;
+            getNumDefects: function(testID) {
+                return $resource(apiUrl.host + apiUrl.defects + '/count?query={}');
             }
         };
-
     }
 
 })();

@@ -1,27 +1,21 @@
 // import the necessary modules
 var mongoose = require('mongoose');
+var test = require('./test');
 var Schema = mongoose.Schema;
 
+var suiteTestSchema = test.suiteTestSchema;
+
 // create  the suite model
-var testSuiteSchema = new Schema({
+var suiteSchema = mongoose.Schema({
     suiteName: {type: String, required: true},
-    suiteDescription: {type: String, required: true},
+    suiteDescription: {type: String, default: 'No description.'},
     project: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    tests: [{
-        testName: {type: String, required: true},
-        testDescription: {type: String, required: true},
-        automated: Boolean,
-        preConditions: {type: String, required: true},
-        steps: [{
-            stepNumber: Number,
-            stepDescription: {type: String, required: true},
-            expectedResult: {type: String, required: true}
-        }]
-    }]
+    stests: [suiteTestSchema]
 });
-var testSuite = mongoose.model('Suite', testSuiteSchema);
+
+var testSuite = mongoose.model('Suite', suiteSchema);
 
 module.exports = testSuite;

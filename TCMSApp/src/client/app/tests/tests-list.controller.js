@@ -5,20 +5,20 @@
         .module('app.tests')
         .controller('TestsListController', TestsListController);
 
-    TestsListController.$inject = ['logger','$uibModal', 'TestsService', 'filterFields'];
+    TestsListController.$inject = ['logger', '$uibModal', 'TestsService', 'filterFields', '$resource'];
     /* @ngInject */
-    function TestsListController(logger, $uibModal, TestsService, filterFields) {
+    function TestsListController(logger, $uibModal, TestsService, filterFields, $resource) {
         var vm = this;
 
         activate();
 
         vm.checkedAllCases = false; // checkbox for testCases
+        vm.suites = [];  // fill view with test suites
+        vm.getSuites = getSuites();
+        vm.tests = []; // test cases of a current suite
+        vm.stepList = [];
         vm.openAddSuite = openAddSuite; // open modal for new suite
-        vm.f = TestsService.getFakeSuites();// f for faker, array of suites
-        vm.currentSuite = TestsService.getCurrentSuite(); // on upload we see first suite
-        vm.category = TestsService.getCategory();
-        vm.priority = TestsService.getPriority();
-        vm.sprint = TestsService.getSprint();
+        vm.currentSuite = {}; // on upload we see first suite
         vm.setSuite = setSuite;
         vm.filterFields = filterFields.tests.getFields();
 
@@ -26,16 +26,47 @@
             logger.info('Activated Tests View');
         }
 
+        // fill suites array
+        function getSuites() {
+            var resource = TestsService.getSuites();
+            resource.query({}, function (res) {
+                vm.suites = res;
+                vm.currentSuite = vm.suites[0];
+                getTests();
+            });
+        }
+
+        // function gets test cases of current suite
+        function getTests() {
+            var suiteID = vm.currentSuite._id;
+            var resource = TestsService.getTestsOfSuite(suiteID);
+            resource.query({}, function (res) {
+                vm.tests = res;
+            });
+        }
+
+        // function gets all steps of current test
+        function getSteps(test) {
+            var testID = test;
+            var resource = TestsService.getStepsOfTest(testID);
+            var stepList;
+            resource.query({}, function (res) {
+                stepList = res;
+                return stepList;
+            });
+        }
+
+        // function swithes current suite to selected one
         function setSuite(suite) {
             vm.currentSuite = suite;
-            TestsService.setCurrentSuite(vm.currentSuite);
+            getTests();
         }
 
         // modal
         function openAddSuite() {
             var modalWindow = $uibModal.open({
                 templateUrl: 'app/tests/add-suite-modal.html',
-                controller: function($uibModalInstance) {
+                controller: function ($uibModalInstance) {
                     var vmSuite = this;
 
                     var lastSuite = vm.f[vm.f.length - 1];
@@ -67,7 +98,5 @@
                 controllerAs: 'vmSuite'
             });
         }
-
     }
-
 })();
