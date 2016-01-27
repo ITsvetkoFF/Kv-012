@@ -1,5 +1,9 @@
 # TCMSApp
 
+**POSTMAN collection**
+https://www.getpostman.com/collections/799844bfa390e0428d81
+
+
 **Generated from HotTowel Angular**
 
 >*Opinionated Angular style guide for teams by [@john_papa](//twitter.com/john_papa)*
