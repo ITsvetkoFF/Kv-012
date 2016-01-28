@@ -12,7 +12,8 @@
                             <option>All runs</option>
                         </select>
                         <smart-filter type="runs"
-                                      fast-queries="['status=failed', 'status=passed', 'date> month ago', 'date> year ago']">
+                                      fast-queries="['status=failed', 'status=passed', 'date> month ago', 'date> year ago']"
+                                      >
                         </smart-filter>
                     </form>
                 </h1>
@@ -28,17 +29,37 @@
                 <div class="col-sm-8" ng-if="vmRuns.runs.length !== 0">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            Current runs
-                            <span class="pull-right" ng-show="vmRuns.selectedRuns.length > 0">
-                                <span class="fa fa-inbox"></span>
-                                archive
-                            </span>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6">
+                                    Current runs
+                                </div>
+                                <div class="col-xs-6 col-sm-6">
+                                    <span class="pull-right" ng-if="vmRuns.selectedRuns.length > 0" style="margin-right: 10px;">
+                                        <i class="glyphicon glyphicon-inbox"></i>
+                                        Archive
+                                    </span>
+                                    <span
+                                        class="pull-right"
+                                        ng-if="vmRuns.selectedRuns.length > 0"
+                                        style="margin-right: 10px;"
+                                        ng-click="vmRuns.deleteSelectedRuns()">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        Delete
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <table class="table">
                             <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="selectAll"
+                                        ng-model="vmRuns.checkAllModel.checked"
+                                        ng-true-value="true"
+                                        ng-false-value="false"
+                                        ng-click="vmRuns.selectAll($event)">
                                 </th>
                                 <th>
                                     Date
@@ -61,16 +82,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="runItem in vmRuns.runs|smartFilter:filterQuery:vmRuns.filterFields"
-                                    ng-click="vmRuns.selectRun(runItem._id)">
-                                <th>
-                                    <input type="checkbox" class="runCheckBox" ng-click="vmRuns.runCheckBoxClick($event, $index)">
-                                </th>
+                            <tr ng-repeat="runItem in vmRuns.filteredRuns"
+                                ng-click="vmRuns.selectRun(runItem._id)">
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        class="runCheckBox"
+                                        ng-model="vmRuns.setCheckboxModel(runItem._id).checked"
+                                        ng-true-value="true"
+                                        ng-false-value="false"
+                                        ng-value="runItem._id"
+                                        ng-click="vmRuns.runCheckBoxClick($event, $index)">
+                                </td>
                                 <td ng-bind="::runItem.dateStart|date : 'shortDate'"></td>
                                 <td ng-bind="::runItem.name"></td>
                                 <td ng-bind="::runItem.build"></td>
                                 <td ng-bind="::runItem.envShort"></td>
-                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}</td>
+                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
+                                </td>
                                 <td>
                                     <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
                                           ng-bind="::runItem.status.toUpperCase()"></span>
@@ -107,7 +136,8 @@
                                 </div>
                             </div>
                             <div>
-                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
+                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}}
+                                {{::vmRuns.selectedRun.author.lastName}}
                             </div>
                             <b>Environment details:</b>
                             <div>
@@ -124,11 +154,11 @@
                             </tr>
                             </thead>
                             <tbody ng-repeat="cluster in vmRuns.testClusters">
-                                <tr>
+                                <tr ng-hide="vmRuns.testClusters.length < 2">
                                     <td colspan="3" class="text-center">{{vmRuns.suiteNames[cluster[0].suite]}}</td>
                                 </tr>
                                 <tr ng-repeat="test in cluster">
-                                    <td ng-bind="::test.testName"></td>
+                                    <td ng-bind="::test.name"></td>
                                     <td>
                                         <span class="label label-{{test.status==='passed'?'success':'danger'}}"
                                               ng-bind="::test.status.toUpperCase()"></span>

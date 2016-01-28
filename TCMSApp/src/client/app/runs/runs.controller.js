@@ -12,20 +12,40 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['logger', 'FakeRunsFactory', 'filterFields', 'RunsApiService', '$q'];
+    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper',
+        'filterFields', 'RunsApiService', 'moment', '$document', '$filter', '$q'];
 
-    function RunsController(logger, fakeRuns, filterFields, RunsApiService, $q) {
+    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment, $document,
+                            $filter, $q) {
 
         var vm = this;
         RunsApiService.getRuns().query().$promise.then(processData);
+
+        vm.checkAllModel = {checked: false};
+        vm.setCheckboxModel = setCheckboxModel;
+        vm.selectAll = selectAll;
+        vm.checkSelectAll = checkSelectAll;
+        vm.filteredRuns = [];
+        vm.deleteSelectedRuns = deleteSelectedRuns;
+
+        getData();
+
+        function getData() {
+            RunsApiService.getRuns().query().$promise.then(processData);
+        }
 
         function processData(result) {
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
+                result.forEach(function (data) {
+                    RunsApiService.getRuns().save(data);
+                });
+
             }
 
-            vm.runs = result;
+            vm.runs = dataWrapper.wrapRuns(result);
+            vm.checkboxesModels = [];
             vm.selectRun = selectRun;
             vm.tests = [];
             vm.selectedRuns = [];
@@ -37,7 +57,107 @@
             vm.testClusters = clusterizeTests();
             vm.filterFields = filterFields.runs.getFields();
 
+            fillCheckboxesModels();
+            refreshFilteredRuns();
+            setSmartFilterQueryWatcher();
+            checkSelectAll();
+
             activate();
+        }
+
+        /**
+         * Refresh vm.filtered runs according to filter query in View
+         * @memberOf app.runs
+         */
+        function refreshFilteredRuns() {
+            vm.filteredRuns.length = 0;
+            $filter('smartFilter')(vm.runs, $scope.filterQuery, vm.filterFields).map(function (run) {
+                vm.filteredRuns.push(run);
+            });
+        }
+
+        /**
+         * Defines handler for filterQuery changing
+         * @memberOf app.runs
+         */
+        function setSmartFilterQueryWatcher() {
+            $scope.$watch('filterQuery', function (newVal, oldVal) {
+                refreshFilteredRuns();
+                if (oldVal !== undefined) {
+                    checkSelectAll();
+                }
+            });
+        }
+
+        /**
+         * fills vm.checkboxesModels array according to vm.runs
+         * @memberOf app.runs
+         */
+        function fillCheckboxesModels() {
+            vm.runs.map(function (run) {
+                vm.checkboxesModels.push({
+                    checked: false,
+                    runId: run._id
+                });
+            });
+        }
+
+        /**
+         * Returns only one model from vm.checkboxesModels
+         * @memberOf app.runs
+         * @param runId
+         * @returns {T|*}
+         */
+        function setCheckboxModel(runId) {
+            return vm.checkboxesModels.filter(function (model) {
+                return model.runId === runId;
+            })[0];
+        }
+
+        /**
+         * Handler for selectAll checkbox.
+         * Sets or unsets the 'checked' property of vm.checkboxesModels according to current view.
+         * @memberOf app.runs
+         * @param event
+         */
+        function selectAll(event) {
+            if (event.target.checked) {
+                vm.filteredRuns.map(function (fRun) {
+                    vm.checkboxesModels.map(function (model) {
+                        if (fRun._id === model.runId) {
+                            model.checked = true;
+                            addSelectedRunId(model.runId);
+                        }
+                    });
+                });
+            } else {
+                vm.filteredRuns.map(function (fRun) {
+                    vm.checkboxesModels.map(function (model) {
+                        if (fRun._id === model.runId) {
+                            model.checked = false;
+                            vm.selectedRuns.splice(vm.selectedRuns.indexOf(model.runId), 1);
+                        }
+                    });
+                });
+            }
+        }
+
+        /**
+         * See if value (runId) is already in the vm.selectedRuns and if not push runId to vm.selectedRuns
+         * @memberOf app.runs
+         * @param runId
+         */
+        function addSelectedRunId(runId) {
+            var exists = false;
+            vm.selectedRuns.map(function (selectedRunId) {
+                if (runId === selectedRunId) {
+                    exists = true;
+                    return undefined;
+                }
+            });
+            if (!exists) {
+                vm.selectedRuns.push(runId);
+            }
         }
 
         /**
@@ -85,14 +205,37 @@
         }
 
         /**
-         * add and remove row indexes form array of selected runs by checkboxes
+         * adds/removes selected runs to/from vm.selectedRuns and checks if all rows are checked
+         * @memberOf app.runs
          * @param e - event object
          * @param i - index of run
          */
-        function runCheckBoxClick(e, i) {
+        function runCheckBoxClick(e, index) {
             e.stopPropagation();
-            if (e.target.checked) vm.selectedRuns.push(i);
-            else vm.selectedRuns.splice(vm.selectedRuns.indexOf(i), 1);
+            if (e.target.checked) {
+                addSelectedRunId(e.target.value);
+                checkSelectAll();
+            }
+            else {
+                vm.selectedRuns.splice(vm.selectedRuns.indexOf(e.target.value), 1);
+                vm.checkAllModel.checked = false;
+            }
+        }
+
+        /**
+         * set to unchecked 'selectAllCheckbox' if even one of vm.filteredRuns is not in vm.selectedRuns
+         * @memberOf app.runs
+         */
+        function checkSelectAll() {
+            vm.checkAllModel.checked = true;
+            vm.filteredRuns.map(function (fRun) {
+                var temp = vm.selectedRuns.filter(function (sRun) {
+                    return sRun === fRun._id;
+                });
+                if (temp.length === 0) {
+                    vm.checkAllModel.checked = false;
+                }
+            });
         }
 
         /**
@@ -117,8 +260,8 @@
                 }
                 clusters[clusters.length - 1].push(tests[i]);
             }
-            return clusters;
 
+            return clusters;
         }
 
         // gets all test cases of a current run
@@ -159,5 +302,16 @@
 
         }
 
+        function deleteSelectedRuns() {
+            vm.selectedRuns.forEach(function (sRun, index, sRuns) {
+                RunsApiService.getRuns().remove({id: sRun}).$promise
+                    .then(function (res) {
+                        getData();
+                    }, function (err) {
+
+                    });
+            });
+            vm.selectedRuns.length = 0;
+        }
     }
 })();
