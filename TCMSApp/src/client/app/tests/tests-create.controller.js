@@ -5,38 +5,32 @@
         .module('app.tests')
         .controller('TestsCreateController', TestsCreateController);
 
-    TestsCreateController.$inject = ['logger', 'TestsService'];
+    TestsCreateController.$inject = ['logger', 'TestsService', '$stateParams', 'apiUrl', '$resource', '$state'];
     /* @ngInject */
-    function TestsCreateController(logger, TestsService) {
+    function TestsCreateController(logger, TestsService, $stateParams, apiUrl, $resource, $state) {
         var vm = this;
 
-        activate();
+        if ($stateParams.currentSuite === null) return $state.go('tests-list');
 
         vm.addStep = addStep;
         vm.delStep = delStep;
         vm.stepsEmpty = stepsEmpty;
         vm.submitAddCase = submitAddCase;
-        vm.currentSuite = TestsService.getCurrentSuite();
-        vm.category = TestsService.getCategory();
-        vm.priority = TestsService.getPriority();
-        vm.sprint = TestsService.getSprint();
+        vm.currentSuite = $stateParams.currentSuite;
+        vm.priority = ['Low', 'Medium', 'Critical', 'High'];
         vm.steps = [];
-        addStep();
+        vm.created = new Date().getTime();
+
         addStep();
 
-        // date
-        var created = new Date();
-        vm.created = created.getTime();
-        // id
-        var testsLen = vm.currentSuite.tests.length;
-        var lastTest = vm.currentSuite.tests[testsLen - 1];
-        vm._id = 1;
+        var testsLen = vm.currentSuite.stests.length;
+        var lastTest = vm.currentSuite.stests[testsLen - 1];
         if (testsLen > 0) vm._id = lastTest._id + 1;
-        // other
-        vm.casePriority = '2';
-        vm.caseCategory = '10';
+
+        vm.casePriority = 'Low';
         vm.creator = 'John Doe';
-        vm.caseSprint = vm.sprint[vm.sprint.length - 1].toString();
+
+        activate();
 
         function activate() {
             logger.info('Activated New Case View');
@@ -53,7 +47,7 @@
         }
 
         function delStep($index) {
-            vm.steps.splice($index,1);
+            vm.steps.splice($index, 1);
         }
 
         function stepsEmpty() {
@@ -61,28 +55,34 @@
             var stepsLen = vm.steps.length;
             var empty = false;
             for (i = 0; i < stepsLen; i++) {
-                if (vm.steps[i].stepDescription === '' || vm.steps[i].expectedResult === '') {empty = true;}
+                if (vm.steps[i].stepDescription === '' || vm.steps[i].expectedResult === '') {
+                    empty = true;
+                }
             }
             return empty;
         }
 
         function submitAddCase() {
-            var newCase = {};
-            newCase.testName = vm.testName;
-            newCase.casePriority = vm.casePriority;
-            newCase.caseCategory = vm.caseCategory;
-            newCase.created = vm.created;
-            newCase.creator = vm.creator;
-            newCase._id = vm._id;
-            newCase.issues = 0;
-            newCase.testDescription = vm.testDescription;
-            newCase.caseSprint = vm.caseSprint;
-            console.log(typeof(newCase.caseSprint));
-            newCase.preConditions = vm.preConditions;
-            newCase.steps = vm.steps;
-            vm.currentSuite.tests.push(newCase);
-            TestsService.setCurrentSuite(vm.currentSuite);
+            var newCase = {
+                testName: vm.testName,
+                testDescription: vm.testDescription,
+                automated: true,
+                preConditions: vm.preConditions,
+                suite: vm.currentSuite._id,
+                created: vm.created,
+                steps: vm.steps,
+                priority: vm.casePriority
+            };
+
+            vm.currentSuite.stests.push(newCase);
+
             logger.success('New Case created');
+
+            var newTestCase = $resource(apiUrl.suiteTests, {}, {});
+
+            newTestCase.save(newCase);
+
+            $state.go('tests-list');
 
         }
 

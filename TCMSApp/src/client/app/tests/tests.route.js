@@ -38,7 +38,8 @@
                     settings: {
                         nav: 5,
                         content: '<i class="fa fa-team"></i> Create Test Case'
-                    }
+                    },
+                    params : {currentSuite: null}
                 }
             }
         ];
