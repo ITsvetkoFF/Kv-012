@@ -21,7 +21,6 @@
         vm.currentSuite = {}; // on upload we see first suite
         vm.setSuite = setSuite;
         vm.filterFields = filterFields.tests.getFields();
-        vm.createTests = createTests;
 
         function activate() {
             logger.info('Activated Tests View');
@@ -61,9 +60,6 @@
         function setSuite(suite) {
             vm.currentSuite = suite;
             getTests();
-        }
-
-        function createTests() {
         }
 
         // modal

@@ -1,29 +1,16 @@
 /* jshint -W117, -W030 */
 describe('Tests Create Controller', function () {
 
-    var controller, scope;
+    var controller;
 
     beforeEach(function () {
-        bard.appModule('app.tests');
-        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice', 'TestsService');
+        bard.appModule('app.tests', 'ngResource');
+        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice');
     });
 
     beforeEach(function () {
-        var scope = {};
+        var scope = $rootScope.$new();
         controller = $controller('TestsCreateController', {$scope: scope});
-        sinon.stub(TestsService, 'getCurrentSuite', function () {
-            return {
-                '_id': 1,
-                'project': 'test Project',
-                'suiteDescription': 'test description',
-                'suiteName': 'test suite name',
-                'suitePriority': 'test suite priority',
-                'tests': []
-            };
-        });
-        sinon.stub(TestsService, 'getSprint', function () {
-            return 1;
-        });
         $rootScope.$apply();
     });
 
@@ -74,15 +61,7 @@ describe('Tests Create Controller', function () {
             });
 
             it('should submit adding case', function () {
-                controller.submitAddCase();
-                expect($log.info.logs).to.match(/New Case created/);
-            });
 
-            it('should set new test case to current suite', function () {
-                controller.currentSuite = TestsService.getCurrentSuite();
-                controller.submitAddCase();
-                var expectLen = controller.currentSuite.tests.length;
-                expect(expectLen).to.equal(1);
             });
 
         });
