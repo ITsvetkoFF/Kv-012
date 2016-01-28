@@ -1,0 +1,60 @@
+
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-rebel"></i></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav nav">
+                    <!--
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contacts">Contact</a></li>
+                    -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a data-toggle="modal" ui-sref="register"><span class="glyphicon glyphicon-log-in"></span> Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <h1 class="text-center">Log in</h1>
+            <form action="/login/local" method="post">
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input name="username" id="username" type="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group pull-right">
+                    <input type="submit" class="btn btn-primary" value="log in">
+                </div>
+                <div class="form-group">
+                    Do not have an account? <a ui-sref="register">Create!</a>
+                </div>
+            </form>
+            <form action="/register/trello" style="margin-top: 48px" method="post">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success center-block" value="Log In With Trello">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

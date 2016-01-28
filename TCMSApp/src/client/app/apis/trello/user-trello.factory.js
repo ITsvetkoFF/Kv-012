@@ -21,11 +21,11 @@
         .module('app.trello')
         .factory('userTrello', userTrello);
 
-    userTrello.$inject = ['Trello', '$rootScope', '$q', '$timeout'];
+    userTrello.$inject = ['Trello', '$rootScope', '$q', '$timeout', '$http'];
     /* @ngInject */
-    function userTrello(Trello, $rootScope, $q, $timeout) {
+    function userTrello(Trello, $rootScope, $q, $timeout, $http) {
 
-        if (localStorage.getItem('trello_token') !== null) {
+        if (localStorage.getItem('trello_token')) {
             $timeout(function() {authorize();},0);
         }
 
@@ -49,12 +49,7 @@
                     read: true,
                     write: true
                 },
-                expiration: 'never',
-                success: function() {
-                    if (Trello.authorized()) {
-                        $rootScope.$broadcast('TrelloUserAuthorized');
-                    }
-                }
+                expiration: 'never'
             });
         }
 
