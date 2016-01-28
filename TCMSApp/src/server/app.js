@@ -27,6 +27,7 @@ var defect =  require('./model/mschemas/defect');
 var project =  require('./model/mschemas/project');
 var run =  require('./model/mschemas/run');
 var suite =  require('./model/mschemas/suite');
+var test =  require('./model/mschemas/test');
 var user =  require('./model/mschemas/user');
 
 console.log('About to crank up node');
@@ -39,6 +40,8 @@ restify.serve(router, project);
 restify.serve(router, run);
 restify.serve(router, suite);
 restify.serve(router, user);
+restify.serve(router, test.runTest);
+restify.serve(router, test.suiteTest);
 
 app.use(router);
 

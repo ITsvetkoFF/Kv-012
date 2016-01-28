@@ -19,12 +19,7 @@
                     url: '/dashboard',
                     templateUrl: 'app/dashboard/dashboard.html',
                     controller: 'DashboardController',
-                    controllerAs: 'dashboardVm',
-                    title: 'dashboard',
-                    settings: {
-                        nav: 1,
-                        content: '<i class="fa fa-dashboard"></i> Dashboard'
-                    }
+                    controllerAs: 'vmDashboard'
                 }
             }
         ];

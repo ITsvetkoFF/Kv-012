@@ -1,21 +1,16 @@
-<div ng-controller="SidebarController as vmSidebar">
-    <ht-sidebar when-done-animating="vmSidebar.sidebarReady()">
-        <div class="sidebar-filler"></div>
-        <div class="sidebar-dropdown"><a href="#">Menu</a></div>
-        <div class="sidebar-inner">
-            <ul class="navi">
-                <li class="nlightblue fade-selection-animation" ng-repeat="projectName in vmSidebar.projectsNames track by $index | orderBy:'-'" >
-                    <a ng-click="vmSidebar.setCurrentProject(projectName)"> {{projectName}} </a>
+<div class="sidebar">
+    <div class="sidebar-inner">
+        <img src="../images/busy.gif" ng-if="!vmSidebar.synchronized"/>
+        <div  ng-if="vmSidebar.synchronized">
+            <ul>
+                <li class="nlightblue fade-selection-animation" ng-repeat="project in vmSidebar.projects track by project.id " >
+                    <a href="project.id"> {{project.name}} </a>
                 </li>
             </ul>
-            <div class="container-fluid" style="margin-top: 15px;">
-                <div class="row-fluid options">
-                    <button class="btn btn-success" ng-click="vmSidebar.open()" id="btnAddProject">
-                        <i class="fa fa-plus"></i>
-                        Add Project
-                    </button>
-                </div>
-            </div>
+            <button class="btn btn-success btn-block" ng-click="vmSidebar.open()" id="btnAddProject">
+                <i class="fa fa-plus"></i>
+                Add Project
+            </button>
         </div>
-    </ht-sidebar>
+    </div>
 </div>

@@ -39,6 +39,7 @@
                 };
 
                 runs[i].envFull.__proto__ = envFullProto;// jshint ignore:line
+
             }
 
             return runs;
