@@ -5,9 +5,9 @@
         .module('app.tests')
         .service('TestsService', TestsService);
 
-    TestsService.$inject = ['logger', 'FakeTestsFactory', '$http', '$q', '$resource', 'apiUrl'];
+    TestsService.$inject = ['$resource', 'apiUrl'];
 
-    function TestsService(logger, FakeTestsFactory, $http, $q, $resource, apiUrl) {
+    function TestsService($resource, apiUrl) {
         var category = [
             {id: '0', name: 'Acceptance'},
             {id: '1', name: 'Accessibility'},

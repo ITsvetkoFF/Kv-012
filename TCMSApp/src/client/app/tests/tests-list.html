@@ -49,7 +49,7 @@
                         <div class="panel-heading">
                             <h4>
                                 {{vmTests.currentSuite.suiteName}}
-                                <a ui-sref="tests-create" class="btn btn-primary btn-xs">NEW</a>
+                                <a ui-sref="tests-create({currentSuite: vmTests.currentSuite})" class="btn btn-primary btn-xs" ng-click="vmTests.createTests()">NEW</a>
                             </h4>
                             <div class="clearfix">
                                 <b>Description: </b>

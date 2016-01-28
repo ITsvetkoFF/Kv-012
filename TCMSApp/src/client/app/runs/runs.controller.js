@@ -19,6 +19,7 @@
                             $filter, $q) {
 
         var vm = this;
+        RunsApiService.getRuns().query().$promise.then(processData);
 
         vm.checkAllModel = {checked: false};
         vm.setCheckboxModel = setCheckboxModel;
@@ -30,7 +31,7 @@
         getData();
 
         function getData() {
-            RunsApiService.getRuns.query().$promise.then(processData);
+            RunsApiService.getRuns().query().$promise.then(processData);
         }
 
         function processData(result) {
@@ -38,7 +39,7 @@
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
                 result.forEach(function (data) {
-                    RunsApiService.getRuns.save(data);
+                    RunsApiService.getRuns().save(data);
                 });
 
             }
@@ -303,7 +304,7 @@
 
         function deleteSelectedRuns() {
             vm.selectedRuns.forEach(function (sRun, index, sRuns) {
-                RunsApiService.getRuns.remove({id: sRun}).$promise
+                RunsApiService.getRuns().remove({id: sRun}).$promise
                     .then(function (res) {
                         getData();
                     }, function (err) {

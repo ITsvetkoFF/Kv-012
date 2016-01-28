@@ -5,9 +5,9 @@
         .module('app.tests')
         .controller('TestsListController', TestsListController);
 
-    TestsListController.$inject = ['logger', '$uibModal', 'TestsService', 'filterFields', '$resource'];
+    TestsListController.$inject = ['logger', '$uibModal', 'TestsService', 'filterFields'];
     /* @ngInject */
-    function TestsListController(logger, $uibModal, TestsService, filterFields, $resource) {
+    function TestsListController(logger, $uibModal, TestsService, filterFields) {
         var vm = this;
 
         activate();
@@ -21,6 +21,7 @@
         vm.currentSuite = {}; // on upload we see first suite
         vm.setSuite = setSuite;
         vm.filterFields = filterFields.tests.getFields();
+        vm.createTests = createTests;
 
         function activate() {
             logger.info('Activated Tests View');
@@ -60,6 +61,9 @@
         function setSuite(suite) {
             vm.currentSuite = suite;
             getTests();
+        }
+
+        function createTests() {
         }
 
         // modal
