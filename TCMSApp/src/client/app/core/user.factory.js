@@ -25,45 +25,43 @@
             deauthorize: deauthorize
         };
 
-        $rootScope.$on('TrelloUserAuthorized', function() {
-            service.authorized = true;
-            $rootScope.$broadcast('UserAuthorized');
-            userTrello.getMe().then(function(data) {
-                service.idTrello = data.id;
-                service.idBoards = data.idBoards;
-                service.idOrganizations = data.idOrganizations;
-                service.status = data.status;
-                service.avatarUrl = 'https://trello-avatars.s3.amazonaws.com/' + data.avatarHash + '/170.png';
-                getUser({trelloUserID: service.idTrello});
-            });
-        });
+        getMe();
 
-        function getUser(idObj) {
-            var deferred = $q.defer();
-
-            $http.get('/api/v1/Users?query=' + JSON.stringify(idObj)).success(function(data) {
-                if (data[0]) {
-                    service.firstName = data[0].firstName;
-                    service.lastName = data[0].lastName;
-                    service.role = data[0].role;
-                    service.id = data[0]._id;
-                    service.email = data[0].email;
-                    service.currentProjectID = data[0].currentProjectID;
-
+        function getMe() {
+            $http.get('/api/v1/User').success(function(data) {
+                if (data) {
+                    service.authorized = true;
+                    service.firstName = data.firstName;
+                    service.lastName = data.lastName;
+                    service.id = data._id;
+                    service.email = data.email;
+                    service.currentProjectID = data.currentProjectID;
+                    service.trelloUserID = data.trelloUserID;
                     if (service.currentProjectID) {
                         $http.get('/api/v1/Projects/' + service.currentProjectID).success(function(data) {
                             service.currentProject = data;
                         });
                     }
 
-                    deferred.resolve();
-                    if (!$rootScope.$$phase) {
-                        $rootScope.$digest();
+                    if (service.trelloUserID) {
+                        localStorage.setItem('trello_token', data.trelloToken);
+                        userTrello.authorize();
+
+                        userTrello.getMe(data.token).then(function(data) {
+                            service.idTrello = data.id;
+                            service.idBoards = data.idBoards;
+                            service.idOrganizations = data.idOrganizations;
+                            service.status = data.status;
+                            service.avatarUrl =
+                                'https://trello-avatars.s3.amazonaws.com/' + data.avatarHash + '/170.png';
+                            service.fullName = data.fullName;
+                            if (!$rootScope.$$phase) {
+                                $rootScope.$digest();
+                            }
+                        });
                     }
                 }
             });
-
-            return deferred.promise;
         }
 
         $rootScope.$on('UserDeauthorized', function() {
@@ -76,6 +74,7 @@
 
         function deauthorize() {
             userTrello.deauthorize() ;
+            $http.post('/api/v1/User/logout');
         }
 
         function changeCurrentProject(id) {

@@ -1,21 +1,18 @@
-// import the necessary modules
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validator = require('validator');
 
-// create  the user model
-
-// define schema
 var userSchema;
 userSchema = new Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    password: {type: String, required: true},
+    firstName: {type: String},
+    lastName: {type: String},
+    fullName: {type: String},
+    password: {type: String},
     currentProjectID: String,
     trelloUserID: String,
+    trelloToken: String,
     email: {
         type: String,
-        required: true,
         lowercase: true,
         validate: {
             validator: function (v) {
@@ -25,16 +22,7 @@ userSchema = new Schema({
         }
     },
     avatar: String,
-    role: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function (v) {
-                return /administrator|user/i.test(v);
-            },
-            message: '{VALUE} is not a valid user role'
-        }
-    }
+    projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'Project'}]
 
 });
 var user = mongoose.model('User', userSchema);

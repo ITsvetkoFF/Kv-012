@@ -1,0 +1,28 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <h1 class="text-center">Log in</h1>
+            <form action="/login/local" method="post">
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input name="username" id="username" type="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group pull-right">
+                    <input type="submit" class="btn btn-primary" value="log in">
+                </div>
+                <div class="form-group">
+                    Do not have an account? <a ui-sref="landing.register">Create!</a>
+                </div>
+            </form>
+            <form action="/register/trello" style="margin-top: 48px" method="post">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success center-block" value="Log In With Trello">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
