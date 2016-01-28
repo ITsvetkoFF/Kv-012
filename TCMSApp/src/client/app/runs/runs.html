@@ -155,7 +155,7 @@
                             </thead>
                             <tbody ng-repeat="cluster in vmRuns.testClusters">
                                 <tr ng-hide="vmRuns.testClusters.length < 2">
-                                    <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
+                                    <td colspan="3" class="text-center">{{vmRuns.suiteNames[cluster[0].suite]}}</td>
                                 </tr>
                                 <tr ng-repeat="test in cluster">
                                     <td ng-bind="::test.name"></td>
