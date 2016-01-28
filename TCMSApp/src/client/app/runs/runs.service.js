@@ -10,7 +10,9 @@
     function RunsApiService($resource, apiUrl) {
 
         return {
-            getRuns: $resource(apiUrl.host + apiUrl.runs + '/:id', {id: '@id'}),
+            getRuns: function () {
+                return $resource(apiUrl.host + apiUrl.runs + '/:id', {id: '@id'});
+            },
             getTestsOfRun: function (runID) {
                 return $resource(apiUrl.host + apiUrl.runTests + '?query={"run" : "' + runID + '"}');
             },
@@ -21,4 +23,5 @@
         };
     }
 
-})();
+})
+();

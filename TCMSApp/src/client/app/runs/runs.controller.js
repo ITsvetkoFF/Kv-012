@@ -17,16 +17,12 @@
     function RunsController(logger, fakeRuns, filterFields, RunsApiService, $q) {
 
         var vm = this;
-        RunsApiService.getRuns.query().$promise.then(processData);
+        RunsApiService.getRuns().query().$promise.then(processData);
 
         function processData(result) {
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
-                result.forEach(function (data) {
-                    RunsApiService.save(data);
-                });
-
             }
 
             vm.runs = result;
@@ -121,8 +117,6 @@
                 }
                 clusters[clusters.length - 1].push(tests[i]);
             }
-
-            console.log(clusters);
             return clusters;
 
         }
