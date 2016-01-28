@@ -12,10 +12,9 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper',
-        'filterFields', 'RunsApiService', 'moment', '$q'];
+    RunsController.$inject = ['logger', 'FakeRunsFactory', 'filterFields', 'RunsApiService', '$q'];
 
-    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment, $q) {
+    function RunsController(logger, fakeRuns, filterFields, RunsApiService, $q) {
 
         var vm = this;
         RunsApiService.getRuns.query().$promise.then(processData);
