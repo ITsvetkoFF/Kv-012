@@ -24,10 +24,6 @@
 
             if (result.length === 0) {
                 result = fakeRuns(100, 10, 3);
-                result.forEach(function (data) {
-                    RunsApiService.getRuns().save(data);
-                });
-
             }
 
             vm.runs = result;
