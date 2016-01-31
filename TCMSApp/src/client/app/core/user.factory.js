@@ -37,6 +37,7 @@
                     service.email = data.email;
                     service.currentProjectID = data.currentProjectID;
                     service.trelloUserID = data.trelloUserID;
+
                     if (service.currentProjectID) {
                         $http.get('/api/v1/Projects/' + service.currentProjectID).success(function(data) {
                             service.currentProject = data;

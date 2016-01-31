@@ -41,24 +41,6 @@
                     url: '/register',
                     templateUrl: 'app/landing/register.html'
                 }
-            },
-            {
-                state: 'login',
-                config: {
-                    url: '/login',
-                    templateUrl: 'app/landing/login.html',
-                    controller: 'LandingController',
-                    controllerAs: 'vmLanding',
-                }
-            },
-            {
-                state: 'register',
-                config: {
-                    url: '/register',
-                    templateUrl: 'app/landing/register.html',
-                    controller: 'LandingController',
-                    controllerAs: 'vmLanding',
-                }
             }
         ];
     }
