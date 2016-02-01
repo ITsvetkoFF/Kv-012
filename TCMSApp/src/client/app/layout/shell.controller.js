@@ -5,9 +5,9 @@
         .module('app.layout')
         .controller('ShellController', ShellController);
 
-    ShellController.$inject = ['$rootScope', '$timeout', 'config', 'logger', '$scope', 'user'];
+    ShellController.$inject = ['$rootScope', '$timeout', 'config', 'logger', '$scope', 'user', '$state'];
     /* @ngInject */
-    function ShellController($rootScope, $timeout, config, logger, $scope, user) {
+    function ShellController($rootScope, $timeout, config, logger, $scope, user, $state) {
         var vm = this;
         $rootScope.showSplash = true;
 
@@ -18,19 +18,9 @@
         };
 
         vm.user = user;
-        vm.showBars = false;
-
-        $scope.$on('UserAuthorized', function() {
-            vm.showBars = true;
-        });
-
-        $scope.$on('UserDeauthorized', function() {
-            vm.showBars = false;
-        });
 
         vm.sidebar = {
             sidebarToggle: function() {
-
                 this.visible = !this.visible;
             }
         };
@@ -38,9 +28,16 @@
         activate();
 
         function activate() {
-            if (user.authorized) {
-                vm.showBars = true;
-            }
+            $scope.$watch(function () {
+                return vm.user;
+            }, function(newval, oldval) {
+                if (!newval.authorized && $state.current.name.split('.')[0] !== 'landing') {
+                    $state.go('landing.home');
+                } else if (newval.authorized && $state.current.name.split('.')[0] === 'landing') {
+                    $state.go('dashboard');
+                }
+            }, true);
+
             logger.success(config.appTitle + ' loaded!', null);
             hideSplash();
         }

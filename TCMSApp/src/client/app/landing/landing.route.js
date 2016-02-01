@@ -14,13 +14,32 @@
     function getStates() {
         return [
             {
-                state: 'index',
+                state: 'landing',
                 config: {
-                    url: '/index',
                     templateUrl: 'app/landing/landing.html',
                     controller: 'LandingController',
-                    controllerAs: 'vmLanding',
-                    title: 'Landing'
+                    controllerAs: 'vmLanding'
+                }
+            },
+            {
+                state: 'landing.home',
+                config: {
+                    url: '/landing',
+                    templateUrl: 'app/landing/home.html'
+                }
+            },
+            {
+                state: 'landing.login',
+                config: {
+                    url: '/login',
+                    templateUrl: 'app/landing/login.html'
+                }
+            },
+            {
+                state: 'landing.register',
+                config: {
+                    url: '/register',
+                    templateUrl: 'app/landing/register.html'
                 }
             }
         ];

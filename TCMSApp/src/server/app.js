@@ -10,6 +10,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+
+var register = require('./routes/register');
+var login = require('./routes/login');
+var userRoute = require('./routes/user');
 
 var docs = require('express-mongoose-docs');
 
@@ -43,7 +50,15 @@ restify.serve(router, user);
 restify.serve(router, test.runTest);
 restify.serve(router, test.suiteTest);
 
+app.use(session({secret: 'TCMS', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 app.use(router);
+
+app.use('/login', login);
+app.use('/register', register);
+app.use('/api/v1/User', userRoute);
 
 //Generate API Docs
 docs(app, mongoose);

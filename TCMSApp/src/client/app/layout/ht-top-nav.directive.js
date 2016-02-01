@@ -39,8 +39,7 @@
 
             function logOut() {
                 user.deauthorize();
-                $rootScope.$broadcast('UserDeauthorized');
-                $state.go('index');
+                $state.go('landing.home');
             }
 
         }

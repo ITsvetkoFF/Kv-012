@@ -12,24 +12,11 @@
         vmLanding.logIn = logIn;
         vmLanding.user = user;
 
-        activate();
-
-        $scope.$on('UserAuthorized', function() {
-            $state.go('dashboard');
-        });
-
         function logIn() {
             user.authorize();
             if (user.authorized) {
                 $state.go('dashboard');
             }
         }
-
-        function activate() {
-            if (user.authorized) {
-                $state.go('dashboard');
-            }
-        }
-
     }
 })();
