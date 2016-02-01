@@ -31,11 +31,13 @@
             $scope.$watch(function () {
                 return vm.user;
             }, function(newval, oldval) {
-                if (!newval.authorized && $state.current.name.split('.')[0] !== 'landing') {
-                    $state.go('landing.home');
-                } else if (newval.authorized && $state.current.name.split('.')[0] === 'landing') {
-                    $state.go('dashboard');
-                }
+                $timeout(function() {
+                    if (!newval.authorized && $state.current.name.split('.')[0] !== 'landing') {
+                        $state.go('landing.home');
+                    } else if (newval.authorized && $state.current.name.split('.')[0] === 'landing') {
+                        $state.go('dashboard');
+                    }
+                }, 0);
             }, true);
 
             logger.success(config.appTitle + ' loaded!', null);
