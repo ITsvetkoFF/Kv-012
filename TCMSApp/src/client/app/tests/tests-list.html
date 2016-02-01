@@ -2,18 +2,18 @@
     <div class="matter">
         <div class="container-fluid">
 
-  <!-- header -->
-      <div class="clearfix">
-        <h1>
-          Tests
-          <form class="form-inline pull-right">
-              <smart-filter type="tests"
-                            fast-queries="['priority=High', 'priority=Low', 'priority=Normal', 'priority=Critical']">
-              </smart-filter>
-          </form>
-        </h1>
-      </div>
-      <hr>
+            <!-- header -->
+            <div class="clearfix">
+                <h1>
+                    Tests
+                    <form class="form-inline pull-right">
+                        <smart-filter type="tests"
+                                      fast-queries="['priority=High', 'priority=Low', 'priority=Normal', 'priority=Critical']">
+                        </smart-filter>
+                    </form>
+                </h1>
+            </div>
+            <hr>
 
             <!--main content-->
             <div class="row">
@@ -74,7 +74,8 @@
                                 </tr>
                                 </thead>
 
-                                <tbody ng-repeat="tc in vmTests.tests|smartFilter:filterQuery:vmTests.filterFields" style="border:0">
+                                <tbody ng-repeat="tc in vmTests.tests|smartFilter:filterQuery:vmTests.filterFields"
+                                       style="border:0">
                                 <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
                                     <td ng-click="$event.stopPropagation();">
                                         <input type="checkbox" ng-checked="vmTests.checkedAllCases">
