@@ -92,7 +92,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <b>Expected result:</b>
-                      <textarea class="form-control" rows="5" placeholder="Expected result" ng-model="s.expectedResult"></textarea>
+                      <textarea ng-keypress="vmCase.onCrtlEnterPress($event)" class="form-control" rows="5" placeholder="Expected result" ng-model="s.expectedResult"></textarea>
                     </div>
                   </div>
                 </div>
@@ -112,7 +112,7 @@
 
             <div class="clearfix">
               <div class="col-sm-12">
-                <button type="link" ng-click="vmCase.addStep();" class="btn btn-default pull-left">Add New Step</button>
+                <button uib-tooltip="You can use Ctrl+Enter to create new step" type="link" ng-click="vmCase.addStep();" class="btn btn-default pull-left">Add New Step</button>
               </div>
             </div>
 
