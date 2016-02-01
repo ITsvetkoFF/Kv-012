@@ -25,7 +25,6 @@ describe('TestsController', function () {
             '?query={"suite" : "' + '56a623b5c2b74a5831279f1e' + '"}').respond(
             mockData.getMockTestsOfSuite('56a623b5c2b74a5831279f1e'));
 
-
         $httpBackend.flush();
         $rootScope.$apply();
     });
