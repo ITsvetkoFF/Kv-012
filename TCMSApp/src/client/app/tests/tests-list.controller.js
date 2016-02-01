@@ -38,17 +38,18 @@
 
         // function gets test cases of current suite
         function getTests() {
-            var suiteID = vm.currentSuite._id;
-            var resource = TestsService.getTestsOfSuite(suiteID);
-            resource.query({}, function (res) {
-                vm.tests = res;
-            });
+            if (vm.currentSuite) {
+                var suiteID = vm.currentSuite._id;
+                var resource = TestsService.getTestsOfSuite(suiteID);
+                resource.query({}, function (res) {
+                    vm.tests = res;
+                });
+            }
         }
 
         // function gets all steps of current test
         function getSteps(test) {
-            var testID = test;
-            var resource = TestsService.getStepsOfTest(testID);
+            var resource = TestsService.getStepsOfTest(test);
             var stepList;
             resource.query({}, function (res) {
                 stepList = res;

@@ -1,8 +1,12 @@
-var mockData = (function() {
+var mockData = (function () {
     return {
         getMockStates: getMockStates,
         getMockRuns: getMockRuns,
         getFilterDirectiveTmpl: getFilterDirectiveTmpl,
+        getMockSuites: getMockSuites,
+        getMockTests: getMockTests,
+        getMockTestsOfSuite: getMockTestsOfSuite,
+        getMockSteps: getMockSteps,
         getSidebarDirectiveTmpl: getSidebarDirectiveTmpl
     };
 
@@ -77,6 +81,108 @@ var mockData = (function() {
 
     function getSidebarDirectiveTmpl() {
         return '<ht-sidebar sidebar="vmShell.sidebar">';
+    }
+
+    function getMockSuites() {
+        return [
+            {
+                "_id": "569fd358be47dd8b09b4f469",
+                "suiteName": "Test Suite Z",
+                "project": "569660e391b0bc1a28003311",
+                "stests": [],
+                "__v": 0,
+                "suiteDescription": "No description."
+            },
+            {
+                "_id": "56a0c46042a230635622f6f8",
+                "suiteName": "Test Suite X",
+                "project": "569660e391b0bc1a28003311",
+                "stests": [],
+                "__v": 0
+            },
+            {
+                "_id": "56a623b5c2b74a5831279f1e",
+                "suiteName": "Test Suite One",
+                "project": "569660e391b0bc1a28003311",
+                "stests": [],
+                "suiteDescription": "Test Suite Description",
+                "__v": 0
+            }
+        ];
+    }
+
+    function getMockTests() {
+        return [
+            {
+                "_id": "56a132ddfbc730c20b9c06aa",
+                "testName": "Test Case The First",
+                "preConditions": "NodeJS Installed",
+                "suite": "569fd358be47dd8b09b4f469",
+                "steps": [
+                    {
+                        "stepDescription": "Open the app in the browser",
+                        "expectedResult": "Browser is opened",
+                        "_id": "56a133d2fbc730c20b9c06b3"
+                    },
+                    {
+                        "stepDescription": "Log in",
+                        "expectedResult": "You are logged in",
+                        "_id": "56a133d2fbc730c20b9c06b2"
+                    },
+                    {
+                        "stepDescription": "Awesome!",
+                        "expectedResult": "You are awesome!",
+                        "_id": "56a133d2fbc730c20b9c06b1"
+                    }
+                ],
+                "priority": "High",
+                "created": "2016-01-21T19:34:53.001Z",
+                "testDescription": "No description.",
+                "__v": 0
+            },
+            {
+                "_id": "56a21076b27afde41ae1cb05",
+                "testName": "Test Case Alpha",
+                "preConditions": "Server started.",
+                "suite": "56a0c46042a230635622f6f8",
+                "steps": [
+                    {
+                        "stepDescription": "Open the browser",
+                        "expectedResult": "Browser is opened",
+                        "_id": "56a21076b27afde41ae1cb08"
+                    },
+                    {
+                        "stepDescription": "Enter the app URL",
+                        "expectedResult": "See the app",
+                        "_id": "56a21076b27afde41ae1cb07"
+                    },
+                    {
+                        "stepDescription": "Awesome!",
+                        "expectedResult": "You are awesome!",
+                        "_id": "56a21076b27afde41ae1cb06"
+                    }
+                ],
+                "priority": "Low",
+                "created": "2016-01-22T11:20:22.236Z",
+                "testDescription": "No description.",
+                "__v": 0
+            }
+        ];
+    }
+
+    function getMockTestsOfSuite(suiteID) {
+        var tests = getMockTests(),
+            i, l = tests.length,
+            testsOfSuite = [];
+        for (i = 0; i < l; i++) {
+            if (tests[i].suite === suiteID)
+                testsOfSuite.push(tests[i]);
+        }
+        return testsOfSuite;
+    }
+
+    function getMockSteps() {
+        return [];
     }
 
 })();
