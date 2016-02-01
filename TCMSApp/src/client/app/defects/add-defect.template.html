@@ -7,7 +7,7 @@
         <div class="modal-body">
             <div class="row">
             <div class="form-group col-md-9">
-            <label for="errorname">Name of the defect:</label>
+            <label for="errorname">Name of the defect*:</label>
         <input type="text" class="form-control" id="errorname" ng-model="vmDefectModal.bugName">
             </div>
             <div class="form-group col-md-3">
@@ -31,7 +31,7 @@
             </div>
             </div>
             <div class="form-group">
-            <label for="description">Description:</label>
+            <label for="description">Description*:</label>
         <textarea class="form-control" id="description" rows="3" ng-model="vmDefectModal.description"></textarea>
 
             </div>
@@ -42,10 +42,15 @@
             <label for="testCase">Steps To Reproduce:</label>
         <textarea class="form-control" id="testCase" rows="2" ng-model="vmDefectModal.stepsToReproduce"></textarea>
             </div>
+            <div class="errorMessage">
+                * - required fields<br>
+                {{vmDefectModal.error}}
+            </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vmDefectModal.cancel()">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="vmDefectModal.post()">Post</button>
+                <button ng-disabled="!vmDefectModal.noActivePostDefect()" type="button" class="btn btn-primary"
+                        ng-click="vmDefectModal.post()">Post</button>
             </div>
     </script>
 </div>

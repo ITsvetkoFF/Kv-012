@@ -53,17 +53,10 @@
 
                             vmDefectModal.cancel = function () {
                                 allowStateChange = true;
-
                                 $uibModalInstance.dismiss('cancel');
                                 $state.go($stateParams.previousState);
                             };
 
-                            /*function getNewDefect() {
-                             return dataservice.getNewDefect().then(function (data) {
-                             //var debug = data.getById("whoFind");
-                             return data;
-                             });
-                             }*/
                             vmDefectModal.post = function () {
                                 allowStateChange = true;
 
@@ -81,12 +74,17 @@
                                 };
 
                                 var defectsInfo = $resource(apiUrl.defects, {}, {});
+                                var result = defectsInfo.save(sample).$promise.then(function success() {
+                                    vmDefectModal.error = 'Success.';
+                                    $uibModalInstance.close();
+                                    $state.go($stateParams.
+                                        previousState, $stateParams, {
+                                        reload: true, inherit: false, notify: true
+                                    });
+                                }, function error(message) {
+                                    vmDefectModal.error = 'Error: ' + message.data.errmsg;
+                                });
 
-                                defectsInfo.save(sample);
-                                // updateDefects();
-                                $uibModalInstance.close();
-                                $state.go($stateParams.previousState, $stateParams, {reload: true, inherit: false,
-                                    notify: true});
                             };
 
                             // prevent state changing without interraction with modal controlls
@@ -96,6 +94,19 @@
                                     event.preventDefault();
                                 }
                             });
+
+                            vmDefectModal.noActivePostDefect = function () {
+                                if (vmDefectModal.description !== undefined &&
+                                    vmDefectModal.bugName !== undefined &&
+                                    vmDefectModal.description.length !== 0 &&
+                                    vmDefectModal.bugName.length !== 0) {
+                                    return true;
+                                }
+                                else {
+
+                                    return false;
+                                }
+                            };
                         },
                         controllerAs: 'vmDefectModal',
                         backdrop: 'static'
