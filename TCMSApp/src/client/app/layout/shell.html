@@ -1,19 +1,22 @@
 <div class="shell-wrapper" ng-controller="ShellController as vmShell" ng-class="{'sidebar-visible': vmShell.sidebar.visible}">
+    <div ng-if="vmShell.user.authorized">
+        <ht-top-nav sidebar="vmShell.sidebar" navline="vmShell.navline"></ht-top-nav>
 
-    <ht-top-nav sidebar="vmShell.sidebar"  navline="vmShell.navline"></ht-top-nav>
+        <ht-sidebar sidebar="vmShell.sidebar"></ht-sidebar>
 
-    <ht-sidebar sidebar="vmShell.sidebar"></ht-sidebar>
+        <section id="content" class="content">
+            <div ui-view class="shuffle-animation"></div>
 
-    <section id="content" class="content">
-        <div ui-view class="shuffle-animation"></div>
+            <div ngplus-overlay
+                 ngplus-overlay-delay-in="50"
+                 ngplus-overlay-delay-out="700"
+                 ngplus-overlay-animation="dissolve-animation">
+                <img src="images/busy.gif"/>
 
-        <div ngplus-overlay
-             ngplus-overlay-delay-in="50"
-             ngplus-overlay-delay-out="700"
-             ngplus-overlay-animation="dissolve-animation">
-            <img src="images/busy.gif"/>
+                <div class="page-spinner-message overlay-message">{{vmShell.busyMessage}}</div>
+            </div>
+        </section>
+    </div>
 
-            <div class="page-spinner-message overlay-message">{{vmShell.busyMessage}}</div>
-        </div>
-    </section>
+    <div ng-if="!vmShell.user.authorized" ui-view></div>
 </div>

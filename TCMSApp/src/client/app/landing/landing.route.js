@@ -14,31 +14,32 @@
     function getStates() {
         return [
             {
-                state: 'index',
+                state: 'landing',
                 config: {
-                    url: '/index',
                     templateUrl: 'app/landing/landing.html',
                     controller: 'LandingController',
-                    controllerAs: 'vmLanding',
-                    title: 'Landing'
+                    controllerAs: 'vmLanding'
                 }
             },
             {
-                state: 'login',
+                state: 'landing.home',
+                config: {
+                    url: '/landing',
+                    templateUrl: 'app/landing/home.html'
+                }
+            },
+            {
+                state: 'landing.login',
                 config: {
                     url: '/login',
-                    templateUrl: 'app/landing/login.html',
-                    controller: 'LandingController',
-                    controllerAs: 'vmLanding',
+                    templateUrl: 'app/landing/login.html'
                 }
             },
             {
-                state: 'register',
+                state: 'landing.register',
                 config: {
                     url: '/register',
-                    templateUrl: 'app/landing/register.html',
-                    controller: 'LandingController',
-                    controllerAs: 'vmLanding',
+                    templateUrl: 'app/landing/register.html'
                 }
             }
         ];

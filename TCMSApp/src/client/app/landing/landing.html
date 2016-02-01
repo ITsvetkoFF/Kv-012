@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="../../styles/landing-styles.css">
-<div class="wrapper-first">
+<div ng-if="!vmShell.user.authorized">
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -18,7 +17,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a data-toggle="modal" href="#logIn" ui-sref="login"><span class="fa fa-sign-in"></span> Login</a>
+                            <a ui-sref="landing.login"><span class="fa fa-sign-in"></span> Login</a>
                         </li>
                     </ul>
                 </div>
@@ -26,111 +25,29 @@
         </nav>
     </header>
 
+    <div ui-view></div>
 
-    <div class="container-fluid ">
+    <footer class="container-fluid">
         <div class="row">
-            <div class="col-md-4 jumbotron">
-                <h1>The Brand</h1>
-                <p>&nbsp;by awesome team</p>
-                <hr>
-                <h2>Online Test Case Management System</h2>
-                <p>The Brand helps you manage your software testing efforts and organize your QA department</p>
-                <button type="button" class="btn-lg btn-primary" ui-sref="register">
-                    Getting started &raquo;</button>
+            <div class="col-md-3 text-left">
+                The Brand
             </div>
-        </div>
-    </div>
 
-</div>
+            <div class="col-md-6 text-center">
+                <p>awesome team 2015 &copy;</p>
+            </div>
 
-
-<div class="wrapper-second" id="about">
-    <div class="container-fluid">
-        <div class="row text-center about">
-            <h1>Check out the best test case management tool ever!</h1>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-lg-5 col-lg-offset-1">
-                <ul class="aside">
-                    <li>
-                        <h4><i class="fa fa-calendar-o fa-2x"></i>&nbsp; Modern Test Management</h4>
-                        <p>Modern test management for your team in a central place.</p>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-bar-chart fa-2x"></i>&nbsp; Powerful Reports & Metrics</h4>
-                        <p>Actionable reports, metrics and real-time insights.</p>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-check-square-o fa-2x"></i>&nbsp; Easily Track Results
-                        </h4><p>Execute your tests and track results that matter.</p>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-users fa-2x"></i>&nbsp; Increased Productivity</h4>
-                        <p>Fast and easy to use for a productive, happy team.</p>
-                    </li>
+            <div class="col-md-3 text-right">
+                <ul class="list-inline">
+                    <li><a href="https://www.facebook.com"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                    <li><a href="https://twitter.com"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                    <li><a href="http://www.github.com/"><i class="fa fa-github-square fa-2x"></i></a></li>
+                    <li><a href="http://www.youtube.com/"><i class="fa fa-youtube-square fa-2x"></i></a></li>
                 </ul>
+
             </div>
-            <div class="col-md-6">
-                <img class="img-responsive" ng-src="../images/test.png">
-            </div>
+
         </div>
-    </div>
+    </footer>
+
 </div>
-
-
-<div class="wrapper-third" id="contacts">
-    <div class="container-fluid">
-        <div class="row about">
-            <p></p>
-        </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <img class="img-responsive img-circle" ng-src="../images/cat.jpg">
-            </div>
-            <div class="col-md-2">
-                <h3>Kot Kotovskii</h3>
-                <p>The Brand CEO</p>
-                <br>
-                <p>Dehtyarivska 33V, Kyiv, Ukraine <br>
-                    <i class="fa fa-phone"></i> 044-777-11-11 <br>
-                    <i class="fa fa-envelope"></i> kotovskii@catmail.com
-                </p>
-
-            </div>
-            <div class="col-md-6 maps">
-                <iframe height="450"
-                        scrolling="no"
-                        frameborder="0" style="border:0; pointer-events: none;"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAy6bfrlmrpSVBuid11QAKAgwQAgIauUb4
-                            &q=Dehtyarivska 33В, Kiev, Kyiv city" allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<footer class="container-fluid">
-    <div class="row">
-        <div class="col-md-3 text-left">
-            The Brand
-        </div>
-
-        <div class="col-md-6 text-center">
-            <p>awesome team 2015 &copy;</p>
-        </div>
-
-        <div class="col-md-3 text-right">
-            <ul class="list-inline">
-                <li><a href="https://www.facebook.com"><i class="fa fa-facebook-square fa-2x"></i></a></li>
-                <li><a href="https://twitter.com"><i class="fa fa-twitter-square fa-2x"></i></a></li>
-                <li><a href="http://www.github.com/"><i class="fa fa-github-square fa-2x"></i></a></li>
-                <li><a href="http://www.youtube.com/"><i class="fa fa-youtube-square fa-2x"></i></a></li>
-            </ul>
-
-        </div>
-
-    </div>
-</footer>

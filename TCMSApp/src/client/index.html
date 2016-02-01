@@ -20,9 +20,6 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!--TODO: add fonts to less-->
-    <link rel='stylesheet' href='styles/landing-styles.css' />
-
     <!-- build:css styles/app.css -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/.tmp/styles.css">
@@ -31,7 +28,9 @@
 
 </head>
 <body>
+
     <div ng-include="'app/layout/shell.html'"></div>
+
     <div id="splash-page" ng-show="showSplash">
         <div class="page-splash">
             <div class="page-splash-message">
