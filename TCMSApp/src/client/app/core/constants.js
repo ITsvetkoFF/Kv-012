@@ -18,7 +18,7 @@
             runs: '/api/v1/Runs',
             projects: '/api/v1/Projects',
             suites: '/api/v1/Suites',
-            users: '/api/v1/Users',
+            users: '/api/v1/Users/:id',
             suiteTests: '/api/v1/suitetests',
             runTests: '/api/v1/runTests'
         };

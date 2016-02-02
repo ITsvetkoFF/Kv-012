@@ -5,11 +5,10 @@ var Schema = mongoose.Schema;
 //create  the defect model
 //define schema
 var defectSchema = new Schema({
-        randomId: Number,
         name: {type: String, required: true, unique: true},
-        whoFind: String,
-        assignedTo: String,
-        dateOfDefectCreation: Date,
+        reporter: {type: mongoose.Schema.Types.ObjectId, required: true},
+        assignedTo: {type: mongoose.Schema.Types.ObjectId},
+        date: Date,
         priority: {
             type: String,
             required: true,
@@ -17,7 +16,7 @@ var defectSchema = new Schema({
         },
         description: {type: String, required: true},
         stepsToReproduce: [String],
-        testRunId: Number
+        run: {type: mongoose.Schema.Types.ObjectId}
     });
 var defect = mongoose.model('Defect', defectSchema) ;
 module.exports = defect;

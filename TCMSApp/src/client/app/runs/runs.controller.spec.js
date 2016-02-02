@@ -18,7 +18,7 @@ describe('RunsController', function () {
 
             httpBackend = $httpBackend;
 
-            httpBackend.when('GET', 'http://localhost:3000/api/v1/Runs').respond(
+            httpBackend.when('GET', 'http://localhost:3000/api/v1/Runs/?populate=author').respond(
                 [
                     {
                         _id: '56a94aa979ce40fc0d3e3389',
