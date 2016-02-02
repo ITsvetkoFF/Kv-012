@@ -3,6 +3,7 @@
 
     angular.module('app.dashboard', [
         'app.core',
-        'app.widgets'
+        'app.widgets',
+        'gridster'
       ]);
 })();
