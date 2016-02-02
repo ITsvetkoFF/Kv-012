@@ -12,17 +12,12 @@ var runSchema = new Schema({
         required: true
     },
     author: {
-        type: {
-            firstName: String,
-            lastName: String
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     previousRunId: mongoose.Schema.Types.ObjectId,
-    dateStart: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
+    dateStart: Date,
     dateEnd: {type: Date},
     build: Number,
     envShort: String,

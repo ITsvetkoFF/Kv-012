@@ -27,8 +27,8 @@
 
             for (var i = 0; i < runs.length; i++) {
                 runs[i].author.toString = function(type) {
-                    if (type === 'short') return this.last + ' ' + this.first.slice(0,1) + '.';
-                    else return this.first + ' ' + this.last;
+                    if (type === 'short') return this.lastName + ' ' + this.firstName.slice(0,1) + '.';
+                    else return this.firstName + ' ' + this.lastName;
                 };
 
                 runs[i].date = {

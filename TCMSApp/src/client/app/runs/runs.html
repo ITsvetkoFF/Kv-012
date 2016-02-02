@@ -98,8 +98,7 @@
                                 <td ng-bind="::runItem.name"></td>
                                 <td ng-bind="::runItem.build"></td>
                                 <td ng-bind="::runItem.envShort"></td>
-                                <td>{{::vmRuns.selectedRun.author.firstName}} {{::vmRuns.selectedRun.author.lastName}}
-                                </td>
+                                <td ng-bind="::runItem.author.toString('short')"></td>
                                 <td>
                                     <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
                                           ng-bind="::runItem.status.toUpperCase()"></span>
@@ -123,26 +122,25 @@
                             </span>
                         </div>
                         <div class="panel-body">
-                            <h4 ng-bind="::vmRuns.selectedRun.name"></h4>
+                            <h4 ng-bind="vmRuns.selectedRun.name"></h4>
                             <b>Status:</b>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success"
                                      style="width: {{vmRuns.progress.passed/vmRuns.progress.length*100}}%"
-                                     ng-bind="::vmRuns.progress.passed">
+                                     ng-bind="vmRuns.progress.passed">
                                 </div>
                                 <div class="progress-bar progress-bar-danger"
                                      style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%"
-                                     ng-bind="::vmRuns.progress.failed">
+                                     ng-bind="vmRuns.progress.failed">
                                 </div>
                             </div>
                             <div>
-                                <b>Author: </b>{{::vmRuns.selectedRun.author.firstName}}
-                                {{::vmRuns.selectedRun.author.lastName}}
+                                <b>Author: </b>{{vmRuns.selectedRun.author.toString()}}
                             </div>
                             <b>Environment details:</b>
                             <div>
                                 <div ng-repeat="(envParamKey, envParamValue) in vmRuns.selectedRun.envFull">
-                                    <i ng-bind="::envParamKey"></i>: {{::envParamValue}}
+                                    <i ng-bind="envParamKey"></i>: {{envParamValue}}
                                 </div>
                             </div>
                         </div>
@@ -155,13 +153,13 @@
                             </thead>
                             <tbody ng-repeat="cluster in vmRuns.testClusters">
                                 <tr ng-hide="vmRuns.testClusters.length < 2">
-                                    <td colspan="3" class="text-center">{{vmRuns.suiteNames[cluster[0].suite]}}</td>
+                                    <td colspan="3" class="text-center">{{cluster[0].suite}}</td>
                                 </tr>
                                 <tr ng-repeat="test in cluster">
-                                    <td ng-bind="::test.name"></td>
+                                    <td ng-bind="test.testName"></td>
                                     <td>
                                         <span class="label label-{{test.status==='passed'?'success':'danger'}}"
-                                              ng-bind="::test.status.toUpperCase()"></span>
+                                              ng-bind="test.status.toUpperCase()"></span>
                                     </td>
                                 </tr>
                             </tbody>
