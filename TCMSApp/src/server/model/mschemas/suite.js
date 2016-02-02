@@ -13,7 +13,7 @@ var suiteSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    stests: [suiteTestSchema]
+    tests: [suiteTestSchema]
 });
 
 var testSuite = mongoose.model('Suite', suiteSchema);

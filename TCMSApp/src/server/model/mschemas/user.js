@@ -8,7 +8,7 @@ userSchema = new Schema({
     lastName: {type: String},
     fullName: {type: String},
     password: {type: String},
-    currentProjectID: String,
+    currentProjectID: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
     trelloUserID: String,
     trelloToken: String,
     email: {

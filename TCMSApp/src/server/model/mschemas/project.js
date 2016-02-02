@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 // define schema
 var projectSchema = new Schema({
         name: {type: String, required: true},
-        trelloOrganizationId: {type: String, required: true},
+        trelloOrganizationId: {type: String},
         description: {type: String},
         admins:  [{type: String, required: true}],
         users:  [mongoose.Schema.Types.ObjectId],

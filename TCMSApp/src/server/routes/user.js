@@ -4,7 +4,7 @@ var User = require('../model/mschemas/user.js');
 
 router.get('/', function(req, res) {
     if (req.user) {
-        User.findOne({'trelloUserID': req.user.trelloUserID},function(err, user) {
+        User.findOne({'_id': req.user._id}, function (err, user) {
             if (err) {
                 res.send(err);
             }

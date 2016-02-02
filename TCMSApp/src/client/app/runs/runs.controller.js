@@ -250,8 +250,9 @@
             if (!tests) return [];
 
             tests = tests.sort(function (a, b) {
-                return (a.suite <= b.suite ? 0 : 1);
+                return (a.suite <= b.suite ? -1 : 1);
             });
+
             var clusters = [[tests[0]]];
 
             for (var i = 1; i < tests.length; i++) {
@@ -273,33 +274,10 @@
                 vm.tests = res;
                 vm.progress = getProgress();
                 vm.testClusters = clusterizeTests();
-                fillSuiteNames();
                 deferred.resolve();
             });
 
             return deferred.promise;
-        }
-
-        // fills the dictionary of suite ID's and names
-        function fillSuiteNames() {
-            var suiteNames = {},
-                tests = vm.tests,
-                i, suiteID,
-                l = tests.length;
-
-            for (i = 0; i < l; i++) {
-                suiteID = tests[i].suite;
-                if (!vm.suiteNames[suiteID])
-                    fillName(suiteID);
-            }
-
-            // make a request and fill suiteNames with a new name
-            function fillName(id) {
-                RunsApiService.getSuite(id).get({}, function (res) {
-                    vm.suiteNames[id] = res.suiteName;
-                });
-            }
-
         }
 
         function deleteSelectedRuns() {
