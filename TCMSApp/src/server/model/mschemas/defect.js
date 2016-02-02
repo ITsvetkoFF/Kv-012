@@ -16,7 +16,7 @@ var defectSchema = new Schema({
         },
         description: {type: String, required: true},
         stepsToReproduce: [String],
-        run: {type: mongoose.Schema.Types.ObjectId, required: true},
+        run: {type: mongoose.Schema.Types.ObjectId}
     });
 var defect = mongoose.model('Defect', defectSchema) ;
 module.exports = defect;
