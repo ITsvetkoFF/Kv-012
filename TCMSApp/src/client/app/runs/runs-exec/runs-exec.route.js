@@ -24,7 +24,7 @@
                     params: {
                         run: {
                             value: undefined,
-                            squash: false//the parameter won't be shown in the url
+                            squash: false//the paraneter won't be shown in the url
                         }
                     }
                 }
@@ -40,7 +40,7 @@
                     params: {
                         run: {
                             value: undefined,
-                            squash: false//the parameter won't be shown in the url
+                            squash: false//the paraneter won't be shown in the url
                         }
                     }
                 }
