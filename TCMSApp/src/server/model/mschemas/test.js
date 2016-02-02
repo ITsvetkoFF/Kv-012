@@ -41,7 +41,7 @@ var runTestSchema = new Schema({
     automated: {type: Boolean},
     preConditions: {type: String, required: true},
     run: {type: mongoose.Schema.Types.ObjectId, required: true},
-    suite: {type: mongoose.Schema.Types.ObjectId, required: true},
+    suite: {type: String, required: true},
     created: {type: Date, default: Date.now},
     status: {
         type: String,
@@ -50,8 +50,8 @@ var runTestSchema = new Schema({
     steps: [runStepSchema]
 });
 
-var suiteTest = mongoose.model('SuiteTest', suiteTestSchema);
-var runTest = mongoose.model('RunTest', runTestSchema);
+var suiteTest = mongoose.model('SuiteTests', suiteTestSchema);
+var runTest = mongoose.model('RunTests', runTestSchema);
 
 module.exports = {
     suiteTestSchema: suiteTestSchema,

@@ -11,7 +11,7 @@
 
         return {
             getRuns: function () {
-                return $resource(apiUrl.host + apiUrl.runs + '/:id', {id: '@id'});
+                return $resource(apiUrl.host + apiUrl.runs + '/:id?populate=author', {id: '@_id'});
             },
             getTestsOfRun: function (runID) {
                 return $resource(apiUrl.host + apiUrl.runTests + '?query={"run" : "' + runID + '"}');
