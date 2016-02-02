@@ -1,53 +1,50 @@
-<div ng-if="!vmShell.user.authorized">
-    <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><i class="fa fa-rebel"></i></a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav nav">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contacts">Contact</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a ui-sref="landing.login"><span class="fa fa-sign-in"></span> Login</a>
-                        </li>
-                    </ul>
-                </div>
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-rebel"></i></a>
             </div>
-        </nav>
-    </header>
-
-    <div ui-view></div>
-
-    <footer class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 text-left">
-                The Brand
-            </div>
-
-            <div class="col-md-6 text-center">
-                <p>awesome team 2015 &copy;</p>
-            </div>
-
-            <div class="col-md-3 text-right">
-                <ul class="list-inline">
-                    <li><a href="https://www.facebook.com"><i class="fa fa-facebook-square fa-2x"></i></a></li>
-                    <li><a href="https://twitter.com"><i class="fa fa-twitter-square fa-2x"></i></a></li>
-                    <li><a href="http://www.github.com/"><i class="fa fa-github-square fa-2x"></i></a></li>
-                    <li><a href="http://www.youtube.com/"><i class="fa fa-youtube-square fa-2x"></i></a></li>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav nav">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contacts">Contact</a></li>
                 </ul>
-
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a ui-sref="landing.login"><span class="fa fa-sign-in"></span> Login</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
+</header>
+
+<div ui-view></div>
+
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 text-left">
+            The Brand
+        </div>
+
+        <div class="col-md-6 text-center">
+            <p>awesome team 2015 &copy;</p>
+        </div>
+
+        <div class="col-md-3 text-right">
+            <ul class="list-inline">
+                <li><a href="https://www.facebook.com"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="https://twitter.com"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="http://www.github.com/"><i class="fa fa-github-square fa-2x"></i></a></li>
+                <li><a href="http://www.youtube.com/"><i class="fa fa-youtube-square fa-2x"></i></a></li>
+            </ul>
 
         </div>
-    </footer>
 
-</div>
+    </div>
+</footer>
