@@ -177,8 +177,7 @@ header {
             border: @border-width @border-style @color_dark_gray2;
         }
 
-        &-prev {
-            &:hover {
+        &-prev { &:hover {
                 background: transparent;
                 border: 0;
                 top: @border-width * 2 !important;
@@ -239,6 +238,34 @@ header {
 
 .tabsNotSelected{
     background-color: @color_white;
+}
+.tableInput{
+    background-color: transparent;
+    border: none;
+}
+
+/*Style of suite lists on the runs-execute page*/
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    &:first-child{
+        border-top: none;
+    }
+    &:last-child{
+        border-bottom: none;
+    }
+}
+.list-group-item-test {
+    padding-left: 3em;
+}
+.list-item-suite-selected{
+    font-weight: bold;
+    background-color: @color_siderbar_inner;
+}
+.list-item-test-selected{
+    font-style: italic;
+    background-color: lighten(@color_siderbar_inner, 2%);
 }
 
 //---------landing styles---------//
