@@ -4,35 +4,19 @@
 <form name="suiteForm">
   <div class="modal-body">
     <div class="container-fluid">
-      <div class="col-xs-6">
+      <div class="col-xs-12">
         <div class="form-group">
-          <label for="suiteName">Title:</label>
-          <input type="text" class="form-control" id="suiteName" name="suiteName" placeholder="Test suite title" ng-model="vmSuite.suiteName" required>
-        </div>
-      </div>
-
-      <div class="col-xs-4">
-        <div class="form-group">
-          <label for="suitePriority">Priority:</label>
-          <select class="form-control" id="suitePriority" ng-model="vmSuite.suitePriority" required>
-            <option ng-repeat="option in vmSuite.priority" value="{{option.id}}">
-              {{option.name}}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label for="suiteId">ID:</label>
-          <input type="text" class="form-control" id="suiteId" ng-model="vmSuite._id" disabled>
+          <label for="suiteName">Suite Name:</label>
+          <input type="text" class="form-control" id="suiteName" name="suiteName" placeholder="Test suite title"
+                 ng-model="vmSuite.suiteName" ng-class="vmSuite.errorName" required>
         </div>
       </div>
 
       <div class="col-xs-12">
         <div class="form-group">
           <label for="suiteDescription">Description:</label>
-          <textarea class="form-control" rows="3" id="suiteDescription" name="suiteDescription" placeholder="Input test suite description here" ng-model="vmSuite.suiteDescription" required></textarea>
+          <textarea class="form-control" rows="3" id="suiteDescription" name="suiteDescription"
+                    placeholder="Input test suite description here" ng-model="vmSuite.suiteDescription"></textarea>
         </div>
       </div>
     </div>
@@ -40,7 +24,7 @@
 
   <div class="modal-footer">
     <button class="btn btn-primary" type="submit" ng-click="vmSuite.submitAddSuite()"
-    ng-disabled="suiteForm.suiteName.$invalid || suiteForm.suiteDescription.$invalid">
+    ng-disabled="suiteForm.suiteName.$invalid">
       <i class="fa fa-check"></i>
     </button>
     <button class="btn btn-warning" type="button" ng-click="vmSuite.cancelAddSuite()"><i class="fa fa-times"></i> </button>

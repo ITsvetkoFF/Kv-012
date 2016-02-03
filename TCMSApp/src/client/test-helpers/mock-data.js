@@ -7,7 +7,9 @@ var mockData = (function () {
         getMockTests: getMockTests,
         getMockTestsOfSuite: getMockTestsOfSuite,
         getMockSteps: getMockSteps,
-        getSidebarDirectiveTmpl: getSidebarDirectiveTmpl
+        getSidebarDirectiveTmpl: getSidebarDirectiveTmpl,
+        getMe: getMe,
+        getProjects: getProjects
     };
 
     function getMockStates() {
@@ -183,6 +185,71 @@ var mockData = (function () {
 
     function getMockSteps() {
         return [];
+    }
+
+    function getMe() {
+        return {
+            '_id': '56b11cbff9a9839972d3c629',
+            'trelloToken': 'ac6e48175e484ada2bdab31731eb5b863ee8f6156507440fd2aca92eef70c1bf',
+            'trelloUserID': '567302e74768c9778f1549d1',
+            'fullName': 'Yaroslav',
+            '__v': 0,
+            'currentProjectID': '56b11ca040e8e38011671d5b',
+            'projects': []
+        };
+    }
+
+    function getProjects() {
+        return [
+            {
+                '_id': '56b11ca040e8e38011671d5b',
+                'name': 'Orn and Sons',
+                'description': 'Necessitatibus sit et.',
+                'admins': [
+                    '56b11ca040e8e38011671d56'
+                ],
+                'users': [
+                    '56b11ca040e8e38011671d53',
+                    '56b11ca040e8e38011671d59',
+                    '56b11ca040e8e38011671d57',
+                    '56b11ca040e8e38011671d58',
+                    '56b11ca040e8e38011671d5a'
+                ],
+                'dateStart': '2015-11-05T21:45:01.970Z',
+                'dateEnd': '2016-10-25T12:52:31.662Z'
+            },
+            {
+                '_id': '56b11ca040e8e38011671d5c',
+                'name': 'Toy, Stamm and Carroll',
+                'description': 'Aliquam tempora et ut aut corrupti laborum.',
+                'admins': [
+                    '56b11ca040e8e38011671d55'
+                ],
+                'users': [
+                    '56b11ca040e8e38011671d54',
+                    '56b11ca040e8e38011671d5a',
+                    '56b11ca040e8e38011671d58',
+                    '56b11ca040e8e38011671d56'
+                ],
+                'dateStart': '2015-08-18T16:01:56.258Z',
+                'dateEnd': '2016-12-26T19:20:46.967Z'
+            },
+            {
+                '_id': '56b11ca040e8e38011671d5d',
+                'name': 'Hammes, Dietrich and Walsh',
+                'description': 'Pariatur occaecati non at aut.',
+                'admins': [
+                    '56b11ca040e8e38011671d55'
+                ],
+                'users': [
+                    '56b11ca040e8e38011671d58',
+                    '56b11ca040e8e38011671d57',
+                    '56b11ca040e8e38011671d53'
+                ],
+                'dateStart': '2015-07-22T22:31:05.079Z',
+                'dateEnd': '2016-04-07T16:32:24.225Z'
+            }
+        ];
     }
 
 })();

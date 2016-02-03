@@ -21,17 +21,25 @@
             {id: '9', name: 'Usability'},
             {id: '10', name: 'Other'}
         ];
-        var sprint = [1,2,3];
+        var sprint = [1, 2, 3];
 
         return {
-            getSuites: function() {
+            getSuites: function () {
                 return $resource(apiUrl.host + apiUrl.suites);
             },
-            getTestsOfSuite: function(suiteID) {
+            getTestsOfSuite: function (suiteID) {
                 return $resource(apiUrl.host + apiUrl.suiteTests + '?query={"suite" : "' + suiteID + '"}');
             },
-            getNumDefects: function(testID) {
+            getNumDefects: function (testID) {
                 return $resource(apiUrl.host + apiUrl.defects + '/count?query={}');
+            },
+            getUsers: function () {
+                return $resource(apiUrl.host + apiUrl.projects);
+            },
+            checkForSameSuiteName: function (name, projectID) {
+                var queryJSON = JSON.stringify({project: projectID, suiteName: name});
+                return $resource(apiUrl.host + apiUrl.suites + '?query=' + queryJSON).query();
+
             }
         };
     }

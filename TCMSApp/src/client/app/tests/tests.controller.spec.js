@@ -4,6 +4,21 @@ describe('TestsController', function () {
 
     var suites = mockData.getMockSuites();
     var steps = mockData.getMockSteps();
+    var me = mockData.getMe();
+    var projects = mockData.getProjects();
+    var Trello = {
+        authorized: function() {
+            return true;
+        },
+        authorize: function() {},
+        get: function() {}
+    };
+    beforeEach(module('app.core'));
+    beforeEach(function() {
+        module(function($provide) {
+            $provide.constant('Trello', Trello);
+        });
+    });
 
     beforeEach(function () {
         bard.appModule('app.tests');
@@ -11,6 +26,7 @@ describe('TestsController', function () {
     });
 
     beforeEach(function () {
+
         scope = $rootScope.$new();
         controller = $controller('TestsListController', {$scope: scope});
 
@@ -24,6 +40,8 @@ describe('TestsController', function () {
         $httpBackend.when('GET', apiUrl.host + apiUrl.suiteTests +
             '?query={"suite" : "' + '56a623b5c2b74a5831279f1e' + '"}').respond(
             mockData.getMockTestsOfSuite('56a623b5c2b74a5831279f1e'));
+        $httpBackend.when('GET', '/api/v1/User').respond(me);
+        $httpBackend.when('GET', /\/api\/v1\/Projects\/*/).respond(projects);
 
         $httpBackend.flush();
         $rootScope.$apply();
