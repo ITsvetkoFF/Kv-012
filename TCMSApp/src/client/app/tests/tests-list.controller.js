@@ -1,3 +1,5 @@
+/* jshint -W071 */
+
 (function () {
     'use strict';
 
@@ -5,9 +7,11 @@
         .module('app.tests')
         .controller('TestsListController', TestsListController);
 
-    TestsListController.$inject = ['logger', '$uibModal', 'TestsService', 'filterFields'];
+    TestsListController.$inject = ['logger', '$uibModal', 'TestsService', 'filterFields', '$scope', '$filter',
+        '$state', 'RunsApiService', 'user', '$q'];
     /* @ngInject */
-    function TestsListController(logger, $uibModal, TestsService, filterFields) {
+    function TestsListController(logger, $uibModal, TestsService, filterFields, $scope, $filter,
+                                 $state, RunsApiService, user, $q) {
         var vm = this;
 
         activate();
@@ -15,15 +19,34 @@
         vm.checkedAllCases = false; // checkbox for testCases
         vm.suites = [];  // fill view with test suites
         vm.getSuites = getSuites();
-        vm.tests = []; // test cases of a current suite
+        vm.tests = []; // test cases of all suites
         vm.stepList = [];
         vm.openAddSuite = openAddSuite; // open modal for new suite
         vm.currentSuite = {}; // on upload we see first suite
         vm.setSuite = setSuite;
         vm.filterFields = filterFields.tests.getFields();
 
+        // data for checkboxes -------------------------------------
+
+        vm.allTestsCheckboxModel = {checked: false, id: 'checkAllTestsCheckbox'};
+        vm.newRunName = '';
+        vm.filteredTests = [];
+        vm.selectedTests = [];
+        vm.testCheckboxesModels = [];
+        vm.suiteCheckboxesModels = [];
+        vm.testCheckboxClickHandler = testCheckboxClickHandler;
+        vm.setTestCheckboxModel = setTestCheckboxModel;
+        vm.checkAllTests = checkAllTests;
+        vm.setSuiteCheckboxModel = setSuiteCheckboxModel;
+        vm.runSelected = runSelectedTests;
+        vm.checkSuiteTests = checkSuiteTests;
+        vm.currentTests = [];
+
+        // ---------------------------------------------------------
+
         function activate() {
             logger.info('Activated Tests View');
+            _setFilterQueryWatcher();
         }
 
         // fill suites array
@@ -32,35 +55,55 @@
             resource.query({}, function (res) {
                 vm.suites = res;
                 vm.currentSuite = vm.suites[0];
-                getTests();
+                vm.currentTests.length = 0;
+
+                res.map(function (item, i, array) {
+                    vm.suiteCheckboxesModels.push({
+                        checked: false,
+                        id: item._id
+                    });
+                });
+
+                getTests(res);
+            }, function (err) {
+                logger.error(err.responseText);
             });
         }
 
         // function gets test cases of current suite
-        function getTests() {
+        function getTests(suites) {
             if (vm.currentSuite) {
-                var suiteID = vm.currentSuite._id;
-                var resource = TestsService.getTestsOfSuite(suiteID);
-                resource.query({}, function (res) {
-                    vm.tests = res;
+                vm.tests.length = 0;
+
+                suites.map(function (item, index, array) {
+                    TestsService.getTestsOfSuite(item._id).query({},
+                        function (res) {
+
+                            res.map(function (test) {
+                                vm.tests.push(test);
+                            });
+
+                            console.log(vm.tests.length);
+
+                            if (item._id === vm.currentSuite._id) {
+                                _setCurrentTests();
+                            }
+
+                            _setTestCheckboxesModels(res);
+                            _refreshFilteredTests();
+                        }, function (err) {
+                            logger.error(err.responseText);
+                        });
                 });
             }
-        }
-
-        // function gets all steps of current test
-        function getSteps(test) {
-            var resource = TestsService.getStepsOfTest(test);
-            var stepList;
-            resource.query({}, function (res) {
-                stepList = res;
-                return stepList;
-            });
         }
 
         // function swithes current suite to selected one
         function setSuite(suite) {
             vm.currentSuite = suite;
-            getTests();
+            vm.currentTests.length = 0;
+            _setCurrentTests();
+            _refreshFilteredTests();
         }
 
         // modal
@@ -99,5 +142,266 @@
                 controllerAs: 'vmSuite'
             });
         }
+
+        function _setFilterQueryWatcher() {
+            $scope.$watch('filterQuery', function (newVal, oldVal) {
+                if (oldVal !== undefined) {
+                    _refreshFilteredTests();
+                }
+            });
+        }
+
+        function _setCurrentTests() {
+            vm.tests.map(function (item, i, array) {
+                if (item.suite === vm.currentSuite._id) {
+                    vm.currentTests.push(item);
+                }
+            });
+        }
+
+        function _refreshFilteredTests() {
+            vm.filteredTests.length = 0;
+
+            $filter('smartFilter')(vm.currentTests, $scope.filterQuery, vm.filterFields)
+                .map(function (item, index, arr) {
+                    vm.filteredTests.push(item);
+                });
+
+            if (vm.selectedTests.length) {
+                _setCheckAllCheckbox();
+            }
+        }
+
+        //functions for checkboxes -------------------------------------------------
+
+        function _setIndeterminateById(id, value) {
+            document.getElementById(id).indeterminate = value;
+        }
+
+        function _setCheckAllCheckbox() {
+
+            var checkedTest = vm.filteredTests
+                .filter(function (item) {
+                    return vm.selectedTests[vm.selectedTests.indexOf(item._id)] === item._id;
+                });
+
+            if (checkedTest.length === 0) {
+                _setIndeterminateById(vm.allTestsCheckboxModel.id, false);
+                vm.allTestsCheckboxModel.checked = false;
+
+            } else if (checkedTest.length === vm.filteredTests.length) {
+                _setIndeterminateById(vm.allTestsCheckboxModel.id, false);
+                vm.allTestsCheckboxModel.checked = true;
+
+            } else if (checkedTest.length < vm.filteredTests.length) {
+                _setIndeterminateById(vm.allTestsCheckboxModel.id, true);
+                vm.allTestsCheckboxModel.checked = false;
+            }
+        }
+
+        function _setSuiteCheckbox() {
+            var checkedTests = vm.currentTests
+                .filter(function (item, i, array) {
+                    return item._id === vm.selectedTests[vm.selectedTests.indexOf(item._id)];
+                });
+
+            if (checkedTests.length === 0) {
+                _setIndeterminateById(vm.currentSuite._id, false);
+                _getSuiteModelById(vm.currentSuite._id).checked = false;
+
+            } else if (checkedTests.length === vm.currentTests.length) {
+                _setIndeterminateById(vm.currentSuite._id, false);
+                _getSuiteModelById(vm.currentSuite._id).checked = true;
+
+            } else if (checkedTests.length < vm.currentTests.length) {
+                _setIndeterminateById(vm.currentSuite._id, true);
+                _getSuiteModelById(vm.currentSuite._id).checked = false;
+            }
+        }
+
+        function _getSuiteModelById(id) {
+            return vm.suiteCheckboxesModels.filter(function (item, i, array) {
+                return item.id === id;
+            })[0];
+        }
+
+        function setSuiteCheckboxModel(id) {
+            return vm.suiteCheckboxesModels
+                .filter(function (item) {
+                    return id === item.id;
+                })[0];
+        }
+
+        function testCheckboxClickHandler($event) {
+
+            if ($event.target.checked) {
+                _selectTest($event.target.value);
+            } else {
+                _deselectTest($event.target.value);
+            }
+
+            _setCheckAllCheckbox();
+            _setSuiteCheckbox();
+        }
+
+        function _selectTest(id) {
+            var testExist = vm.selectedTests.filter(function (item, i, array) {
+                return id === item;
+            })[0];
+
+            if (!testExist) {
+                vm.selectedTests.push(id);
+            }
+        }
+
+        function _deselectTest(id) {
+            var index;
+            var deleted = vm.selectedTests.map(function (item, i, array) {
+                if (id === item) {
+                    index = i;
+                }
+            })[0];
+            if (index !== undefined) {
+                vm.selectedTests.splice(index, 1);
+            }
+        }
+
+        function _setTestCheckboxesModels(res) {
+
+            if (vm.testCheckboxesModels.length === 0) {
+                res.map(function (resTest) {
+                    vm.testCheckboxesModels.push(
+                        {
+                            checked: false,
+                            id: resTest._id
+                        }
+                    );
+                });
+            } else {
+                res.map(function (resTest, i, array) {
+
+                    var existingModel = vm.testCheckboxesModels.filter(function (item, i, array) {
+                        return resTest._id === item.id;
+                    })[0];
+
+                    if (!existingModel) {
+                        vm.testCheckboxesModels.push(
+                            {
+                                checked: false,
+                                id: resTest._id
+                            }
+                        );
+                    }
+                });
+            }
+        }
+
+        function setTestCheckboxModel(id) {
+            return vm.testCheckboxesModels.filter(function (item, i, array) {
+                return id === item.id;
+            })[0];
+        }
+
+        function checkAllTests($event) {
+
+            $event.target.checked ? _setTestsToCheck(true) : _setTestsToCheck(false); // jshint ignore:line
+
+            function _setTestsToCheck(bool) {
+                vm.filteredTests
+                    .map(function (fTest, i, arr) {
+                        vm.testCheckboxesModels
+                            .filter(function (model, i, array) {
+                                return fTest._id === model.id;
+                            })
+                            .map(function (model) {
+                                if (bool) {
+                                    _selectTest(model.id);
+                                } else {
+                                    _deselectTest(model.id);
+                                }
+                                model.checked = bool;
+                            });
+                    });
+            }
+
+            _setSuiteCheckbox();
+        }
+
+        function checkSuiteTests($event) {
+            $event.stopPropagation();
+
+            $event.target.checked ? _setTestsToCheck(true) : _setTestsToCheck(false); // jshint ignore:line
+
+            function _setTestsToCheck(bool) {
+                vm.tests
+                    .filter(function (item) {
+                        return item.suite === $event.target.value;
+                    })
+                    .map(function (test, i, arr) {
+                        vm.testCheckboxesModels
+                            .filter(function (model, i, array) {
+                                return test._id === model.id;
+                            })
+                            .map(function (model) {
+                                if (bool) {
+                                    _selectTest(model.id);
+                                } else {
+                                    _deselectTest(model.id);
+                                }
+                                model.checked = bool;
+                            });
+                    });
+            }
+
+            _setCheckAllCheckbox();
+        }
+
+        function runSelectedTests() {
+
+            var testsToGo = vm.tests.filter(function (item) {
+                return item._id === vm.selectedTests[vm.selectedTests.indexOf(item._id)];
+            });
+
+            console.log(testsToGo[0]);
+
+            testsToGo.map(function (test) {
+                test.status = 'blocked';
+                vm.suites.map(function (suite) {
+                    if (test.suite === suite._id) {
+                        test.suite = suite.suiteName;
+                    }
+                });
+                test.steps.map(function(step) {
+                    step.status = 'blocked';
+                });
+            });
+
+            RunsApiService.getRuns().save({
+                name: vm.newRunName,
+                author: user.id,
+                project: user.currentProjectID
+            }).$promise
+                .then(function (newRun) {
+                    for (var i = 0; i < testsToGo.length; i++) {
+                        testsToGo[i].run = newRun._id;
+                        RunsApiService.getTestsOfRun(newRun).save(testsToGo[i]).$promise
+                            .then(function() {
+
+                            });
+                    }
+
+                    $state.go('runs-edit', {
+                        id: newRun._id,
+                        run: {
+                            name: vm.newRunName
+                        }
+                    });
+
+                }, function (err) {
+                    logger.error(err.responseText);
+                });
+        }
+
+        //------------------------------------------------------------------------
     }
 })();

@@ -1,82 +1,89 @@
 <section class="mainbar">
-<div class="matter">
-    <div class="container-fluid">
-        <div class="clearfix">
-            <h1>
-            <form class="form-inline pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default tabsSelected" ui-sref="runs-edit()" >Edit</button>
-                    <button type="button" class="btn btn-default tabsNotSelected"
-                            ui-sref="runs-execute({id: vmRunsExecute.run._id, run: vmRunsEdit.run})">Run</button>
-                </div>
-            </form>
+    <div class="matter">
+        <div class="container-fluid">
+            <div class="clearfix">
+                <h1>
+                    <form class="form-inline pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default tabsSelected" ui-sref="runs-edit()">Edit
+                            </button>
+                            <button type="button" class="btn btn-default tabsNotSelected"
+                                    ng-click="vmRunsEdit.runRun()">
+                                Run
+                            </button>
+                        </div>
+                    </form>
 
-            {{vmRunsEdit.run.name||'Create your new test run'}}
+                    {{vmRunsEdit.run.name||'Create your new test run'}}
 
-            </h1>
-        </div>
-        <hr/>
-        <div class="row">
-            <div class="col-md-12">
-                <form action="" class="form">
-                    <div class="col-md-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            Short information
-                            </div>
-                        <div class="panel-body">
-                    <div class="form-group col-md-12">
-                    <label for="run-name">Name</label>
-                    <input type="text" name="" id="run-name" class="form-control"  ng-model="vmRunsEdit.run.name"/>
-                    </div>
-                    <div class="form-group col-md-12">
-                    <label for="run-build">Build</label>
-                    <input type="text" name="" id="run-build" class="form-control"  ng-model="vmRunsEdit.run.build" />
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="run-environment">Environment</label>
-                        <input type="text" name="" id="run-environment" class="form-control"  ng-model="vmRunsEdit.run.envShort"/>
-                    </div>
+                </h1>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="" class="form">
+                        <div class="col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Short information
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group col-md-12">
+                                        <label for="run-name">Name</label>
+                                        <input type="text" name="" id="run-name" class="form-control"
+                                               ng-model="vmRunsEdit.run.name"/>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="run-build">Build</label>
+                                        <input type="text" name="" id="run-build" class="form-control"
+                                               ng-model="vmRunsEdit.run.build"/>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="run-environment">Environment</label>
+                                        <input type="text" name="" id="run-environment" class="form-control"
+                                               ng-model="vmRunsEdit.run.envShort"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                Environment details
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-hover">
-                                    <thead>
+                        <div class="col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Environment details
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
                                         <tr>
                                             <th>Parameter</th>
                                             <th>Value</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                        </thead>
+                                        <tbody>
                                         <tr ng-repeat="(key, value) in vmRunsEdit.run.envFull">
                                             <td><input type="text" ng-model="key" class="tableInput"
                                                        ng-keypress="vmRunsEdit.addEnvDetail($event,  key, value)"></td>
                                             <td><input type="text" ng-model="value" class="tableInput"
                                                        ng-keypress="vmRunsEdit.addEnvDetail($event,  key, value)"></td>
                                         </tr>
-                                        <tr> <td><input type="text" ng-model=" vmRunsEdit.param" class="tableInput"
-                                                        ng-keypress="vmRunsEdit.addEnvDetail($event,  vmRunsEdit.param,  vmRunsEdit.value)"
-                                                        placeholder="add new parameter here"></td>
+                                        <tr>
+                                            <td><input type="text" ng-model=" vmRunsEdit.param" class="tableInput"
+                                                       ng-keypress="vmRunsEdit.addEnvDetail($event,  vmRunsEdit.param,  vmRunsEdit.value)"
+                                                       placeholder="add new parameter here"></td>
                                             <td><input type="text" ng-model=" vmRunsEdit.value" class="tableInput"
                                                        ng-keypress="vmRunsEdit.addEnvDetail($event,  vmRunsEdit.param,  vmRunsEdit.value)"
                                                        placeholder="and its value here"></td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </section>
 
 

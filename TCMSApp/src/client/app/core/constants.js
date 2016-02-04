@@ -2,7 +2,7 @@
 (function() {
     //'use strict';
 
-    if (typeof Trello == 'undefined') Trello = 'Very simple stub. Kids, do not do things like that'; // jshint ignore:line
+    if (typeof Trello == 'undefined') Trello = {authorized: function() {return true;}}; // jshint ignore:line
 
     angular
         .module('app.core')
