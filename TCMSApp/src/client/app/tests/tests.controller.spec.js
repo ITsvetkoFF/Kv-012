@@ -19,9 +19,16 @@ describe('TestsController', function () {
             $provide.constant('Trello', Trello);
         });
     });
+    var runsApiService = sinon.mock({});
+    var user = sinon.mock({});
+    var userTrello = sinon.mock({});
 
     beforeEach(function () {
-        bard.appModule('app.tests');
+        bard.appModule('app.tests', function($provide) {
+            $provide.value('RunsApiService', runsApiService);
+            $provide.value('user', user);
+            $provide.value('userTrello', userTrello);
+        });
         bard.inject('$controller', '$rootScope', '$httpBackend', 'apiUrl');
     });
 
@@ -40,8 +47,8 @@ describe('TestsController', function () {
         $httpBackend.when('GET', apiUrl.host + apiUrl.suiteTests +
             '?query={"suite" : "' + '56a623b5c2b74a5831279f1e' + '"}').respond(
             mockData.getMockTestsOfSuite('56a623b5c2b74a5831279f1e'));
-        $httpBackend.when('GET', '/api/v1/User').respond(me);
         $httpBackend.when('GET', /\/api\/v1\/Projects\/*/).respond(projects);
+        $httpBackend.when('GET', apiUrl.host + '/api/v1/User').respond();
 
         $httpBackend.flush();
         $rootScope.$apply();

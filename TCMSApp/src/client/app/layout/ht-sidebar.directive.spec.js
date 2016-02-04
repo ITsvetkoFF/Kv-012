@@ -20,7 +20,7 @@ describe('htSidebar directive: ', function () {
         sinon.stub(authservice, 'authorize').returnsThis(true);
         sinon.stub(createProjectFactory, 'syncProjAndOrg').returns(fakeresolver());
 
-        scope.$digest();
+        //scope.$digest();
     });
 
     /// tests ///

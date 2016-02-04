@@ -4,7 +4,11 @@
         <div  ng-if="vmSidebar.synchronized">
             <ul>
                 <li class="nlightblue fade-selection-animation" ng-repeat="project in vmSidebar.projects track by project.id " >
-                    <a href="project.id"> {{project.name}} </a>
+                    <a
+                        href="#"
+                        id="{{project.id}}"
+                        ng-click="vmSidebar.setCurrentProject($event)">
+                        {{project.name}} </a>
                 </li>
             </ul>
             <button class="btn btn-success btn-block" ng-click="vmSidebar.open()" id="btnAddProject">

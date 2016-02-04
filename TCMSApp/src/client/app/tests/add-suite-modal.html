@@ -1,32 +1,35 @@
 <div class="modal-header">
-  <h3 class="modal-title text-center">Create New Test Suite</h3>
+    <h3 class="modal-title text-center">Create New Test Suite</h3>
 </div>
 <form name="suiteForm">
-  <div class="modal-body">
-    <div class="container-fluid">
-      <div class="col-xs-12">
-        <div class="form-group">
-          <label for="suiteName">Suite Name:</label>
-          <input type="text" class="form-control" id="suiteName" name="suiteName" placeholder="Test suite title"
-                 ng-model="vmSuite.suiteName" ng-class="vmSuite.errorName" required>
-        </div>
-      </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                <div class="form-group" ng-class="{'has-error':vmSuite.errorName}">
+                    <label for="suiteName"> Suite Name: * </label>
+                    <input type="text" class="form-control" id="suiteName" name="suiteName"
+                           placeholder="Test suite title"
+                           ng-model="vmSuite.suiteName" required>
+                </div>
+            </div>
 
-      <div class="col-xs-12">
-        <div class="form-group">
-          <label for="suiteDescription">Description:</label>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="suiteDescription">Description:</label>
           <textarea class="form-control" rows="3" id="suiteDescription" name="suiteDescription"
                     placeholder="Input test suite description here" ng-model="vmSuite.suiteDescription"></textarea>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="modal-footer">
-    <button class="btn btn-primary" type="submit" ng-click="vmSuite.submitAddSuite()"
-    ng-disabled="suiteForm.suiteName.$invalid">
-      <i class="fa fa-check"></i>
-    </button>
-    <button class="btn btn-warning" type="button" ng-click="vmSuite.cancelAddSuite()"><i class="fa fa-times"></i> </button>
-  </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-click="vmSuite.submitAddSuite()"
+                ng-disabled="suiteForm.suiteName.$invalid">
+            <i class="fa fa-check"></i>
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="vmSuite.cancelAddSuite()">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
 </form>

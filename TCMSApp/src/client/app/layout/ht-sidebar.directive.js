@@ -20,16 +20,18 @@
         };
 
         SidebarController.$inject = ['$uibModal', 'logger',
-            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope'];
+            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope', 'user', '$http'];
 
         /* @ngInject */
 
         function SidebarController($uibModal, logger,
-                sidebarFactory, authservice, createProjectFactory, $q, $rootScope) {
+                sidebarFactory, authservice, createProjectFactory, $q, $rootScope, user, $http) {
 
             var vm = this;
             vm.open = openModalCreateProject;
             vm.synchronized = false;
+
+            vm.setCurrentProject = setCurrentProject;
 
             var Trello = authservice.authorize();
 
@@ -38,9 +40,6 @@
                     vm.projects = data;
                     if (data.length === 0) {
                         logger.error('Create the first project to start');
-                    } else {
-                        //Temporary set first project as first current
-                        $rootScope.currentProject = data[0];
                     }
                     vm.synchronized = true;
                 });
@@ -104,6 +103,13 @@
                         controllerAs: 'vmModal'
                     }
                 );
+            }
+
+            function setCurrentProject($event) {
+                $event.preventDefault();
+                var projectId = $event.target.id;
+
+                user.changeCurrentProject(projectId);
             }
         }
 
