@@ -85,7 +85,7 @@ function getRunSteps(quantity, run) {
         }
 
         steps[i] = {
-            description: faker.lorem.sentence(),
+            stepDescription: faker.lorem.sentence(),
             expectedResult: faker.lorem.sentence(),
             status: status
         };
@@ -101,7 +101,7 @@ function getSuiteSteps(quantity) {
 
     for (var i = 0; i < quantity; i++) {
         steps[i] = {
-            description: faker.lorem.sentence(),
+            stepDescription: faker.lorem.sentence(),
             expectedResult: faker.lorem.sentence()
         };
     }

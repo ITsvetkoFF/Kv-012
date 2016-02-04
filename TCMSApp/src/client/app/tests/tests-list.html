@@ -6,7 +6,26 @@
             <div class="clearfix">
                 <h1>
                     Tests
-                    <form class="form-inline pull-right">
+                    <form name="testsForm"
+                        class="form-inline pull-right"
+                        novalidate>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="New run name"
+                                ng-model="vmTests.newRunName"
+                                required/>
+                            <span class="input-group-btn">
+                                <button
+                                    type="button"
+                                    ng-disabled="!testsForm.$valid"
+                                    class="btn btn-primary"
+                                    ng-click="vmTests.runSelected()">
+                                    RUN SELECTED TESTS <i class="fa fa-play"></i></button>
+                            </span>
+                        </div>
                         <smart-filter type="tests"
                                       fast-queries="['priority=High', 'priority=Low', 'priority=Normal', 'priority=Critical']">
                         </smart-filter>
@@ -29,12 +48,24 @@
                             </h3>
                         </div>
                         <div class="table-responsive">
+                            <!-- TABLE FOR TEST SUITE-->
                             <table class="table table-hover" style="font-size:larger">
                                 <tbody>
                                 <tr ng-repeat="s in vmTests.suites track by $index"
                                     ng-click="vmTests.setSuite(s)"
                                     style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }">
-                                    <td>{{ ::vmTests.suites[$index].suiteName }}</td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            id="{{s._id}}"
+                                            ng-value="s._id"
+                                            ng-model="vmTests.setSuiteCheckboxModel(s._id).checked"
+                                            ng-true-value="true"
+                                            ng-false-value="false"
+                                            ng-click="vmTests.checkSuiteTests($event)">
+
+                                        {{ ::vmTests.suites[$index].suiteName }}
+                                    </td>
                                     <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
                                 </tr>
                                 </tbody>
@@ -49,7 +80,8 @@
                         <div class="panel-heading">
                             <h4>
                                 {{vmTests.currentSuite.suiteName}}
-                                <a ui-sref="tests-create({currentSuite: vmTests.currentSuite})" class="btn btn-primary btn-xs" ng-click="vmTests.createTests()">NEW</a>
+                                <a ui-sref="tests-create({currentSuite: vmTests.currentSuite})"
+                                   class="btn btn-primary btn-xs" ng-click="vmTests.createTests()">NEW</a>
                             </h4>
                             <div class="clearfix">
                                 <b>Description: </b>
@@ -58,12 +90,19 @@
 
                         </div>
                         <div class="table-responsive">
+                            <!-- TABLE FOR TEST CASE-->
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox"
-                                               ng-click="vmTests.checkedAllCases = !vmTests.checkedAllCases">
+                                        <input
+                                            type="checkbox"
+                                            id="checkAllTestsCheckbox"
+                                            ng-model="vmTests.allTestsCheckboxModel.checked"
+                                            ng-true-value="true"
+                                            ng-false-value="false"
+                                            ng-click="vmTests.checkAllTests($event)">
+
                                     </th>
                                     <th>Name</th>
                                     <th>ID</th>
@@ -73,12 +112,16 @@
                                     <th>Run</th>
                                 </tr>
                                 </thead>
-
-                                <tbody ng-repeat="tc in vmTests.tests|smartFilter:filterQuery:vmTests.filterFields"
-                                       style="border:0">
+                                <tbody ng-repeat="tc in vmTests.filteredTests" style="border:0">
                                 <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
                                     <td ng-click="$event.stopPropagation();">
-                                        <input type="checkbox" ng-checked="vmTests.checkedAllCases">
+                                        <input
+                                            type="checkbox"
+                                            ng-model="vmTests.setTestCheckboxModel(tc._id).checked"
+                                            ng-true-value="true"
+                                            ng-false-value="false"
+                                            ng-click="vmTests.testCheckboxClickHandler($event)"
+                                            ng-value="tc._id">
                                     </td>
                                     <td>{{ ::tc.testName }}</td>
                                     <td>{{ ::tc._id}}</td>
@@ -87,6 +130,7 @@
                                     <td>{{ ::tc.steps.length }}</td>
                                     <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
                                 </tr>
+                                <!-- ROW FOR STEPS-->
                                 <tr ng-if="seeCase" style="background-color: #eee">
                                     <td colspan="10">
                                         <!-- <div class="container-fluid text-center" style="padding: 20px 0">
@@ -130,11 +174,15 @@
                             </table>
                         </div>
                     </div>
-                </div> <!-- panel -->
+                </div>
+                <!-- panel -->
 
-            </div> <!-- row -->
+            </div>
+            <!-- row -->
 
-        </div> <!-- container -->
-    </div> <!-- matter -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- matter -->
 </section>
 
