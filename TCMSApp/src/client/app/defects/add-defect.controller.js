@@ -13,10 +13,10 @@
         .controller('AddDefectController', AddDefectController);
 
     AddDefectController.$inject = ['$uibModal', '$state', '$scope', '$stateParams', '$rootScope', 'logger',
-        '$resource', 'apiUrl', 'moment'];
+        '$resource', 'apiUrl', 'moment', 'user'];
 
     function AddDefectController($uibModal, $state, $scope, $stateParams, $rootScope, logger, $resource, apiUrl,
-    moment) {
+    moment, user) {
 
         var vm = this;
         vm.open = openAddDefectModal;
@@ -34,11 +34,11 @@
                 $uibModal.open({
                         templateUrl: 'addDefectModalTemplate.html',
                         controller: function ($uibModalInstance, $state, $scope, $rootScope, logger, $resource,
-                        moment) {
+                        moment, user) {
                             var vmDefectModal = this;
                             var allowStateChange = false;
                             vmDefectModal.bugName = '';
-                            vmDefectModal.whoFind = '';
+                            vmDefectModal.reporter = user.firstName + ' ' + user.lastName;
                             vmDefectModal.assignedTo = '';
                             vmDefectModal.priority = 'Critical';
                             vmDefectModal.dateOfDefectCreation = moment();
@@ -60,11 +60,9 @@
                             vmDefectModal.post = function () {
                                 allowStateChange = true;
 
-                                //var infoPromise = getNewDefect();
                                 var sample = {
                                     name: vmDefectModal.bugName,
-                                    whoFind: vmDefectModal.whoFind,
-                                    assignedTo: vmDefectModal.assignedTo,
+                                    reporter: user.id,
                                     dateOfDefectCreation: vmDefectModal.dateOfDefectCreation,
                                     priority: vmDefectModal.priority,
                                     chooseFile: vmDefectModal.chooseFile,
@@ -82,7 +80,9 @@
                                         reload: true, inherit: false, notify: true
                                     });
                                 }, function error(message) {
-                                    vmDefectModal.error = 'Error: ' + message.data.errmsg;
+                                    //vmDefectModal.error = 'Error: ' + message.data.errmsg;
+                                    vmDefectModal.error = message.data.errors.name.message;
+
                                 });
 
                             };
@@ -109,7 +109,8 @@
                             };
                         },
                         controllerAs: 'vmDefectModal',
-                        backdrop: 'static'
+                        backdrop: 'static',
+                        keyboard :false
                     });
             }
         }
