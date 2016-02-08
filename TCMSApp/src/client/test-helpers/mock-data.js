@@ -9,8 +9,92 @@ var mockData = (function () {
         getMockSteps: getMockSteps,
         getSidebarDirectiveTmpl: getSidebarDirectiveTmpl,
         getMe: getMe,
-        getProjects: getProjects
+        getProjects: getProjects,
+        getMockRun: getMockRun,
+        getMockClusters: getMockClusters,
+        getMockProgress: getMockProgress
     };
+
+    function getMockRun() {
+        return [
+            {
+                '_id': '56b1fdb41c4539e812bd4d90',
+                'name': 'Omnis aperiam',
+                'author': {
+                    '_id': '56b1fdb41c4539e812bd4d77',
+                    'firstName': 'Isai',
+                    'lastName': 'Mayer',
+                    'email': 'Rolando_Bahringer29@gmail.com',
+                    'avatar': 'https://s3.amazonaws.com/uifaces/faces/twitter/anasnakawa/128.jpg',
+                    'password': '$2a$10$2hqlN.wtldOcDfZZhX58DuBjB7upQlFXQ8kiWiq7tgphPt/HIEn92',
+                    'projects': []
+                },
+                'dateStart': '2016-01-05T14:08:24.988Z',
+                'dateEnd': '2016-05-18T23:13:00.344Z',
+                'build': 836,
+                'envShort': 'Win 7/Chrome 48',
+                'envFull': {
+                    'OS': 'Windows 7',
+                    'Browser': 'Chrome 48.0.2564',
+                    'CPU': 'Intel Core i7-2820QM (Sandy Bridge)'
+                },
+                'project': '56b1fdb41c4539e812bd4d7c',
+                'status': 'passed'
+            }
+        ];
+    }
+
+    function getMockProgress() {
+        return {
+            passed: 1,
+            failed: 1,
+            length: 2
+        };
+    }
+
+    function getMockClusters() {
+        return [
+            [
+
+                {
+                    '_id': '56b1fdb51c4539e812bd4dc5',
+                    'testName': 'Consequuntur voluptatem ea',
+                    'testDescription': 'Non velit aut error.',
+                    'automated': true,
+                    'preConditions': 'Distinctio aliquid pariatur.',
+                    'suite': 'Beatae iusto',
+                    'created': '2015-02-26T09:38:25.346Z',
+                    'run': '56b1fdb41c4539e812bd4d90',
+                    'steps': [
+                        {
+                            'description': 'Et quo sit dolores facere odit reprehenderit minima suscipit.',
+                            'expectedResult': 'Et quo cumque voluptatem impedit distinctio cum quam nihil ut.',
+                            'status': 'passed'
+                        }
+                    ],
+                    'status': 'passed'
+                }],
+            [{
+                '_id': '56b1fdb51c4539e812bd4ebb',
+                'testName': 'Quos expedita porro illum non explicabo sit velit accusamus consequatur',
+                'testDescription': 'Ratione sit voluptas voluptas et rerum quaerat cumque blanditiis.',
+                'automated': true,
+                'preConditions': 'Est ab doloribus aliquam non atque sed.',
+                'suite': 'Est rerum',
+                'created': '2015-11-17T01:39:17.934Z',
+                'run': '56b1fdb41c4539e812bd4d90',
+                'steps': [
+                    {
+                        'description': 'Dignissimos culpa deserunt reiciendis nobis dolores.',
+                        'expectedResult': 'Distinctio ut eius dolor.',
+                        'status': 'passed'
+                    }
+                ],
+                'status': 'failed'
+            }
+            ]
+        ];
+    }
 
     function getMockStates() {
         return [
@@ -116,58 +200,40 @@ var mockData = (function () {
     function getMockTests() {
         return [
             {
-                '_id': '56a132ddfbc730c20b9c06aa',
-                'testName': 'Test Case The First',
-                'preConditions': 'NodeJS Installed',
-                'suite': '569fd358be47dd8b09b4f469',
+                '_id': '56b1fdb51c4539e812bd4dc5',
+                'testName': 'Consequuntur voluptatem ea',
+                'testDescription': 'Non velit aut error.',
+                'automated': true,
+                'preConditions': 'Distinctio aliquid pariatur.',
+                'suite': 'Beatae iusto',
+                'created': '2015-02-26T09:38:25.346Z',
+                'run': '56b1fdb41c4539e812bd4d90',
                 'steps': [
                     {
-                        'stepDescription': 'Open the app in the browser',
-                        'expectedResult': 'Browser is opened',
-                        '_id': '56a133d2fbc730c20b9c06b3'
-                    },
-                    {
-                        'stepDescription': 'Log in',
-                        'expectedResult': 'You are logged in',
-                        '_id': '56a133d2fbc730c20b9c06b2'
-                    },
-                    {
-                        'stepDescription': 'Awesome!',
-                        'expectedResult': 'You are awesome!',
-                        '_id': '56a133d2fbc730c20b9c06b1'
+                        'description': 'Et quo sit dolores facere odit reprehenderit minima suscipit.',
+                        'expectedResult': 'Et quo cumque voluptatem impedit distinctio cum quam nihil ut.',
+                        'status': 'passed'
                     }
                 ],
-                'priority': 'High',
-                'created': '2016-01-21T19:34:53.001Z',
-                'testDescription': 'No description.',
-                '__v': 0
+                'status': 'passed'
             },
             {
-                '_id': '56a21076b27afde41ae1cb05',
-                'testName': 'Test Case Alpha',
-                'preConditions': 'Server started.',
-                'suite': '56a0c46042a230635622f6f8',
+                '_id': '56b1fdb51c4539e812bd4ebb',
+                'testName': 'Quos expedita porro illum non explicabo sit velit accusamus consequatur',
+                'testDescription': 'Ratione sit voluptas voluptas et rerum quaerat cumque blanditiis.',
+                'automated': true,
+                'preConditions': 'Est ab doloribus aliquam non atque sed.',
+                'suite': 'Est rerum',
+                'created': '2015-11-17T01:39:17.934Z',
+                'run': '56b1fdb41c4539e812bd4d90',
                 'steps': [
                     {
-                        'stepDescription': 'Open the browser',
-                        'expectedResult': 'Browser is opened',
-                        '_id': '56a21076b27afde41ae1cb08'
-                    },
-                    {
-                        'stepDescription': 'Enter the app URL',
-                        'expectedResult': 'See the app',
-                        '_id': '56a21076b27afde41ae1cb07'
-                    },
-                    {
-                        'stepDescription': 'Awesome!',
-                        'expectedResult': 'You are awesome!',
-                        '_id': '56a21076b27afde41ae1cb06'
+                        'description': 'Dignissimos culpa deserunt reiciendis nobis dolores.',
+                        'expectedResult': 'Distinctio ut eius dolor.',
+                        'status': 'passed'
                     }
                 ],
-                'priority': 'Low',
-                'created': '2016-01-22T11:20:22.236Z',
-                'testDescription': 'No description.',
-                '__v': 0
+                'status': 'failed'
             }
         ];
     }
