@@ -1,56 +1,63 @@
 <div>
     <script type="text/ng-template" id="addDefectModalTemplate.html">
         <div class="modal-header">
-            <button type="button" class="close" ng-click="vmDefectModal.cancel()"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add defect</h4>
+            <button type="button" class="close" ng-click="vmDefectModal.cancel()"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add defect</h4>
         </div>
         <div class="modal-body">
             <div class="row">
-            <div class="form-group col-md-9">
-            <label for="errorname">Name of the defect*:</label>
-        <input type="text" class="form-control" id="errorname" ng-model="vmDefectModal.bugName">
-            </div>
-            <div class="form-group col-md-3">
-            <label>Priority:</label>
-        <select class="form-control" ng-model="vmDefectModal.priority">
-            <option>Critical</option>
-            <option>High</option>
-            <option>Normal</option>
-            <option>Low</option>
-            </select>
-            </div>
+                <div class="form-group col-md-9">
+                    <label for="errorname">Name of the defect*:</label>
+                    <input type="text" class="form-control" id="errorname" ng-model="vmDefectModal.bugName">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Priority:</label>
+                    <select class="form-control" ng-model="vmDefectModal.priority">
+                        <option>Critical</option>
+                        <option>High</option>
+                        <option>Normal</option>
+                        <option>Low</option>
+                    </select>
+                </div>
             </div>
             <div class="row">
-            <div class="form-group col-md-6">
-            <label for="whoFind">Who Found:</label>
-        <input type="text" class="form-control" id="whoFind" ng-model="vmDefectModal.whoFind">
-            </div>
-            <div class="form-group col-md-6">
-            <label for="assignedTo">Assigned to:</label>
-        <input type="text" class="form-control" id="assignedTo" ng-model="vmDefectModal.assignedTo">
-            </div>
+                <div class="form-group col-md-6">
+                    <label for="Reporter">Reporter:</label>
+                    <input type="text" class="form-control" id="Reporter" ng-model="vmDefectModal.reporter"
+                           disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="assignedTo">Assigned to:</label>
+                    <input type="text" class="form-control" id="assignedTo" ng-model="vmDefectModal.assignedTo">
+                </div>
             </div>
             <div class="form-group">
-            <label for="description">Description*:</label>
-        <textarea class="form-control" id="description" rows="3" ng-model="vmDefectModal.description"></textarea>
+                <label for="description">Description*:</label>
+                <textarea class="form-control" id="description" rows="3"
+                          ng-model="vmDefectModal.description"></textarea>
 
             </div>
             <div class="form-group" enctype="multipart/form-data" method="post">
-            <input type="file" value="Attach file" id="choose-file" ng-model="vmDefectModal.chooseFile">
+                <input type="file" value="Attach file" id="choose-file" ng-model="vmDefectModal.chooseFile">
             </div>
             <div class="form-group">
-            <label for="testCase">Steps To Reproduce:</label>
-        <textarea class="form-control" id="testCase" rows="2" ng-model="vmDefectModal.stepsToReproduce"></textarea>
+                <label for="testCase">Steps To Reproduce:</label>
+                <textarea class="form-control" id="testCase" rows="2"
+                          ng-model="vmDefectModal.stepsToReproduce"></textarea>
             </div>
             <div class="errorMessage">
                 * - required fields<br>
-                {{vmDefectModal.error}}
+                <span class="errorMessageSpan">
+                    {{vmDefectModal.error}}
+                </span>
             </div>
-            </div>
-            <div class="modal-footer">
+        </div>
+        <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vmDefectModal.cancel()">Cancel</button>
-                <button ng-disabled="!vmDefectModal.noActivePostDefect()" type="button" class="btn btn-primary"
-                        ng-click="vmDefectModal.post()">Post</button>
-            </div>
+            <button ng-disabled="!vmDefectModal.noActivePostDefect()" type="button" class="btn btn-primary"
+                    ng-click="vmDefectModal.post()">Post
+            </button>
+        </div>
     </script>
 </div>

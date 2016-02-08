@@ -9,7 +9,7 @@
     /* @ngInject */
     function DefectsController(logger, $uibModal, getDefects, $state, $resource, apiUrl, filterFields) {
         var vm = this;
-        var defectsInfo = $resource(apiUrl.defects, {}, {});
+        var defectsInfo = $resource(apiUrl.defects + '/?populate=reporter', {}, {});
         vm.arrayDefects = [];
         vm.statusMessage = 'Loading defects...';
         vm.countOfDefects = -1;
