@@ -92,8 +92,8 @@
                                 <b>Name:</b>
                                 {{vmDefects.currentDefect.name}}
                                 <br>
-                                <b>Found:</b>
-                                {{vmDefects.currentDefect.whoFind}}
+                                <b>Reporter:</b>
+                                {{vmDefects.currentDefect.reporter.firstName}} {{vmDefects.currentDefect.reporter.lastName}}
                                 <br>
                                 <b>Assigned to:</b>
                                 {{vmDefects.currentDefect.assignedTo}}
@@ -102,7 +102,9 @@
 
 
                                 <b>Description:</b>
+                                <span class="defectDescription">
                                 {{vmDefects.currentDefect.description}}
+                                </span>
                                 <br>
                                 <br>
                                 <b>Steps to reproduce:</b>
