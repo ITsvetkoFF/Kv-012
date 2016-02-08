@@ -1,10 +1,14 @@
 /* jshint -W117, -W030 */
 describe('RunsController', function () {
     var controller, httpBackend;
+    var runData = mockData.getMockRun();
+    var testCases = mockData.getMockTests();
+    var clusters = mockData.getMockClusters();
+    var progress = mockData.getMockProgress();
 
     beforeEach(function () {
         bard.appModule('app.runs');
-        bard.inject('$controller', '$rootScope', '$httpBackend');
+        bard.inject('$controller', '$rootScope', '$httpBackend', 'apiUrl');
     });
 
     describe('RunsController', function () {
@@ -17,44 +21,31 @@ describe('RunsController', function () {
                 });
 
             httpBackend = $httpBackend;
-
-            httpBackend.when('GET', 'http://localhost:3000/api/v1/Runs/?populate=author').respond(
-                [
-                    {
-                        _id: '56a94aa979ce40fc0d3e3389',
-                        name: 'jdhcbdjcsd',
-                        author: {
-                            firstName: 'Yaroslav',
-                            lastName: 'Dobroskok'
-                        },
-                        build: 111,
-                        envShort: 'AAAAAA',
-                        envFull: {
-                            key2: 'val2',
-                            key1: 'val1'
-                        },
-                        project: '569660e391b0bc1a28003311',
-                        status: 'new',
-                        dateStart: '2016-01-27T22:54:33.938Z',
-                        __v: 0
-                    }
-                ]
-            );
-            httpBackend.when('GET', 'http://localhost:3000/api/v1/runTests?query={"run" : "56a94aa979ce40fc0d3e3389"}')
-                .respond(
-                [
-                    {}
-                ]
-            );
-            httpBackend.when('GET', 'http://localhost:3000/api/v1/Suites/undefined').respond(
-                {}
-            );
+            httpBackend.when('GET', apiUrl.host + apiUrl.runs + '/?populate=author').respond(runData);
+            httpBackend.when('GET', apiUrl.host + apiUrl.runTests + '?query={"run" : "' + runData[0]._id + '"}')
+                .respond(testCases);
             httpBackend.flush();
             $rootScope.$digest();
         });
 
-        it('should be created successfully', function () {
-            expect(controller).to.be.defined;
+        describe('RunsController', function () {
+            it('should be created successfully', function () {
+                expect(controller).to.be.defined;
+            });
+        });
+
+        describe('After runs were loaded', function () {
+            it('should receive test cases', function() {
+                expect(JSON.stringify(controller.tests)).to.equal(JSON.stringify(testCases));
+            });
+
+            it('should calculate run progress', function () {
+                expect(JSON.stringify(controller.progress)).to.equal(JSON.stringify(progress));
+            });
+
+            it('should create clusters from received data', function () {
+                expect(JSON.stringify(controller.testClusters)).to.equal(JSON.stringify(clusters));
+            });
         });
 
         describe('checkboxModel', function () {
@@ -111,10 +102,10 @@ describe('RunsController', function () {
             });
         });
 
-        describe('select run', function() {
+        describe('select run', function () {
             var event1, event2, event3, event4;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 event1 = {
                     target: {
                         checked: true,
@@ -162,7 +153,7 @@ describe('RunsController', function () {
                 expect(controller.selectedRuns.length).to.equals(initLength - 1);
             });
 
-            it('exists same runId in selected runs', function() {
+            it('exists same runId in selected runs', function () {
                 controller.runCheckBoxClick(event1);
                 var initLength = controller.selectedRuns.length;
                 controller.runCheckBoxClick(event3);
@@ -170,7 +161,7 @@ describe('RunsController', function () {
                 expect(initLength).to.equals(currLength);
             });
 
-            it('not exists same runId in selected runs', function() {
+            it('not exists same runId in selected runs', function () {
                 controller.runCheckBoxClick(event1);
                 var initLength = controller.selectedRuns.length;
                 controller.runCheckBoxClick(event4);
@@ -179,8 +170,8 @@ describe('RunsController', function () {
             });
         });
 
-        describe('delete feature', function() {
-            it('should delete selected runs', function() {
+        describe('delete feature', function () {
+            it('should delete selected runs', function () {
                 controller.selectedRuns.push(1);
                 controller.selectedRuns.push(2);
                 controller.deleteSelectedRuns();

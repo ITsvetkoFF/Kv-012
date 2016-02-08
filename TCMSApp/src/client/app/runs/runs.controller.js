@@ -42,11 +42,11 @@
             vm.tests = [];
             vm.selectedRuns = [];
             vm.suiteNames = {};
+            vm.progress = {};
+            vm.testClusters = [];
             vm.selectedRun = (vm.runs.length === 0 ? null : vm.runs[0]);
             vm.getTestsOfRun = getTestsOfRun();
-            vm.progress = getProgress();
             vm.runCheckBoxClick = runCheckBoxClick;
-            vm.testClusters = clusterizeTests();
             vm.filterFields = filterFields.runs.getFields();
 
             fillCheckboxesModels();
