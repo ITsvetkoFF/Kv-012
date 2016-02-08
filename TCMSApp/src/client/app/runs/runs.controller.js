@@ -12,10 +12,10 @@
         .module('app.runs')
         .controller('RunsController', RunsController);
 
-    RunsController.$inject = ['$scope', 'logger', 'FakeRunsFactory', 'dataWrapper',
+    RunsController.$inject = ['$scope', 'logger', 'dataWrapper',
         'filterFields', 'RunsApiService', 'moment', '$document', '$filter', '$q'];
 
-    function RunsController($scope, logger, fakeRuns, dataWrapper, filterFields, RunsApiService, moment, $document,
+    function RunsController($scope, logger, dataWrapper, filterFields, RunsApiService, moment, $document,
                             $filter, $q) {
 
         var vm = this;
@@ -35,14 +35,6 @@
         }
 
         function processData(result) {
-
-            if (result.length === 0) {
-                result = fakeRuns(100, 10, 3);
-                result.forEach(function (data) {
-                    RunsApiService.getRuns().save(data);
-                });
-
-            }
 
             vm.runs = dataWrapper.wrapRuns(result);
             vm.checkboxesModels = [];

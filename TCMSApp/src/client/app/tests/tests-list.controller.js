@@ -83,8 +83,6 @@
                                 vm.tests.push(test);
                             });
 
-                            console.log(vm.tests.length);
-
                             if (item._id === vm.currentSuite._id) {
                                 _setCurrentTests();
                             }
@@ -113,31 +111,37 @@
                 controller: function ($uibModalInstance) {
                     var vmSuite = this;
 
-                    var lastSuite = vm.f[vm.f.length - 1];
-                    vmSuite._id = lastSuite._id + 1;
-                    vmSuite.priority = TestsService.getPriority();
-                    vmSuite.suitePriority = '2';
+                    vmSuite.suiteName = '';
+                    vmSuite.suiteDescription = '';
+                    vmSuite.errorName = '';
                     vmSuite.cancelAddSuite = cancelAddSuite;
                     vmSuite.submitAddSuite = submitAddSuite;
 
                     function submitAddSuite() {
-                        var suite = {};
+                        var Suite = TestsService.getSuites(),
+                            suite = new Suite();
                         suite.suiteName = vmSuite.suiteName;
-                        suite._id = vmSuite._id;
                         suite.suiteDescription = vmSuite.suiteDescription;
-                        suite.suitePriority = vmSuite.suitePriority;
-                        suite.tests = [];
-                        vm.f.push(suite);
-                        vm.currentSuite = suite;
-                        TestsService.setCurrentSuite(vm.currentSuite);
-                        logger.success('New Suite created');
-                        $uibModalInstance.dismiss();
+                        suite.project = user.currentProjectID;
+                        suite.$save().then(
+                            function (res) {
+                                logger.success('New Suite created');
+                                getSuites();
+                                $uibModalInstance.dismiss();
+                            },
+                            function (err) {
+                                if (err.data.errors.project && err.data.errors.suiteName) {
+                                    vmSuite.errorName = 'errorName';
+                                    logger.error(err.data.errors.suiteName.message);
+                                }
+                                else logger.error('Cannot create a suite.');
+                            }
+                        );
                     }
 
                     function cancelAddSuite() {
                         $uibModalInstance.dismiss('cancel');
                     }
-
                 },
                 controllerAs: 'vmSuite'
             });
@@ -361,8 +365,6 @@
             var testsToGo = vm.tests.filter(function (item) {
                 return item._id === vm.selectedTests[vm.selectedTests.indexOf(item._id)];
             });
-
-            console.log(testsToGo[0]);
 
             testsToGo.map(function (test) {
                 test.status = 'blocked';

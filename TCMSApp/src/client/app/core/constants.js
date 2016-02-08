@@ -8,7 +8,6 @@
         .module('app.core')
         .constant('moment', moment)
         .constant('Trello', Trello) // KEEP AN EYE! Trello is exposed by client.js from index file
-        .constant('faker', faker)
         .constant('apiUrl', apiUrl());
 
     function apiUrl() {

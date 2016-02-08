@@ -21,7 +21,7 @@
             {id: '9', name: 'Usability'},
             {id: '10', name: 'Other'}
         ];
-        var sprint = [1,2,3];
+        var sprint = [1, 2, 3];
 
         return {
             getSuites: function() {
@@ -32,6 +32,9 @@
             },
             getNumDefects: function(testID) {
                 return $resource(apiUrl.host + apiUrl.defects + '/count?query={}');
+            },
+            getUsers: function () {
+                return $resource(apiUrl.host + apiUrl.projects);
             }
         };
     }
