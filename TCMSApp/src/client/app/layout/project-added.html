@@ -1,16 +1,19 @@
 <div class="container-fluid">
-    <p class="row-fluid" style="font-size: 25px; font-weight: bold; margin-top: 10px; "> Project created </p>
-
-    <div class="row-fluid" style="margin-bottom: 10px;">
-        <button class="btn btn-success" ui-sref="tests-list" ng-click="vmSidebarModal.exit()" id="btnAddSuite">
+    <div class="modal-header">
+        <h3 class="modal-title">Project created. What's next?</h3>
+    </div>
+    <div class="modal-body">
+        <button class="btn btn-success" ui-sref="tests-list" ng-click="vmSidebarModal.exit()">
             <i class="fa fa-plus"></i>
             Add suite
         </button>
-        <button class="btn btn-primary" ui-sref="admin.team" ng-click="vmSidebarModal.exit()" id="btnTeam">
+        <button class="btn btn-primary pull-right" ui-sref="admin.team" ng-click="vmSidebarModal.exit()">
             <i class="fa fa-users"></i>
             Manage team
         </button>
+        <button class="btn btn-primary pull-right" ui-sref="admin.project" ng-click="vmSidebarModal.exit()">
+            <i class="fa fa-edit"></i>
+            Manage Project
+        </button>
     </div>
-
-
 </div>

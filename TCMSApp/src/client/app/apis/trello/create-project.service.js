@@ -83,7 +83,7 @@
                                     logger.success('Project ' + projectName +
                                     ' created. Description: ' + projectDescription, '', 'Project created');
 
-                                    deferred.resolve();
+                                    deferred.resolve(trelloData.trelloOrganizationId);
                                 });
 
                             },

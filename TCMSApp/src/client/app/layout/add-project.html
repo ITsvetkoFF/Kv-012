@@ -1,26 +1,94 @@
 <div class="container-fluid add-project-container">
     <div class="row-fluid">
-        <h1> Create new project </h1>
+        <div class="modal-header">
+            <h4 class="modal-title"> Create new project </h4>
+        </div>
+        <div class="modal-body">
+            <form action="" name="addProjectForm" novalidate>
+                <div class="form-group">
+                    <label for="projectName">Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="projectName"
+                        name="projectName"
+                        ng-init="vmModal.projectName=''"
+                        ng-model="vmModal.projectName"
+                        ng-maxlength="40"
+                        ng-minlength="2"
+                        required/>
 
-        <p class="container-fluid">
-        <h4> Project name </h4>
-        <input type="text" name="pr-name" placeholder="e. g. My new project" class="col-md-12" value="" required
-               ng-init="vmModal.projectName=''" ng-model="vmModal.projectName">
-        </p>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                <textarea
+                    type="text"
+                    class="form-control"
+                    id="projectDescription"
+                    name="projectDescription"
+                    ng-init="vmModal.projectDescription=''"
+                    ng-model="vmModal.projectDescription"
+                    ng-maxlength="200">
 
-        <p class="container-fluid" value="">
-        <h4> Project description </h4>
-        <textarea name="pr-descr" id="pr-descr" rows="3" class="col-md-12" style="resize: none;" required
-                  ng-init="vmModal.projectDescription=''" ng-model="vmModal.projectDescription"></textarea>
-        </p>
-
-        <p class="container-fluid">
-            <div class="row-fluid">
-                <button class="btn btn-success marg-top" ng-click="vmModal.createProjAndOrg()" id="btnCreateProject">
-                    Create
-                </button>
-            </div>
-        </p>
-
+                </textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox"/> Implement sprints
+                    </label>
+                </div>
+                <h5 class="text-center">This boards will be set up for you: </h5>
+                <div class="form-group">
+                    <label for="">Backlog </label>
+                    <br/>
+                    <isteven-multi-select
+                        input-model="vmModal.backlogLists"
+                        output-model="vmModal.outputBacklogLists"
+                        button-label="icon name"
+                        item-label="icon name"
+                        tick-property="ticked"
+                        orientation="vertical"
+                        helper-elements="all none"
+                        output-properties="name ticked"
+                        ></isteven-multi-select>
+                </div>
+                <div class="form-group">
+                    <label for="">Working </label>
+                    <br/>
+                    <isteven-multi-select
+                        input-model="vmModal.workingLists"
+                        output-model="vmModal.outputWorkingLists"
+                        button-label="icon name"
+                        item-label="icon name"
+                        tick-property="ticked"
+                        orientation="vertical"
+                        helper-elements="all none"
+                        output-properties="name ticked"
+                        ></isteven-multi-select>
+                </div>
+                <div ng-messages="addProjectForm.projectName.$error">
+                    <div ng-message="minlength" class="alert alert-warning">The name must have minimum 2 chars</div>
+                    <div ng-message="maxlength" class="alert alert-warning">Maximum name length is 40 chars</div>
+                </div>
+                <div ng-messages="addProjectForm.projectDescription.$error">
+                    <div ng-message="maxlength" class="alert alert-warning">Maximum description length is 200 chars</div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button
+                class="btn btn-default"
+                ng-click="vmModal.dismiss()">
+                Cancel
+            </button>
+            <button
+                class="btn btn-success"
+                id="btnCreateProject"
+                ng-click="vmModal.createProjAndOrg()"
+                ng-disabled="!addProjectForm.$valid">
+                Create
+            </button>
+        </div>
+        <br/>
     </div>
 </div>
