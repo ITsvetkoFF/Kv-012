@@ -1,4 +1,10 @@
 <section class="mainbar">
+    <script type="text/ng-template" id="popoverTemplate.html">
+        <span class="label label-danger">F</span>
+        <span class="label label-danger">F</span>
+        <span class="label label-danger">F</span>
+        <span class="label label-success">P</span>
+    </script>
     <div class="matter">
         <div class="container-fluid">
 
@@ -105,11 +111,11 @@
 
                                     </th>
                                     <th>Name</th>
-                                    <th>ID</th>
                                     <th>Priority</th>
                                     <th>Created</th>
                                     <th>Steps</th>
-                                    <th>Run</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="tc in vmTests.filteredTests" style="border:0">
@@ -124,10 +130,13 @@
                                             ng-value="tc._id">
                                     </td>
                                     <td>{{ ::tc.testName }}</td>
-                                    <td>{{ ::tc._id}}</td>
                                     <td>{{ ::tc.priority || "No Priority" }}</td>
                                     <td>{{ ::tc.created | date:'MM/dd/yyyy' }}</td>
                                     <td>{{ ::tc.steps.length }}</td>
+                                    <td>
+                                        <span uib-popover-template="'popoverTemplate.html'" popover-trigger="mouseenter"
+                                            class="label label-success">PASSED</span>
+                                    </td>
                                     <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
                                 </tr>
                                 <!-- ROW FOR STEPS-->
