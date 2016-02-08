@@ -25,10 +25,6 @@
 
         addStep();
 
-        var testsLen = (vm.currentSuite ? vm.currentSuite.stests.length : null);
-        var lastTest = (vm.currentSuite ? vm.currentSuite.stests[testsLen - 1] : null);
-        if (testsLen > 0) vm._id = lastTest._id + 1;
-
         vm.casePriority = 'Low';
         vm.creator = 'John Doe';
 
