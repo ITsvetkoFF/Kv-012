@@ -5,9 +5,9 @@
         .module('app.defects')
         .controller('DefectsController', DefectsController);
 
-    DefectsController.$inject = ['logger', '$uibModal', 'getDefects', '$state', '$resource', 'apiUrl', 'filterFields'];
+    DefectsController.$inject = ['logger', '$uibModal', '$state', '$resource', 'apiUrl', 'filterFields'];
     /* @ngInject */
-    function DefectsController(logger, $uibModal, getDefects, $state, $resource, apiUrl, filterFields) {
+    function DefectsController(logger, $uibModal, $state, $resource, apiUrl, filterFields) {
         var vm = this;
         var defectsInfo = $resource(apiUrl.defects + '/?populate=reporter', {}, {});
         vm.arrayDefects = [];
