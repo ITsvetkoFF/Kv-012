@@ -25,32 +25,12 @@
 
     function TrelloTeamFactory(logger, Trello, $q, user) {
 
-        /**
-         * Variable, that will be returned by the factory
-         * @memberOf trelloTeamFactory;
-         * @type
-         * {{auth: teamMembersFactory.auth,
-         * getUsers: teamMembersFactory.getUsers,
-         * deleteUser: teamMembersFactory.deleteUser,
-         * addUser: teamMembersFactory.addUser}}
-         */
         var result = {
             getUsers: getUsers,
             deleteUser: deleteUser,
             addUser: addUser
         };
 
-        /**
-         * Update array of users
-         * @memberOf trelloTeamFactory;
-         * @param {Array.<User>} users updatable array of users
-         * @param {String} organization name of the current project
-         * @param {String} Trello name of the current project
-         * @example
-         * ```
-         * getUsers(vm.users, vm.organization);
-         * ```
-         */
         function getUsers(users) {
 
             users.length = 0;
@@ -91,13 +71,6 @@
 
         }
 
-        /**
-         * Adds users to Trello
-         * @memberOf trelloTeamFactory;
-         * @param {Object} newUser option object `{newName: string, newEmail: string, newRole: string}`
-         * @param {Array.<User>} users updatable array of users
-         * @param {String} organization name of the current project
-         */
         function addUser(newUser) {
 
             var deferred = $q.defer();
@@ -119,18 +92,6 @@
             return deferred.promise;
         }
 
-        /**
-         * Deletes users from Trello and update existing array of users
-         * @memberOf trelloTeamFactory
-         * @param {Array.<User>} users updatable array of users
-         * @param {Integer} index index of deleted user
-         * @param {String} organization name of the current project
-         * @returns {*}
-         * @example
-         * ```
-         * deleteUser(vm.users, $index, vm.organization)
-         * ```
-         */
         function deleteUser(users, index) {
 
             var deletedUser = users[index];
