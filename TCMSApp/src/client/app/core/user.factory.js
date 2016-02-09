@@ -81,6 +81,7 @@
         function changeCurrentProject(id) {
             $http.put('/api/v1/Users/' + service.id, {currentProjectID: id}).success(function() {
                 service.currentProjectID = id;
+                getMe();
             });
         }
 

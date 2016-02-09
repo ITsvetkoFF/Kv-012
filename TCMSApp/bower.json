@@ -1,42 +1,43 @@
 {
-  "name": "testSys",
-  "version": "0.0.1",
-  "description": "testSys",
-  "authors": [],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "devDependencies": {
-    "angular-mocks": "^1.4.5",
-    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
-    "bardjs": "^0.1.4"
-  },
-  "dependencies": {
-    "angular": "^1.4.5",
-    "angular-sanitize": "^1.4.5",
-    "extras.angular.plus": "^0.9.2",
-    "font-awesome": "^4.3.0",
-    "moment": "^2.10.3",
-    "angular-ui-router": "^0.2.15",
-    "angular-animate": "~1.4.8",
-    "angular-bootstrap": "~0.14.3",
-    "angular-toastr": "~1.6.0",
-    "bootstrap-css-only": "~3.3.5",
-    "angular-messages": "~1.4.8",
-    "angular-resource": "~1.4.8",
-    "angular-gridster": "~0.13.5"
-  },
-  "resolutions": {
-      "angular": "1.4.x"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": "dist/css/bootstrap.css"
+    "name": "testSys",
+    "version": "0.0.1",
+    "description": "testSys",
+    "authors": [],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "devDependencies": {
+        "angular-mocks": "^1.4.5",
+        "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
+        "bardjs": "^0.1.4"
+    },
+    "dependencies": {
+        "angular": "^1.4.5",
+        "angular-sanitize": "^1.4.5",
+        "extras.angular.plus": "^0.9.2",
+        "font-awesome": "^4.3.0",
+        "moment": "^2.10.3",
+        "angular-ui-router": "^0.2.15",
+        "angular-animate": "~1.4.8",
+        "angular-bootstrap": "~0.14.3",
+        "angular-toastr": "~1.6.0",
+        "bootstrap-css-only": "~3.3.5",
+        "angular-messages": "~1.4.8",
+        "angular-resource": "~1.4.8",
+        "angular-gridster": "~0.13.5",
+        "isteven-angular-multiselect": "angular-multi-select#~4.0.0"
+    },
+    "resolutions": {
+        "angular": "1.4.x"
+    },
+    "overrides": {
+        "bootstrap": {
+            "main": "dist/css/bootstrap.css"
+        }
     }
-  }
 }

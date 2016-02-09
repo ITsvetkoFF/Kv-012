@@ -1,0 +1,75 @@
+<section class="mainbar" style="min-height: 600px;">
+    <div class="container-fluid">
+        <div class="clearfix">
+            <h1>Project settings</h1>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <uib-tabset>
+                    <uib-tab select="vmProject.refreshBoards();">
+                        <uib-tab-heading>Boards</uib-tab-heading>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <button
+                                    class="btn btn-primary"
+                                    ng-click="vmProject.refreshBoards()">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Lists</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Backlog</td>
+                                    <td>
+                                        <isteven-multi-select
+                                            input-model="vmProject.backlog.inputLists"
+                                            output-model="vmProject.backlog.outputLists"
+                                            button-label="icon name"
+                                            item-label="icon name"
+                                            tick-property="ticked"
+                                            orientation="vertical"
+                                            helper-elements="all none"
+                                            output-properties="name ticked"
+                                            on-item-click="vmProject.changeList( data );"
+                                            on-select-all="vmProject.selectAll(vmProject.backlog.inputLists);"
+                                            on-select-none="vmProject.selectNone(vmProject.backlog.inputLists);"
+                                            ></isteven-multi-select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Working</td>
+                                    <td>
+                                        <isteven-multi-select
+                                            input-model="vmProject.working.inputLists"
+                                            output-model="vmProject.working.outputLists"
+                                            button-label="icon name"
+                                            item-label="icon name"
+                                            tick-property="ticked"
+                                            orientation="vertical"
+                                            helper-elements="all none"
+                                            output-properties="name ticked"
+                                            on-item-click="vmProject.changeList( data );"
+                                            on-select-all="vmProject.selectAll(vmProject.working.inputLists);"
+                                            on-select-none="vmProject.selectNone(vmProject.working.inputLists);"
+                                            ></isteven-multi-select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </uib-tab>
+                    <uib-tab ng-if="vmProject.hasSprints">
+                        <uib-tab-heading>Srpints</uib-tab-heading>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</section>

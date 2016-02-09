@@ -20,12 +20,13 @@
         };
 
         SidebarController.$inject = ['$uibModal', 'logger',
-            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope', 'user', '$http'];
+            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope', 'user', '$http',
+        'ManageTrelloProject'];
 
         /* @ngInject */
 
         function SidebarController($uibModal, logger,
-                sidebarFactory, authservice, createProjectFactory, $q, $rootScope, user, $http) {
+                sidebarFactory, authservice, createProjectFactory, $q, $rootScope, user, $http, ManageTrelloProject) {
 
             var vm = this;
             vm.open = openModalCreateProject;
@@ -52,6 +53,13 @@
 
                             var vmModal = this;
                             vmModal.createProjAndOrg = createProjAndOrg;
+                            vmModal.dismiss = modalCreateProject.dismiss;
+
+                            // data for trello boards creation
+                            vmModal.backlogLists = ManageTrelloProject.getBacklogLists();
+                            vmModal.workingLists = ManageTrelloProject.getWorkingLists();
+                            vmModal.outputBacklogList = vmModal.backlogLists;
+                            vmModal.outputWorkingList = vmModal.workingLists;
 
                             // Function creates Project and Trello Organization
                             function createProjAndOrg() {
@@ -67,7 +75,12 @@
                                     if (Trello.authorized()) {
 
                                         createProjectFactory.createProjAndOrg(Trello,
-                                            projectName, projectDescription).then(function (res) {
+                                            projectName, projectDescription)
+                                            .then(function (res) {
+
+                                                console.log(res);
+                                                setCustomContent(res, vmModal.outputBacklogList,
+                                                    vmModal.outputWorkingList);
 
                                                 sidebarFactory.findProjects().then(function(data) {
                                                     vm.projects = data;
@@ -110,6 +123,37 @@
                 var projectId = $event.target.id;
 
                 user.changeCurrentProject(projectId);
+            }
+
+            function setCustomContent(idOrganization, outputBacklogList, outputWorkingList) {
+                var backlog, working, bLists, wLists;
+
+                backlog = new ManageTrelloProject.Board('Backlog');
+                working = new ManageTrelloProject.Board('Working');
+
+                bLists = [];
+                wLists = [];
+                var newList;
+
+                for (var i = 0; i < outputBacklogList.length; i++) {
+                    newList = new ManageTrelloProject.List(outputBacklogList[i].name);
+                    newList.closed = !outputBacklogList[i].ticked;
+                    bLists.push(newList);
+                }
+                for (i = 0; i < outputWorkingList.length; i++) {
+                    newList = new ManageTrelloProject.List(outputWorkingList[i].name);
+                    newList.closed = !outputWorkingList[i].ticked;
+                    wLists.push(newList);
+                }
+                for (i = 0; i < bLists.length; i++) {
+                    backlog.lists.push(bLists[i]);
+                }
+                for (i = 0; i < wLists.length; i++) {
+                    working.lists.push(wLists[i]);
+                }
+
+                ManageTrelloProject.addBoard(backlog, idOrganization);
+                ManageTrelloProject.addBoard(working, idOrganization);
             }
         }
 
