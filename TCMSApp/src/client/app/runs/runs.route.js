@@ -33,7 +33,7 @@
                 state: 'generate-defect',
                 config: {
                     url: '/create-defect',
-                    templateUrl: 'app/defects/add-defect.template.html',
+                    template: '<div></div>',
                     controller: 'AddDefectController',
                     controllerAs: 'vmAddDefect',
                     title: 'Defect',
