@@ -4,6 +4,10 @@ branches:
 language: node_js
 node_js:
   - "4.1"
+cache:
+  directories:
+  - TCMSApp/node_modules
+  - TCMSApp/bower_components
 before_script:
   - cd TCMSApp/
   - npm install codecov.io
