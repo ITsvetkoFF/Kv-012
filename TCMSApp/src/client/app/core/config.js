@@ -17,9 +17,11 @@
     function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, toastrConfig) {
 
         delete window.moment;
+        delete window.faker;
         delete window.Trello;
         delete window.jQuery;
         delete window.$;
+        delete window.d3;
 
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
