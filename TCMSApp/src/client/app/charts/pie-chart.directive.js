@@ -49,7 +49,7 @@
                     },
                     stroke: 'rgba(255,255,255,0.1)'
                 });
-            };
+            }
 
             function updateLines() {
                 var lineGenerator = d3.svg.line().x(function(d) {
@@ -78,7 +78,7 @@
                     },
                     'stroke-width': 1
                 });
-            };
+            }
 
             function updateMarks() {
                 var marks = svgElem.selectAll('text.mark');
@@ -99,9 +99,9 @@
                     fill: '#444',
                     'font-size': chartSize * 0.09 + 'px'
                 });
-            };
+            }
 
-             function updateChart() {
+            function updateChart() {
                 if (!data) return;
                 sectorSizes = [];
                 markings = [];
@@ -129,7 +129,7 @@
                 updateMarks();
 
                 updateSize();
-            };
+            }
 
             var updateSize = function() {
                 var svgRect = svgElem[0][0].getBoundingClientRect();
