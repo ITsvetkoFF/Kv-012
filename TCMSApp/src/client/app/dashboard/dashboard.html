@@ -16,12 +16,12 @@
 
                         <div class="panel panel-info" style="overflow: hidden"
                              gridster-item  size-x="item.size.x" size-y="item.size.y"
-                             ng-repeat="item in vmDashboard.items">
+                             ng-repeat="item in vmDashboard.items" board-resized="board{{$index}}">
 
                             <div class="panel-body">
                                 <button type="button" class="close" ng-click="vmDashboard.trigger = item.pos; vmDashboard.deleteItem()">&times;</button>
                                 <div class="clearfix">
-                                    <h4>{{ ::item.label }}</h4>
+                                    <h4>{{ item.label }}</h4>
                                 </div>
 
                                 <!--project-->
@@ -132,11 +132,13 @@
                                 <!--statistics-->
                                 <div ng-if="item.board === 'stats' ">
                                     <hr>
-                                    <div class="clearfix">
-                                        <img class="img-responsive"
-                                             src="https://i1.wp.com/flowingdata.com/wp-content/uploads/2014/12/Pie-Pyramid-e1417455667996.png?fit=620%2C311"
-                                             alt="pyramid.png">
-                                    </div>
+                                    <chart type="pie" board="board{{$index}}" array="runs" field="status"></chart>
+                                </div>
+
+                                <!--activity statistics-->
+                                <div ng-if="item.board === 'stats_activity' ">
+                                    <hr>
+                                    <chart type="bar" board="board{{$index}}" array="runs" field="author"></chart>
                                 </div>
 
                             </div> <!--end panel-body-->

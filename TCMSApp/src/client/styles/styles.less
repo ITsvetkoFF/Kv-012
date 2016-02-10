@@ -117,7 +117,7 @@ header {
 /* Sidebar */
 
 .shell-wrapper {
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .sidebar {
@@ -319,12 +319,74 @@ iframe {
 
 //---------end landing styles---------//
 
-//Add defect page
-.errorMessageSpan{
-    color: @color_important;
-    display: block;
-    margin-top: 15px;
+//--------- boards -------------------//
+.gridster-item div[ng-if^="item.board"] {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 54px;
+    bottom: 20px;
 }
-.defectDescription{
-    word-wrap: break-word;
+
+.gridster-item chart {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    width: 100%;
+    //background-color: #f8efc0;
 }
+
+.gridster-item svg {
+    width: 100%;
+    height: 100%;
+}
+
+.gridster-item .edit{
+    color: #000;
+    opacity: 0;
+    font-size: 18px;
+    float: right;
+    cursor: pointer;
+    transition: opacity .3s;
+}
+
+.gridster div[edit-tool] {
+    //opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+//.gridster div[edit-tool]:hover {
+//    opacity: 1;
+//}
+
+.gridster .edit-tool{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    left: 20px;
+    padding: 20px;
+    z-index: 100;
+    opacity: 0.85;
+    overflow: auto;
+}
+
+.gridster .edit-tool form {
+    position: absolute;
+}
+
+.gridster .edit-tool label {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.gridster .edit-tool input {
+    text-align: center;
+}
+
+.blurred {
+    filter: blur(2px) brightness(1.5) grayscale(70%);
+}
+//--------- end boards ---------------//

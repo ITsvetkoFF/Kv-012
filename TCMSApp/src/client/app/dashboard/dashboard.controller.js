@@ -5,10 +5,10 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$q', 'logger', '$http', 'apiUrl'];
+    DashboardController.$inject = ['$q', 'logger', '$http', 'apiUrl', '$scope'];
     /* @ngInject */
 
-    function DashboardController($q, logger, $http, apiUrl) {
+    function DashboardController($q, logger, $http, apiUrl, $scope) {
         var vm = this;
         var suitesData;
         var runsData;
@@ -18,7 +18,12 @@
             margins: [20, 20],
             rowHeight: 270,
             columns: 3,
-            mobileBreakPoint: 750
+            mobileBreakPoint: 750,
+            resizable: {
+                resize: function(e, elem, widget) {
+                    $scope.$broadcast(widget.boardResized);
+                }
+            }
         };
 
         activate();
@@ -28,7 +33,6 @@
 
             return $q.all(promises).then(function() {
                 logger.info('Activated Dashboard View');
-                console.log('data success');
                 fillDate();
             });
         }
@@ -145,23 +149,19 @@
                 }, {
                     size: {
                         x: 1,
-                        y: 1
+                        y: 2
                     },
                     //position: [4, 0],
                     board: 'stats',
-                    label: 'STATISTICS',
-                    feed: [
-                        {
-                            name: 'Run name1',
-                            time: '2 days ago',
-                            status: '10%'
-                        },
-                        {
-                            name: 'Run run',
-                            time: '1 week ago',
-                            status: '70%'
-                        }
-                    ]
+                    label: 'STATISTICS'
+                }, {
+                    size: {
+                        x: 1,
+                        y: 2
+                    },
+                    //position: [4, 0],
+                    board: 'stats_activity',
+                    label: 'ACTIVITY'
                 }, {
                     size: {
                         x: 1,
