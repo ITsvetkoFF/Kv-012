@@ -7,8 +7,10 @@
                     <a
                         href="#"
                         id="{{project.id}}"
-                        ng-click="vmSidebar.setCurrentProject($event)">
-                        {{project.name}} </a>
+                        ng-click="vmSidebar.setCurrentProject($event); vmSidebar.currentProjectID = project.id;"
+                        ng-class="{'active-project': (project.id == vmSidebar.currentProjectID)}">
+                        {{project.name}}
+                    </a>
                 </li>
             </ul>
             <button class="btn btn-success btn-block" ng-click="vmSidebar.open()" id="btnAddProject">

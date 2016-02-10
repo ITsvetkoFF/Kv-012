@@ -117,7 +117,7 @@ header {
 /* Sidebar */
 
 .shell-wrapper {
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -318,6 +318,25 @@ iframe {
 }
 
 //---------end landing styles---------//
+
+//Add defect page
+.errorMessageSpan {
+    color: @color_important;
+    display: block;
+    margin-top: 15px;
+}
+.defectDescription {
+    word-wrap: break-word;
+}
+
+
+//Project sidebar
+.active-project {
+    font-weight: bold;
+}
+.active-project::before {
+    content: "▸ ";
+}
 
 //--------- boards -------------------//
 .gridster-item div[ng-if^="item.board"] {
