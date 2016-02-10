@@ -39,7 +39,7 @@
                 return [b, k * a];
             };
 
-            var updatePieces = function() {
+            function updatePieces() {
                 var pieces = svgElem.selectAll('path.piece');
                 pieces.data(pie(sectorSizes));
                 pieces.attr({
@@ -51,7 +51,7 @@
                 });
             };
 
-            var updateLines = function() {
+            function updateLines() {
                 var lineGenerator = d3.svg.line().x(function(d) {
                     return d[0];
                 }).y(function(d) {
@@ -61,11 +61,12 @@
                 var lines = svgElem.selectAll('path.line');
                 lines.data(pie(sectorSizes));
                 lines.datum(function(d, i) {
+                    var markSize = marks[0][i].getBBox();
                     return [
                         arcs.centroid(d),
                         linePoint(d, (chartSize * 1.2) / 2),
                         [linePoint(d, (chartSize * 1.2) / 2)[0] +
-                        (linePoint(d, (chartSize * 1.2) / 2)[0] < 0 ? -1 : 1) * (marks[0][i].clientWidth + 10),
+                        (linePoint(d, (chartSize * 1.2) / 2)[0] < 0 ? -1 : 1) * (markSize.width + 10),
                             linePoint(d, (chartSize * 1.2) / 2)[1]]
                     ];
                 });
@@ -79,16 +80,17 @@
                 });
             };
 
-            var updateMarks = function() {
+            function updateMarks() {
                 var marks = svgElem.selectAll('text.mark');
                 marks.data(pie(sectorSizes));
                 marks.text(function(d, i) {
                     return markings[i] + ' (' + sectorSizes[i] + ')'; }
                 );
                 marks.attr({
-                    x: function(d) {
+                    x: function(d, i) {
+                        var markSize = marks[0][i].getBBox();
                         var x = linePoint(d, (chartSize * 1.2) / 2)[0];
-                        return x + (x < 0 ? -this.clientWidth - 5 : 0) + (x < 0 ? 0 : 5);
+                        return x + (x < 0 ? -markSize.width - 5 : 0) + (x < 0 ? 0 : 5);
                     },
                     y: function(d) {
                         return linePoint(d, (chartSize * 1.2) / 2)[1] - 3;
@@ -99,7 +101,7 @@
                 });
             };
 
-            var updateChart = function() {
+             function updateChart() {
                 if (!data) return;
                 sectorSizes = [];
                 markings = [];

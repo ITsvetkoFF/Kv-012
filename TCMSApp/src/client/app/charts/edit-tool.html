@@ -48,7 +48,7 @@
         <div class="form-group">
             <label for="boardDataSource" class="col-sm-3 control-label">Fields</label>
             <div class="col-sm-9">
-                <div class="radio" ng-repeat="(key, val) in $parent.source[0]">
+                <div class="radio" ng-repeat="(key, val) in $parent.source[0]" ng-if="key!=='_id'">
                     <label>
                         <input type="radio" name="fields" ng-click="updateField(this)"> {{key}}
                     </label>

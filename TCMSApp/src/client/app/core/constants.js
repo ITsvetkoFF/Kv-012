@@ -2,15 +2,14 @@
 (function() {
     //'use strict';
 
-    if (typeof Trello == 'undefined') Trello = 'Very simple stub. Kids, do not do things like that'; // jshint ignore:line
+    if (typeof Trello == 'undefined') Trello = {authorized: function() {return true;}}; // jshint ignore:line
 
     angular
         .module('app.core')
         .constant('moment', moment)
         .constant('Trello', Trello) // KEEP AN EYE! Trello is exposed by client.js from index file
-        .constant('faker', faker)
-        .constant('d3', d3) // jshint ignore:line
-        .constant('apiUrl', apiUrl());
+        .constant('apiUrl', apiUrl())
+        .constant('d3', d3); // jshint ignore:line
 
     function apiUrl() {
         return {

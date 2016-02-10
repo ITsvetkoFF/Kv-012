@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
     <link rel="stylesheet" href="/bower_components/bootstrap-css-only/css/bootstrap.css" />
     <link rel="stylesheet" href="/bower_components/angular-gridster/dist/angular-gridster.min.css" />
+    <link rel="stylesheet" href="/bower_components/isteven-angular-multiselect/isteven-multi-select.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -58,11 +59,11 @@
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <script src="/bower_components/faker/build/build/faker.js"></script>
     <script src="/bower_components/angular-messages/angular-messages.js"></script>
     <script src="/bower_components/angular-resource/angular-resource.js"></script>
     <script src="/bower_components/javascript-detect-element-resize/detect-element-resize.js"></script>
     <script src="/bower_components/angular-gridster/src/angular-gridster.js"></script>
+    <script src="/bower_components/isteven-angular-multiselect/isteven-multi-select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -73,7 +74,6 @@
     <script src="/src/client/app/apis/apis.module.js"></script>
     <script src="/src/client/app/apis/trello/trello.module.js"></script>
     <script src="/src/client/app/blocks/exception/exception.module.js"></script>
-    <script src="/src/client/app/blocks/fakers/fakers.module.js"></script>
     <script src="/src/client/app/blocks/logger/logger.module.js"></script>
     <script src="/src/client/app/blocks/router/router.module.js"></script>
     <script src="/src/client/app/charts/charts.module.js"></script>
@@ -89,19 +89,15 @@
     <script src="/src/client/app/widgets/widgets.module.js"></script>
     <script src="/src/client/app/admin/admin.controller.js"></script>
     <script src="/src/client/app/admin/admin.route.js"></script>
-    <script src="/src/client/app/admin/team-members.factory.js"></script>
+    <script src="/src/client/app/admin/project.controller.js"></script>
     <script src="/src/client/app/admin/team.controller.js"></script>
     <script src="/src/client/app/apis/trello/auth.service.js"></script>
     <script src="/src/client/app/apis/trello/create-project.service.js"></script>
+    <script src="/src/client/app/apis/trello/manage-trello-project.factory.js"></script>
     <script src="/src/client/app/apis/trello/team.factory.js"></script>
     <script src="/src/client/app/apis/trello/user-trello.factory.js"></script>
     <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
     <script src="/src/client/app/blocks/exception/exception.js"></script>
-    <script src="/src/client/app/blocks/fakers/fake-defects.factory.js"></script>
-    <script src="/src/client/app/blocks/fakers/fake-projects.factory.js"></script>
-    <script src="/src/client/app/blocks/fakers/fake-runs.factory.js"></script>
-    <script src="/src/client/app/blocks/fakers/fake-tests.factory.js"></script>
-    <script src="/src/client/app/blocks/fakers/fake-users.factory.js"></script>
     <script src="/src/client/app/blocks/logger/logger.js"></script>
     <script src="/src/client/app/blocks/router/router-helper.provider.js"></script>
     <script src="/src/client/app/charts/bar-chart.directive.js"></script>
@@ -123,6 +119,7 @@
     <script src="/src/client/app/defects/add-defect.controller.js"></script>
     <script src="/src/client/app/defects/defects.controller.js"></script>
     <script src="/src/client/app/defects/defects.route.js"></script>
+    <script src="/src/client/app/defects/defects.service.js"></script>
     <script src="/src/client/app/landing/landing.controller.js"></script>
     <script src="/src/client/app/landing/landing.route.js"></script>
     <script src="/src/client/app/layout/ht-sidebar.directive.js"></script>
@@ -131,7 +128,6 @@
     <script src="/src/client/app/layout/sidebar.service.js"></script>
     <script src="/src/client/app/reports/reports.controller.js"></script>
     <script src="/src/client/app/reports/reports.route.js"></script>
-    <script src="/src/client/app/runs/run.controller.js"></script>
     <script src="/src/client/app/runs/runs-exec/runs-edit.controller.js"></script>
     <script src="/src/client/app/runs/runs-exec/runs-exec.route.js"></script>
     <script src="/src/client/app/runs/runs-exec/runs-execute.controller.js"></script>
