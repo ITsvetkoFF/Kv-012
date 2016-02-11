@@ -37,7 +37,7 @@ var refillDB = function() {
         suiteTestsCollection.insertMany(suiteTests);
 
         var defectsCollection = db.collection('defects');
-        var defects = fakeDefects(faker.random.number({min: 0, max: 15}), users, runs);
+        var defects = fakeDefects(faker.random.number({min: 0, max: 15}), users, runs,projects);
         defectsCollection.insertMany(defects);
 
         usersCollection.updateMany({},

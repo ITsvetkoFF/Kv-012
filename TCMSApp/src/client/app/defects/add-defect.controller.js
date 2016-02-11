@@ -71,7 +71,8 @@
                                 chooseFile: vmDefectModal.chooseFile,
                                 description: vmDefectModal.description,
                                 stepsToReproduce: vmDefectModal.stepsToReproduce,
-                                assignedTo: vmDefectModal.assignedTo
+                                assignedTo: vmDefectModal.assignedTo,
+                                project: user.currentProjectID
                                 //testRunId:  vmDefectModal.testCase //TODO:
                             };
 

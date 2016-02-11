@@ -22,7 +22,11 @@ var defectSchema = new Schema({
     },
     description: {type: String, required: true},
     stepsToReproduce: [String],
-    run: {type: mongoose.Schema.Types.ObjectId}
+    run: {type: mongoose.Schema.Types.ObjectId},
+    project: {
+    type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
 });
 defectSchema.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique.'});
 var defect = mongoose.model('Defect', defectSchema);
