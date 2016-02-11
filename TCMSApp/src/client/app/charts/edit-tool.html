@@ -1,0 +1,64 @@
+<edit-button class="fa fa-edit edit" ng-click="toggleEditTool()" ng-hide="showEditTool"></edit-button>
+<edit-content class="edit-tool row" ng-if="showEditTool">
+    <form class="form-horizontal col-sm-8 col-sm-offset-2">
+        <div class="form-group">
+            <label for="boardName" class="col-sm-3 control-label">Title</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="boardName" value="STATISTICS">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="boardType" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
+                <div class="btn-group" uib-dropdown is-open="status.isopenTypes" style="width: 100%">
+                    <button id="boardType" type="button" class="btn btn-default"
+                            uib-dropdown-toggle ng-disabled="disabled" style="width: 100%">
+                        Pie chart <span class="caret"></span>
+                    </button>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button" style="width: 100%">
+                        <li role="menuitem"><a href="#">Table</a></li>
+                        <li role="menuitem"><a href="#">List</a></li>
+                        <li role="menuitem"><a href="#">Text</a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem" ng-click="$parent.type='pie'"><a href="#">Pie chart</a></li>
+                        <li role="menuitem"><a href="#">Line chart</a></li>
+                        <li role="menuitem" ng-click="$parent.type='bar'"><a href="#">Bar chart</a></li>
+                        <li role="menuitem"><a href="#">Scatter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="boardDataSource" class="col-sm-3 control-label">Source</label>
+            <div class="col-sm-9">
+                <div class="btn-group" uib-dropdown is-open="status.isopenSources" style="width: 100%">
+                    <button id="boardDataSource" type="button" class="btn btn-default"
+                            uib-dropdown-toggle ng-disabled="disabled" style="width: 100%">
+                        Runs <span class="caret"></span>
+                    </button>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button" style="width: 100%">
+                        <li role="menuitem" ng-click="$parent.array='runs'"><a href="#">Runs</a></li>
+                        <li role="menuitem" ng-click="$parent.array='suites'"><a href="#">Suites</a></li>
+                        <li role="menuitem"><a href="#">Tests</a></li>
+                        <li role="menuitem"><a href="#">Defects</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="boardDataSource" class="col-sm-3 control-label">Fields</label>
+            <div class="col-sm-9">
+                <div class="radio" ng-repeat="(key, val) in $parent.source[0]" ng-if="key!=='_id'">
+                    <label>
+                        <input type="radio" name="fields" ng-click="updateField(this)"> {{key}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button class="btn btn-default pull-right" ng-click="toggleEditTool()">Close</button>
+            </div>
+        </div>
+    </form>
+</edit-content>
