@@ -5,12 +5,15 @@ describe('Tests Create Controller', function () {
 
     beforeEach(function () {
         bard.appModule('app.tests', 'ngResource');
-        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice');
+        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice', '$httpBackend', 'apiUrl');
     });
 
     beforeEach(function () {
         var scope = $rootScope.$new();
         controller = $controller('TestsCreateController', {$scope: scope});
+
+        $httpBackend.when('GET', '/api/v1/User').respond();
+        $httpBackend.flush();
         $rootScope.$apply();
     });
 

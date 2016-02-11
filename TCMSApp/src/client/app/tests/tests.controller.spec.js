@@ -48,7 +48,7 @@ describe('TestsController', function () {
             '?query={"suite" : "' + '56a623b5c2b74a5831279f1e' + '"}').respond(
             mockData.getMockTestsOfSuite('56a623b5c2b74a5831279f1e'));
         $httpBackend.when('GET', /\/api\/v1\/Projects\/*/).respond(projects);
-        $httpBackend.when('GET', apiUrl.host + '/api/v1/User').respond();
+        $httpBackend.when('GET', '/api/v1/User').respond();
 
         $httpBackend.flush();
         $rootScope.$apply();
