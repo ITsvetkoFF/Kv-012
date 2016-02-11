@@ -131,7 +131,7 @@
                 updateSize();
             }
 
-            var updateSize = function() {
+            function updateSize() {
                 var svgRect = svgElem[0][0].getBoundingClientRect();
                 var svgWidth = svgRect.width;
                 var svgHeight = svgRect.height;
@@ -142,7 +142,7 @@
                 var newY = ((svgHeight - 2 * space) / k - groupScale.height) / 2 - groupScale.y + space / k;
 
                 group.attr('transform', 'scale(' + k + ') translate(' + newX + ' ' + newY + ')');
-            };
+            }
 
             scope.$on(scope.board, function() {
                 updateSize();
