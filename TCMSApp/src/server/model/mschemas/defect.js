@@ -24,7 +24,7 @@ var defectSchema = new Schema({
     stepsToReproduce: [String],
     run: {type: mongoose.Schema.Types.ObjectId},
     project: {
-    type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     }
 });
