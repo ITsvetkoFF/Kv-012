@@ -55,6 +55,9 @@
                                 <th>
                                     Priority
                                 </th>
+                                <th>
+                                    Status
+                                </th>
 
                             </tr>
                             </thead>
@@ -71,6 +74,29 @@
                                 </td>
                                 <td>
                                     {{defect.priority}}
+                                </td>
+                                <td>
+                                   <!--- <select class="btn btn-success sizeStatus" id="selectID" ng-selected="selected"
+                                            onchange="this.className=this.options[this.selectedIndex].className">
+                                        <option class="btn btn-success sizeStatus" value="open">Open</option>
+                                        <option class="btn btn-info sizeStatus" value="progress" >In progress</option>
+                                        <option class="btn btn-danger sizeStatus" value="fix" >Won't fix</option>
+                                        <option class="btn btn-primary sizeStatus" value="CLOSED" >Closed</option>
+                                    </select>--->
+                                    <select ng-init ="defect.status == undefined?defect.status = 'notFix':defect.status"
+                                            ng-class="{'btn btn-danger sizeStatus': defect.status == 'notFix',
+                                                     'btn btn-success sizeStatus': defect.status == 'open',
+                                                     'btn btn-info sizeStatus': defect.status == 'inProgress',
+                                                    'btn btn-primary sizeStatus': defect.status == 'closed' } "
+                                            onchange="this.className=this.options[this.selectedIndex].className"
+                                            ng-model="defect.status"
+                                            ng-change ="vmDefects.statusChange(defect._id, defect.status)"
+                                        >
+                                        <option value="notFix" class="btn btn-danger sizeStatus">NotFIX</option>
+                                        <option value="open" class="btn btn-success sizeStatus">OPEN</option>
+                                        <option value="inProgress" class="btn btn-info sizeStatus">IN PROGRESS</option>
+                                        <option value="closed" class="btn btn-primary sizeStatus">ClOSED</option>
+                                    </select>
                                 </td>
 
                             </tr>
@@ -93,7 +119,7 @@
                                 {{vmDefects.currentDefect.name}}
                                 <br>
                                 <b>Reporter:</b>
-                                {{vmDefects.currentDefect.reporter.firstName}} {{vmDefects.currentDefect.reporter.lastName}}
+                                {{vmDefects.currentDefect.reporter.fullName}}
                                 <br>
                                 <b>Assigned to:</b>
                                 {{vmDefects.currentDefect.assignedTo}}

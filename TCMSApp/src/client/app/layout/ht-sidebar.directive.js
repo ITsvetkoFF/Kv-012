@@ -19,20 +19,20 @@
             templateUrl: 'app/layout/sidebar.html'
         };
 
-        SidebarController.$inject = ['$uibModal', 'logger', 'sidebarFactory', 'authservice', 'createProjectFactory',
-            'user', 'ManageTrelloProject', '$state'];
+        SidebarController.$inject = ['$uibModal', 'logger',
+            'sidebarFactory', 'authservice', 'createProjectFactory', '$q', '$rootScope', 'user', '$http',
+        'ManageTrelloProject'];
 
         /* @ngInject */
 
-        function SidebarController($uibModal, logger, sidebarFactory, authservice,
-                                   createProjectFactory, user, ManageTrelloProject, $state) {
+        function SidebarController($uibModal, logger,
+                sidebarFactory, authservice, createProjectFactory, $q, $rootScope, user, $http, ManageTrelloProject) {
 
             var vm = this;
             vm.open = openModalCreateProject;
             vm.synchronized = false;
 
             vm.setCurrentProject = setCurrentProject;
-            vm.currentProjectID = user.currentProjectID;
 
             var Trello = authservice.authorize();
 
@@ -123,7 +123,6 @@
                 var projectId = $event.target.id;
 
                 user.changeCurrentProject(projectId);
-                $state.reload();
             }
 
             function setCustomContent(idOrganization, outputBacklogList, outputWorkingList) {

@@ -52,6 +52,20 @@
 
                     </div>
                     <div class="form-group">
+                        <label for="new-member-pass" hidden>Password</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="new-member-pass"
+                            name="password"
+                            placeholder="Password"
+                            ng-model="vmTeam.newPass"
+                            ng-minlength="5"
+                            ng-maxlength="30"
+                            required>
+
+                    </div>
+                    <div class="form-group">
                         <label for="new-member-permissions" hidden>Permissions</label>
                         <select
                             class="form-control"

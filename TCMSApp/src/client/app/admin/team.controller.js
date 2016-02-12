@@ -14,10 +14,10 @@
         .controller('TeamController', TeamController);
 
     TeamController.$inject = ['logger', 'TrelloTeamFactory', '$scope', '$rootScope', '$q',
-        'createProjectFactory', 'authservice', 'user'];
+        'createProjectFactory', 'authservice', 'user', '$resource', 'apiUrl'];
 
     function TeamController(logger, TrelloTeamFactory, $scope, $rootScope, $q, createProjectFactory, authservice,
-                            user) {
+                            user, $resource, apiUrl) {
         var vmTeam = this;
         vmTeam.users = [];
         vmTeam.organization = '';
@@ -25,6 +25,12 @@
         vmTeam.addUser = addUser;
         vmTeam.getUsers = TrelloTeamFactory.getUsers;
         vmTeam.deleteUser = TrelloTeamFactory.deleteUser;
+
+        vmTeam.memberFilter = '';
+        vmTeam.newName = '';
+        vmTeam.newEmail = '';
+        vmTeam.newRole = 'normal';
+        vmTeam.newPass = '';
 
         activate();
 
@@ -44,12 +50,35 @@
          */
         function addUser(isValidForm) {
             if (isValidForm) {
+                var tempName = vmTeam.newName;
                 TrelloTeamFactory.addUser({
                     newName: vmTeam.newName,
-                    newEmail: vmTeam.newEmail,
-                    newRole: vmTeam.newRole
+                    newEmail:vmTeam.newEmail,
+                    newRole: vmTeam.newRole,
+                    newPass: vmTeam.newPass
                 }).then(function (res) {
                     TrelloTeamFactory.getUsers(vmTeam.users);
+
+                    var currentUser;
+                    for (var i = 0; i < res.members.length; i++) {
+                        if (res.members[i].fullName === tempName) {
+                            currentUser = res.members[i];
+                            break;
+                        }
+                    }
+                    //var usersInfo = $resource('/register/local', {}, {});
+                    var usersInfo = $resource(apiUrl.users, {}, {});
+                    var result = usersInfo.save(currentUser).$promise.then(function success() {
+                    }, function error(message) {
+                        var error;
+                        if (message.data.errors.name !== undefined) {
+                            error = message.data.errors.name.message;
+                        }
+                        else
+                        {
+                            error = 'Undefined error';
+                        }
+                    });
                 }, function (err) {
                     logger.error(err.responseText);
                 });
@@ -67,6 +96,7 @@
             vmTeam.newName = '';
             vmTeam.newEmail = '';
             vmTeam.newRole = 'normal';
+            vmTeam.newPass = '';
         }
     }
 })();

@@ -67,7 +67,7 @@ describe('Tests Add-Defects Open Model', function () {
         state.run = 'true';
         controller = $controller('AddDefectController', {$scope: scope, $state: state, $stateParams: state});
         $httpBackend.when('GET', '/api/v1/User').respond(users);
-        $httpBackend.when('GET', /\/api\/v1\/Users\/*/).respond(user);
+        $httpBackend.when('GET', /\/api\/v1\/Users\/*/).respond(users);
         $httpBackend.when('GET', /\/api\/v1\/Projects\/*/).respond(project);
         $httpBackend.flush();
         $rootScope.$apply();

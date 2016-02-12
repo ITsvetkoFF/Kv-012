@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function appRun(routerHelper) {
-        var otherwise = '/dashboard';
+        var otherwise = '/';
         routerHelper.configureStates(getStates(), otherwise);
     }
 

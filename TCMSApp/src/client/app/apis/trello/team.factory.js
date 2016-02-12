@@ -21,9 +21,9 @@
         .module('app.trello')
         .factory('TrelloTeamFactory', TrelloTeamFactory);
 
-    TrelloTeamFactory.$inject = ['logger', 'Trello', '$q', 'user'];
+    TrelloTeamFactory.$inject = ['logger', 'Trello', '$q', 'user', '$resource', 'apiUrl'];
 
-    function TrelloTeamFactory(logger, Trello, $q, user) {
+    function TrelloTeamFactory(logger, Trello, $q, user, $resource, apiUrl) {
 
         var result = {
             getUsers: getUsers,
