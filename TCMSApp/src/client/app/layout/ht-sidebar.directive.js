@@ -36,15 +36,15 @@
 
             var Trello = authservice.authorize();
 
-            createProjectFactory.syncProjAndOrg(Trello).then(function (res) {
-                sidebarFactory.findProjects().then(function(data) {
-                    vm.projects = data;
-                    if (data.length === 0) {
-                        logger.error('Create the first project to start');
-                    }
-                    vm.synchronized = true;
-                });
+            //createProjectFactory.syncProjAndOrg(Trello).then(function (res) {
+            sidebarFactory.findProjects().then(function(data) {
+                vm.projects = data;
+                if (data.length === 0) {
+                    logger.error('Create the first project to start');
+                }
+                vm.synchronized = true;
             });
+            //});
 
             function openModalCreateProject () {
                 var modalCreateProject = $uibModal.open({

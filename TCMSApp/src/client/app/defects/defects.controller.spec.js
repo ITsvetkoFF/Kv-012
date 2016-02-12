@@ -13,7 +13,7 @@ describe('Tests Defects', function() {
             state.$current.name = 'defects';
             controller = $controller('DefectsController', {$scope: scope, $state: state});
             var httpBackend = $httpBackend;
-            httpBackend.when('GET', apiUrl.defects + '/?populate=reporter').respond(
+            httpBackend.when('GET', /defects/gi).respond(
                 [
                     {
                         '_id':'56b0827025c2c3cc1146fc05',
@@ -56,6 +56,8 @@ describe('Tests Defects', function() {
                     }
                 ]
             );
+
+            httpBackend.when('GET', '/api/v1/User').respond();
             httpBackend.flush();
             $rootScope.$apply();
         });
@@ -94,7 +96,8 @@ describe('Tests Defects Empty Database', function() {
         state.$current.name = 'defects';
         controller = $controller('DefectsController', {$scope: scope, $state: state});
         var httpBackend = $httpBackend;
-        httpBackend.when('GET', apiUrl.defects + '/?populate=reporter').respond([]);
+        httpBackend.when('GET', /defects/gi).respond([]);
+        httpBackend.when('GET', '/api/v1/User').respond();
         httpBackend.flush();
         $rootScope.$apply();
     });

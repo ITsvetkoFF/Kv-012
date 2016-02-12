@@ -1,6 +1,6 @@
 var faker = require('faker');
 
-function getFakeDefects(quantity, users, runs) {
+function getFakeDefects(quantity, users, runs, projects) {
     var defects = [];
     var priorities = ['Critical', 'Low', 'High', 'Normal'];
 
@@ -12,7 +12,8 @@ function getFakeDefects(quantity, users, runs) {
             priority: priorities[faker.random.number(priorities.length - 1)],
             description: faker.lorem.sentence(),
             stepsToReproduce: getStepsToReproduce(faker.random.number({min: 2, max: 10})),
-            run: runs[faker.random.number(runs.length - 1)]._id
+            run: runs[faker.random.number(runs.length - 1)]._id,
+            project: projects[faker.random.number(projects.length - 1)]._id
         };
 
         if (faker.random.boolean()) {
