@@ -15,7 +15,7 @@ var runStepSchema = mongoose.Schema({
     expectedResult: {type: String, required: true},
     status: {
         type: String,
-        enum:['passed','blocked', 'failed']
+        enum:['passed','blocked', 'failed', 'pending']
     }
 });
 
@@ -45,7 +45,7 @@ var runTestSchema = new Schema({
     created: {type: Date, default: Date.now},
     status: {
         type: String,
-        enum:['passed','blocked', 'failed']
+        enum:['passed','blocked', 'failed', 'pending']
     },
     steps: [runStepSchema]
 });

@@ -100,7 +100,7 @@
                                 <td ng-bind="::runItem.envShort"></td>
                                 <td ng-bind="::runItem.author.toString('short')"></td>
                                 <td>
-                                    <span class="label label-{{::runItem.status==='passed'?'success':'danger'}}"
+                                    <span class="label label-{{::runItem.status==='passed'?'success':(runItem.status === 'failed'?'danger':'default')}}"
                                           ng-bind="::runItem.status.toUpperCase()"></span>
                                 </td>
                             </tr>
@@ -113,7 +113,7 @@
                         <div class="panel-heading">
                             &nbsp;
                             <span class="pull-right">
-                                <span ui-sref="runs-execute({id:vmRuns.selectedRun._id, run: vmRuns.selectedRun})">
+                                <span ui-sref="runs-edit({id:vmRuns.selectedRun._id})">
                                     <span class="fa fa-copy"></span>
                                     copy&amp;run &nbsp;
                                 </span>
@@ -132,6 +132,10 @@
                                 <div class="progress-bar progress-bar-danger"
                                      style="width: {{vmRuns.progress.failed/vmRuns.progress.length*100}}%"
                                      ng-bind="vmRuns.progress.failed">
+                                </div>
+                                <div class="progress-bar tabsSelected"
+                                     style="width: {{vmRuns.progress.pending/vmRuns.progress.length*100}}%"
+                                     ng-bind="vmRuns.progress.pending">
                                 </div>
                             </div>
                             <div>
@@ -158,7 +162,7 @@
                                 <tr ng-repeat="test in cluster">
                                     <td ng-bind="test.testName"></td>
                                     <td>
-                                        <span class="label label-{{test.status==='passed'?'success':'danger'}}"
+                                        <span class="label label-{{test.status==='passed'?'success':(test.status === 'failed'?'danger':'default')}}"
                                               ng-bind="test.status.toUpperCase()"></span>
                                     </td>
                                 </tr>

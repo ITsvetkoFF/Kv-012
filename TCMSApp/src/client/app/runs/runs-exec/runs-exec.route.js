@@ -20,13 +20,7 @@
                     templateUrl: 'app/runs/runs-exec/runs-edit.html',
                     controller: 'RunsEditController',
                     controllerAs: 'vmRunsEdit',
-                    title: 'Edit Test Run',
-                    params: {
-                        run: {
-                            value: undefined,
-                            squash: false//the paraneter won't be shown in the url
-                        }
-                    }
+                    title: 'Edit Test Run'
                 }
             },
             {
@@ -36,13 +30,7 @@
                     templateUrl: 'app/runs/runs-exec/runs-execute.html',
                     controller: 'RunsExecuteController',
                     controllerAs: 'vmRunsExecute',
-                    title: 'Execute Test Run',
-                    params: {
-                        run: {
-                            value: undefined,
-                            squash: false//the paraneter won't be shown in the url
-                        }
-                    }
+                    title: 'Execute Test Run'
                 }
             }
         ];

@@ -1,6 +1,7 @@
 /* jshint -W117, -W030 */
 describe('RunsController', function () {
     var controller, httpBackend;
+    var user = mockData.getMockUser();
     var runData = mockData.getMockRun();
     var testCases = mockData.getMockTests();
     var clusters = mockData.getMockClusters();
@@ -21,6 +22,10 @@ describe('RunsController', function () {
                 });
 
             httpBackend = $httpBackend;
+            httpBackend.when('GET', '/api/v1/User').respond(user);
+            httpBackend.when('GET', '/api/v1/Projects/' + user.currentProjectID).respond({});
+            httpBackend.when('GET', apiUrl.host + apiUrl.runs + '/?query={"project": "undefined"}&populate=author')
+                .respond(runData);
             httpBackend.when('GET', apiUrl.host + apiUrl.runs + '/?populate=author').respond(runData);
             httpBackend.when('GET', apiUrl.host + apiUrl.runTests + '?query={"run" : "' + runData[0]._id + '"}')
                 .respond(testCases);
