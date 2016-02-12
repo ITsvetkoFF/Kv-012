@@ -40,15 +40,22 @@
                         var vmDefectModal = this;
                         var allowStateChange = false;
                         vmDefectModal.bugName = '';
-                        vmDefectModal.reporter = user.firstName + ' ' + user.lastName;
+                        vmDefectModal.reporter = user.fullName;
                         vmDefectModal.assigneeList = [];
                         vmDefectModal.assignedTo = '';
                         vmDefectModal.priority = 'Critical';
                         vmDefectModal.dateOfDefectCreation = moment();
+                        vmDefectModal.status = 'notFix';
+                        vmDefectModal.description = '';
                         vmDefectModal.description = '';
                         vmDefectModal.chooseFile = '';
                         vmDefectModal.stepsToReproduce = '';
                         vmDefectModal.testCase = 'TODO';
+
+                        var userInfo = $resource(apiUrl.users, {}, {});
+                        userInfo.query(function(resp) {
+                            vmDefectModal.assigneeList = resp;
+                        });
 
                         if ($stateParams.run) {
                             vmDefectModal.run = $stateParams.run.info;
@@ -57,6 +64,7 @@
                         vmDefectModal.cancel = function () {
                             allowStateChange = true;
                             $uibModalInstance.dismiss('cancel');
+                            $state.go($stateParams.previousState);
                             $state.go($stateParams.previousState);
                         };
 
@@ -71,8 +79,9 @@
                                 chooseFile: vmDefectModal.chooseFile,
                                 description: vmDefectModal.description,
                                 stepsToReproduce: vmDefectModal.stepsToReproduce,
-                                assignedTo: vmDefectModal.assignedTo
-                                //testRunId:  vmDefectModal.testCase //TODO:
+                                status: vmDefectModal.status,
+                                assignedTo: vmDefectModal.assignedTo,
+                                testRunId:  vmDefectModal.testCase //TODO:
                             };
 
                             var defectsInfo = $resource(apiUrl.defects, {}, {});
@@ -84,10 +93,14 @@
                                 });
                             }, function error(message) {
                                 //vmDefectModal.error = 'Error: ' + message.data.errmsg;
-                                vmDefectModal.error = message.data.errors.name.message;
-
+                                if (message.data.errors.name !== undefined) {
+                                    vmDefectModal.error = message.data.errors.name.message;
+                                }
+                                else
+                                {
+                                    vmDefectModal.error = 'Undefined error';
+                                }
                             });
-
                         };
 
                         // prevent state changing without interraction with modal controlls
@@ -110,15 +123,6 @@
                                 return false;
                             }
                         };
-
-                        function fillAsigneeList() {
-                            var project = user.currentProjectID;
-                            DefectsService.getTeamMembers(project).then(function (res) {
-                                vmDefectModal.assigneeList = res;
-                            });
-                        }
-
-                        fillAsigneeList();
                     },
                     controllerAs: 'vmDefectModal',
                     backdrop: 'static',

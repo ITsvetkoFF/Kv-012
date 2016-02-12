@@ -28,8 +28,7 @@
                                 .then(
                                     function (res) {
                                         var member = {
-                                            firstName: res.firstName,
-                                            lastName: res.lastName,
+                                            fullName: res.fullName,
                                             _id: res._id
                                         };
                                         membersList.push(member);

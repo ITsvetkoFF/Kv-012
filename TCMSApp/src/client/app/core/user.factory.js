@@ -15,8 +15,7 @@
             status: '',
             avatarUrl: '',
             currentProject: {},
-            firstName: '',
-            lastName: '',
+            fullName: '',
             role: '',
             email: undefined,
             currentProjectID: undefined,
@@ -31,8 +30,7 @@
             $http.get('/api/v1/User').success(function(data) {
                 if (data) {
                     service.authorized = true;
-                    service.firstName = data.firstName;
-                    service.lastName = data.lastName;
+                    service.fullName = data.fullName;
                     service.id = data._id;
                     service.email = data.email;
                     service.currentProjectID = data.currentProjectID;
