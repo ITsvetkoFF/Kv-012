@@ -72,7 +72,7 @@
 
                                         {{ ::vmTests.suites[$index].suiteName }}
                                     </td>
-                                    <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                    <td><a ng-click="vmTests.runSelected()"><i class="fa fa-play-circle fa-lg"></i></a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -137,7 +137,7 @@
                                         <span uib-popover-template="'popoverTemplate.html'" popover-trigger="mouseenter"
                                             class="label label-success">PASSED</span>
                                     </td>
-                                    <td><a ui-sref="run-execute"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                    <td><a ng-click="vmTests.runSelected()"><i class="fa fa-play-circle fa-lg"></i></a></td>
                                 </tr>
                                 <!-- ROW FOR STEPS-->
                                 <tr ng-if="seeCase" style="background-color: #eee">

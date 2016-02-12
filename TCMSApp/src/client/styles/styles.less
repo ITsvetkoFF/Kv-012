@@ -246,11 +246,38 @@ header {
 
 /* Styles of tabs for Runs execute and Runs edit pages */
 .tabsSelected{
+    color: black;
     background-color: @color_gray5;
 }
 
 .tabsNotSelected{
     background-color: @color_white;
+}
+.tableInput{
+    background-color: transparent;
+    border: none;
+}
+/*Style of suite lists on the runs-execute page*/
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    &:first-child{
+        border-top: none;
+    }
+    &:last-child{
+        border-bottom: none;
+    }
+}
+.list-group-item-test {
+    padding-left: 3em;
+}
+.list-item-suite-selected{
+    font-weight: bold;
+    background-color: @color_siderbar_inner;
+}
+.list-item-test-selected{
+    background-color: @color_siderbar_inner;
 }
 
 //---------landing styles---------//

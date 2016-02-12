@@ -170,11 +170,12 @@
         function getProgress() {
             if (vm.selectedRun === null || !vm.tests) return;
 
-            var progress = {passed: 0, failed: 0, length: vm.tests.length};
+            var progress = {passed: 0, failed: 0, pending: 0, length: vm.tests.length};
 
             for (var i = 0; i < vm.tests.length; i++) {
                 if (vm.tests[i].status === 'passed') progress.passed++;
                 if (vm.tests[i].status === 'failed') progress.failed++;
+                if (vm.tests[i].status === 'pending') progress.pending++;
             }
 
             return progress;

@@ -15,12 +15,12 @@
 
         function activate() {
 
-            if ($stateParams.run === undefined) {
-                RunsApiService.get({id: $stateParams.id}).$promise.then(processData, processError);
+            if (!RunsApiService.currentRun()) {
+                RunsApiService.getRuns().get({id: $stateParams.id}).$promise.then(processData, processError);
             }
             else
             {
-                processData($stateParams.run);
+                processData(RunsApiService.currentRun());
             }
 
         }
@@ -31,21 +31,34 @@
 
         function processData(result) {
             //TODO: change this temporary solution of exchanging run data between edit and run tabs
-            vm.run = JSON.parse(JSON.stringify(result));//creating of the deep copy
-            vm.progress = getProgress();
-            vm.suites = getSuites();
-            vm.selectedSuite = vm.suites[0];
-            vm.selectedTest = vm.run.tests[0];
+            vm.run = result;
+
+            if (!vm.run.tests) {
+                RunsApiService.getTestsOfRun(vm.run._id).query().$promise
+                    .then(function (tests) {
+                        vm.run.tests = JSON.parse(JSON.stringify(tests));
+                        vm.progress = getProgress();
+                        vm.suites = getSuites();
+                        vm.selectedSuite = vm.suites[0];
+                        vm.selectedTest = vm.run.tests[0];
+                    });
+            } else {
+                vm.progress = getProgress();
+                vm.suites = getSuites();
+                vm.selectedSuite = vm.suites[0];
+                vm.selectedTest = vm.run.tests[0];
+            }
         }
 
         function getProgress() {
 
             var numberOfTests = vm.run.tests.length;
-            var progress = {passed: 0, failed: 0, length: numberOfTests};
+            var progress = {passed: 0, failed: 0, pending: 0, length: numberOfTests};
 
             for (var i = 0; i < numberOfTests; i++) {
                 if (vm.run.tests[i].status === 'passed') progress.passed++;
                 if (vm.run.tests[i].status === 'failed') progress.failed++;
+                if (vm.run.tests[i].status === 'pending') progress.pending++;
             }
 
             return progress;

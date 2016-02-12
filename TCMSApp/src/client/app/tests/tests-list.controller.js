@@ -29,7 +29,7 @@
         // data for checkboxes -------------------------------------
 
         vm.allTestsCheckboxModel = {checked: false, id: 'checkAllTestsCheckbox'};
-        vm.newRunName = '';
+        vm.newRunName = 'New Run';
         vm.filteredTests = [];
         vm.selectedTests = [];
         vm.testCheckboxesModels = [];
@@ -134,7 +134,9 @@
                                     vmSuite.errorName = 'errorName';
                                     logger.error(err.data.errors.suiteName.message);
                                 }
-                                else logger.error('Cannot create a suite.');
+                                else {
+                                    logger.error('Cannot create a suite.');
+                                }
                             }
                         );
                     }
@@ -367,18 +369,18 @@
             });
 
             testsToGo.map(function (test) {
-                test.status = 'blocked';
+                test.status = 'pending';
                 vm.suites.map(function (suite) {
                     if (test.suite === suite._id) {
                         test.suite = suite.suiteName;
                     }
                 });
                 test.steps.map(function(step) {
-                    step.status = 'blocked';
+                    step.status = 'pending';
                 });
             });
 
-            RunsApiService.getRuns().save({
+            RunsApiService.saveRun().save({
                 name: vm.newRunName,
                 author: user.id,
                 project: user.currentProjectID
@@ -386,24 +388,19 @@
                 .then(function (newRun) {
                     for (var i = 0; i < testsToGo.length; i++) {
                         testsToGo[i].run = newRun._id;
-                        RunsApiService.getTestsOfRun(newRun).save(testsToGo[i]).$promise
+                        RunsApiService.saveTestsOfRun().save(testsToGo[i]).$promise
                             .then(function() {
 
                             });
                     }
 
                     $state.go('runs-edit', {
-                        id: newRun._id,
-                        run: {
-                            name: vm.newRunName
-                        }
+                        id: newRun._id
                     });
 
                 }, function (err) {
                     logger.error(err.responseText);
                 });
         }
-
-        //------------------------------------------------------------------------
     }
 })();

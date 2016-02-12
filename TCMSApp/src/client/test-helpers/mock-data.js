@@ -12,8 +12,19 @@ var mockData = (function () {
         getProjects: getProjects,
         getMockRun: getMockRun,
         getMockClusters: getMockClusters,
-        getMockProgress: getMockProgress
+        getMockProgress: getMockProgress,
+        getMockUser: getMockUser
     };
+
+    function getMockUser() {
+        return {
+            '_id': '56b1fdb41c4539e812bd4d77',
+            'firstName': 'Isai',
+            'lastName': 'Mayer',
+            'email': 'Rolando_Bahringer29@gmail.com',
+            currentProjectID: '56b1fdb41c4539e812bd4d7c'
+        };
+    }
 
     function getMockRun() {
         return [
@@ -48,6 +59,7 @@ var mockData = (function () {
         return {
             passed: 1,
             failed: 1,
+            pending: 0,
             length: 2
         };
     }
