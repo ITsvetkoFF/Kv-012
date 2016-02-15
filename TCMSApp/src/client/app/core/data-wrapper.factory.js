@@ -14,15 +14,13 @@
         function wrapRuns(runs) {
             if (!angular.isArray(runs)) return [];
 
-            var envFullProto = {
-                toString: function () {
-                    var result = '';
-                    var keys = Object.keys(this);
-                    for (var i = 0; i < keys.length; i++) {
-                        result += keys[i] + ': ' + this[keys[i]] + '; ';
-                    }
-                    return result;
+            var envFullToString = function () {
+                var result = '';
+                var keys = Object.keys(this);
+                for (var i = 0; i < keys.length; i++) {
+                    result += keys[i] + ': ' + this[keys[i]] + '; ';
                 }
+                return result;
             };
 
             for (var i = 0; i < runs.length; i++) {
@@ -43,7 +41,10 @@
                 };
 
                 if (runs[i].envFull) {
-                    runs[i].envFull.__proto__ = envFullProto;// jshint ignore:line
+                    Object.defineProperty(runs[i].envFull, 'toString', {
+                        value: envFullToString,
+                        enumerable: false
+                    })
                 }
             }
 
