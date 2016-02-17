@@ -44,7 +44,7 @@
                     Object.defineProperty(runs[i].envFull, 'toString', {
                         value: envFullToString,
                         enumerable: false
-                    })
+                    });
                 }
             }
 
