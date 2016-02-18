@@ -5,11 +5,11 @@
                 <h1>
                     <form class="form-inline pull-right">
                         <div class="form-control">
-                            00:00
+                            {{vmRunsExecute.intervalOfExecution.toString()|date:'HH:mm:ss':'UTC'}}
                         </div>
-
-                        <a class="btn btn-default fa fa-pause"></a>
-
+                        <a class="btn btn-default fa" ng-class="vmRunsExecute.isExecuting ? 'fa-pause' : 'fa-play'"
+                           ng-click="vmRunsExecute.startRun()"></a>
+                        <ds-widget-clock theme="dark" show-secs="true" digital-format="'hh:mm:ss a'"></ds-widget-clock>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default tabsNotSelected"
                                     ui-sref="runs-edit({id: vmRunsExecute.run._id})">
@@ -63,8 +63,8 @@
                                 </div>
                                 <div class="form-group pull-right checkbox">
                                     <label>
-                                        <input type="checkbox" name="view-all-steps"
-                                               ng-model="vmRunsExecute.viewAllSteps"> View All
+                                        <input type="checkbox" name="view-all-steps" ng-model="vmRunsExecute.viewAllSteps">
+                                        View All
                                     </label>
                                 </div>
                             </div>
@@ -128,30 +128,35 @@
                             </tr>
                             </thead>
                             <tbody ng-if="!vmRunsExecute.viewAllSteps">
-                            <tr ng-repeat="step in vmRunsExecute.selectedTest.steps">
+                            <tr ng-repeat="step in vmRunsExecute.selectedTest.steps"
+                                ng-class="{'list-item-test-selected': (vmRunsExecute.selectedStepIndex === $index)&&(vmRunsExecute.isExecuting)}">
                                 <td ng-bind="$index+1"></td>
                                 <td ng-bind="::step.stepDescription"></td>
                                 <td ng-bind="::step.expectedResult"></td>
                                 <td>
-                                <span class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
-                                      ng-click="step.status = (step.status==='passed'? 'failed':'passed')">
+                                <span
+                                    class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
+                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, vmRunsExecute.selectedTest)">
                                         {{step.status.toUpperCase()}}
                                     </span>
                                 </td>
                             </tr>
                             </tbody>
-                            <tbody ng-if="vmRunsExecute.viewAllSteps" ng-repeat="test in vmRunsExecute.run.tests">
+                            <tbody ng-if="vmRunsExecute.viewAllSteps" ng-repeat="test in vmRunsExecute.run.tests"
+                                   ng-init="vmRunsExecute.selectedStepIndex = 0">
                             <tr class="success">
                                 <td colspan="2"><b>Suite:</b> {{test.suite}}</td>
                                 <td colspan="2"><b>Test:</b> {{test.testName}}</td>
                             </tr>
-                            <tr ng-repeat="step in test.steps">
+                            <tr ng-repeat="step in test.steps"
+                                ng-class="{'list-item-test-selected': (vmRunsExecute.selectedStepIndex === $index)&&(vmRunsExecute.isExecuting)&&(vmRunsExecute.selectedTest === test)}">
                                 <td ng-bind="$index+1"></td>
                                 <td ng-bind="::step.stepDescription"></td>
                                 <td ng-bind="::step.expectedResult"></td>
                                 <td>
-                                <span class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
-                                      ng-click="step.status = (step.status==='passed'? 'failed':'passed')">
+                                <span
+                                    class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
+                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, test)">
                                         {{step.status.toUpperCase()}}
                                     </span>
                                 </td>
