@@ -4,8 +4,6 @@ var validator = require('validator');
 
 var userSchema;
 userSchema = new Schema({
-    firstName: {type: String},
-    lastName: {type: String},
     fullName: {type: String},
     password: {type: String},
     currentProjectID: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},

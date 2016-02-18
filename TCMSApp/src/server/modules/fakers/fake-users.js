@@ -42,8 +42,7 @@ function getFakeUsers(quantity) {
         var email = faker.internet.email();
 
         users[i] = {
-            'firstName': faker.name.firstName(),
-            'lastName': faker.name.lastName(),
+            'fullName': faker.name.firstName() + ' ' + faker.name.lastName(),
             'email': email,
             'avatar': faker.image.avatar(),
             'password': bcrypt.hashSync(email, bcrypt.genSaltSync(10), null),

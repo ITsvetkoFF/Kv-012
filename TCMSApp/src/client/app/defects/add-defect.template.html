@@ -27,10 +27,8 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="assignedTo">Assigned to:</label>
-                    <select class="form-control" id="assignedTo" ng-model="vmDefectModal.assignedTo">
-                        <option ng-repeat="assignee in vmDefectModal.assigneeList" value={{assignee._id}}>
-                            {{assignee.firstName + ' ' + assignee.lastName}}
-                        </option>
+                    <select class="form-control" id="assignedTo" ng-model="vmDefectModal.assignedTo"
+                        ng-options="assignee._id as assignee.fullName for assignee in vmDefectModal.assigneeList">
                     </select>
                 </div>
             </div>

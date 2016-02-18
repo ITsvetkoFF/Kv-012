@@ -69,8 +69,7 @@ passport.use('local_reg', new LocalStrategy({
                     //newUser.pass = createHash(password);
                     newUser.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
                     newUser.email = req.body.username;
-                    newUser.firstName = req.body.firstName;
-                    newUser.lastName = req.body.lastName;
+                    newUser.fullName = req.body.fullName;
                     newUser.role = 'administrator';
 
                     newUser.save(function(err) {
