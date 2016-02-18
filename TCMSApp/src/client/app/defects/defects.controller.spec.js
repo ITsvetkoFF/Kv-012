@@ -4,9 +4,6 @@ describe('Tests Defects', function() {
     beforeEach(function () {
             bard.appModule('app.defects');
             bard.inject('$controller', '$rootScope', '$httpBackend', '$state', 'apiUrl');
-        });
-
-    beforeEach(function () {
             var scope = $rootScope.$new();
             var state = {};
             state.$current = {};
@@ -23,6 +20,7 @@ describe('Tests Defects', function() {
                         'priority':'Normal',
                         'description':'rfrfrfnhvnslhrrhzhvsc\nhvwhnghnecw45645cshgkvmm',
                         'stepsToReproduce':['gfhdjhnbjnjnyvnynhnjnkynk'],
+                        'status':'open',
                         '__v':0
                     },
                     {
@@ -42,6 +40,7 @@ describe('Tests Defects', function() {
                         '4578STEPtoReproduce 14578STEPtoReproduce 14578STEPtoReproduce 14578STEPtoReproduce 14578STEP' +
                         'toReproduce 14578STEPtoReproduce 14578STEPtoReproduce 14578STEPtoReproduce 14578STEPtoReprod' +
                         'uce 14578STEPtoReproduce 1457847rvbjehvmejl'],
+                        'status':'inProgress',
                         '__v':0
                     },
                     {
@@ -52,6 +51,7 @@ describe('Tests Defects', function() {
                         'priority':'Critical',
                         'description':'Description14122444dghv4c2',
                         'stepsToReproduce':['cfhvdnhybnvnStepToReproduie'],
+                        'status':'notFix',
                         '__v':0
                     }
                 ]
@@ -78,6 +78,19 @@ describe('Tests Defects', function() {
             expect(controller.currentDefect.name).to.equal('ErrorNamefrfrcrfgagf');
             expect(controller.currentDefect.reporter).to.equal('56b319d848586dc017406712');
             expect(controller.currentDefect.description).to.equal('Description14122444dghv4c2');
+        });
+    });
+    describe('Test Change Status', function () {
+        it('should be IN PROGRESS status in defect', function () {
+            expect(controller.arrayDefects[1].status).to.equal('inProgress');
+        });
+
+        it('should be OPEN status in defect', function () {
+            var httpBackend = $httpBackend;
+            httpBackend.when('PUT', apiUrl.defects + '/56b31a6748586dc017406713').respond(200);
+            controller.statusChange('56b31a6748586dc017406713', 'open');
+            httpBackend.flush();
+            expect(controller.arrayDefects[1].status).to.equal('open');
         });
     });
 });

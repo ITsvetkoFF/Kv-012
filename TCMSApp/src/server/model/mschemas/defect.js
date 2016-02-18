@@ -13,7 +13,10 @@ var defectSchema = new Schema({
         required: true,
         ref: 'User'
     },
-    assignedTo: {type: mongoose.Schema.Types.ObjectId},
+    assignedTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     dateOfDefectCreation: Date,
     priority: {
         type: String,
@@ -23,6 +26,11 @@ var defectSchema = new Schema({
     description: {type: String, required: true},
     stepsToReproduce: [String],
     run: {type: mongoose.Schema.Types.ObjectId},
+    status: {
+        type: String,
+        required: true,
+        enum: ['notFix', 'open', 'inProgress', 'closed']
+    },
     project: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

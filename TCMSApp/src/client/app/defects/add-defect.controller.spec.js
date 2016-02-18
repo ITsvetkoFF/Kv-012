@@ -47,18 +47,12 @@ describe('Tests Add-Defects Open Model', function () {
         get: function () {
         }
     };
-    beforeEach(module('app.core'));
     beforeEach(function () {
         module(function ($provide) {
             $provide.constant('Trello', Trello);
         });
-    });
-    beforeEach(function () {
         bard.appModule('app.defects');
         bard.inject('$controller', '$rootScope', '$httpBackend', '$state', 'apiUrl', 'user', '$uibModal');
-    });
-
-    beforeEach(function () {
         scope = $rootScope.$new();
         state = {};
         state.$current = {};

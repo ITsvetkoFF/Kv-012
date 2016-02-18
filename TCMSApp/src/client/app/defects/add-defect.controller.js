@@ -40,11 +40,12 @@
                         var vmDefectModal = this;
                         var allowStateChange = false;
                         vmDefectModal.bugName = '';
-                        vmDefectModal.reporter = user.firstName + ' ' + user.lastName;
+                        vmDefectModal.reporter = user.fullName;
                         vmDefectModal.assigneeList = [];
                         vmDefectModal.assignedTo = '';
                         vmDefectModal.priority = 'Critical';
                         vmDefectModal.dateOfDefectCreation = moment();
+                        vmDefectModal.status = 'open';
                         vmDefectModal.description = '';
                         vmDefectModal.chooseFile = '';
                         vmDefectModal.stepsToReproduce = '';
@@ -72,6 +73,7 @@
                                 description: vmDefectModal.description,
                                 stepsToReproduce: vmDefectModal.stepsToReproduce,
                                 assignedTo: vmDefectModal.assignedTo,
+                                status: vmDefectModal.status,
                                 project: user.currentProjectID
                                 //testRunId:  vmDefectModal.testCase //TODO:
                             };
@@ -84,9 +86,13 @@
                                     reload: true, inherit: false, notify: true
                                 });
                             }, function error(message) {
-                                //vmDefectModal.error = 'Error: ' + message.data.errmsg;
-                                vmDefectModal.error = message.data.errors.name.message;
-
+                                if (message.data.errors.name !== undefined) {
+                                    vmDefectModal.error = message.data.errors.name.message;
+                                }
+                                else
+                                {
+                                    vmDefectModal.error = 'Undefined error';
+                                }
                             });
 
                         };
