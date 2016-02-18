@@ -76,11 +76,12 @@
                                     {{defect.priority}}
                                 </td>
                                 <td>
-                                    <select ng-init ="defect.status == undefined?defect.status = 'notFix':defect.status"
-                                            ng-class="{'btn btn-danger sizeStatus': defect.status == 'notFix',
-                                                     'btn btn-success sizeStatus': defect.status == 'open',
-                                                     'btn btn-info sizeStatus': defect.status == 'inProgress',
-                                                    'btn btn-primary sizeStatus': defect.status == 'closed' } "
+                                    <select class='btn sizeStatus'
+                                            ng-init ="defect.status == undefined?defect.status = 'notFix':defect.status"
+                                            ng-class="{'btn-danger': defect.status == 'notFix',
+                                                     'btn-success': defect.status == 'open',
+                                                     'btn-info': defect.status == 'inProgress',
+                                                     'btn-primary': defect.status == 'closed' } "
                                             onchange="this.className=this.options[this.selectedIndex].className"
                                             ng-model="defect.status"
                                             ng-change ="vmDefects.statusChange(defect._id, defect.status)">
