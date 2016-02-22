@@ -133,9 +133,13 @@
 
                 //after finishing the testCase execution we'll change its status
                 if (isLastStep) {
-                    if (testCase.steps.every(step => step.status === 'passed')) { //jshint ignore:line
+                    if (testCase.steps.every(function (step) {
+                        return step.status === 'passed';
+                    })) {
                         testCase.status = 'passed';
-                    } else if (testCase.steps.some(step => step.status === 'pending')) { //jshint ignore:line
+                    } else if (testCase.steps.some(function (step) {
+                            return step.status === 'pending';
+                        })) {
                         testCase.status = 'pending';
                     } else {
                         testCase.status = 'failed';
