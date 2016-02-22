@@ -16,14 +16,13 @@
 
         // Gets proects from DB
         function findProjects() {
-
             var deferred = $q.defer();
             var currentUser = user.id;
-            if(user.trelloUserID != undefined)
+            if (user.trelloUserID !== undefined)
                 currentUser = user.trelloUserID;
 
             function contains(a, obj) {
-                if (a != undefined) {
+                if (a !== undefined) {
                     var i = a.length;
                     while (i--) {
                         if (a[i] === obj) {
@@ -40,7 +39,7 @@
                     project = {};
                     project.users = projects[i].users;
                     project.admins = projects[i].admins;
-                    if(contains(project.users, currentUser) || contains(project.admins, currentUser)) {
+                    if (contains(project.users, currentUser) || contains(project.admins, currentUser)) {
                         project.name = projects[i].name;
                         project.description = projects[i].description;
                         project.trelloOrganizationId = projects[i].trelloOrganizationId;

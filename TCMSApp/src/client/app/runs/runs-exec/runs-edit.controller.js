@@ -25,6 +25,7 @@
         function processData(result) {
             //TODO: change this temporary solution of exchanging run data between edit and run tabs
             vm.run = result;
+            vm.run.status = 'new';
             if (!vm.run.envFull) {
                 vm.run.envFull = {};
             }
@@ -66,6 +67,7 @@
                         result.build = vm.run.build;
                         result.envShort = vm.run.envShort;
                         result.envFull = vm.run.envFull;
+                        result.status = 'new';
                         result.$save();
 
                         RunsApiService.currentRun(vm.run);
