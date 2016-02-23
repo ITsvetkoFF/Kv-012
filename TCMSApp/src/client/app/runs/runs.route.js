@@ -26,23 +26,6 @@
                         content: '<i class="fa fa-lock"></i> Runs'
                     }
                 }
-            },
-
-            // new nested route and controller for addDefect modal window
-            {
-                state: 'generate-defect',
-                config: {
-                    url: '/create-defect',
-                    template: '<div></div>',
-                    controller: 'AddDefectController',
-                    controllerAs: 'vmAddDefect',
-                    title: 'Defect',
-                    params: {
-                        previousState: null,
-                        run: null
-                    },
-                    parent: 'run-execute'
-                }
             }
         ];
     }

@@ -5,6 +5,7 @@
         'app.core',
         'app.widgets',
         'ngResource',
+        'ngSanitize'
       ]);
 
 })();

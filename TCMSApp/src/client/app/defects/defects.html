@@ -106,7 +106,7 @@
                             </span>
                         </div>
                         <div>
-                            <div class="panel-body">
+                            <div class="panel-body" >
                                 <b>Name:</b>
                                 {{vmDefects.currentDefect.name}}
                                 <br>
@@ -120,13 +120,15 @@
 
 
                                 <b>Description:</b>
-                                <span class="defectDescription">
-                                {{vmDefects.currentDefect.description}}
+                                <br>
+                                <span class="defectDescription" ng-bind-html="vmDefects.currentDefect.description">
                                 </span>
                                 <br>
                                 <br>
                                 <b>Steps to reproduce:</b>
-                                {{vmDefects.currentDefect.stepsToReproduce}}
+                                <br>
+                                 <span class="defectDescription" ng-bind-html="vmDefects.currentDefect.stepsToReproduce">
+                                </span>
                                 <br>
                                <!-- <div ng-if="vmDefects.currentDefect.chooseFile">
                                 <b>Attached files</b>

@@ -136,7 +136,7 @@
                                 <td>
                                 <span
                                     class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
-                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, vmRunsExecute.selectedTest)">
+                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, $index, vmRunsExecute.selectedTest)">
                                         {{step.status.toUpperCase()}}
                                     </span>
                                 </td>
@@ -156,7 +156,7 @@
                                 <td>
                                 <span
                                     class="label label-{{step.status === 'passed'?'success':(step.status === 'failed'?'danger':'default')}}"
-                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, test)">
+                                    ng-click="!(vmRunsExecute.selectedStepIndex = $index +1)||vmRunsExecute.changeStepStatus(step, $last, $index, test)">
                                         {{step.status.toUpperCase()}}
                                     </span>
                                 </td>
@@ -167,6 +167,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- view for add defect modal-->
+        <div ui-view=""></div>
     </div>
 </section>
 
