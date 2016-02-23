@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 //create  the defect model
 //define schema
 var defectSchema = new Schema({
-    randomId: Number,
     name: {type: String, required: true, unique: true},
     reporter: {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +23,7 @@ var defectSchema = new Schema({
         enum: ['Critical', 'Low', 'High', 'Normal']
     },
     description: {type: String, required: true},
-    stepsToReproduce: [String],
+    stepsToReproduce: String,
     run: {type: mongoose.Schema.Types.ObjectId},
     status: {
         type: String,

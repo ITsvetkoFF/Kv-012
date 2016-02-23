@@ -49,10 +49,20 @@
                         vmDefectModal.description = '';
                         vmDefectModal.chooseFile = '';
                         vmDefectModal.stepsToReproduce = '';
-                        vmDefectModal.testCase = 'TODO';
+                        vmDefectModal.run = undefined;
 
-                        if ($stateParams.run) {
-                            vmDefectModal.run = $stateParams.run.info;
+                        //$stateParams.id is the id from parent state url, in other words this is the id of currently
+                        // executing run
+                        if ($stateParams.id) {
+                            vmDefectModal.run = $stateParams.id;
+                        }
+
+                        if ($stateParams.description) {
+                            vmDefectModal.description = $stateParams.description;
+                        }
+
+                        if ($stateParams.stepsToReproduce) {
+                            vmDefectModal.stepsToReproduce = $stateParams.stepsToReproduce;
                         }
 
                         vmDefectModal.cancel = function () {
@@ -74,13 +84,16 @@
                                 stepsToReproduce: vmDefectModal.stepsToReproduce,
                                 assignedTo: vmDefectModal.assignedTo,
                                 status: vmDefectModal.status,
-                                project: user.currentProjectID
-                                //testRunId:  vmDefectModal.testCase //TODO:
+                                project: user.currentProjectID,
+                                run: vmDefectModal.run
                             };
 
                             var defectsInfo = $resource(apiUrl.defects, {}, {});
                             var result = defectsInfo.save(sample).$promise.then(function success() {
                                 vmDefectModal.error = 'Success.';
+
+                                logger.success(vmDefectModal.bugName + ' created');
+
                                 $uibModalInstance.close();
                                 $state.go($stateParams.previousState, $stateParams, {
                                     reload: true, inherit: false, notify: true
@@ -88,10 +101,12 @@
                             }, function error(message) {
                                 if (message.data.errors.name !== undefined) {
                                     vmDefectModal.error = message.data.errors.name.message;
+                                    logger.error(vmDefectModal.error);
                                 }
                                 else
                                 {
                                     vmDefectModal.error = 'Undefined error';
+                                    logger.error('Can`t create defect!');
                                 }
                             });
 

@@ -66,9 +66,14 @@
                 vm.isExecuting = false;
                 $interval.cancel(vm.intervalTask);
                 vm.intervalTask = undefined;
+
+                logger.info('Execution of ' + vm.selectedTest.testName + ' paused.');
             } else
             {
                 vm.isExecuting = true;
+
+                logger.info('Execution of ' + vm.selectedTest.testName + ' started.');
+
                 if (vm.run.status === 'new') {
                     vm.run.status = 'pending';
                     vm.run.dateStart = (new Date()).toISOString();
@@ -117,8 +122,12 @@
             }
             vm.run.tests = sortedTests;
         }
-        function changeStepStatus (step, isLastStep, testCase) {
+        function changeStepStatus (step, isLastStep, indexOfCurrentStep, testCase) {
             var indexOfSelectedTest = vm.run.tests.indexOf(vm.selectedTest);
+            var stepsToReproduce = '';
+            var descriptionOfDefect = '';
+            var i = 0; //indexator for the loops
+
             if (vm.isExecuting) {
                 //this changes the navigation view
                 vm.selectedTest = testCase;
@@ -128,7 +137,22 @@
                 }
 
                 //here we implement the step status changing
-                if (step.status === 'passed') step.status = 'failed';
+                if (step.status === 'passed') {
+                    step.status = 'failed';
+
+                    for (i = 0; i <= indexOfCurrentStep; i++) {
+                        stepsToReproduce += (i + 1) + '. ' + testCase.steps[i].stepDescription + '\n';
+                    }
+
+                    descriptionOfDefect = 'EXPECTED RESULT: ' + testCase.steps[indexOfCurrentStep].expectedResult +
+                        '\nACTUAL RESULT: ';
+
+                    $state.go('generate-defect', {
+                        previousState: $state.current,
+                        description: descriptionOfDefect,
+                        stepsToReproduce: stepsToReproduce
+                    });
+                }
                 else step.status = 'passed';
 
                 //after finishing the testCase execution we'll change its status
@@ -155,6 +179,10 @@
                         vm.selectedSuite = vm.selectedTest.suite;
                     }
                 }
+
+            }
+            else {
+                logger.info('Please hit PLAY button first');
             }
         }
     }
