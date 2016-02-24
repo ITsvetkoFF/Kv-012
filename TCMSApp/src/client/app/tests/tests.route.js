@@ -20,11 +20,7 @@
                     templateUrl: 'app/tests/tests-list.html',
                     controller: 'TestsListController',
                     controllerAs: 'vmTests',
-                    title: 'Tests',
-                    settings: {
-                        nav: 4,
-                        content: '<i class="fa fa-lock"></i> Tests'
-                    }
+                    title: 'Tests'
                 }
             },
             {
@@ -35,11 +31,21 @@
                     controller: 'TestsCreateController',
                     controllerAs: 'vmCase',
                     title: 'Create Test Case',
-                    settings: {
-                        nav: 5,
-                        content: '<i class="fa fa-team"></i> Create Test Case'
-                    },
                     params : {currentSuite: null}
+                }
+            },
+            {
+                state: 'tests-edit',
+                config: {
+                    url: '/tests/edit',
+                    templateUrl: 'app/tests/tests-create.html',
+                    controller: 'TestsCreateController',
+                    controllerAs: 'vmCase',
+                    title: 'Edit Test Case',
+                    params : {
+                        currentSuite: null,
+                        currentTestCase: null
+                    }
                 }
             }
         ];
