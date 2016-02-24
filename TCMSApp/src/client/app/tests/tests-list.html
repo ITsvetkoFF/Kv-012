@@ -59,7 +59,8 @@
                                 <tbody>
                                 <tr ng-repeat="s in vmTests.suites track by $index"
                                     ng-click="vmTests.setSuite(s)"
-                                    style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }">
+                                    style="cursor: pointer" ng-class="{active: vmTests.currentSuite._id == s._id }"
+                                    ng-mouseover="showSuiteRunAndEdit= true" ng-mouseleave="showSuiteRunAndEdit= false">
                                     <td>
                                         <input
                                             type="checkbox"
@@ -70,9 +71,12 @@
                                             ng-false-value="false"
                                             ng-click="vmTests.checkSuiteTests($event)">
 
-                                        {{ ::vmTests.suites[$index].suiteName }}
+                                        {{vmTests.suites[$index].suiteName}}
                                     </td>
-                                    <td><a ng-click="vmTests.runSelected()"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                    <td>
+                                        <a ng-click="vmTests.runSelected()"  ng-class="{invisible: !showSuiteRunAndEdit}"><i class="fa fa-play-circle fa-lg"></i></a>
+                                        <a ng-click="vmTests.openAddSuite(s)" ng-class="{invisible: !showSuiteRunAndEdit}"><i class="fa fa-edit fa-lg"></i></a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -91,7 +95,7 @@
                             </h4>
                             <div class="clearfix">
                                 <b>Description: </b>
-                                {{ vmTests.currentSuite.suiteDescription}}
+                                {{vmTests.currentSuite.suiteDescription}}
                             </div>
 
                         </div>
@@ -119,7 +123,8 @@
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="tc in vmTests.filteredTests" style="border:0">
-                                <tr ng-click="seeCase = !seeCase;" style="cursor: pointer">
+                                <tr ng-click="seeCase = !seeCase;" style="cursor: pointer"
+                                ng-mouseover="showTestRunAndEdit = true" ng-mouseleave="showTestRunAndEdit = false">
                                     <td ng-click="$event.stopPropagation();">
                                         <input
                                             type="checkbox"
@@ -137,22 +142,14 @@
                                         <span uib-popover-template="'popoverTemplate.html'" popover-trigger="mouseenter"
                                             class="label label-success">PASSED</span>
                                     </td>
-                                    <td><a ng-click="vmTests.runSelected()"><i class="fa fa-play-circle fa-lg"></i></a></td>
+                                    <td>
+                                        <a ng-click="vmTests.runSelected()" ng-class="{invisible: !showTestRunAndEdit}"><i class="fa fa-play-circle fa-lg"></i></a>
+                                        <a ui-sref="tests-edit({currentSuite: vmTests.currentSuite, currentTestCase: tc})" ng-class="{invisible: !showTestRunAndEdit}"><i class="fa fa-edit fa-lg"></i></a>
+                                    </td>
                                 </tr>
                                 <!-- ROW FOR STEPS-->
                                 <tr ng-if="seeCase" style="background-color: #eee">
                                     <td colspan="10">
-                                        <!-- <div class="container-fluid text-center" style="padding: 20px 0">
-                                            <div class="clearfix">
-                                                <div class="col-xs-2"><b>Sprint: </b>{{ ::tc.caseSprint }}</div>
-                                                <div class="col-xs-3"><b>Category: </b>{{
-                                                    ::vmTests.category[tc.caseCategory].name }}
-                                                </div>
-                                                <div class="col-xs-4"><b>Reference: </b>{{ ::tc.reference }}</div>
-                                                <div class="col-xs-3"><b>File: </b><a href="#">{{ ::tc.fileName
-                                                    }}.zip</i></a></div>
-                                            </div>
-                                        </div> -->
                                         <div class="container-fluid" style="padding-bottom: 20px">
                                             <div class="clearfix">
                                                 <div class="col-xs-12">

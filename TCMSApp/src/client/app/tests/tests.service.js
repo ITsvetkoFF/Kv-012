@@ -35,7 +35,10 @@
             },
             getUsers: function () {
                 return $resource(apiUrl.host + apiUrl.projects);
-            }
+            },
+            getSuiteTestResource: function(testID) {
+                return $resource(apiUrl.host + apiUrl.suiteTests + '/' + testID);
+            },
         };
     }
 

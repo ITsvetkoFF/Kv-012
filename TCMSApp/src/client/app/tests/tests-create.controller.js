@@ -5,9 +5,10 @@
         .module('app.tests')
         .controller('TestsCreateController', TestsCreateController);
 
-    TestsCreateController.$inject = ['logger', '$timeout', '$stateParams', 'apiUrl', '$resource', '$state'];
+    TestsCreateController.$inject =
+        ['logger', '$timeout', '$stateParams', 'apiUrl', '$resource', '$state', 'user', 'TestsService'];
     /* @ngInject */
-    function TestsCreateController(logger, $timeout, $stateParams, apiUrl, $resource, $state) {
+    function TestsCreateController(logger, $timeout, $stateParams, apiUrl, $resource, $state, user, TestsService) {
         var vm = this;
 
         if ($stateParams.currentSuite === null) return $state.go('tests-list');
@@ -17,16 +18,23 @@
         vm.delStep = delStep;
         vm.stepsEmpty = stepsEmpty;
         vm.submitAddCase = submitAddCase;
-        vm.currentSuite = ($stateParams.currentSuite ? $stateParams.currentSuite : null);
+        vm.currentSuite = $stateParams.currentSuite;
         vm.priority = ['Low', 'Medium', 'Critical', 'High'];
         vm.steps = [];
         vm.created = new Date().getTime();
         vm.onCrtlEnterPress = onCrtlEnterPress;
-
-        addStep();
-
         vm.casePriority = 'Low';
-        vm.creator = 'John Doe';
+        vm.creator = user.fullName;
+
+        if ($stateParams.currentTestCase) {
+            vm.title = 'Edit ' + $stateParams.currentTestCase.testName;
+            vm.testName = $stateParams.currentTestCase.testName;
+            vm.steps = $stateParams.currentTestCase.steps;
+            vm.testDescription = $stateParams.currentTestCase.testDescription;
+            vm.preConditions = $stateParams.currentTestCase.preConditions;
+        }
+
+        if (!$stateParams.currentTestCase) addStep();
 
         activate();
 
@@ -61,20 +69,35 @@
         }
 
         function submitAddCase() {
-            var newCase = {
-                testName: vm.testName,
-                testDescription: vm.testDescription,
-                automated: true,
-                preConditions: vm.preConditions,
-                suite: vm.currentSuite._id,
-                created: vm.created,
-                steps: vm.steps,
-                priority: vm.casePriority
-            };
+            var TestCase, newTestCase;
+            if ($stateParams.currentTestCase) {
+                TestCase = TestsService.getSuiteTestResource($stateParams.currentTestCase._id).get(function () {
+                    TestCase.testName = vm.testName;
+                    TestCase.testDescription = vm.testDescription;
+                    TestCase.automated = true;
+                    TestCase.preConditions = vm.preConditions;
+                    TestCase.suite = vm.currentSuite._id;
+                    TestCase.created = vm.created;
+                    TestCase.steps = vm.steps;
+                    TestCase.priority = vm.casePriority;
 
-            var newTestCase = $resource(apiUrl.suiteTests, {}, {});
+                    TestCase.$save();
+                });
+            } else {
+                TestCase = TestsService.getTestsOfSuite(vm.currentSuite._id);
+                newTestCase = new TestCase();
 
-            newTestCase.save(newCase);
+                newTestCase.testName = vm.testName;
+                newTestCase.testDescription = vm.testDescription;
+                newTestCase.automated = true;
+                newTestCase.preConditions = vm.preConditions;
+                newTestCase.suite = vm.currentSuite._id;
+                newTestCase.created = vm.created;
+                newTestCase.steps = vm.steps;
+                newTestCase.priority = vm.casePriority;
+
+                newTestCase.$save();
+            }
 
             $state.go('tests-list');
 

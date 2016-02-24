@@ -105,40 +105,73 @@
         }
 
         // modal
-        function openAddSuite() {
+        function openAddSuite(selectedSuite) {
             var modalWindow = $uibModal.open({
                 templateUrl: 'app/tests/add-suite-modal.html',
                 controller: function ($uibModalInstance) {
                     var vmSuite = this;
 
+                    vmSuite.windowTitle = 'Create New Test Suite';
                     vmSuite.suiteName = '';
                     vmSuite.suiteDescription = '';
                     vmSuite.errorName = '';
                     vmSuite.cancelAddSuite = cancelAddSuite;
                     vmSuite.submitAddSuite = submitAddSuite;
 
+                    if (selectedSuite) {
+                        vmSuite.suiteName = selectedSuite.suiteName;
+                        vmSuite.suiteDescription = selectedSuite.suiteDescription;
+                        vmSuite.windowTitle = 'Edit ' + selectedSuite.suiteName;
+                    }
+
                     function submitAddSuite() {
-                        var Suite = TestsService.getSuites(),
-                            suite = new Suite();
-                        suite.suiteName = vmSuite.suiteName;
-                        suite.suiteDescription = vmSuite.suiteDescription;
-                        suite.project = user.currentProjectID;
-                        suite.$save().then(
-                            function (res) {
-                                logger.success('New Suite created');
-                                getSuites();
-                                $uibModalInstance.dismiss();
-                            },
-                            function (err) {
-                                if (err.data.errors.project && err.data.errors.suiteName) {
-                                    vmSuite.errorName = 'errorName';
-                                    logger.error(err.data.errors.suiteName.message);
+                        var Suite;
+
+                        if (!selectedSuite) {
+                            Suite = TestsService.getSuites();
+                            var suite = new Suite();
+                            suite.suiteName = vmSuite.suiteName;
+                            suite.suiteDescription = vmSuite.suiteDescription;
+                            suite.project = user.currentProjectID;
+                            suite.$save().then(
+                                function (res) {
+                                    logger.success('New Suite created');
+                                    getSuites();
+                                    $uibModalInstance.dismiss();
+                                },
+                                function (err) {
+                                    if (err.data.errors.project && err.data.errors.suiteName) {
+                                        vmSuite.errorName = 'errorName';
+                                        logger.error(err.data.errors.suiteName.message);
+                                    }
+                                    else {
+                                        logger.error('Cannot create a suite.');
+                                    }
                                 }
-                                else {
-                                    logger.error('Cannot create a suite.');
-                                }
-                            }
-                        );
+                            );
+                        } else {
+                            Suite = RunsApiService.getSuite(selectedSuite._id).get(function () {
+                                Suite.suiteName = vmSuite.suiteName;
+                                Suite.suiteDescription = vmSuite.suiteDescription;
+                                Suite.$save().then(
+                                    function (res) {
+                                        logger.success(vmSuite.suiteName + ' was updated.');
+                                        getSuites();
+                                        $uibModalInstance.dismiss();
+                                    },
+                                    function (err) {
+                                        if (err.data.errors.project && err.data.errors.suiteName) {
+                                            vmSuite.errorName = 'errorName';
+                                            logger.error(err.data.errors.suiteName.message);
+                                        }
+                                        else {
+                                            logger.error('Cannot update a suite.');
+                                        }
+                                    }
+                                );
+                            });
+                        }
+
                     }
 
                     function cancelAddSuite() {
@@ -403,4 +436,5 @@
                 });
         }
     }
+
 })();
