@@ -113,6 +113,10 @@
                         <div class="panel-heading">
                             &nbsp;
                             <span class="pull-right">
+                                  <span ui-sref="runs-execute({id:vmRuns.selectedRun._id})" ng-if="vmRuns.selectedRun.status === 'pending'">
+                                    <span class="fa fa-play"></span>
+                                    resume&nbsp;
+                                </span>
                                 <span ui-sref="runs-edit({id:vmRuns.selectedRun._id})">
                                     <span class="fa fa-copy"></span>
                                     copy&amp;run &nbsp;

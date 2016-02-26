@@ -19,6 +19,10 @@ var runSchema = new Schema({
     previousRunId: mongoose.Schema.Types.ObjectId,
     dateStart: Date,
     dateEnd: {type: Date},
+    intervalOfExecution: {
+        type: Number,
+        default: 0
+    },
     build: Number,
     envShort: String,
     envFull: {},

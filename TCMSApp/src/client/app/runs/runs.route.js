@@ -20,11 +20,7 @@
                     templateUrl: 'app/runs/runs.html',
                     controller: 'RunsController',
                     controllerAs: 'vmRuns',
-                    title: 'Runs',
-                    settings: {
-                        nav: 4,
-                        content: '<i class="fa fa-lock"></i> Runs'
-                    }
+                    title: 'Runs'
                 }
             }
         ];
