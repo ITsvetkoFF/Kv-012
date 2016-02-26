@@ -262,7 +262,7 @@
         function getTestsOfRun() {
             var deferred = $q.defer();
             var runID = vm.selectedRun._id;
-            var resource = RunsApiService.getTestsOfRun(runID);
+            var resource = RunsApiService.getTestsOfRunResource(runID);
             resource.query({}, function (res) {
                 vm.tests = res;
                 vm.progress = getProgress();

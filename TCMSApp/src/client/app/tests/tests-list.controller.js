@@ -396,6 +396,9 @@
         }
 
         function runSelectedTests() {
+            var TestCaseCreator = RunsApiService.getTestsOfRunResource();
+            var RunCreator = RunsApiService.getRunResource();
+            var newRun = new RunCreator();
 
             var testsToGo = vm.tests.filter(function (item) {
                 return item._id === vm.selectedTests[vm.selectedTests.indexOf(item._id)];
@@ -413,27 +416,30 @@
                 });
             });
 
-            RunsApiService.saveRun().save({
-                name: vm.newRunName,
-                author: user.id,
-                project: user.currentProjectID
-            }).$promise
-                .then(function (newRun) {
-                    for (var i = 0; i < testsToGo.length; i++) {
-                        testsToGo[i].run = newRun._id;
-                        RunsApiService.saveTestsOfRun().save(testsToGo[i]).$promise
-                            .then(function() {
+            newRun.name =  vm.newRunName;
+            newRun.author = user.id;
+            newRun.project = user.currentProjectID;
+            newRun.$save(function (newRun) {
 
-                            });
-                    }
+                for (var i = 0; i < testsToGo.length; i++) {
+                    var newTest = new TestCaseCreator();
+                    newTest.run = newRun._id;
+                    newTest.testName = testsToGo[i].testName;
+                    newTest.testDescription = testsToGo[i].testDescription;
+                    newTest.automated = testsToGo[i].automated;
+                    newTest.preConditions = testsToGo[i].preConditions;
+                    newTest.suite = testsToGo[i].suite;
+                    newTest.status = testsToGo[i].status;
+                    newTest.steps = testsToGo[i].steps;
+                    newTest.$save();
+                }
 
-                    $state.go('runs-edit', {
-                        id: newRun._id
-                    });
-
-                }, function (err) {
-                    logger.error(err.responseText);
+                $state.go('runs-edit', {
+                    id: newRun._id
                 });
+            }, function (err) {
+                logger.error(err.responseText);
+            });
         }
     }
 

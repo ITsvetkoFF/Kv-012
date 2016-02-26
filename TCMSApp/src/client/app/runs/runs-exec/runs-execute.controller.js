@@ -5,9 +5,10 @@
         .module('app.runsExec')
         .controller('RunsExecuteController', RunsExecuteController);
 
-    RunsExecuteController.$inject = ['$stateParams', '$state', 'logger','moment','RunsApiService', '$interval'];
+    RunsExecuteController.$inject =
+        ['$stateParams', '$state', 'logger','moment','RunsApiService', '$interval', '$timeout'];
 
-    function RunsExecuteController($stateParams, $state, logger, moment,  RunsApiService, $interval) {
+    function RunsExecuteController($stateParams, $state, logger, moment,  RunsApiService, $interval, $timeout) {
 
         var vm = this;
         vm.run = undefined;
@@ -17,19 +18,18 @@
         vm.changeStepStatus = changeStepStatus;
         vm.startRun = startRun;
         vm.intervalTask = undefined;
+        vm.viewAllSteps = false;
 
         activate();
 
         function activate() {
-
             if (!RunsApiService.currentRun()) {
-                RunsApiService.getRuns().get({id: $stateParams.id}).$promise.then(processData, processError);
+                RunsApiService.getRunResource().get({id: $stateParams.id}).$promise.then(processData, processError);
             }
             else
             {
                 processData(RunsApiService.currentRun());
             }
-
         }
 
         function processError(error) {
@@ -39,9 +39,11 @@
         function processData(result) {
             //TODO: change this temporary solution of exchanging run data between edit and run tabs
             vm.run = result;
+            if (vm.run.intervalOfExecution) vm.intervalOfExecution = vm.run.intervalOfExecution;
+            console.log(vm.intervalOfExecution);
 
             if (!vm.run.tests) {
-                RunsApiService.getTestsOfRun(vm.run._id).query().$promise
+                RunsApiService.getTestsOfRunResource(vm.run._id).query().$promise
                     .then(function (tests) {
                         vm.run.tests = JSON.parse(JSON.stringify(tests));
                         vm.progress = getProgress();
@@ -60,12 +62,14 @@
         }
 
         function startRun() {
-            var currentDate = 0, dateStart = 0, interval = 0;//store for current time
 
             if (vm.isExecuting) {
                 vm.isExecuting = false;
                 $interval.cancel(vm.intervalTask);
                 vm.intervalTask = undefined;
+                vm.run.intervalOfExecution = vm.intervalOfExecution;
+
+                saveRunProgress();
 
                 logger.info('Execution of ' + vm.selectedTest.testName + ' paused.');
             } else
@@ -78,11 +82,8 @@
                     vm.run.status = 'pending';
                     vm.run.dateStart = (new Date()).toISOString();
                 }
-                dateStart = Date.parse(vm.run.dateStart);
                 vm.intervalTask = $interval(function() {
-                    currentDate = Date.now();
-                    interval = Math.round((currentDate - dateStart) / 1000) * 1000;
-                    vm.intervalOfExecution = interval;
+                    vm.intervalOfExecution += 1000;
                 }, 1000);
 
             }
@@ -122,7 +123,7 @@
             }
             vm.run.tests = sortedTests;
         }
-        function changeStepStatus (step, isLastStep, indexOfCurrentStep, testCase) {
+        function changeStepStatus (step, indexOfCurrentStep, testCase) {
             var indexOfSelectedTest = vm.run.tests.indexOf(vm.selectedTest);
             var stepsToReproduce = '';
             var descriptionOfDefect = '';
@@ -156,35 +157,92 @@
                 else step.status = 'passed';
 
                 //after finishing the testCase execution we'll change its status
-                if (isLastStep) {
-                    if (testCase.steps.every(function (step) {
+                if (testCase.steps.every(function (step) {
                         return step.status === 'passed';
                     })) {
                         testCase.status = 'passed';
+
+                        if ((indexOfSelectedTest + 1) < vm.run.tests.length) {
+                            if (vm.viewAllSteps) {
+                                vm.selectedTest = vm.run.tests[indexOfSelectedTest + 1];
+                                if (vm.selectedTest.suite !== vm.selectedSuite) {
+                                    vm.selectedSuite = vm.selectedTest.suite;
+                                }
+                            } else {
+                                $timeout(function () {
+                                    vm.selectedTest = vm.run.tests[indexOfSelectedTest + 1];
+                                    if (vm.selectedTest.suite !== vm.selectedSuite) {
+                                        vm.selectedSuite = vm.selectedTest.suite;
+                                    }
+                                }, 1500);
+                            }
+                        }
                     } else if (testCase.steps.some(function (step) {
                             return step.status === 'pending';
                         })) {
                         testCase.status = 'pending';
                     } else {
                         testCase.status = 'failed';
-                    }
-                    vm.progress = getProgress();
-                    vm.selectedStepIndex = 0;
-                }
 
-                //if we have finished the very last test case
-                if (isLastStep && ((indexOfSelectedTest + 1) < vm.run.tests.length)) {
-                    vm.selectedTest = vm.run.tests[indexOfSelectedTest + 1];
-                    if (vm.selectedTest.suite !== vm.selectedSuite) {
-                        vm.selectedSuite = vm.selectedTest.suite;
+                        if ((indexOfSelectedTest + 1) < vm.run.tests.length) {
+                            if (vm.viewAllSteps) {
+                                vm.selectedTest = vm.run.tests[indexOfSelectedTest + 1];
+                                if (vm.selectedTest.suite !== vm.selectedSuite) {
+                                    vm.selectedSuite = vm.selectedTest.suite;
+                                }
+                            } else {
+                                $timeout(function () {
+                                    vm.selectedTest = vm.run.tests[indexOfSelectedTest + 1];
+                                    if (vm.selectedTest.suite !== vm.selectedSuite) {
+                                        vm.selectedSuite = vm.selectedTest.suite;
+                                    }
+                                }, 1500);
+                            }
+                        }
                     }
-                }
+                vm.progress = getProgress();
+                vm.selectedStepIndex = 0;
 
+                if (vm.progress.passed === vm.progress.length) {
+                    logger.success(vm.run.name + ' is completed!');
+                    vm.run.status = 'passed';
+                    saveRunProgress();
+                } else if (vm.progress.passed + vm.progress.failed === vm.progress.length) {
+                    logger.error(vm.run.name + ' is completed!');
+                    vm.run.status = 'failed';
+                    saveRunProgress();
+                }
             }
             else {
                 logger.info('Please hit PLAY button first');
             }
         }
+        function saveRunProgress() {
+            RunsApiService.getRunResource().get({id: vm.run._id}, function (updateRun) {
+                updateRun.status = vm.run.status;
+                updateRun.intervalOfExecution = vm.run.intervalOfExecution;
+                updateRun.$save(function () {
+                    vm.run.tests.forEach(function (test, index) {
+                        RunsApiService.RunTestResource().get({id: test._id}, function (updateTest) {
+                            updateTest.status = test.status;
+                            updateTest.steps = test.steps;
+                            updateTest.$save(function () {
+                                //if the very last test case is saved the program will fire an success message
+                                if (index + 1 === vm.run.tests.length) {
+                                    logger.success('Your progress has been saved.');
+                                    vm.isExecuting = false;
+                                    $interval.cancel(vm.intervalTask);
+                                    if (vm.run.status === 'passed') $state.go('runs/list');
+                                }
+                            }, function (error) {
+                                logger.error(error.responceText);
+                            });
+                        });
+                    });
+                }, function (error) {
+                    logger.error(error.responceText);
+                });
+            });
+        }
     }
-
 })();
