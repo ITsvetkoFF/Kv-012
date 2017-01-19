@@ -192,12 +192,12 @@
                     label: 'LATEST RUN UPDATES',
                     feed: [
                         {
-                            name: runsData[0].name,
+                            name: runsData[0] ? runsData[0].name : '',
                             time: '2 days ago',
                             status: '10%'
                         },
                         {
-                            name: runsData[1].name,
+                            name: runsData[1] ? runsData[1].name : '',
                             time: '1 week ago',
                             status: '70%'
                         }
@@ -212,12 +212,12 @@
                     label: 'LATEST TEST UPDATES',
                     feed: [
                         {
-                            name: suitesData[0].suiteName,
+                            name: suitesData[0] ? suitesData[0].suiteName : '',
                             time: '2 days ago',
                             status: '10%'
                         },
                         {
-                            name: suitesData[1].suiteName,
+                            name: suitesData[1] ? suitesData[1].suiteName : '',
                             time: '1 week ago',
                             status: '70%'
                         }

@@ -108,8 +108,9 @@
                     (svgHeight - 2 * space) / groupScale.height);
                 var newX = ((svgWidth - 2 * space) / k - groupScale.width) / 2 - groupScale.x + space / k;
                 var newY = ((svgHeight - 2 * space) / k - groupScale.height) / 2 - groupScale.y + space / k;
-
-                group.attr('transform', 'scale(' + k + ') translate(' + newX + ' ' + newY + ')');
+                if (k !== Infinity) {
+                    group.attr('transform', 'scale(' + k + ') translate(' + newX + ' ' + newY + ')');
+                }
             }
 
             scope.$on(scope.board, function() {
