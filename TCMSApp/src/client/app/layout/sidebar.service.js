@@ -4,9 +4,9 @@
     angular.module('app.layout')
         .factory('sidebarFactory', sidebarFactory);
 
-    sidebarFactory.$inject = ['moment', '$http', '$q', 'logger'];
+    sidebarFactory.$inject = ['moment', '$http', '$q', 'logger', 'user'];
 
-    function sidebarFactory(moment, $http, $q, logger) {
+    function sidebarFactory(moment, $http, $q, logger, user) {
 
         return {
             findProjects: findProjects,
@@ -16,20 +16,37 @@
 
         // Gets proects from DB
         function findProjects() {
-
             var deferred = $q.defer();
+            var currentUser = user.id;
+            if (user.trelloUserID !== undefined)
+                currentUser = user.trelloUserID;
+
+            function contains(a, obj) {
+                if (a !== undefined) {
+                    var i = a.length;
+                    while (i--) {
+                        if (a[i] === obj) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
 
             $http.get('/api/v1/Projects').success(function(projects) {
                 var i, projectsList = [], project;
                 for (i = 0; i < projects.length; i++) {
                     project = {};
+                    project.users = projects[i].users;
+                    project.admins = projects[i].admins;
+                    if (contains(project.users, currentUser) || contains(project.admins, currentUser)) {
+                        project.name = projects[i].name;
+                        project.description = projects[i].description;
+                        project.trelloOrganizationId = projects[i].trelloOrganizationId;
+                        project.id = projects[i]._id;
 
-                    project.name = projects[i].name;
-                    project.description = projects[i].description;
-                    project.trelloOrganizationId = projects[i].trelloOrganizationId;
-                    project.id = projects[i]._id;
-
-                    projectsList.push(project);
+                        projectsList.push(project);
+                    }
                 }
 
                 deferred.resolve(projectsList);
